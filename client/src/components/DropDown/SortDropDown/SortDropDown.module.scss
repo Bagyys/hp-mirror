@@ -1,0 +1,45 @@
+@import "../../../styles/global.scss";
+
+.ddWrapper {
+  position: relative;
+  font-family: $workSans;
+  margin-right: 1rem;
+  align-items: center;
+  white-space: nowrap;
+  color: $lightBlue;
+  font-size: $mediumFontSize;
+  margin-right: 0.5rem;
+  border: 0;
+
+  .ddList {
+    position: absolute;
+    top: 270%;
+    left: 0;
+    background-color: $white;
+    border: 1px solid #ccc;
+    z-index: 99;
+
+    // box-shadow: 0 1px 2px rgba(0, 0, 0, 5%);
+    box-shadow: 0 6px 6px rgba(10, 16, 20, 0.15),
+      0 0 52px rgba(10, 16, 20, 0.12);
+    border: 0;
+    .Default {
+      background-color: $lightBlue;
+      color: $white;
+    }
+    li {
+      white-space: nowrap;
+      font-size: $mediumFontSize;
+      font-family: $workSans;
+      color: $blackGrey;
+      padding: 1rem 1rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      &:hover {
+        background-color: $veryLightBlue;
+        color: $white;
+      }
+    }
+  }
+}

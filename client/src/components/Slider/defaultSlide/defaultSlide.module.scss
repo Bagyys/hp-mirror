@@ -1,0 +1,31 @@
+.MainImage {
+  width: 50%;
+  margin-right: 4px;
+  img {
+    width: 100%;
+    height: 604px;
+  }
+}
+.OtherImages {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  .firstColumn {
+    width: 50%;
+    // height: 604px;
+    margin-right: 4px;
+    img {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 2px;
+    }
+  }
+  .secondColumn {
+    width: 50%;
+    img {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 2px;
+    }
+  }
+}

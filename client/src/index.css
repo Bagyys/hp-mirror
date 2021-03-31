@@ -1,0 +1,193 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+  background-color: #f6f7fb;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+:root {
+  font-size: 62.5%;
+}
+#formFooter #mlb2-3612595 .ml-form-embedWrapper {
+  background-color: transparent;
+  max-width: none;
+}
+
+@media only screen and (min-width: 650px) {
+  #formFooter #mlb2-3612595 .ml-form-embedWrapper .ml-form-embedBody {
+    padding: 0;
+  }
+
+  #formFooter
+    #mlb2-3612595
+    .ml-form-embedWrapper
+    .ml-form-embedBody
+    .ml-block-form
+    .ml-form-formContent {
+    display: flex;
+  }
+
+  #formFooter
+    #mlb2-3612595
+    .ml-form-embedWrapper
+    .ml-form-embedBody
+    .ml-block-form
+    .ml-form-formContent
+    .ml-form-fieldRow {
+    width: 45%;
+    margin: 0 auto;
+  }
+
+  #formFooter
+    #mlb2-3612595
+    .ml-form-embedWrapper
+    .ml-form-embedBody
+    .ml-block-form
+    .ml-form-embedSubmit {
+    width: 35%;
+    float: none;
+    margin: 0 auto;
+  }
+  #formFooter
+    #mlb2-3612595
+    .ml-form-embedContainer
+    .ml-form-embedWrapper
+    .ml-form-successBody
+    .ml-form-successContent {
+    color: red;
+  }
+}
+
+:root {
+  font-size: 62.5%;
+}
+
+/* * {
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+}  */

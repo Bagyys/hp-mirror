@@ -1,0 +1,11 @@
+@import "../../styles/global.scss";
+
+.BreadCrumbs {
+  margin-bottom: 3.5rem;
+  font-size: $largeFontSize;
+  a {
+    color: $lightBlue;
+    text-decoration: none;
+    font-family: $workSans;
+  }
+}

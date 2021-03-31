@@ -1,0 +1,205 @@
+@import "../../../styles/global.scss";
+
+.CustomDropDown {
+    width: 600px;
+    background-color: #f6f7fb;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    .Baths {
+        display: flex;
+        flex-direction: column;
+        font-family: $workSans;
+        font-size: $mediumFontSize;
+        
+        
+        .bathsTitle {
+            padding: 1rem 2rem;
+        }
+        .Bathrooms {
+           background-color: $white;
+            display: flex;
+            flex-wrap: wrap;
+            
+            div {
+                align-items: center;
+                width: 45%;
+                padding: 1rem;
+                 label {
+                    margin-left: 0.5rem;
+                    white-space: nowrap;
+                    font-size: 1.4rem;
+                    color: $black3;
+                  
+                }
+            }
+        
+       }
+    }
+    .Amenities {
+        display: flex;
+        flex-direction: column;
+        font-family: $workSans;
+        font-size: $mediumFontSize;
+   
+        .amenitiesTitle {
+            padding: 1rem 2rem;
+        }
+        .amenitiesBox {
+            display: flex;
+            background-color: $white;
+            flex-wrap: wrap;
+            div {
+                align-items: center;
+                padding: 1rem;
+                width: 45%;
+                label {
+                    margin-left: 0.5rem;
+                    white-space: nowrap;
+                    font-size: 1.4rem;
+                    color: $black3;
+                }
+            }
+       }
+    }
+    .Affordability {
+        display: flex;
+        flex-direction: column;
+        font-family: $workSans;
+        font-size: $mediumFontSize;
+   
+        .AffordabilityTitle {
+            padding: 1rem 2rem;
+        }
+        .affordabilityBox {
+            display: flex;
+            background-color: $white;
+            flex-wrap: wrap;
+            div {
+                align-items: center;
+                padding: 1rem;
+                width: 45%;
+               
+                label {
+                    margin-left: 0.5rem;
+                    white-space: nowrap;
+                    font-size: 1.4rem;
+                    color: $black3;
+                }
+            }
+       }
+    }
+
+    .Keywords {
+        display: flex;
+        flex-direction: column;
+        font-family: $workSans;
+        font-size: $mediumFontSize;
+   
+        .keywordsTitle {
+            padding: 1rem 2rem;
+        }
+        .keywordsBox {
+        
+            background-color: $white;
+            padding: 2rem;
+           input {
+            padding: .6em 5em .6em .6em;
+            width: 100%;
+            border: 1px solid #b2b2b2;
+           }
+
+       }
+    }
+    .Square {
+        display: flex;
+        flex-direction: column;
+        font-family: $workSans;
+        font-size: $mediumFontSize;
+   
+        .squareTitle {
+            padding: 1rem 2rem;
+        }
+        .squareBox {
+            background-color: $white;
+            justify-content: space-between;
+            padding: 2rem;
+           select {
+            font-size: 1.4rem;
+            color: $black3;
+               width: 48%;
+               border: 1px solid #b2b2b2;
+               padding: .6em 5em .6em .6em;
+               option {
+                font-size: 1.4rem;
+                color: $black3;
+               }
+           }
+       }
+    }
+    .Rating {
+        display: flex;
+        flex-direction: column;
+        font-family: $workSans;
+        font-size: $mediumFontSize;
+   
+        .ratingTitle {
+            padding: 1rem 2rem;
+        }
+        .ratingBox {
+        
+            background-color: $white;
+            padding: 2rem;
+            justify-content: space-between;
+            div {
+                width: 48%;
+                align-items: center;
+                label {
+                    margin-left: 0.5rem;
+                    font-size: 1.4rem;
+                    color: $black3;
+                }
+            }
+       }
+    }
+    .Closure {
+        display: flex;
+        flex-direction: column;
+        font-family: $workSans;
+        font-size: $mediumFontSize;
+   
+        .topClosure {
+            padding:3rem;
+        }
+        .buttons {
+        
+            background-color: $white;
+            padding: 1.5rem;
+            justify-content: flex-end;
+            text-transform: uppercase;
+            .clear {
+                background-color: $white;
+                color: #999;
+                border: 1px solid #999;
+            }
+            }
+            .done {
+                background-color: $lightGreen;
+                color: $white;
+                border: 1px solid $lightGreen;
+                cursor: pointer;
+                &:hover {
+                    border-color: #4c4c4c;
+                    background-color: #555;
+                }
+            }
+            button {
+                padding: 1rem;
+                margin-right: 2%;
+                border-radius: 4px;
+                font-size: 1.4rem;
+                    
+       }
+    }
+}

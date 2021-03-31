@@ -1,0 +1,63 @@
+@import "../../styles/global.scss";
+.Filter {
+  padding: 1.5rem;
+  border-bottom: 1px solid #cacaca;
+  .FilterWrapper {
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    .SearchInputs {
+      display: flex;
+      .input {
+        position: relative;
+        margin-right: 3%;
+        input {
+          color: #4c4c4c;
+          border: 1px solid #ccc;
+          padding: 1.4rem 20rem 1rem 1rem;
+          border-radius: 5px;
+          &::placeholder {
+            text-align: left;
+          }
+        }
+
+        img {
+          position: absolute;
+          top: 25%;
+          right: 5%;
+        }
+      }
+
+      .optionButtons {
+        display: flex;
+
+        div {
+          display: flex;
+        }
+      }
+    }
+
+    .Sorting {
+      width: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      .Sort {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .Save {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        p {
+          margin-right: 0.5rem;
+          color: $lightBlue;
+          font-size: $mediumFontSize;
+        }
+      }
+    }
+  }
+}

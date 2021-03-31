@@ -1,0 +1,92 @@
+@import "../../styles/global.scss";
+
+.ddWrapper {
+  background-color: $white;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  position: relative;
+  border-radius: 4px;
+  font-family: $workSans;
+  margin-right: 1rem;
+  align-items: center;
+  white-space: nowrap;
+  .ddList {
+    position: absolute;
+    top: 142%;
+    left: 0;
+    background-color: $white;
+    border: 1px solid #ccc;
+    z-index: 99;
+
+    // box-shadow: 0 1px 2px rgba(0, 0, 0, 5%);
+    box-shadow: 0 6px 6px rgba(10, 16, 20, 0.15),
+      0 0 52px rgba(10, 16, 20, 0.12);
+    border: 0;
+    .inputs {
+      padding: 1.5rem;
+      input {
+        padding: 1rem;
+        font-size: $mediumFontSize;
+        font-family: $workSans;
+        margin-bottom: 0.2rem;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+      span {
+        margin: 0 1rem;
+      }
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      .Active {
+        background-color: $lightBlue;
+        color: $white;
+      }
+      .ddItem {
+        margin: 1rem;
+      }
+      li {
+        white-space: nowrap;
+        width: 100%;
+        font-size: $mediumFontSize;
+        font-family: $workSans;
+        color: $blackGrey;
+        padding: 1rem 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+          background-color: $veryLightBlue;
+          color: $white;
+        }
+        label {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .ddHeader {
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+    .ddHeaderTitle {
+      p {
+        font-size: $mediumFontSize;
+        margin-right: 0.5rem;
+      }
+    }
+
+    .ddHeaderAction {
+      .ArrowClose {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

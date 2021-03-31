@@ -1,0 +1,59 @@
+@import "../../styles/global.scss";
+
+.Navigation {
+  background-color: $white;
+  border-bottom: 1px solid #cacaca;
+
+  .NavigationWrapper {
+    width: 80%;
+    align-items: center;
+    margin: 0 auto;
+    display: flex;
+    .Logo {
+      width: 13%;
+    }
+    .Routes {
+      width: 40%;
+      ul {
+        display: flex;
+        li {
+          a {
+            font-family: Work Sans, sans-serif;
+            text-decoration: none;
+            color: $blackGrey;
+            font-size: $mediumFontSize;
+            line-height: $navLineHeight;
+            &:hover {
+              color: $lightBlue;
+            }
+          }
+          margin-right: 5%;
+        }
+      }
+    }
+    .Profile {
+      width: 50%;
+      justify-content: flex-end;
+      display: flex;
+      align-items: center;
+
+      .bell {
+        border-radius: 50%;
+        padding: 0.5rem;
+        margin-right: 1rem;
+        &:hover {
+          background: $grey;
+        }
+        img {
+          width: 24px;
+          margin: 0 auto;
+        }
+      }
+      img {
+        border-radius: 50%;
+        width: 35px;
+        cursor: pointer;
+      }
+    }
+  }
+}

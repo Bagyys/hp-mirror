@@ -1,0 +1,177 @@
+@import "../../styles/global.scss";
+
+.Schedule {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 5rem;
+
+  .DailyTable {
+    display: flex;
+    width: 70%;
+    margin: 0 auto;
+    justify-content: space-around;
+    .from,
+    .until {
+      display: flex;
+      .Days {
+        font-size: $largeFontSize;
+        color: $lightGrey2;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .TimeColumn {
+        width: 20%;
+
+        div {
+          font-size: $mediumFontSize;
+          font-family: $workSans;
+          height: 1rem;
+          border: 1px solid $lightGrey2;
+          border-bottom: none;
+          padding: 2rem;
+          &:last-child {
+            border-bottom: 1px solid $lightGrey2;
+          }
+          &:first-child {
+            border-top: none;
+          }
+        }
+      }
+      .Column {
+        width: 30%;
+        text-align: center;
+        .disabled {
+          pointer-events: none;
+
+          /* for "disabled" effect */
+          opacity: 0.5;
+          background: #ccc;
+        }
+        div {
+          height: 1rem;
+          border: 1px solid $lightGrey2;
+          border-bottom: none;
+          padding: 2rem;
+          position: relative;
+          transition: 1s;
+          &:hover .tooltipText {
+            visibility: visible;
+          }
+          .tooltipText {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            font-size: $mediumFontSize;
+            font-family: $workSans;
+          }
+
+          &:last-child {
+            border-bottom: 1px solid $lightGrey2;
+          }
+          &:first-child {
+            border-top: none;
+          }
+        }
+      }
+    }
+  }
+  .HourlyTable {
+    .HourlyTitle {
+      text-align: center;
+      font-size: $largeFontSize;
+      color: $lightGrey2;
+      margin-bottom: 1rem;
+    }
+
+    .tableContent {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+
+      .TimeColumn {
+        width: 10%;
+
+        div {
+          font-size: $mediumFontSize;
+          font-family: $workSans;
+          height: 1rem;
+          border: 1px solid $lightGrey2;
+          border-bottom: none;
+          padding: 2rem;
+          &:last-child {
+            border-bottom: 1px solid $lightGrey2;
+          }
+          &:first-child {
+            border-top: none;
+          }
+        }
+      }
+      .Column {
+        width: 15%;
+        .disabled {
+          pointer-events: none;
+
+          /* for "disabled" effect */
+          opacity: 0.5;
+          background: #ccc;
+        }
+        div {
+          height: 1rem;
+          border: 1px solid $lightGrey2;
+          border-bottom: none;
+          padding: 2rem;
+          position: relative;
+          transition: 1s;
+          &:hover .tooltipText {
+            visibility: visible;
+          }
+          .tooltipText {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            font-size: $mediumFontSize;
+            font-family: $workSans;
+          }
+
+          &:last-child {
+            border-bottom: 1px solid $lightGrey2;
+          }
+          &:first-child {
+            border-top: none;
+          }
+        }
+      }
+    }
+
+    .bookingHours {
+      padding: 1rem;
+      h2 {
+        font-size: $largeFontSize;
+        color: $lightGrey2;
+      }
+      ul {
+        text-align: left;
+        margin-top: 1rem;
+        li {
+          padding: 1rem;
+          font-size: $largeFontSize;
+          color: $lightGrey2;
+          list-style: square inside;
+        }
+      }
+    }
+  }
+}

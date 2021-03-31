@@ -1,0 +1,195 @@
+@import "../../styles/global.scss";
+
+.Flats {
+  width: 50%;
+  text-align: center;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    background: #f1f1f1;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  ul {
+    .flat {
+      width: 100%;
+      background-color: $white;
+      margin-bottom: 2rem;
+      background-clip: border-box;
+      border: 0 solid rgba(0, 0, 0, 0.125);
+      background-color: $white;
+      box-shadow: 0 6px 6px rgba(10, 16, 20, 0.15),
+        0 0 52px rgba(10, 16, 20, 0.12);
+
+      .aboutFlat {
+        border-bottom: 2px solid #dfdfdf;
+        padding: 0 1rem;
+        text-align: justify;
+        font-family: $workSans;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .TitleAndAddress {
+          h1 {
+            margin-bottom: 5%;
+            color: $black3;
+            font-size: 2.5rem;
+            line-height: 1.125rem;
+            font-weight: 700;
+          }
+          p {
+            font-size: $smallFontSize;
+            color: $blackGrey;
+          }
+        }
+
+        .LogoSide {
+          display: flex;
+          width: calc(100% - 68.25rem - 4.9375rem);
+          align-items: center;
+          a {
+            img {
+              width: 10rem;
+            }
+          }
+
+          .toFavorites {
+            padding: 1.5rem;
+
+            text-align: center;
+            img {
+              cursor: pointer;
+              padding-left: 1rem;
+              width: 50%;
+              border-left: 1px solid #bfbfbf;
+            }
+          }
+        }
+      }
+
+      .flatContent {
+        display: flex;
+        padding: 1rem;
+
+        .rightSide {
+          width: 50%;
+          padding: 0 2rem;
+          position: relative;
+          .SpecInfo {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            font-size: $mediumFontSize;
+            color: $black2;
+            font-family: $workSans;
+            justify-content: flex-end;
+
+            .AdditionalInfo {
+              color: $black3;
+              font-size: 1.4rem;
+              line-height: 2rem;
+              font-weight: 400;
+            }
+            .price {
+              font-weight: 700;
+              color: $black3;
+              font-size: 2.2rem;
+            }
+
+            .beds {
+              font-weight: 700;
+              color: $black3;
+              margin-bottom: 0.5rem;
+            }
+
+            .Phone {
+              align-items: center;
+              display: flex;
+              text-decoration: none;
+              color: $black2;
+              font-weight: 700;
+              font-size: 1.3rem;
+              margin-top: 0.5rem;
+              img {
+                width: 16px;
+              }
+            }
+
+            h2 {
+              margin-bottom: 1.5rem;
+              font-size: 1.5rem;
+            }
+            button {
+              background: $lightGreen;
+              border: none;
+              padding: 1rem 0;
+              border-radius: 6px;
+              position: absolute;
+              bottom: 0;
+              width: 95%;
+              a {
+                color: $white;
+                text-decoration: none;
+                font-size: $smallFontSize;
+                font-family: $workSans;
+                font-weight: 700;
+              }
+            }
+          }
+          .top {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5%;
+            justify-content: space-between;
+            font-family: $workSans;
+            color: $black3;
+            font-size: 1.4rem;
+            .NEW {
+              width: 50%;
+              font-size: 1.7rem;
+              border-radius: 5px;
+              display: flex;
+              align-items: center;
+              img {
+                margin-right: 0.6rem;
+              }
+            }
+
+            P {
+              align-items: center;
+              color: $veryLightBlue;
+            }
+            .PublishedAt {
+              display: flex;
+              align-items: center;
+              img {
+                margin-right: 1rem;
+              }
+            }
+          }
+        }
+
+        .flatImg {
+          width: 50%;
+          position: relative;
+
+          .imagesBox {
+            display: flex;
+            overflow: hidden;
+            img {
+              border-radius: 2%;
+              width: 100%;
+              height: 265px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
