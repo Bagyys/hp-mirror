@@ -28,6 +28,7 @@ exports.handleLock = async (req, res) => {
     // const dataInDb = await Lock.findOne({ lockId: data.id });
     try {
       dataInDb = await Lock.findById(data.id);
+      console.log("found");
       if (dataInDb === null || dataInDb === undefined) {
         console.log("no lock found by id");
         console.log("send error");
@@ -193,6 +194,7 @@ exports.handleLock = async (req, res) => {
             },
             { new: true }
           );
+          console.log("updated");
         } catch (error) {
           console.log("no lock found by id");
           console.log("send error");
@@ -260,6 +262,7 @@ exports.handleLock = async (req, res) => {
             },
             { new: true }
           );
+          console.log("updated");
         } catch (error) {
           console.log("no lock found by id");
           console.log("send error");

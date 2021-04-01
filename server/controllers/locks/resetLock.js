@@ -31,6 +31,7 @@ exports.resetLock = async (req, res) => {
       },
       { new: true }
     );
+    console.log("reset");
     if (resetLock === undefined || resetLock === null) {
       return res.status(404).send("e11");
     } else {

@@ -29,6 +29,7 @@ exports.reset = async (lockId, n1, n3, error) => {
     },
     { new: true }
   );
+  console.log("reset");
   // get values to return from updated door
   const {
     i1,

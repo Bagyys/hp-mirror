@@ -36,11 +36,9 @@ function Home() {
         <Map />
       </div>
       <h1>Hello there</h1>
-      <button onClick={() => testAction("o1")}>Front Door</button>
-      <button onClick={() => testAction("o2")}>Flat Door</button>
-      <button onClick={() => resetAction()}>Reset Door</button>
+      {lockComps}
     </div>
   );
-};
+}
 
 export default Home;

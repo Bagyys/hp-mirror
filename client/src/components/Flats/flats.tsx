@@ -2,6 +2,8 @@ import classes from "./flats.module.scss";
 import { Link } from "react-router-dom";
 import newImg from "../../assets/images/flash.png";
 import phoneImg from "../../assets/images/phone.png";
+import arrowLeft from "../../assets/images/arrowLeft.png";
+import arrowRight from "../../assets/images/arrowRight.png";
 import LikeImg from "../../assets/images/like.png";
 import updateArrow from "../../assets/images/loading.png";
 import Slider from "../Slider/imageSlider";
