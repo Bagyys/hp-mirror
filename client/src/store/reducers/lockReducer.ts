@@ -41,6 +41,26 @@ const lockReducer = (state = initialState, action: Actions) => {
           [action.payload.index]: { $set: action.payload.lock },
         },
       });
+    case lockTypes.UPDATE_LOCK:
+      return {
+        ...state,
+        locks: state.locks.map((lock) =>
+          lock._id === action.payload.id
+            ? {
+                ...lock,
+                o1: action.payload.o1,
+                o2: action.payload.o2,
+                o3: action.payload.o3,
+              }
+            : lock
+        ),
+      };
+    // return update(state, {
+    //   // locks: {
+    //   //   [action.payload.index]: { $set: action.payload.lock },
+    //   // },
+    // });
+
     case lockTypes.RESET_LOCK_SUCCESS:
       return update(state, {
         locks: {

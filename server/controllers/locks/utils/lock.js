@@ -34,7 +34,7 @@ exports.reset = async (lockId, n1, n3, error) => {
   // get values to return from updated door
   if (updatedLock) {
     socketConnection.socket.emit("lockUpdate", {
-      id: data.id,
+      id: lockId,
       o1: 0,
       o2: 0,
       o3: 0,

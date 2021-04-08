@@ -1,4 +1,6 @@
 const { Lock } = require("../../models/lockModel");
+const { socketConnection } = require("../../utils/socket");
+
 const { reset } = require("./utils/lock");
 let debug = require("debug");
 
@@ -35,6 +37,12 @@ exports.resetLock = async (req, res) => {
     if (resetLock === undefined || resetLock === null) {
       return res.status(404).send("e11");
     } else {
+      // socketConnection.socket.emit("lockUpdate", {
+      //   id: resetLock.id,
+      //   o1: resetLock.o1,
+      //   o2: resetLock.o2,
+      //   o3: resetLock.o3,
+      // });
       return res.status(200).send(resetLock);
     }
   } catch (err) {

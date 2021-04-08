@@ -195,8 +195,8 @@ exports.handleLock = async (req, res) => {
           socketConnection.socket.emit("lockUpdate", {
             id: data.id,
             o1: 0,
-            o2: data.o2,
-            o3: data.o3,
+            o2: +data.o2,
+            o3: +data.o3,
           });
         }
         console.log("updated");
@@ -269,9 +269,9 @@ exports.handleLock = async (req, res) => {
         if (updatedLock) {
           socketConnection.socket.emit("lockUpdate", {
             id: data.id,
-            o1: data.o1,
+            o1: +data.o1,
             o2: 0,
-            o3: data.o3,
+            o3: +data.o3,
           });
         }
         console.log("updated");

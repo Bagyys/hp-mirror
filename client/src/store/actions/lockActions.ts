@@ -1,5 +1,6 @@
 import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
+import socket from "../../utilities/socketConnection";
 
 import lockTypes from "../types/lockTypes";
 import { LockProps } from "../reducers/lockReducer";
@@ -38,6 +39,10 @@ export interface OpenLockFail extends Action<typeof lockTypes.OPEN_LOCK_FAIL> {
   payload: string;
 }
 
+export interface UpdateLock extends Action<typeof lockTypes.UPDATE_LOCK> {
+  payload: { id: string; o1: number; o2: number; o3: number };
+}
+
 export interface ResetLockStart
   extends Action<typeof lockTypes.RESET_LOCK_START> {}
 
@@ -71,6 +76,7 @@ export type Actions =
   | OpenLockStart
   | OpenLockSuccess
   | OpenLockFail
+  | UpdateLock
   | ResetLockStart
   | ResetLockSuccess
   | ResetLockFail
@@ -119,6 +125,18 @@ export const openLockAction = (
       type: lockTypes.OPEN_LOCK_FAIL,
     });
   }
+};
+
+export const updateLockAction = (
+  id: string,
+  o1: number,
+  o2: number,
+  o3: number
+) => async (dispatch: Dispatch) => {
+  dispatch({
+    type: lockTypes.UPDATE_LOCK,
+    payload: { id, o1, o2, o3 },
+  });
 };
 
 export const resetLockAction = (index: number, lockId: string) => async (

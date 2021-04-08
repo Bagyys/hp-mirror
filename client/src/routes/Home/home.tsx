@@ -7,7 +7,10 @@ import { StoreState } from "../../store/configureStore";
 import Flats from "../../components/Flats/flats";
 import Map from "../../components/Map/map";
 import Lock from "../../containers/Lock/Lock";
-import { getAllLocksAction } from "../../store/actions/lockActions";
+import {
+  getAllLocksAction,
+  updateLockAction,
+} from "../../store/actions/lockActions";
 import { LockProps } from "../../store/reducers/lockReducer";
 
 import classes from "../../App.module.scss";
@@ -34,6 +37,8 @@ function Home() {
   socket.on("lockUpdate", (data) => {
     console.log("lockUpdate data received on client");
     console.log(data);
+    const { id, o1, o2, o3 } = data;
+    dispatch(updateLockAction(id, o1, o2, o3));
   });
   return (
     <div className={classes.App}>
