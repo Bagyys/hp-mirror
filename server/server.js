@@ -1,4 +1,5 @@
 const express = require("express");
+const { socketConnection } = require("./utils/socket");
 const app = express();
 const fs = require("fs");
 const path = require("path");
@@ -8,7 +9,6 @@ const morgan = require("morgan");
 const cors = require("cors");
 morgan("tiny");
 const helmet = require("helmet");
-
 app.use(helmet());
 
 // setup static files and bodyparser
@@ -44,5 +44,5 @@ const allFlats = require("./routes/flatRoutes");
 
 app.use("/", allDoors);
 app.use("/flat/", allFlats);
-
-app.listen(9000);
+const expressServer = app.listen(9000);
+socketConnection.io.attach(expressServer);

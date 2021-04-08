@@ -1,10 +1,10 @@
 const { Lock } = require("../../../models/lockModel");
+// const io = require("../../../server");
+const { socketConnection } = require("../../../utils/socket");
 // let debug = require("debug");
 
 exports.reset = async (lockId, n1, n3, error) => {
-  // updatedLock = await Lock.findOneAndUpdate(
   updatedLock = await Lock.findByIdAndUpdate(
-    // { lockId: data.id },
     lockId,
     {
       $set: {
@@ -30,7 +30,16 @@ exports.reset = async (lockId, n1, n3, error) => {
     { new: true }
   );
   console.log("reset");
+  console.log(updatedLock);
   // get values to return from updated door
+  if (updatedLock) {
+    socketConnection.socket.emit("lockUpdate", {
+      id: data.id,
+      o1: 0,
+      o2: 0,
+      o3: 0,
+    });
+  }
   const {
     i1,
     i2,

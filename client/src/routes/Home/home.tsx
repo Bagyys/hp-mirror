@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import socket, { testAction } from "../../utilities/socketConnection";
+
 import { StoreState } from "../../store/configureStore";
 import Flats from "../../components/Flats/flats";
 import Map from "../../components/Map/map";
@@ -28,6 +30,11 @@ function Home() {
   } else {
     lockComps = <></>;
   }
+
+  socket.on("lockUpdate", (data) => {
+    console.log("lockUpdate data received on client");
+    console.log(data);
+  });
   return (
     <div className={classes.App}>
       <Filter />
@@ -35,7 +42,7 @@ function Home() {
         <Flats />
         <Map />
       </div>
-      <h1>Hello there</h1>
+      <h1 onClick={testAction}>Hello there</h1>
       {lockComps}
     </div>
   );
