@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const lockSchema = new Schema(
-  {
+const lockSchema = new Schema({
     // lock id
     // lockId: { type: String, required: false },
-    
+
     // interval for lock
     timeInterval: { type: Number, default: 1 },
     // parameters
@@ -25,59 +24,39 @@ const lockSchema = new Schema(
     // error
     // do we need to save error?
     e: { type: String, default: "0" },
-    lockOpened: new Schema(
-      {
+    lockOpened: new Schema({
         o1: [
-          new Schema(
-            {
-              time: { type: Date },
-              user: { type: Schema.Types.ObjectId, ref: "User" }, // if closed by system - what user???
-            },
-            { _id: false }
-          ),
+            new Schema({
+                time: { type: Date },
+                user: { type: Schema.Types.ObjectId, ref: "User" }, // if closed by system - what user??? maybe create a system user? 
+            }, { _id: false }),
         ],
         o2: [
-          new Schema(
-            {
-              time: { type: Date },
-              user: { type: Schema.Types.ObjectId, ref: "User" }, // if closed by system - what user???
-            },
-            { _id: false }
-          ),
+            new Schema({
+                time: { type: Date },
+                user: { type: Schema.Types.ObjectId, ref: "User" }, // if closed by system - what user???
+            }, { _id: false }),
         ],
-      },
-      { _id: false }
-    ),
-    lockClosed: new Schema(
-      {
+    }, { _id: false }),
+    lockClosed: new Schema({
         o1: [
-          new Schema(
-            {
-              time: { type: Date },
-              // user: { type: Schema.Types.ObjectId, ref: "User" }, // if closed by system - what user???
-              user: { type: String }, // if closed by system - what user???
-            },
-            { _id: false }
-          ),
+            new Schema({
+                time: { type: Date },
+                // user: { type: Schema.Types.ObjectId, ref: "User" }, // if closed by system - what user???
+                user: { type: String }, // if closed by system - what user???
+            }, { _id: false }),
         ],
         o2: [
-          new Schema(
-            {
-              time: { type: Date },
-              // user: { type: Schema.Types.ObjectId, ref: "User" }, // if closed by system - what user???
-              user: { type: String }, // if closed by system - what user???
-            },
-            { _id: false }
-          ),
+            new Schema({
+                time: { type: Date },
+                // user: { type: Schema.Types.ObjectId, ref: "User" }, // if closed by system - what user???
+                user: { type: String }, // if closed by system - what user???
+            }, { _id: false }),
         ],
-      },
-      { _id: false }
-    ),
-  },
-  { timestamps: true }
-);
+    }, { _id: false }),
+}, { timestamps: true });
 
 module.exports = {
-  Lock: mongoose.model("Lock", lockSchema),
-  lockSchema: lockSchema,
+    Lock: mongoose.model("Lock", lockSchema),
+    lockSchema: lockSchema,
 };
