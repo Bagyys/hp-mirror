@@ -37,6 +37,16 @@ const userSchema = new Schema(
       type: String,
       enum: ["person", "company"],
     },
+    activeReservations: [],
+    pastReservations: [],
+    canceledReservations: [],
+    favorites: [
+      new Schema(
+        { type: Schema.Types.ObjectId, ref: "Property", required: true },
+        { _id: false }
+      ),
+    ],
+    contacts:{}
   },
   { timestamps: true }
 );

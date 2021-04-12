@@ -39,10 +39,14 @@ app.use(
   })
 );
 
+// Routes
 const allDoors = require("./routes/lockRoutes");
 const allFlats = require("./routes/flatRoutes");
+const allProperties = require("./routes/propertyRoutes");
 
 app.use("/", allDoors);
 app.use("/flat/", allFlats);
+app.use("/property/", allProperties);
+
 const expressServer = app.listen(9000);
 socketConnection.io.attach(expressServer);

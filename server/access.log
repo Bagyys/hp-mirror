@@ -2034,3 +2034,13 @@
 ::1 - - [09/Apr/2021:04:16:25 +0000] "GET /allLocks/?h=A3%nm*Wb HTTP/1.1" 304 -
 ::1 - - [09/Apr/2021:04:16:33 +0000] "GET /allLocks/?h=A3%nm*Wb HTTP/1.1" 304 -
 ::1 - - [09/Apr/2021:09:19:04 +0000] "GET /allLocks/?h=A3%nm*Wb HTTP/1.1" 304 -
+::1 - - [12/Apr/2021:04:04:28 +0000] "GET /allLocks/?h=A3%nm*Wb HTTP/1.1" 200 292
+::1 - - [12/Apr/2021:05:41:45 +0000] "GET /allLocks/?h=A3%nm*Wb HTTP/1.1" 304 -
+::1 - - [12/Apr/2021:07:13:04 +0000] "POST /property/addProperty HTTP/1.1" 500 91796
+::1 - - [12/Apr/2021:07:14:23 +0000] "POST /property/addProperty HTTP/1.1" 500 115
+::1 - - [12/Apr/2021:07:15:19 +0000] "POST /property/addProperty HTTP/1.1" 200 2709
+::1 - - [12/Apr/2021:07:18:02 +0000] "POST /property/addProperty HTTP/1.1" 200 2787
+::1 - - [12/Apr/2021:07:20:51 +0000] "POST /property/addProperty HTTP/1.1" 200 2792
+::1 - - [12/Apr/2021:07:22:53 +0000] "POST /property/addProperty HTTP/1.1" 200 2793
+::1 - - [12/Apr/2021:07:23:41 +0000] "POST /property/addProperty HTTP/1.1" 200 2782
+::1 - - [12/Apr/2021:07:27:56 +0000] "GET /property/getAllProperties HTTP/1.1" 200 11160
