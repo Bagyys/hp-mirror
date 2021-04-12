@@ -1,30 +1,47 @@
-import classes from "./FlatReview.module.scss";
-import { FlatInterface } from "../../components/Flats/flats";
+import { useEffect, useState } from "react";
+import Calendar from "react-calendar";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { BiHeart } from "react-icons/bi";
 import { BsStarFill } from "react-icons/bs";
 import { MdVerifiedUser } from "react-icons/md";
 import { GrRotateRight } from "react-icons/gr";
 import { MdKeyboardArrowRight } from "react-icons/md";
+
 import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
-import { useState } from "react";
-import Calendar from "react-calendar";
 import "./calendar.scss";
 // import "react-calendar/dist/Calendar.css";
 import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
-
 import Schedule from "../../components/Schedule/schedule";
+import { PropertyProps } from "../../store/reducers/propertyReducer";
+
+import classes from "./FlatReview.module.scss";
+import { useParams } from "react-router-dom";
 interface PropsInterface {
   location: {
     state: {
-      flat: FlatInterface;
+      property: PropertyProps;
     };
     pathname: string;
   };
 }
 
 function FlatView(props: PropsInterface) {
-  const flat = props.location.state.flat;
+  const { id } = useParams<{ id: string }>();
+  // const { query, search } = useLocation();
+  console.log("id");
+  console.log(id);
+  useEffect(() => {
+    if (props) {
+      // property = props.location.state.property;
+    }
+  }, []);
+
+  console.log("props");
+  console.log(props);
+  console.log("props.location.state");
+  console.log(props.location.state);
+  const property = props.location.state.property;
+  // let property: PropertyProps;
   const [date, setDate] = useState<any>("");
   const [current, setCurrent] = useState<number>(0);
   const [toggleCalendar, setCalendar] = useState<boolean>(false);
@@ -61,16 +78,16 @@ function FlatView(props: PropsInterface) {
     }
   };
   const element1 = [
-    flat.images[0],
-    flat.images[1],
-    flat.images[2],
-    flat.images[3],
-    flat.images[4],
+    property.images[0],
+    property.images[1],
+    property.images[2],
+    property.images[3],
+    property.images[4],
   ];
   let ultimateArray = [];
   ultimateArray.push(element1);
 
-  let arrayAfterLoad = flat.images.slice(5);
+  let arrayAfterLoad = property.images.slice(5);
   var i,
     j,
     temparray,
@@ -105,7 +122,7 @@ function FlatView(props: PropsInterface) {
     return null;
   }
   const hourlyCheckArray: any = [];
-  flat.occupiedTime.map((item: any) => {
+  property.occupiedTime.map((item: any) => {
     if (item.isWholeDayRented) {
       hourlyCheckArray.push(item.date);
     }
@@ -141,7 +158,7 @@ function FlatView(props: PropsInterface) {
                 >
                   {index === current && (
                     <div key={index} className={classes.Images}>
-                      <DefaultSlide images={flat.images} />
+                      <DefaultSlide images={property.images} />
                     </div>
                   )}
                 </div>
@@ -156,14 +173,14 @@ function FlatView(props: PropsInterface) {
                   }
                 >
                   <div className={classes.Images2}>
-                    {index === current &&
+                    {/* {index === current &&
                       item.map((photo: string, index: string) => {
                         return (
                           <div key={index} className={classes.imgBox}>
                             <img src={photo} alt="Flat" />
                           </div>
                         );
-                      })}
+                      })} */}
                   </div>
                 </div>
               );
@@ -185,14 +202,14 @@ function FlatView(props: PropsInterface) {
               </div>
             </div>
             <div className={classes.upperDiv}>
-              <h1>{flat.title}</h1>
+              <h1>{property.title}</h1>
               <div className={classes.icons}>
                 <IoShareSocialSharp size="3.5em" color="#4886ff" />
                 <BiHeart size="3.5em" color="#4886ff" />
               </div>
             </div>
             <div className={classes.address}>
-              <h2>{flat.address}</h2>
+              <h2>{property.location.addressString1}</h2>
             </div>
             <div className={classes.rating}>
               <div className={classes.starRating}>
@@ -211,16 +228,16 @@ function FlatView(props: PropsInterface) {
             <div className={classes.Specifications}>
               <div>
                 <h2>Daily Rent</h2>
-                <p>{flat.price}€</p>
+                <p>{property.price}€</p>
               </div>
               <div>
                 <h2>Hourly Rent</h2>
-                <p>{flat.price}€</p>
+                <p>{property.price}€</p>
               </div>
               <div>
                 <h2>Bedrooms</h2>
                 <p>
-                  {flat.type} - {flat.beds} bd
+                  {property.type} - {property.facilities.beds} bd
                 </p>
               </div>
               <div>
@@ -286,8 +303,8 @@ function FlatView(props: PropsInterface) {
             <Schedule
               date={toggleCalendar ? date[0] : date}
               endDate={date[1]}
-              occupiedTime={flat.occupiedTime}
-              occupiedTimeByHour={flat.occupiedByHour}
+              occupiedTime={property.occupiedTime}
+              occupiedTimeByHour={property.occupiedTime}
               calendarSwitcher={toggleCalendar}
             />
           ) : null}

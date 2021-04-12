@@ -20,9 +20,6 @@ function Home() {
   useEffect(() => {
     dispatch(getAllLocksAction());
     socket.on("lockUpdate", (data) => {
-      console.log("SOCKET");
-      console.log("lockUpdate data received on client");
-      console.log(data);
       const { id, o1, o2, o3 } = data;
       dispatch(updateLockAction(id, o1, o2, o3));
     });
