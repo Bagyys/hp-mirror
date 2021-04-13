@@ -101,7 +101,8 @@ const propertyReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
     case propertyTypes.GET_ALL_PROPERTIES_SUCCESS:
       return action.payload;
-
+    case propertyTypes.GET_PROPERTY_SUCCESS:
+      return [action.payload];
     default:
       return state;
   }

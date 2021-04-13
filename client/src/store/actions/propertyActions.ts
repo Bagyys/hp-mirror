@@ -75,7 +75,7 @@ export const getOnePropertyAction = (propertyId: string) => async (
   dispatch({ type: propertyTypes.GET_PROPERTY_START });
   try {
     const response: AxiosResponse<PropertyProps> = await axios.get(
-      `${url}/property/getOneProperty/?id=${propertyId}`
+      `${url}/property/getOneProperty/${propertyId}`
     );
     dispatch({
       type: propertyTypes.GET_PROPERTY_SUCCESS,

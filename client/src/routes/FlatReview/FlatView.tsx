@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import Calendar from "react-calendar";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import Calendar, { CalendarTileProperties } from "react-calendar";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { BiHeart } from "react-icons/bi";
 import { BsStarFill } from "react-icons/bs";
@@ -12,10 +14,11 @@ import "./calendar.scss";
 // import "react-calendar/dist/Calendar.css";
 import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
 import Schedule from "../../components/Schedule/schedule";
+import { StoreState } from "../../store/configureStore";
 import { PropertyProps } from "../../store/reducers/propertyReducer";
+import { getOnePropertyAction } from "../../store/actions/propertyActions";
 
 import classes from "./FlatReview.module.scss";
-import { useParams } from "react-router-dom";
 interface PropsInterface {
   location: {
     state: {
@@ -25,42 +28,56 @@ interface PropsInterface {
   };
 }
 
-function FlatView(props: PropsInterface) {
+const FlatView = (props: PropsInterface) => {
+  const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
   // const { query, search } = useLocation();
   console.log("id");
   console.log(id);
-  useEffect(() => {
-    if (props) {
-      // property = props.location.state.property;
-    }
-  }, []);
-
-  console.log("props");
-  console.log(props);
+  // console.log("props");
+  // console.log(props);
   console.log("props.location.state");
   console.log(props.location.state);
-  const property = props.location.state.property;
-  // let property: PropertyProps;
+  useEffect(() => {
+    console.log("cia");
+    console.log("usefect");
+    if (props.location.state === undefined) {
+      console.log("usefect true");
+      dispatch(getOnePropertyAction(id));
+    }
+  }, []);
+  // if (Object.keys(property).length === 0) {
+  const stateProperty = useSelector((state: StoreState) => state.properties[0]);
+  // }
+  let property: PropertyProps = {} as PropertyProps;
+  if (props && props.location.state) {
+    property = props.location.state.property;
+  } else {
+    property = stateProperty;
+  }
+
+  console.log("property");
+  console.log(property);
+  const occupiedTime = property.occupiedTime;
   const [date, setDate] = useState<any>("");
+  const [calendarDate, setCalendarDate] = useState<
+    undefined | Date | Array<Date>
+  >(undefined);
   const [current, setCurrent] = useState<number>(0);
   const [toggleCalendar, setCalendar] = useState<boolean>(false);
   const [openSchedule, setSchedule] = useState<boolean>(false);
-  let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
-  const getDatesBetweenDates = (startDate: any, endDate: any) => {
+
+  const getDatesInRange = (start: Date, end: Date) => {
     let dates: any = [];
     //to avoid modifying the original date
-    const theDate = new Date(startDate);
-    while (theDate < endDate) {
+    const theDate = new Date(start);
+    while (theDate < end) {
       dates = [...dates, new Date(theDate)];
       theDate.setDate(theDate.getDate() + 1);
     }
+    console.log("getDatesInsideRange dates");
+    console.log(dates);
     return dates;
-  };
-  // const daysBetween = getDatesBetweenDates(date[0], date[1]);
-
-  const onChange = (date: any) => {
-    setDate(date);
   };
 
   const schedule = () => {
@@ -70,66 +87,177 @@ function FlatView(props: PropsInterface) {
       setSchedule(false);
     }
   };
-  const switchCalendar = () => {
-    if (!toggleCalendar) {
-      setCalendar(true);
-    } else {
-      setCalendar(false);
+
+  // const handleDayClick = (day: Date) => {
+  //   if (calendarDate) {
+  //     if (calendarDate instanceof Date) {
+  //       setCalendarDate([calendarDate as Date, day]);
+  //     } else {
+  //       setCalendarDate(day);
+  //     }
+  //   } else {
+  //     setCalendarDate(day);
+  //   }
+  // };
+  const checkAvailability = () => {
+    if (calendarDate instanceof Array) {
+      const datesInRange = getDatesInRange(calendarDate[0], calendarDate[1]);
+
+      const displayDays = datesInRange.map((day: Date) => {
+        console.log("day");
+        console.log(day);
+        //         const occDay = occupiedTime.map((occupiedDay) => {
+        // if(day.getFullYear() === new Date(occupiedDay.date).getFullYear() &&
+        // day.getMonth() === new Date(occupiedDay.date).getMonth() &&
+        // day.getDate() === new Date(occupiedDay.date).getDate()){
+        // return occupiedDay
+        // }
+        //         }
+        return day;
+      });
+      // kaip atvaizduoti kiekviena diena?
+
+      // kaip atvaizduoti valandos laisvas ar uzimtas minutes?
     }
-  };
-  const element1 = [
-    property.images[0],
-    property.images[1],
-    property.images[2],
-    property.images[3],
-    property.images[4],
-  ];
-  let ultimateArray = [];
-  ultimateArray.push(element1);
+    // console.log("disableTiles date");
+    // console.log(date);
+    // const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+    // if calendar day date is greater than yesterday, leave it available
+    // if (date > yesterday) {
+    // check propertie's occupiedTime array
+    occupiedTime.forEach((occupiedDay) => {
+      // console.log("occupiedDay");
+      // console.log(occupiedDay);
+      const occupiedDate = new Date(occupiedDay.date);
+      occupiedDate.setHours(0, 0, 0);
+      const displayedDate = new Date(date);
+      displayedDate.setHours(0, 0, 0);
+      const today = new Date();
+      today.setHours(0, 0, 0);
 
-  let arrayAfterLoad = property.images.slice(5);
-  var i,
-    j,
-    temparray,
-    chunk = 8;
-
-  for (i = 0, j = arrayAfterLoad.length; i < j; i += chunk) {
-    temparray = arrayAfterLoad.slice(i, i + chunk);
-
-    if (temparray.length < 8) {
-      let leftSpace = 8 - temparray.length;
-      for (i = 0; i < leftSpace; i++) {
-        temparray.push("/no-photo.png");
+      // console.log("occupiedDay.date");
+      // console.log(occupiedDay.date);
+      console.log("occupiedDate");
+      console.log(occupiedDate);
+      console.log("displayedDate");
+      console.log(displayedDate);
+      // console.log("disableTiles date");
+      // console.log(date);
+      console.log("today === displayedDate");
+      console.log(today === displayedDate);
+      // if there's an object of the same date
+      if (today === displayedDate) {
+        console.log(true);
+        console.log("occupiedDay.isWholeDayRented");
+        console.log(occupiedDay.isWholeDayRented);
+        // check if the whole day is rented
+        if (occupiedDay.isWholeDayRented) {
+          // disable tile, if true
+          return true;
+          // if not
+        } else return false;
+        // {
+        //   console.log("calendarDate instanceof Array");
+        //   console.log(calendarDate instanceof Array);
+        //   if (calendarDate instanceof Array) {
+        //     const datesInRange = getDatesInRange(
+        //       calendarDate[0],
+        //       calendarDate[1]
+        //     );
+        //     console.log("datesInRange");
+        //     console.log(datesInRange);
+        //     console.log("datesInRange.length > 2");
+        //     console.log(datesInRange.length > 2);
+        //     console.log("datesInRange.some((day: Date) => day === date)");
+        //     console.log(datesInRange.some((day: Date) => day === date));
+        //     console.log("occupiedDay.isRented");
+        //     console.log(occupiedDay.isRented);
+        //     // check if the date is inside a daterange, greater than two days
+        //     if (
+        //       datesInRange.length > 2 &&
+        //       datesInRange.some((day: Date) => day === date) &&
+        //       occupiedDay.isRented
+        //     ) {
+        //       return true;
+        //     } else return false;
+        //   }
+        // }
       }
-    }
-    const testArray = [];
-    testArray.push(temparray);
+    });
 
-    ultimateArray = [...ultimateArray, ...testArray];
-  }
+    // if (calendarDate instanceof Date) {
 
-  const length = ultimateArray.length;
+    // }
+    // tikrinti, ar ta diena isWholeDayRented
 
-  const nextSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
+    // occupiedTime.map
+    // occupiedTime masyvo map
+    // tikrinti isWholeDayRented ? return true : else tikrinti
+    // ar tai nera pirma ar paskutine diena ? return false : else tikrinti
+    // isRented ir ar yra rentedHours masyve uzimtu valandu
+    return false;
+    // } else return true;
   };
+  let propertyRender = <></>;
+  if (property) {
+    const element1 = [
+      property.images[0],
+      property.images[1],
+      property.images[2],
+      property.images[3],
+      property.images[4],
+    ];
+    let ultimateArray = [];
+    ultimateArray.push(element1);
 
-  const prevSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
-  };
+    let arrayAfterLoad = property.images.slice(5);
+    var i,
+      j,
+      temparray,
+      chunk = 8;
 
-  if (!Array.isArray(ultimateArray) || ultimateArray.length <= 0) {
-    return null;
-  }
-  const hourlyCheckArray: any = [];
-  property.occupiedTime.map((item: any) => {
-    if (item.isWholeDayRented) {
-      hourlyCheckArray.push(item.date);
+    for (i = 0, j = arrayAfterLoad.length; i < j; i += chunk) {
+      temparray = arrayAfterLoad.slice(i, i + chunk);
+
+      if (temparray.length < 8) {
+        let leftSpace = 8 - temparray.length;
+        for (i = 0; i < leftSpace; i++) {
+          temparray.push("/no-photo.png");
+        }
+      }
+      const testArray = [];
+      testArray.push(temparray);
+
+      ultimateArray = [...ultimateArray, ...testArray];
     }
-  });
-  console.log(date.length, "Date");
-  return (
-    <div className={classes.FlatReview}>
+
+    const length = ultimateArray.length;
+
+    const nextSlide = () => {
+      setCurrent(current === 0 ? length - 1 : current - 1);
+    };
+
+    const prevSlide = () => {
+      setCurrent(current === length - 1 ? 0 : current + 1);
+    };
+
+    if (!Array.isArray(ultimateArray) || ultimateArray.length <= 0) {
+      return null;
+    }
+    const hourlyCheckArray: Array<Date> = [];
+    property.occupiedTime.map((item: any) => {
+      if (item.isWholeDayRented) {
+        hourlyCheckArray.push(new Date(item.date));
+      }
+    });
+    // console.log(date.length, "Date");
+
+    // console.log("date");
+    // console.log(date);
+    console.log(" finish calendarDate");
+    console.log(calendarDate);
+
+    propertyRender = (
       <div className={classes.FlatBox}>
         <div className={classes.ImagesBox}>
           <div className={classes.arrowRight}>
@@ -228,11 +356,11 @@ function FlatView(props: PropsInterface) {
             <div className={classes.Specifications}>
               <div>
                 <h2>Daily Rent</h2>
-                <p>{property.price}€</p>
+                <p>{property.price.daily}€</p>
               </div>
               <div>
                 <h2>Hourly Rent</h2>
-                <p>{property.price}€</p>
+                <p>{property.price.daily}€</p>
               </div>
               <div>
                 <h2>Bedrooms</h2>
@@ -247,55 +375,23 @@ function FlatView(props: PropsInterface) {
             </div>
           </div>
           <div className={classes.calendar}>
-            <div className={classes.switcher}>
-              <h3>Daily Calendar</h3>
-              <label className={classes.switch}>
-                <input
-                  onClick={() => switchCalendar()}
-                  type="checkbox"
-                  checked
-                />
-                <span className={`${classes.slider} ${classes.round}`}></span>
-              </label>
-              <h3>Hourly Calendar</h3>
+            <div>
+              <Calendar
+                onChange={setCalendarDate}
+                value={calendarDate}
+                selectRange={true}
+                minDate={new Date()}
+                tileDisabled={({ date }) =>
+                  hourlyCheckArray.some(
+                    (time: Date) =>
+                      date.getFullYear() === time.getFullYear() &&
+                      date.getMonth() === time.getMonth() &&
+                      date.getDate() === time.getDate()
+                  )
+                }
+              />
             </div>
-
-            {toggleCalendar ? (
-              <div>
-                <Calendar
-                  onChange={onChange}
-                  value={date}
-                  selectRange={true}
-                  tileDisabled={({ date }) =>
-                    date < yesterday ||
-                    hourlyCheckArray.some(
-                      (time: any) =>
-                        date.getFullYear() === time.getFullYear() &&
-                        date.getMonth() === time.getMonth() &&
-                        date.getDate() === time.getDate()
-                    )
-                  }
-                />
-              </div>
-            ) : (
-              <div>
-                <Calendar
-                  onChange={onChange}
-                  value={date}
-                  tileDisabled={({ date }) =>
-                    date < yesterday ||
-                    hourlyCheckArray.some(
-                      (time: any) =>
-                        date.getFullYear() === time.getFullYear() &&
-                        date.getMonth() === time.getMonth() &&
-                        date.getDate() === time.getDate()
-                    )
-                  }
-                />
-              </div>
-            )}
-
-            <button onClick={() => schedule()}>Check Availability</button>
+            <button onClick={checkAvailability}>Check Availability</button>
           </div>
         </div>
         <div className={classes.Schedule}>
@@ -310,8 +406,10 @@ function FlatView(props: PropsInterface) {
           ) : null}
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+
+  return <div className={classes.FlatReview}>{propertyRender}</div>;
+};
 
 export default FlatView;
