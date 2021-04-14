@@ -1,0 +1,54 @@
+@import "../../styles/global.scss";
+
+.BookingSchedule {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 5rem;
+
+  .HourlyTable {
+    .dayColumn {
+      display: inline-block;
+      font-size: $smallFontSize;
+      font-family: $workSans;
+      height: 1rem;
+      margin: 0.5rem;
+      .hourRow {
+        border: 1px solid $lightGrey2;
+        border-radius: 1rem;
+        // border-bottom: none;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        &:last-child {
+          border-bottom: 1px solid $lightGrey2;
+        }
+        &.available {
+          background-color: $lightGreen;
+        }
+        &.unavailable {
+          background-color: $orange;
+        }
+        &.selected {
+          background-color: $lightBlue;
+        }
+      }
+    }
+
+    .bookingHours {
+      padding: 1rem;
+      h2 {
+        font-size: $largeFontSize;
+        color: $lightGrey2;
+      }
+      ul {
+        text-align: left;
+        margin-top: 1rem;
+        li {
+          padding: 1rem;
+          font-size: $largeFontSize;
+          color: $lightGrey2;
+          list-style: square inside;
+        }
+      }
+    }
+  }
+}
