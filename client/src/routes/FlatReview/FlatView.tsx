@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { DateRange, OnChangeProps } from "react-date-range";
+import moment from "moment";
 import { addDays } from "date-fns";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -18,7 +19,9 @@ import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
 import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
 import { StoreState } from "../../store/configureStore";
 import { PropertyProps } from "../../store/reducers/propertyReducer";
+// import { occupiedDay } from "../../store/reducers/propertyReducer";
 import { getOnePropertyAction } from "../../store/actions/propertyActions";
+import { checkAvailabilityAction } from "../../store/actions/bookingActions";
 
 import classes from "./FlatReview.module.scss";
 interface CustomRange {
@@ -60,21 +63,21 @@ const FlatView = (props: PropsInterface) => {
     property = stateProperty;
   }
 
-  const [date, setDate] = useState<any>("");
-  const [calendarDate, setCalendarDate] = useState<
-    undefined | Date | Array<Date>
-  >(undefined);
+  // const [date, setDate] = useState<any>("");
+  // const [calendarDate, setCalendarDate] = useState<
+  //   undefined | Date | Array<Date>
+  // >(undefined);
 
   const [range, setRange] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 1),
+      startDate: moment.utc().startOf("day").toDate(),
+      endDate: moment.utc().add(1, "day").startOf("day").toDate(),
       key: "selection",
     },
   ]);
   const [displayDays, setDisplayDays] = useState<Array<DisplayDay>>([]);
   const [current, setCurrent] = useState<number>(0);
-  const [toggleCalendar, setCalendar] = useState<boolean>(false);
+  // const [toggleCalendar, setCalendar] = useState<boolean>(false);
   const [isScheduleOpened, setIsScheduleOpened] = useState<boolean>(false);
   const occupiedTime = property.occupiedTime;
 
@@ -92,84 +95,106 @@ const FlatView = (props: PropsInterface) => {
     // item.selection.startDate;
     setRange([item.selection as CustomRange]);
   };
-
+  console.log("range");
+  console.log(range);
+  // console.log("moment.utc(range[0].startDate).format()");
+  // console.log(moment.utc(range[0].startDate).format());
+  // console.log("moment.utc(range[0].endDate).format()");
+  // console.log(moment.utc(range[0].endDate).format());
+  // const checkitout = new Date();
+  // console.log("checkitout");
+  // console.log(checkitout);
+  // console.log("moment(checkitout).format()");
+  // console.log(moment(checkitout).format());
+  // console.log("moment(checkitout).startOf('day').format()");
+  // console.log(moment(checkitout).startOf("day").format());
+  // console.log("moment.utc(checkitout).startOf('day').format()");
+  // console.log(moment.utc(checkitout).startOf("day").format());
   const getDatesInRange = (start: Date, end: Date) => {
+    // console.log("getDatesInRange");
+    // console.log("start");
+    // console.log(start);
+    // console.log("end");
+    // console.log(end);
     let dates: Date[] = [];
-    const theDate = new Date(start);
+    let theDate = start;
+    // console.log("theDate");
+    // console.log(theDate);
     if (start === end) {
-      dates.push(new Date(start));
+      dates.push(theDate);
     } else {
       while (theDate <= end) {
-        dates = [...dates, new Date(theDate)];
-        theDate.setDate(theDate.getDate() + 1);
+        dates = [...dates, theDate];
+        theDate = moment.utc(theDate).add(1, "day").startOf("day").toDate();
       }
     }
     return dates;
   };
 
-  const indexInArray = (array: Array<any>, value: Date): number => {
-    // TODO add typescript interface
+  // const indexInArray = (array: Array<any>, value: Date): number => {
+  //   // TODO add typescript interface
 
-    // console.log("value.toISOString()");
-    // console.log(value.toISOString());
-    // const newD = new Date(Date.parse(value.toISOString()));
-    // console.log("newD");
-    // console.log(newD);
-    // console.log("newD.getTime()");
-    // console.log(newD.getTime());
-    // console.log("newD.toUTCString()");
-    // console.log(newD.toUTCString());
-    return array.findIndex((item) => {
-      // console.log("item.date.toISOString()");
-      // console.log(new Date(item.date).toISOString());
-      // console.log("item.isRented");
-      // console.log(item.isRented);
-      // console.log("new Date(item.date).getTime()");
-      // console.log(new Date(item.date).getTime());
-      // console.log("value.getTime()");
-      // console.log(value.getTime());
-      return (
-        item.isRented &&
-        new Date(item.date).getFullYear() === value.getFullYear() &&
-        new Date(item.date).getMonth() === value.getMonth() &&
-        new Date(item.date).getDate() === value.getDate()
-      );
-      // return item.isRented && new Date(item.date).getTime() === value.getTime();
-    });
-  };
+  //   // console.log("value.toISOString()");
+  //   // console.log(value.toISOString());
+  //   // const newD = new Date(Date.parse(value.toISOString()));
+  //   // console.log("newD");
+  //   // console.log(newD);
+  //   // console.log("newD.getTime()");
+  //   // console.log(newD.getTime());
+  //   // console.log("newD.toUTCString()");
+  //   // console.log(newD.toUTCString());
+  //   return array.findIndex((item) => {
+  //     // console.log("item.date.toISOString()");
+  //     // console.log(new Date(item.date).toISOString());
+  //     // console.log("item.isRented");
+  //     // console.log(item.isRented);
+  //     // console.log("new Date(item.date).getTime()");
+  //     // console.log(new Date(item.date).getTime());
+  //     // console.log("value.getTime()");
+  //     // console.log(value.getTime());
+  //     return (
+  //       item.isRented &&
+  //       new Date(item.date).getFullYear() === value.getFullYear() &&
+  //       new Date(item.date).getMonth() === value.getMonth() &&
+  //       new Date(item.date).getDate() === value.getDate()
+  //     );
+  //     // return item.isRented && new Date(item.date).getTime() === value.getTime();
+  //   });
+  // };
 
   const checkAvailability = () => {
     // get number of selected days
     const selectedDays = getDatesInRange(range[0].startDate, range[0].endDate);
-    console.log("selectedDays");
-    console.log(selectedDays);
+    // console.log("selectedDays");
+    // console.log(selectedDays);
     // jei daugiau nei dvi dienos - tikrinti
     // tikrinimas
     // ar yra vidurinese dienose uzimtu valandu
 
-    const displayDs = selectedDays.map((day: Date) => {
-      const occIndex = indexInArray(occupiedTime, new Date(day));
-      let displayDay;
-      if (occIndex < 0) {
-        displayDay = {
-          day,
-          occupied: false,
-        };
-      } else {
-        displayDay = {
-          day,
-          occupied: true,
-          occIndex,
-        };
-      }
-      return displayDay;
-    });
-    setDisplayDays(displayDs);
+    // const displayDs = selectedDays.map((day: Date) => {
+    //   const occIndex = indexInArray(occupiedTime, new Date(day));
+    //   let displayDay;
+    //   if (occIndex < 0) {
+    //     displayDay = {
+    //       day,
+    //       occupied: false,
+    //     };
+    //   } else {
+    //     displayDay = {
+    //       day,
+    //       occupied: true,
+    //       occIndex,
+    //     };
+    //   }
+    //   return displayDay;
+    // });
+    dispatch(checkAvailabilityAction(selectedDays, occupiedTime));
+    // setDisplayDays(displayDs);
     setIsScheduleOpened(true);
     // true - neleisti pasirinkti periodo
     // false - leisti rinktis laikus
-    console.log("displayDays");
-    console.log(displayDs);
+    // console.log("displayDays");
+    // console.log(displayDs);
     // kas toliau? kur paduodame tas dienas?
   };
 

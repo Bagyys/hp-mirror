@@ -54,18 +54,18 @@ export interface Facilities {
   bedrooms: number;
 }
 
-export interface RentedHour {
+export interface OccupiedHour {
   hour: number;
   isWholeHourRented: boolean;
   minutes: {
     [key: number]: boolean;
   };
 }
-export interface OccupiedTime {
+export interface OccupiedDay {
   date: Date;
   isRented: boolean;
   isWholeDayRented: boolean;
-  rentedHours: Array<RentedHour>;
+  rentedHours: Array<OccupiedHour>;
 }
 export interface Rating {
   user: string;
@@ -85,7 +85,7 @@ export interface PropertyProps {
   price: Price;
   facilities: Facilities;
   services: Object;
-  occupiedTime: Array<OccupiedTime>;
+  occupiedTime: Array<OccupiedDay>;
   ratings: Array<Rating>;
   overallRating: number;
   ratingsCount: number;

@@ -18,17 +18,19 @@
         // border-bottom: none;
         padding: 1rem;
         margin-bottom: 0.5rem;
+        cursor: pointer;
         &:last-child {
           border-bottom: 1px solid $lightGrey2;
         }
         &.available {
           background-color: $lightGreen;
         }
-        &.unavailable {
-          background-color: $orange;
-        }
         &.selected {
           background-color: $lightBlue;
+        }
+        &.unavailable {
+          background-color: $lightGrey2;
+          cursor: not-allowed;
         }
       }
     }
