@@ -125,9 +125,13 @@ const FlatView = (props: PropsInterface) => {
     } else {
       while (theDate <= end) {
         dates = [...dates, theDate];
-        theDate = moment.utc(theDate).add(1, "day").startOf("day").toDate();
+        theDate = moment.utc(theDate).add(1, "day").toDate();
+        // console.log("theDate inside while");
+        // console.log(theDate);
       }
     }
+    // console.log("dates");
+    // console.log(dates);
     return dates;
   };
 
@@ -384,6 +388,7 @@ const FlatView = (props: PropsInterface) => {
             <BookingSchedule
               occupiedTime={occupiedTime}
               displayDates={displayDays}
+              timeZone={property.location.timeZone}
             />
           ) : null}
         </div>

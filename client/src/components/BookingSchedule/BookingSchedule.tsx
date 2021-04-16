@@ -4,21 +4,23 @@ import moment from "moment";
 import { BsFillHouseDoorFill } from "react-icons/bs";
 
 import { cn } from "../../utilities/joinClasses";
-import {
-  selectHourAction,
-  bookHours,
-  removeHours,
-} from "../../store/actions/bookingActions";
+import { selectHourAction } from "../../store/actions/bookingActions";
 import { SelectionAvailabilty } from "../../store/reducers/bookingReducer";
+import { OccupiedDay } from "../../store/reducers/propertyReducer";
 import { DisplayDay } from "../../routes/FlatReview/FlatView";
 import classes from "./BookingSchedule.module.scss";
 
 interface scheduleInterface {
   displayDates: Array<DisplayDay>;
-  occupiedTime: any;
+  occupiedTime: Array<OccupiedDay>;
+  timeZone: string;
 }
 
-const BookingSchedule = ({ displayDates, occupiedTime }: scheduleInterface) => {
+const BookingSchedule = ({
+  displayDates,
+  occupiedTime,
+  timeZone,
+}: scheduleInterface) => {
   // console.log("BookingSchedule");
   // console.log("occupiedTime");
   // console.log(occupiedTime);
@@ -37,7 +39,8 @@ const BookingSchedule = ({ displayDates, occupiedTime }: scheduleInterface) => {
   const displaySchedule: Array<SelectionAvailabilty> = booking.displayDays;
   // console.log("displaySchedule");
   // console.log(displaySchedule);
-
+  console.log("timeZone");
+  console.log(timeZone);
   let newTable = [<></>];
   if (isAvailabilityChecked) {
     newTable = displaySchedule.map((oneDate, dateIndex) => {
@@ -52,7 +55,7 @@ const BookingSchedule = ({ displayDates, occupiedTime }: scheduleInterface) => {
           className={classes.dayColumn}
           key={new Date(oneDate.date).getTime()}
         >
-          <p>{new Date(oneDate.date).toLocaleDateString(undefined)}</p>
+          <p>{oneDate.date}</p>
           {Object.keys(oneDate.hours).map((hour, hourIndex) => {
             return (
               <div
@@ -63,14 +66,14 @@ const BookingSchedule = ({ displayDates, occupiedTime }: scheduleInterface) => {
                 key={hourIndex + 1000}
                 onClick={() => {
                   console.log("paklikino");
+                  const date = {
+                    hour: +hour,
+                    day: oneDate.date,
+                    dayIndex: dateIndex,
+                    timeZone,
+                  };
                   dispatch(
-                    selectHourAction(
-                      +hour,
-                      oneDate.date,
-                      startTime,
-                      endTime,
-                      displaySchedule
-                    )
+                    selectHourAction(date, startTime, endTime, displaySchedule)
                   );
                 }}
               >

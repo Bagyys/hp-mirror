@@ -10,7 +10,7 @@ import newImg from "../../assets/images/flash.png";
 import phoneImg from "../../assets/images/phone.png";
 import LikeImg from "../../assets/images/like.png";
 
-import classes from "./Flats.module.scss";
+import classes from "./flats.module.scss";
 
 const Flats: React.FC = () => {
   const dispatch = useDispatch();

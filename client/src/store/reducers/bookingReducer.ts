@@ -1,5 +1,5 @@
 import bookingTypes from "../types/bookingTypes";
-
+import { Actions } from "../actions/bookingActions";
 // interface Availability {
 //   available: boolean;
 //   selected: boolean;
@@ -20,18 +20,19 @@ import bookingTypes from "../types/bookingTypes";
 //   [key: number]: string;
 // }
 export interface SelectionAvailabilty {
-  date: Date;
+  // date: Date;
+  date: string;
   isRented: boolean;
   hours: { [key: number]: string };
 }
 export interface InitialState {
-  isAvailabilityChecked: boolean;
   defaultHours: Array<string>;
+  isAvailabilityChecked: boolean;
   selectedDays: Array<Date>;
   startTime: Date | undefined;
   endTime: Date | undefined;
   displayDays: Array<SelectionAvailabilty>;
-  hoursForBooking: Array<Date>;
+  // hoursForBooking: Array<Date>;
 }
 
 const initialState: InitialState = {
@@ -66,28 +67,37 @@ const initialState: InitialState = {
   startTime: undefined,
   endTime: undefined,
   displayDays: [],
-  hoursForBooking: [],
+  // hoursForBooking: [],
 };
 
-const bookingReducer = (state = initialState, action: any) => {
+const bookingReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
     case bookingTypes.CHECK_SELECTED_DAYS:
       return {
         ...state,
         isAvailabilityChecked: true,
+        startTime: undefined,
+        endTime: undefined,
         displayDays: action.payload.displayDays,
         selectedDays: action.payload.selectedDays,
       };
-    case bookingTypes.ADD_HOURS_FOR_BOOKING:
+    case bookingTypes.HANDLE_SELECTED_HOUR:
       return {
         ...state,
-        hoursForBooking: [...state.hoursForBooking, action.payload],
+        startTime: action.payload.startTime,
+        endTime: action.payload.endTime,
+        displayDays: action.payload.displayDays,
       };
-    case bookingTypes.REMOVE_HOURS_FROM_BOOKING:
-      return {
-        ...state,
-        hoursForBooking: action.payload,
-      };
+    // case bookingTypes.ADD_HOURS_FOR_BOOKING:
+    //   return {
+    //     ...state,
+    //     hoursForBooking: [...state.hoursForBooking, action.payload],
+    //   };
+    // case bookingTypes.REMOVE_HOURS_FROM_BOOKING:
+    //   return {
+    //     ...state,
+    //     hoursForBooking: action.payload,
+    //   };
     default:
       return state;
   }

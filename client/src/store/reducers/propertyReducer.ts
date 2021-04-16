@@ -11,6 +11,7 @@ export interface Location {
   addressString1: string;
   addressString2?: string;
   distanceFromCenter?: number;
+  timeZone: string;
 }
 
 export interface SeasonalPrice {
@@ -55,7 +56,8 @@ export interface Facilities {
 }
 
 export interface OccupiedHour {
-  hour: number;
+  hour: Date;
+  hourNumber: number;
   isWholeHourRented: boolean;
   minutes: {
     [key: number]: boolean;
