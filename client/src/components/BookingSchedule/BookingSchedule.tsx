@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { BsFillHouseDoorFill } from "react-icons/bs";
+import Swal from "sweetalert2";
 
 import { cn } from "../../utilities/joinClasses";
 import { selectHourAction } from "../../store/actions/bookingActions";
@@ -65,16 +66,24 @@ const BookingSchedule = ({
                 )}
                 key={hourIndex + 1000}
                 onClick={() => {
-                  console.log("paklikino");
-                  const date = {
-                    hour: +hour,
-                    day: oneDate.date,
-                    dayIndex: dateIndex,
-                    timeZone,
-                  };
-                  dispatch(
-                    selectHourAction(date, startTime, endTime, displaySchedule)
-                  );
+                  if (oneDate.hours[hourIndex] !== "unavailable") {
+                    const date = {
+                      hour: +hour,
+                      day: oneDate.date,
+                      dayIndex: dateIndex,
+                      timeZone,
+                    };
+                    dispatch(
+                      selectHourAction(
+                        date,
+                        startTime,
+                        endTime,
+                        displaySchedule
+                      )
+                    );
+                  } else {
+                    Swal.fire("This time is unavailable");
+                  }
                 }}
               >
                 {hourIndex < 10 ? `0${hour}:00` : `${hour}:00`}
@@ -91,7 +100,7 @@ const BookingSchedule = ({
         {isAvailabilityChecked && newTable}
       </div>
       <div className={classes.bookingHours}>
-        <button>Book Hours</button>
+        <button onClick={() => {}}>Book Hours</button>
       </div>
     </div>
   );

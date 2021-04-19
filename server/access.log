@@ -2232,3 +2232,5 @@
 ::1 - - [16/Apr/2021:07:49:05 +0000] "GET /allLocks/?h=A3%nm*Wb HTTP/1.1" 304 -
 ::1 - - [16/Apr/2021:09:54:52 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [16/Apr/2021:09:54:52 +0000] "GET /allLocks/?h=A3%nm*Wb HTTP/1.1" 304 -
+::1 - - [19/Apr/2021:04:20:12 +0000] "GET /allLocks/?h=A3%nm*Wb HTTP/1.1" 200 145
+::1 - - [19/Apr/2021:04:20:12 +0000] "GET /property/getAllProperties HTTP/1.1" 200 11591

@@ -1,6 +1,7 @@
 import { Action, Dispatch } from "redux";
 import moment from "moment-timezone";
 import axios, { AxiosResponse } from "axios";
+// import Swal from "sweetalert2";
 
 import { OccupiedDay, OccupiedHour } from "../reducers/propertyReducer";
 import { SelectionAvailabilty } from "../reducers/bookingReducer";
@@ -33,7 +34,25 @@ export interface SelectHour
   };
 }
 
-export type Actions = CheckAvailability | SelectHour;
+export interface BookTimeStart
+  extends Action<typeof bookingTypes.BOOK_TIME_START> {}
+
+export interface BookTimeSuccess
+  extends Action<typeof bookingTypes.BOOK_TIME_SUCCESS> {
+  payload: any;
+}
+
+export interface BookTimeFail
+  extends Action<typeof bookingTypes.BOOK_TIME_FAIL> {
+  payload: string;
+}
+
+export type Actions =
+  | CheckAvailability
+  | SelectHour
+  | BookTimeStart
+  | BookTimeSuccess
+  | BookTimeFail;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -147,7 +166,6 @@ export const checkAvailabilityAction = (
 export const selectHourAction = (
   date: {
     hour: number;
-    // day: Date,
     day: string;
     dayIndex: number;
     timeZone: string;
@@ -156,39 +174,24 @@ export const selectHourAction = (
   endTime: Date | undefined,
   displayDays: Array<SelectionAvailabilty>
 ) => async (dispatch: Dispatch) => {
-  // TODO:  error handling, if selects unavailable hours!!!
-
-  console.log("selectHourAction");
-  console.log("date");
-  console.log(date);
-  console.log("startTime");
-  console.log(startTime);
-  console.log("endTime");
-  console.log(endTime);
-  console.log("displayDays");
-  console.log(displayDays);
   const newDateString =
     date.hour < 10
       ? `${date.day} 0${date.hour}:00`
       : `${date.day} ${date.hour}:00`;
   const newDateMoment = moment.tz(newDateString, date.timeZone);
 
-  // if startTime is undefined -> assign the selected time to it
-  //    - and assign "selected" in displayDays
   if (startTime === undefined) {
+    // if startTime is undefined -> assign the selected time to it
     const dayIndex = indexInDisplayArray(displayDays, date.day);
     startTime = newDateMoment.toDate();
-    // console.log("startTime after assign");
-    // console.log(startTime);
-    // console.log("before  displayDays[dayIndex].hours[hour]");
-    // console.log(displayDays[date.dayIndex].hours[date.hour]);
+    //    - and assign "selected" in displayDays
     displayDays[dayIndex].hours[date.hour] = "selected";
-    // console.log("after  displayDays[dayIndex].hours[hour]");
-    // console.log(displayDays[date.dayIndex].hours[date.hour]);
   } else if (startTime !== undefined && endTime !== undefined) {
+    // if startTime and endTime are both defined -> reset startTime to the new selected time, endTime to undefined
     const dayIndex = indexInDisplayArray(displayDays, date.day);
     startTime = newDateMoment.toDate();
     endTime = undefined;
+    //    - and assign "selected" in displayDays and reset previousle selected hours
     displayDays.map((oneDay, index) => {
       if (dayIndex === index) {
         oneDay.hours = unselectDayHours(oneDay.hours);
@@ -199,9 +202,10 @@ export const selectHourAction = (
       return oneDay;
     });
   } else {
-    // if startTime is not undefined ->
-    //check if the selected time is before startTime
+    // if startTime is not undefined and endTime is undefined ->
+    // check if the selected time is before startTime
     if (moment(moment.utc(startTime)).isBefore(moment.utc(newDateMoment))) {
+      // if startTime is before the selected time
       endTime = newDateMoment.toDate();
       const startTimeIndex = indexInDisplayArray(
         displayDays,
@@ -213,11 +217,8 @@ export const selectHourAction = (
       );
       const startTimeHour = moment.tz(startTime, date.timeZone).hours();
       const endTimeHour = moment.tz(endTime, date.timeZone).hours();
+      // and assign "selected" in displayDays
       displayDays.map((oneDay, index) => {
-        // if startTimeIndex === endTimeIndex === index
-        // map through hours from stratTimeHour until date.hour
-        // and assign "selected" in displayDays
-
         if (index === startTimeIndex && index === endTimeIndex) {
           for (let j = startTimeHour; j <= date.hour; j++) {
             oneDay.hours[j] = "selected";
@@ -238,6 +239,7 @@ export const selectHourAction = (
         return oneDay;
       });
     } else {
+      // if startTime is after the selected time, startTime reassign as endTime, selected time assing as startTime
       endTime = startTime;
       startTime = newDateMoment.toDate();
       const startTimeIndex = indexInDisplayArray(
@@ -251,10 +253,7 @@ export const selectHourAction = (
       const startTimeHour = moment.tz(startTime, date.timeZone).hours();
       const endTimeHour = moment.tz(endTime, date.timeZone).hours();
       displayDays.map((oneDay, index) => {
-        // if startTimeIndex === endTimeIndex === index
-        // map through hours from stratTimeHour until date.hour
         // and assign "selected" in displayDays
-
         if (index === startTimeIndex && index === endTimeIndex) {
           for (let j = startTimeHour; j <= date.hour; j++) {
             oneDay.hours[j] = "selected";
@@ -276,29 +275,31 @@ export const selectHourAction = (
       });
     }
   }
-  // - if greater -> assign the selected time to endTime
-  //    - and assign "selected" in displayDays
-  // - if less -> assign starTime to endTime and selected time to startTime
-  //    - and assign "selected" in displayDays
-
   dispatch({
     type: bookingTypes.HANDLE_SELECTED_HOUR,
     payload: { startTime, endTime, displayDays },
   });
 };
 
-export const bookHours = (hour: Date) => async (dispatch: Dispatch) => {
+export const bookTimeAction = (hour: Date) => async (dispatch: Dispatch) => {
   dispatch({
-    type: bookingTypes.ADD_HOURS_FOR_BOOKING,
+    type: bookingTypes.BOOK_TIME_START,
     payload: hour,
   });
 };
 
-export const removeHours = (hoursArray: Array<Date>) => async (
-  dispatch: Dispatch
-) => {
-  dispatch({
-    type: bookingTypes.REMOVE_HOURS_FROM_BOOKING,
-    payload: hoursArray,
-  });
-};
+// export const bookHours = (hour: Date) => async (dispatch: Dispatch) => {
+//   dispatch({
+//     type: bookingTypes.ADD_HOURS_FOR_BOOKING,
+//     payload: hour,
+//   });
+// };
+
+// export const removeHours = (hoursArray: Array<Date>) => async (
+//   dispatch: Dispatch
+// ) => {
+//   dispatch({
+//     type: bookingTypes.REMOVE_HOURS_FROM_BOOKING,
+//     payload: hoursArray,
+//   });
+// };

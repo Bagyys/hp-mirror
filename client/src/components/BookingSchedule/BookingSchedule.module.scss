@@ -6,6 +6,7 @@
   margin-top: 5rem;
 
   .HourlyTable {
+    display: block;
     .dayColumn {
       display: inline-block;
       font-size: $smallFontSize;
@@ -36,6 +37,7 @@
     }
 
     .bookingHours {
+      margin: 1rem;
       padding: 1rem;
       h2 {
         font-size: $largeFontSize;

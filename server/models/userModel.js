@@ -46,7 +46,7 @@ const userSchema = new Schema(
         { _id: false }
       ),
     ],
-    contacts:{}
+    contacts: {},
   },
   { timestamps: true }
 );
