@@ -37,14 +37,32 @@ const userSchema = new Schema(
       type: String,
       enum: ["person", "company"],
     },
-    activeReservations: [],
-    pastReservations: [],
-    canceledReservations: [],
+    activeReservations: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Reservation",
+        required: true,
+      },
+    ],
+    pastReservations: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Reservation",
+        required: true,
+      },
+    ],
+    canceledReservations: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Reservation",
+        required: true,
+      },
+    ],
     favorites: [
-      new Schema(
+      // new Schema(
         { type: Schema.Types.ObjectId, ref: "Property", required: true },
-        { _id: false }
-      ),
+        // { _id: false }
+      // ),
     ],
     contacts: {},
   },

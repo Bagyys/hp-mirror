@@ -1,26 +1,7 @@
 import bookingTypes from "../types/bookingTypes";
 import { Actions } from "../actions/bookingActions";
-// interface Availability {
-//   available: boolean;
-//   selected: boolean;
-// }
-// export interface occupiedHour {
-//   hour: Date;
-//   isWholeHourRented: boolean;
-//   minutes: { [key: number]: boolean };
-// }
-// export interface occupiedDay {
-//   date: Date;
-//   isRented: boolean;
-//   isWholeDayRented: boolean;
-//   rentedHours: Array<occupiedHour>;
-// }
 
-// export interface Hours {
-//   [key: number]: string;
-// }
 export interface SelectionAvailabilty {
-  // date: Date;
   date: string;
   isRented: boolean;
   hours: { [key: number]: string };
@@ -32,7 +13,8 @@ export interface InitialState {
   startTime: Date | undefined;
   endTime: Date | undefined;
   displayDays: Array<SelectionAvailabilty>;
-  // hoursForBooking: Array<Date>;
+  totalDays: number;
+  totalHours: number;
 }
 
 const initialState: InitialState = {
@@ -67,7 +49,8 @@ const initialState: InitialState = {
   startTime: undefined,
   endTime: undefined,
   displayDays: [],
-  // hoursForBooking: [],
+  totalDays: 0,
+  totalHours: 0,
 };
 
 const bookingReducer = (state = initialState, action: Actions) => {
@@ -78,6 +61,8 @@ const bookingReducer = (state = initialState, action: Actions) => {
         isAvailabilityChecked: true,
         startTime: undefined,
         endTime: undefined,
+        totalDays: 0,
+        totalHours: 0,
         displayDays: action.payload.displayDays,
         selectedDays: action.payload.selectedDays,
       };
@@ -87,17 +72,9 @@ const bookingReducer = (state = initialState, action: Actions) => {
         startTime: action.payload.startTime,
         endTime: action.payload.endTime,
         displayDays: action.payload.displayDays,
+        totalDays: action.payload.totalDays,
+        totalHours: action.payload.totalHours,
       };
-    // case bookingTypes.ADD_HOURS_FOR_BOOKING:
-    //   return {
-    //     ...state,
-    //     hoursForBooking: [...state.hoursForBooking, action.payload],
-    //   };
-    // case bookingTypes.REMOVE_HOURS_FROM_BOOKING:
-    //   return {
-    //     ...state,
-    //     hoursForBooking: action.payload,
-    //   };
     default:
       return state;
   }

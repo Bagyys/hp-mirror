@@ -43,10 +43,12 @@ app.use(
 const allDoors = require("./routes/lockRoutes");
 const allFlats = require("./routes/flatRoutes");
 const allProperties = require("./routes/propertyRoutes");
+const allReservations = require("./routes/reservationRoutes");
 
 app.use("/", allDoors);
 app.use("/flat/", allFlats);
 app.use("/property/", allProperties);
+app.use("/reservation/", allReservations);
 
 const expressServer = app.listen(9000);
 socketConnection.io.attach(expressServer);

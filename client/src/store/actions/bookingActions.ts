@@ -5,6 +5,13 @@ import axios, { AxiosResponse } from "axios";
 
 import { OccupiedDay, OccupiedHour } from "../reducers/propertyReducer";
 import { SelectionAvailabilty } from "../reducers/bookingReducer";
+import {
+  indexInArray,
+  indexInDisplayArray,
+  formAvailableDayHours,
+  formOccupiedDayHours,
+  unselectDayHours,
+} from "../../utilities/booking";
 import bookingTypes from "../types/bookingTypes";
 
 // -------------------- URLS --------------------
@@ -31,6 +38,8 @@ export interface SelectHour
     startTime: Date;
     endTime: Date;
     displayDays: Array<SelectionAvailabilty>;
+    totalDays: number;
+    totalHours: number;
   };
 }
 
@@ -55,67 +64,6 @@ export type Actions =
   | BookTimeFail;
 
 // -------------------- END of ACTION INTERFACES --------------------
-
-// -------------------- HELPERS --------------------
-
-const indexInArray = (array: Array<any>, value: Date): number => {
-  // TODO add typescript interface for array
-  return array.findIndex((item) => {
-    return (
-      item.isRented &&
-      moment(value).format("YYYY-MM-DD") ===
-        moment(item.date).format("YYYY-MM-DD")
-      // moment(moment(item.date).startOf("day").toDate()).isSame(value)
-      // new Date(item.date).getFullYear() === value.getFullYear() &&
-      // new Date(item.date).getMonth() === value.getMonth() &&
-      // new Date(item.date).getDate() === value.getDate()
-    );
-    // return item.isRented && new Date(item.date).getTime() === value.getTime();
-  });
-};
-
-const indexInDisplayArray = (
-  array: Array<SelectionAvailabilty>,
-  value: string
-): number => {
-  return array.findIndex((item) => {
-    return item.date === value;
-  });
-};
-
-const formAvailableDayHours = () => {
-  let availableHours = {};
-  for (let i = 0; i < 24; i++) {
-    const hour = { [i]: "available" };
-    availableHours = { ...availableHours, ...hour };
-  }
-  return availableHours;
-};
-
-const formOccupiedDayHours = (rentedHours: Array<OccupiedHour>) => {
-  let occupiedHours = {};
-  for (let i = 0; i < 24; i++) {
-    const occIndex = rentedHours.findIndex((rentedHour) => {
-      return rentedHour.hourNumber === i;
-    });
-    let hour = {};
-    occIndex < 0
-      ? (hour = { [i]: "available" })
-      : (hour = { [i]: "unavailable" });
-    occupiedHours = { ...occupiedHours, ...hour };
-  }
-  return occupiedHours;
-};
-
-const unselectDayHours = (hours: { [key: number]: string }) => {
-  Object.entries(hours).forEach(([key, value]) => {
-    if (value === "selected") {
-      hours[+key] = "available";
-    }
-  });
-  return hours;
-};
-// -------------------- END of HELPERS --------------------
 
 // -------------------- ACTIONS --------------------
 
@@ -179,11 +127,15 @@ export const selectHourAction = (
       ? `${date.day} 0${date.hour}:00`
       : `${date.day} ${date.hour}:00`;
   const newDateMoment = moment.tz(newDateString, date.timeZone);
+  let totalHours = 0;
+  let totalDays = 0;
 
   if (startTime === undefined) {
     // if startTime is undefined -> assign the selected time to it
     const dayIndex = indexInDisplayArray(displayDays, date.day);
     startTime = newDateMoment.toDate();
+    totalHours = 0;
+    totalDays = 0;
     //    - and assign "selected" in displayDays
     displayDays[dayIndex].hours[date.hour] = "selected";
   } else if (startTime !== undefined && endTime !== undefined) {
@@ -191,6 +143,8 @@ export const selectHourAction = (
     const dayIndex = indexInDisplayArray(displayDays, date.day);
     startTime = newDateMoment.toDate();
     endTime = undefined;
+    totalHours = 0;
+    totalDays = 0;
     //    - and assign "selected" in displayDays and reset previousle selected hours
     displayDays.map((oneDay, index) => {
       if (dayIndex === index) {
@@ -220,20 +174,28 @@ export const selectHourAction = (
       // and assign "selected" in displayDays
       displayDays.map((oneDay, index) => {
         if (index === startTimeIndex && index === endTimeIndex) {
+          ++totalDays;
           for (let j = startTimeHour; j <= date.hour; j++) {
             oneDay.hours[j] = "selected";
+            ++totalHours;
           }
         } else if (index === startTimeIndex) {
+          ++totalDays;
           for (let j = startTimeHour; j <= 23; j++) {
             oneDay.hours[j] = "selected";
+            ++totalHours;
           }
         } else if (index === endTimeIndex) {
+          ++totalDays;
           for (let j = 0; j <= endTimeHour; j++) {
             oneDay.hours[j] = "selected";
+            ++totalHours;
           }
         } else if (index > startTimeIndex && index < endTimeIndex) {
+          ++totalDays;
           for (let j = 0; j <= 23; j++) {
             oneDay.hours[j] = "selected";
+            ++totalHours;
           }
         }
         return oneDay;
@@ -255,20 +217,28 @@ export const selectHourAction = (
       displayDays.map((oneDay, index) => {
         // and assign "selected" in displayDays
         if (index === startTimeIndex && index === endTimeIndex) {
+          ++totalDays;
           for (let j = startTimeHour; j <= date.hour; j++) {
             oneDay.hours[j] = "selected";
+            ++totalHours;
           }
         } else if (index === startTimeIndex) {
+          ++totalDays;
           for (let j = startTimeHour; j <= 23; j++) {
             oneDay.hours[j] = "selected";
+            ++totalHours;
           }
         } else if (index === endTimeIndex) {
+          ++totalDays;
           for (let j = 0; j <= endTimeHour; j++) {
             oneDay.hours[j] = "selected";
+            ++totalHours;
           }
         } else if (index > startTimeIndex && index < endTimeIndex) {
+          ++totalDays;
           for (let j = 0; j <= 23; j++) {
             oneDay.hours[j] = "selected";
+            ++totalHours;
           }
         }
         return oneDay;
@@ -277,29 +247,31 @@ export const selectHourAction = (
   }
   dispatch({
     type: bookingTypes.HANDLE_SELECTED_HOUR,
-    payload: { startTime, endTime, displayDays },
+    payload: { startTime, endTime, displayDays, totalHours, totalDays },
   });
 };
 
-export const bookTimeAction = (hour: Date) => async (dispatch: Dispatch) => {
+export const bookTimeAction = (body: {
+  userId: string;
+  propertyId: string;
+  residents: number;
+  price: number;
+  startDate: Date;
+  endDate: Date;
+  timeZone: string;
+}) => async (dispatch: Dispatch) => {
   dispatch({
     type: bookingTypes.BOOK_TIME_START,
-    payload: hour,
   });
+  try {
+    const response: AxiosResponse<any> = await axios.post(
+      `${url}/reservation/addReservation`,
+      body
+    );
+  } catch (error) {
+    dispatch({
+      type: bookingTypes.BOOK_TIME_FAIL,
+      payload: error.message,
+    });
+  }
 };
-
-// export const bookHours = (hour: Date) => async (dispatch: Dispatch) => {
-//   dispatch({
-//     type: bookingTypes.ADD_HOURS_FOR_BOOKING,
-//     payload: hour,
-//   });
-// };
-
-// export const removeHours = (hoursArray: Array<Date>) => async (
-//   dispatch: Dispatch
-// ) => {
-//   dispatch({
-//     type: bookingTypes.REMOVE_HOURS_FROM_BOOKING,
-//     payload: hoursArray,
-//   });
-// };

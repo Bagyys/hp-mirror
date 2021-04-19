@@ -53,6 +53,9 @@
           list-style: square inside;
         }
       }
+      &:disabled {
+        cursor: not-allowed;
+      }
     }
   }
 }
