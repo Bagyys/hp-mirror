@@ -74,7 +74,7 @@ const FlatView = (props: PropsInterface) => {
       key: "selection",
     },
   ]);
-  const [displayDays, setDisplayDays] = useState<Array<DisplayDay>>([]);
+  // const [displayDays, setDisplayDays] = useState<Array<DisplayDay>>([]);
   const [current, setCurrent] = useState<number>(0);
   const [isScheduleOpened, setIsScheduleOpened] = useState<boolean>(false);
   const occupiedTime = property.occupiedTime;
@@ -83,7 +83,7 @@ const FlatView = (props: PropsInterface) => {
   occupiedTime.map((item: any) => {
     // TODO: typescript interface
     if (item.isWholeDayRented) {
-      hourlyCheckArray.push(new Date(item.date));
+      hourlyCheckArray.push(new Date(item.dateString));
     }
   });
 
@@ -159,6 +159,7 @@ const FlatView = (props: PropsInterface) => {
       startDate: booking.startTime!,
       endDate: booking.endTime!,
       timeZone: property.location.timeZone,
+      occupiedTime: booking.displayDays,
     };
     console.log("body");
     console.log(body);

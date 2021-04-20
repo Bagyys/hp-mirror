@@ -55,19 +55,13 @@ export interface Facilities {
   bedrooms: number;
 }
 
-export interface OccupiedHour {
-  hour: Date;
-  hourNumber: number;
-  isWholeHourRented: boolean;
-  minutes: {
-    [key: number]: boolean;
-  };
-}
 export interface OccupiedDay {
-  date: Date;
+  dateString: string;
   isRented: boolean;
   isWholeDayRented: boolean;
-  rentedHours: Array<OccupiedHour>;
+  hours: {
+    [key: number]: boolean;
+  };
 }
 export interface Rating {
   user: string;

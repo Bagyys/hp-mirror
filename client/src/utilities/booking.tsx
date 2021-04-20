@@ -1,14 +1,17 @@
 import moment from "moment-timezone";
 import { SelectionAvailabilty } from "../store/reducers/bookingReducer";
-import { OccupiedHour } from "../store/reducers/propertyReducer";
+import { OccupiedDay } from "../store/reducers/propertyReducer";
 
-export const indexInArray = (array: Array<any>, value: Date): number => {
+export const indexInArray = (
+  array: Array<OccupiedDay>,
+  value: Date
+): number => {
   // TODO add typescript interface for array
   return array.findIndex((item) => {
     return (
       item.isRented &&
       moment(value).format("YYYY-MM-DD") ===
-        moment(item.date).format("YYYY-MM-DD")
+        moment(item.dateString).format("YYYY-MM-DD")
       // moment(moment(item.date).startOf("day").toDate()).isSame(value)
       // new Date(item.date).getFullYear() === value.getFullYear() &&
       // new Date(item.date).getMonth() === value.getMonth() &&
@@ -36,18 +39,22 @@ export const formAvailableDayHours = () => {
   return availableHours;
 };
 
-export const formOccupiedDayHours = (rentedHours: Array<OccupiedHour>) => {
+// export const formOccupiedDayHours = (rentedHours: Array<OccupiedHour>) => {
+export const formOccupiedDayHours = (rentedHours: {
+  [key: number]: boolean;
+}) => {
+  console.log("rentedHours")
+  console.log(rentedHours)
   let occupiedHours = {};
   for (let i = 0; i < 24; i++) {
-    const occIndex = rentedHours.findIndex((rentedHour) => {
-      return rentedHour.hourNumber === i;
-    });
     let hour = {};
-    occIndex < 0
-      ? (hour = { [i]: "available" })
-      : (hour = { [i]: "unavailable" });
+    rentedHours[i]
+      ? (hour = { [i]: "unavailable" })
+      : (hour = { [i]: "available" });
     occupiedHours = { ...occupiedHours, ...hour };
   }
+  console.log("occupiedHours")
+  console.log(occupiedHours)
   return occupiedHours;
 };
 

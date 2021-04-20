@@ -3,7 +3,7 @@ import moment from "moment-timezone";
 import axios, { AxiosResponse } from "axios";
 // import Swal from "sweetalert2";
 
-import { OccupiedDay, OccupiedHour } from "../reducers/propertyReducer";
+import { OccupiedDay } from "../reducers/propertyReducer";
 import { SelectionAvailabilty } from "../reducers/bookingReducer";
 import {
   indexInArray,
@@ -71,19 +71,8 @@ export const checkAvailabilityAction = (
   selectedDays: Array<Date>,
   occupiedTime: Array<OccupiedDay>
 ) => async (dispatch: Dispatch) => {
-  // console.log("checkAvailabilityAction");
-  // console.log("selectedDays");
-  // console.log(selectedDays);
-  // console.log("occupiedTime");
-  // console.log(occupiedTime);
   const displayDays = selectedDays.map((selectedDay: Date) => {
-    // console.log("inside selected days map");
-    // console.log("selectedDay");
-    // console.log(selectedDay);
     const occIndex = indexInArray(occupiedTime, selectedDay);
-    // console.log("occIndex");
-    // console.log(occIndex);
-    // const hours = formAvailableDayHours();
     let displayDay;
     if (occIndex < 0) {
       displayDay = {
@@ -95,13 +84,11 @@ export const checkAvailabilityAction = (
       displayDay = {
         date: moment(selectedDay).format("YYYY-MM-DD"),
         isRented: true,
-        hours: formOccupiedDayHours(occupiedTime[occIndex].rentedHours),
+        hours: formOccupiedDayHours(occupiedTime[occIndex].hours),
       };
     }
     return displayDay;
   });
-  // console.log("displayDays");
-  // console.log(displayDays);
   dispatch({
     type: bookingTypes.CHECK_SELECTED_DAYS,
     payload: {
@@ -259,12 +246,14 @@ export const bookTimeAction = (body: {
   startDate: Date;
   endDate: Date;
   timeZone: string;
+  occupiedTime: Array<SelectionAvailabilty>;
 }) => async (dispatch: Dispatch) => {
   dispatch({
     type: bookingTypes.BOOK_TIME_START,
   });
   try {
     const response: AxiosResponse<any> = await axios.post(
+      //TODO: type
       `${url}/reservation/addReservation`,
       body
     );
