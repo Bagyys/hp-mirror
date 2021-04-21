@@ -55,12 +55,6 @@ const lockReducer = (state = initialState, action: Actions) => {
             : lock
         ),
       };
-    // return update(state, {
-    //   // locks: {
-    //   //   [action.payload.index]: { $set: action.payload.lock },
-    //   // },
-    // });
-
     case lockTypes.RESET_LOCK_SUCCESS:
       return update(state, {
         locks: {

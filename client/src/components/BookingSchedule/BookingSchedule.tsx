@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { BsFillHouseDoorFill } from "react-icons/bs";
+// import { BsFillHouseDoorFill } from "react-icons/bs";
 import Swal from "sweetalert2";
 
 import { cn } from "../../utilities/joinClasses";

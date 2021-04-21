@@ -1,7 +1,7 @@
 import { Action, Dispatch } from "redux";
 import moment from "moment-timezone";
 import axios, { AxiosResponse } from "axios";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 import { OccupiedDay } from "../reducers/propertyReducer";
 import { SelectionAvailabilty } from "../reducers/bookingReducer";
@@ -150,86 +150,180 @@ export const selectHourAction = (
       endTime = newDateMoment.toDate();
       const startTimeIndex = indexInDisplayArray(
         displayDays,
-        moment(startTime).format("YYYY-MM-DD")
+        moment.utc(startTime).format("YYYY-MM-DD")
       );
       const endTimeIndex = indexInDisplayArray(
         displayDays,
-        moment(endTime).format("YYYY-MM-DD")
+        moment.utc(endTime).format("YYYY-MM-DD")
       );
       const startTimeHour = moment.tz(startTime, date.timeZone).hours();
       const endTimeHour = moment.tz(endTime, date.timeZone).hours();
+      let unavailableHours = false;
       // and assign "selected" in displayDays
-      displayDays.map((oneDay, index) => {
+      const dDaysArray = displayDays.map((oneDay, index) => {
+        // let mutatedDay = { ...oneDay };
+        // let mutatedDay = Object.create(oneDay);
+        let mutatedDay = JSON.parse(JSON.stringify(oneDay));
+        // console.log("initial oneDay");
+        // console.log(oneDay);
+        // console.log("initial mutatedDay");
+        // console.log(mutatedDay);
         if (index === startTimeIndex && index === endTimeIndex) {
           ++totalDays;
-          for (let j = startTimeHour; j <= date.hour; j++) {
-            oneDay.hours[j] = "selected";
-            ++totalHours;
+          for (let j = startTimeHour; j <= endTimeHour; j++) {
+            if (mutatedDay.hours[j] === "available") {
+              mutatedDay.hours[j] = "selected";
+              ++totalHours;
+            } else if (mutatedDay.hours[j] === "selected") {
+              ++totalHours;
+            } else {
+              unavailableHours = true;
+            }
           }
         } else if (index === startTimeIndex) {
           ++totalDays;
           for (let j = startTimeHour; j <= 23; j++) {
-            oneDay.hours[j] = "selected";
-            ++totalHours;
+            if (mutatedDay.hours[j] === "available") {
+              mutatedDay.hours[j] = "selected";
+              ++totalHours;
+            } else if (mutatedDay.hours[j] === "selected") {
+              ++totalHours;
+            } else {
+              unavailableHours = true;
+            }
           }
         } else if (index === endTimeIndex) {
           ++totalDays;
           for (let j = 0; j <= endTimeHour; j++) {
-            oneDay.hours[j] = "selected";
-            ++totalHours;
+            if (mutatedDay.hours[j] === "available") {
+              mutatedDay.hours[j] = "selected";
+              ++totalHours;
+            } else if (mutatedDay.hours[j] === "selected") {
+              ++totalHours;
+            } else {
+              unavailableHours = true;
+            }
           }
         } else if (index > startTimeIndex && index < endTimeIndex) {
           ++totalDays;
           for (let j = 0; j <= 23; j++) {
-            oneDay.hours[j] = "selected";
-            ++totalHours;
+            if (mutatedDay.hours[j] === "available") {
+              mutatedDay.hours[j] = "selected";
+              ++totalHours;
+            } else if (mutatedDay.hours[j] === "selected") {
+              ++totalHours;
+            } else {
+              unavailableHours = true;
+            }
           }
         }
-        return oneDay;
+        if (unavailableHours) {
+          Swal.fire("This time is unavailable");
+          console.log("return oneDay");
+          console.log(oneDay);
+          return oneDay;
+        } else {
+          console.log("return mutatedDay");
+          console.log(mutatedDay);
+          return mutatedDay;
+        }
       });
+      if (!unavailableHours) {
+        displayDays = dDaysArray;
+      }
+      console.log(" after mutations displayDays");
+      console.log(displayDays);
     } else {
       // if startTime is after the selected time, startTime reassign as endTime, selected time assing as startTime
       endTime = startTime;
       startTime = newDateMoment.toDate();
       const startTimeIndex = indexInDisplayArray(
         displayDays,
-        moment(startTime).format("YYYY-MM-DD")
+        moment.utc(startTime).format("YYYY-MM-DD")
       );
       const endTimeIndex = indexInDisplayArray(
         displayDays,
-        moment(endTime).format("YYYY-MM-DD")
+        moment.utc(endTime).format("YYYY-MM-DD")
       );
       const startTimeHour = moment.tz(startTime, date.timeZone).hours();
       const endTimeHour = moment.tz(endTime, date.timeZone).hours();
-      displayDays.map((oneDay, index) => {
-        // and assign "selected" in displayDays
+      let unavailableHours = false;
+      // and assign "selected" in displayDays
+      const dDaysArray = displayDays.map((oneDay, index) => {
+        // let mutatedDay = { ...oneDay };
+        // let mutatedDay = Object.create(oneDay);
+        let mutatedDay = JSON.parse(JSON.stringify(oneDay));
+        console.log("initial oneDay");
+        console.log(oneDay);
+        console.log("initial mutatedDay");
+        console.log(mutatedDay);
         if (index === startTimeIndex && index === endTimeIndex) {
           ++totalDays;
-          for (let j = startTimeHour; j <= date.hour; j++) {
-            oneDay.hours[j] = "selected";
-            ++totalHours;
+          for (let j = startTimeHour; j <= endTimeHour; j++) {
+            if (mutatedDay.hours[j] === "available") {
+              mutatedDay.hours[j] = "selected";
+              ++totalHours;
+            } else if (mutatedDay.hours[j] === "selected") {
+              ++totalHours;
+            } else {
+              unavailableHours = true;
+            }
           }
         } else if (index === startTimeIndex) {
           ++totalDays;
           for (let j = startTimeHour; j <= 23; j++) {
-            oneDay.hours[j] = "selected";
-            ++totalHours;
+            if (mutatedDay.hours[j] === "available") {
+              mutatedDay.hours[j] = "selected";
+              ++totalHours;
+            } else if (mutatedDay.hours[j] === "selected") {
+              ++totalHours;
+            } else {
+              unavailableHours = true;
+            }
           }
         } else if (index === endTimeIndex) {
           ++totalDays;
           for (let j = 0; j <= endTimeHour; j++) {
-            oneDay.hours[j] = "selected";
-            ++totalHours;
+            if (mutatedDay.hours[j] === "available") {
+              mutatedDay.hours[j] = "selected";
+              ++totalHours;
+            } else if (mutatedDay.hours[j] === "selected") {
+              ++totalHours;
+            } else {
+              unavailableHours = true;
+            }
           }
         } else if (index > startTimeIndex && index < endTimeIndex) {
           ++totalDays;
           for (let j = 0; j <= 23; j++) {
-            oneDay.hours[j] = "selected";
-            ++totalHours;
+            if (mutatedDay.hours[j] === "available") {
+              mutatedDay.hours[j] = "selected";
+              ++totalHours;
+            } else if (mutatedDay.hours[j] === "selected") {
+              ++totalHours;
+            } else {
+              unavailableHours = true;
+            }
           }
         }
-        return oneDay;
+        console.log("unavailableHours");
+        console.log(unavailableHours);
+        if (unavailableHours) {
+          Swal.fire("This time is unavailable");
+          console.log("return oneDay");
+          console.log(oneDay);
+          return oneDay;
+        } else {
+          console.log("return mutatedDay");
+          console.log(mutatedDay);
+          return mutatedDay;
+        }
       });
+      if (!unavailableHours) {
+        displayDays = dDaysArray;
+      }
+      console.log(" after mutations displayDays");
+      console.log(displayDays);
     }
   }
   dispatch({
@@ -257,6 +351,8 @@ export const bookTimeAction = (body: {
       `${url}/reservation/addReservation`,
       body
     );
+    console.log("response");
+    console.log(response);
   } catch (error) {
     dispatch({
       type: bookingTypes.BOOK_TIME_FAIL,

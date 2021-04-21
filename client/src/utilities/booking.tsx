@@ -25,6 +25,8 @@ export const indexInDisplayArray = (
   array: Array<SelectionAvailabilty>,
   value: string
 ): number => {
+  console.log(" indexInDisplayArray value");
+  console.log(value);
   return array.findIndex((item) => {
     return item.date === value;
   });
@@ -43,8 +45,8 @@ export const formAvailableDayHours = () => {
 export const formOccupiedDayHours = (rentedHours: {
   [key: number]: boolean;
 }) => {
-  console.log("rentedHours")
-  console.log(rentedHours)
+  console.log("rentedHours");
+  console.log(rentedHours);
   let occupiedHours = {};
   for (let i = 0; i < 24; i++) {
     let hour = {};
@@ -53,8 +55,8 @@ export const formOccupiedDayHours = (rentedHours: {
       : (hour = { [i]: "available" });
     occupiedHours = { ...occupiedHours, ...hour };
   }
-  console.log("occupiedHours")
-  console.log(occupiedHours)
+  console.log("occupiedHours");
+  console.log(occupiedHours);
   return occupiedHours;
 };
 

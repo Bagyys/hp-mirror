@@ -1,6 +1,6 @@
 import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
-import socket from "../../utilities/socketConnection";
+// import socket from "../../utilities/socketConnection";
 
 import lockTypes from "../types/lockTypes";
 import { LockProps } from "../reducers/lockReducer";

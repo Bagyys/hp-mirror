@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { DateRange, OnChangeProps } from "react-date-range";
 import moment from "moment";
-import { addDays } from "date-fns";
+// import { addDays } from "date-fns";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { IoShareSocialSharp } from "react-icons/io5";
@@ -85,6 +85,7 @@ const FlatView = (props: PropsInterface) => {
     if (item.isWholeDayRented) {
       hourlyCheckArray.push(new Date(item.dateString));
     }
+    return item;
   });
 
   const handleRange = (item: any) => {

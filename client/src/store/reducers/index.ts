@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
 import lockReducer from "./lockReducer";
 import { routerReducer } from "react-router-redux";
-import orderReducer from "./bookingReducer";
 import bookingReducer from "./bookingReducer";
 import propertyReducer from "./propertyReducer";
 
