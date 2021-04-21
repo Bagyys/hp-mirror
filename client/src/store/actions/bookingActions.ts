@@ -48,7 +48,7 @@ export interface BookTimeStart
 
 export interface BookTimeSuccess
   extends Action<typeof bookingTypes.BOOK_TIME_SUCCESS> {
-  payload: any;
+  // payload: any;
 }
 
 export interface BookTimeFail
@@ -147,15 +147,24 @@ export const selectHourAction = (
     // check if the selected time is before startTime
     if (moment(moment.utc(startTime)).isBefore(moment.utc(newDateMoment))) {
       // if startTime is before the selected time
+      console.log("startTime");
+      console.log(startTime);
+      console.log("newDateMoment");
+      console.log(newDateMoment);
       endTime = newDateMoment.toDate();
       const startTimeIndex = indexInDisplayArray(
         displayDays,
-        moment.utc(startTime).format("YYYY-MM-DD")
+        moment(startTime).format("YYYY-MM-DD")
       );
       const endTimeIndex = indexInDisplayArray(
         displayDays,
-        moment.utc(endTime).format("YYYY-MM-DD")
+        moment(endTime).format("YYYY-MM-DD")
       );
+      console.log("startTimeIndex");
+      console.log(startTimeIndex);
+      console.log("endTimeIndex");
+      console.log(newDateMoment.toDate());
+
       const startTimeHour = moment.tz(startTime, date.timeZone).hours();
       const endTimeHour = moment.tz(endTime, date.timeZone).hours();
       let unavailableHours = false;
@@ -222,16 +231,20 @@ export const selectHourAction = (
         displayDays = dDaysArray;
       }
     } else {
+      console.log("startTime");
+      console.log(startTime);
+      console.log("newDateMoment");
+      console.log(newDateMoment.toDate());
       // if startTime is after the selected time, startTime reassign as endTime, selected time assing as startTime
       endTime = startTime;
       startTime = newDateMoment.toDate();
       const startTimeIndex = indexInDisplayArray(
         displayDays,
-        moment.utc(startTime).format("YYYY-MM-DD")
+        moment(startTime).format("YYYY-MM-DD")
       );
       const endTimeIndex = indexInDisplayArray(
         displayDays,
-        moment.utc(endTime).format("YYYY-MM-DD")
+        moment(endTime).format("YYYY-MM-DD")
       );
       const startTimeHour = moment.tz(startTime, date.timeZone).hours();
       const endTimeHour = moment.tz(endTime, date.timeZone).hours();
@@ -325,8 +338,17 @@ export const bookTimeAction = (body: {
       `${url}/reservation/addReservation`,
       body
     );
-    console.log("response");
-    console.log(response);
+    console.log("response.data");
+    console.log(response.data);
+    if (response.data.length > 0) {
+      Swal.fire("succesfully booked");
+    }
+
+    // kas toliau? rerenderinti puslapi? ar rodyti kita komponenta?
+
+    dispatch({
+      type: bookingTypes.BOOK_TIME_SUCCESS,
+    });
   } catch (error) {
     dispatch({
       type: bookingTypes.BOOK_TIME_FAIL,

@@ -7,8 +7,9 @@ exports.addReservation = async (req, res) => {
   const { occupiedTime, ...reservationObject } = data;
   // console.log("reservationObject");
   // console.log(reservationObject);
-  console.log("occupiedTime");
-  console.log(occupiedTime);
+  // console.log("occupiedTime");
+  // console.log(occupiedTime);
+  let updatedProperty = {};
   try {
     const createdReservation = new Reservation(reservationObject);
     // console.log("createdReservation");
@@ -44,19 +45,19 @@ exports.addReservation = async (req, res) => {
         const index = propertyTimeArr.findIndex((time) => {
           return time.dateString === occupiedObj.date;
         });
-        console.log("index");
-        console.log(index);
+        // console.log("index");
+        // console.log(index);
         if (index >= 0) {
-          console.log("property.occupiedTime[index].hours");
-          console.log(property.occupiedTime[index].hours);
-          console.log("occupiedObj.hours");
-          console.log(occupiedObj.hours);
+          // console.log("property.occupiedTime[index].hours");
+          // console.log(property.occupiedTime[index].hours);
+          // console.log("occupiedObj.hours");
+          // console.log(occupiedObj.hours);
           // if an index was found
           hoursToSave = {};
           // loop through hours object
+          let rentedHoursCounter = 0;
           for (let i = 0; i < 24; i++) {
             let hour = {};
-            let rentedHoursCounter = 0;
             if (
               // check if an hour was occupied in database
               property.occupiedTime[index].hours[i] === true ||
@@ -73,32 +74,19 @@ exports.addReservation = async (req, res) => {
             }
             hoursToSave = { ...hoursToSave, ...hour };
           }
-          console.log("hoursToSave");
-          console.log(hoursToSave);
-          console.log("propertyTimeArr[index]");
-          console.log(propertyTimeArr[index]);
-          const daf = Object.assign(propertyTimeArr[index].hours, hoursToSave);
-          console.log("daf");
-          console.log(daf);
-          // propertyTimeArr[index].hours = hoursToSave;
           let wholeDay = false;
-          rentedHoursCounter === 24 ? (wholeDay = true) : (wholeDay = false);
-          console.log("wholeDay");
-          console.log(wholeDay);
+          if (rentedHoursCounter === 24) {
+            wholeDay = true;
+          }
           propertyTimeArr[index]["hours"] = Object.assign(
             propertyTimeArr[index]["hours"],
             hoursToSave
           );
           propertyTimeArr[index]["isWholeDayRented"] = wholeDay;
-          console.log("propertyTimeArr[index] after updates");
-          console.log(propertyTimeArr[index]);
         } else {
           // if no index was found
-          // console.log(false);
           const occupiedHours = {};
           let rentedHoursCounter = 0;
-          // console.log("occupiedObj.hours");
-          // console.log(occupiedObj.hours);
           // loop through user's selected day's hours
           Object.entries(occupiedObj.hours).forEach(([hour, value]) => {
             // for (const [hour, value] of Object.entries(occupiedObj.hours)) {
@@ -140,10 +128,11 @@ exports.addReservation = async (req, res) => {
         //   if (value === "selected" || value === "unavailable") {
         //   }
         // }
-        console.log("propertyTimeArr");
-        console.log(propertyTimeArr);
+        // console.log("propertyTimeArr");
+        // console.log(propertyTimeArr);
       });
-      const updatedProperty = await property.updateOne(
+      updatedProperty = await Property.findByIdAndUpdate(
+        data.propertyId,
         { $set: { occupiedTime: propertyTimeArr } },
         { new: true }
       );
@@ -157,7 +146,7 @@ exports.addReservation = async (req, res) => {
     //   console.log("e2" + err.message);
     //   return res.status(500).json({ error: err.message });
     // }
-    return res.status(200).send(createdReservation);
+    return res.status(200).send(updatedProperty.occupiedTime);
   } catch (err) {
     console.log("e3 " + err.message);
 

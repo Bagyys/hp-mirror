@@ -48,6 +48,11 @@ const bookingReducer = (state = initialState, action: Actions) => {
         totalDays: action.payload.totalDays,
         totalHours: action.payload.totalHours,
       };
+    case bookingTypes.BOOK_TIME_START:
+      return {
+        ...state,
+        isAvailabilityChecked: false,
+      };
     default:
       return state;
   }
