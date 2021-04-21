@@ -161,13 +161,7 @@ export const selectHourAction = (
       let unavailableHours = false;
       // and assign "selected" in displayDays
       const dDaysArray = displayDays.map((oneDay, index) => {
-        // let mutatedDay = { ...oneDay };
-        // let mutatedDay = Object.create(oneDay);
         let mutatedDay = JSON.parse(JSON.stringify(oneDay));
-        // console.log("initial oneDay");
-        // console.log(oneDay);
-        // console.log("initial mutatedDay");
-        // console.log(mutatedDay);
         if (index === startTimeIndex && index === endTimeIndex) {
           ++totalDays;
           for (let j = startTimeHour; j <= endTimeHour; j++) {
@@ -219,20 +213,14 @@ export const selectHourAction = (
         }
         if (unavailableHours) {
           Swal.fire("This time is unavailable");
-          console.log("return oneDay");
-          console.log(oneDay);
           return oneDay;
         } else {
-          console.log("return mutatedDay");
-          console.log(mutatedDay);
           return mutatedDay;
         }
       });
       if (!unavailableHours) {
         displayDays = dDaysArray;
       }
-      console.log(" after mutations displayDays");
-      console.log(displayDays);
     } else {
       // if startTime is after the selected time, startTime reassign as endTime, selected time assing as startTime
       endTime = startTime;
@@ -250,13 +238,7 @@ export const selectHourAction = (
       let unavailableHours = false;
       // and assign "selected" in displayDays
       const dDaysArray = displayDays.map((oneDay, index) => {
-        // let mutatedDay = { ...oneDay };
-        // let mutatedDay = Object.create(oneDay);
         let mutatedDay = JSON.parse(JSON.stringify(oneDay));
-        console.log("initial oneDay");
-        console.log(oneDay);
-        console.log("initial mutatedDay");
-        console.log(mutatedDay);
         if (index === startTimeIndex && index === endTimeIndex) {
           ++totalDays;
           for (let j = startTimeHour; j <= endTimeHour; j++) {
@@ -306,24 +288,16 @@ export const selectHourAction = (
             }
           }
         }
-        console.log("unavailableHours");
-        console.log(unavailableHours);
         if (unavailableHours) {
           Swal.fire("This time is unavailable");
-          console.log("return oneDay");
-          console.log(oneDay);
           return oneDay;
         } else {
-          console.log("return mutatedDay");
-          console.log(mutatedDay);
           return mutatedDay;
         }
       });
       if (!unavailableHours) {
         displayDays = dDaysArray;
       }
-      console.log(" after mutations displayDays");
-      console.log(displayDays);
     }
   }
   dispatch({
