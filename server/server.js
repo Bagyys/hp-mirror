@@ -40,12 +40,14 @@ app.use(
 );
 
 // Routes
+const allUsers = require("./routes/userRoutes");
 const allDoors = require("./routes/lockRoutes");
 const allFlats = require("./routes/flatRoutes");
 const allProperties = require("./routes/propertyRoutes");
 const allReservations = require("./routes/reservationRoutes");
 
 app.use("/", allDoors);
+app.use("/user/", allUsers);
 app.use("/flat/", allFlats);
 app.use("/property/", allProperties);
 app.use("/reservation/", allReservations);

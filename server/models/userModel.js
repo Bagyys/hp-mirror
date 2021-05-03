@@ -11,7 +11,7 @@ const userSchema = new Schema(
     password: { type: String, required: true },
 
     // user name for display on platform
-    name: { type: String, required: true },
+    name: { type: String, required: false },
 
     // has the user verified email
     isVerified: { type: Boolean, required: true, default: false },
@@ -60,8 +60,8 @@ const userSchema = new Schema(
     ],
     favorites: [
       // new Schema(
-        { type: Schema.Types.ObjectId, ref: "Property", required: true },
-        // { _id: false }
+      { type: Schema.Types.ObjectId, ref: "Property", required: true },
+      // { _id: false }
       // ),
     ],
     contacts: {},

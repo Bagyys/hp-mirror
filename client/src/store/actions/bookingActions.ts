@@ -147,10 +147,10 @@ export const selectHourAction = (
     // check if the selected time is before startTime
     if (moment(moment.utc(startTime)).isBefore(moment.utc(newDateMoment))) {
       // if startTime is before the selected time
-      console.log("startTime");
-      console.log(startTime);
-      console.log("newDateMoment");
-      console.log(newDateMoment);
+      // console.log("startTime");
+      // console.log(startTime);
+      // console.log("newDateMoment");
+      // console.log(newDateMoment);
       endTime = newDateMoment.toDate();
       const startTimeIndex = indexInDisplayArray(
         displayDays,
@@ -160,10 +160,10 @@ export const selectHourAction = (
         displayDays,
         moment(endTime).format("YYYY-MM-DD")
       );
-      console.log("startTimeIndex");
-      console.log(startTimeIndex);
-      console.log("endTimeIndex");
-      console.log(newDateMoment.toDate());
+      // console.log("startTimeIndex");
+      // console.log(startTimeIndex);
+      // console.log("endTimeIndex");
+      // console.log(newDateMoment.toDate());
 
       const startTimeHour = moment.tz(startTime, date.timeZone).hours();
       const endTimeHour = moment.tz(endTime, date.timeZone).hours();
@@ -231,10 +231,10 @@ export const selectHourAction = (
         displayDays = dDaysArray;
       }
     } else {
-      console.log("startTime");
-      console.log(startTime);
-      console.log("newDateMoment");
-      console.log(newDateMoment.toDate());
+      // console.log("startTime");
+      // console.log(startTime);
+      // console.log("newDateMoment");
+      // console.log(newDateMoment.toDate());
       // if startTime is after the selected time, startTime reassign as endTime, selected time assing as startTime
       endTime = startTime;
       startTime = newDateMoment.toDate();

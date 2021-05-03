@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import NotificationImg from "../../assets/images/bell.png";
 import ProfileImg from "../../assets/images/profile.png";
 import LogoImg from "../../assets/images/Logo.png";
+
 function Navigation() {
   return (
     <div className={classes.Navigation}>
@@ -14,22 +15,20 @@ function Navigation() {
         </div>
 
         <div className={classes.Routes}>
-          <Router>
-            <ul>
-              <li>
-                <Link to="/reservation">Reservations</Link>
-              </li>
-              <li>
-                <Link to="/favorites">Favorites</Link>
-              </li>
-              <li>
-                <Link to="/history">History</Link>
-              </li>
-              <li>
-                <Link to="/settings">Settings</Link>
-              </li>
-            </ul>
-          </Router>
+          <ul>
+            <li>
+              <Link to="/reservations">Reservations</Link>
+            </li>
+            <li>
+              <Link to="/favorites">Favorites</Link>
+            </li>
+            <li>
+              <Link to="/history">History</Link>
+            </li>
+            <li>
+              <Link to="/settings">Settings</Link>
+            </li>
+          </ul>
         </div>
 
         <div className={classes.Profile}>

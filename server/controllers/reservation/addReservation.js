@@ -27,7 +27,7 @@ exports.addReservation = async (req, res) => {
       // console.log("updatedUser");
       // console.log(updatedUser);
     } catch (error) {
-      console.log("e1" + err.message);
+      // console.log("e1" + err.message);
       return res.status(500).json({ error: err.message });
     }
 
