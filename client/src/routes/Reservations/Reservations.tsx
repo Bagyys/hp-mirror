@@ -5,22 +5,21 @@ import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";
 import { getUserReservationsAction } from "../../store/actions/userActions";
 import { ReservationInterface } from "../../store/types/reservationInterfaces";
+// import { UserInterface } from "../../store/types/userInterfaces";
 
 import classes from "./Reservations.module.scss";
 
 const Reservations = () => {
   const dispatch = useDispatch();
-  const user: userState = useSelector((state: StoreState) => state.user);
-
+  const userState: userState = useSelector((state: StoreState) => state.user);
+  const user = userState.user;
   useEffect(() => {
-    if (user._id) {
+    if (user && user._id) {
       dispatch(getUserReservationsAction(user._id));
     }
   }, []);
 
-  const reservations: Array<ReservationInterface> = useSelector(
-    (state: StoreState) => state.user.activeReservations
-  );
+  const reservations: Array<ReservationInterface> = user.activeReservations;
   //   console.log("reservations");
   //   console.log(reservations);
   let reservationsRender = null;

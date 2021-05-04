@@ -1,5 +1,6 @@
 import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
+import { UserInterface } from "../types/userInterfaces";
 // import moment from "moment-timezone";
 // import Swal from "sweetalert2";
 
@@ -17,10 +18,23 @@ const url = process.env.REACT_APP_DEV_URL;
 
 export interface UserLoading extends Action<typeof authTypes.USER_LOADING> {}
 
+export interface RegisterRequest
+  extends Action<typeof authTypes.REGISTER_REQUEST> {}
+
+export interface RegisterSuccess
+  extends Action<typeof authTypes.REGISTER_SUCCESS> {
+  payload: { token: string; user: UserInterface };
+}
+
+export interface RegisterFail
+  extends Action<typeof authTypes.REGISTER_FAILURE> {
+  payload: string;
+}
+
 export interface LoginRequest extends Action<typeof authTypes.LOG_IN_REQUEST> {}
 
 export interface LoginSuccess extends Action<typeof authTypes.LOG_IN_SUCCESS> {
-  payload: string; // TODO: add type ? is it correct
+  payload: { token: string; user: UserInterface };
 }
 
 export interface LoginFail extends Action<typeof authTypes.LOG_IN_FAILURE> {
@@ -50,11 +64,48 @@ export interface LogoutFail extends Action<typeof authTypes.LOG_OUT_FAILURE> {
 //   payload: string;
 // }
 
-export type Actions = UserLoading;
+export type Actions =
+  | UserLoading
+  | RegisterRequest
+  | RegisterSuccess
+  | RegisterFail
+  | LoginRequest
+  | LoginSuccess
+  | LoginFail
+  | LogoutRequest
+  | LogoutSuccess
+  | LogoutFail;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
 // -------------------- ACTIONS --------------------
+
+export const registerAction = (payload: {
+  email: string;
+  password: string;
+}) => async (dispatch: Dispatch) => {
+  dispatch({
+    type: authTypes.REGISTER_REQUEST,
+  });
+  axios({
+    method: "post",
+    url: "/register",
+    data: payload,
+  })
+    .then((response) => {
+      const { data } = response.data;
+      dispatch({
+        type: authTypes.REGISTER_SUCCESS,
+        payload: data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: authTypes.REGISTER_FAILURE,
+        payload: error.message,
+      });
+    });
+};
 
 export const loginAction = (payload: {
   email: string;
@@ -77,7 +128,7 @@ export const loginAction = (payload: {
 
       dispatch({
         type: authTypes.LOG_IN_SUCCESS,
-        payload: token,
+        payload: response.data,
       });
     })
     .catch((error) => {
