@@ -1,4 +1,5 @@
 const express = require("express");
+const { socketConnection } = require("./utils/socket");
 const app = express();
 const fs = require("fs");
 const path = require("path");
@@ -8,7 +9,6 @@ const morgan = require("morgan");
 const cors = require("cors");
 morgan("tiny");
 const helmet = require("helmet");
-
 app.use(helmet());
 
 // setup static files and bodyparser
@@ -39,10 +39,18 @@ app.use(
   })
 );
 
+// Routes
+const allUsers = require("./routes/userRoutes");
 const allDoors = require("./routes/lockRoutes");
 const allFlats = require("./routes/flatRoutes");
+const allProperties = require("./routes/propertyRoutes");
+const allReservations = require("./routes/reservationRoutes");
 
 app.use("/", allDoors);
+app.use("/user/", allUsers);
 app.use("/flat/", allFlats);
+app.use("/property/", allProperties);
+app.use("/reservation/", allReservations);
 
-app.listen(9000);
+const expressServer = app.listen(9000);
+socketConnection.io.attach(expressServer);

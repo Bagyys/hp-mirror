@@ -38,6 +38,7 @@ exports.openLock = async (req, res) => {
         },
         { new: true }
       );
+      console.log("opened");
       if (openedLock === undefined || openedLock === null) {
         return res.status(404).send("No doors found by ID");
       }
@@ -54,6 +55,8 @@ exports.openLock = async (req, res) => {
         },
         { new: true }
       );
+      console.log("opened");
+
       if (openedLock === undefined || openedLock === null) {
         return res.status(404).send("No doors found by ID");
       }

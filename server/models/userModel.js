@@ -11,7 +11,7 @@ const userSchema = new Schema(
     password: { type: String, required: true },
 
     // user name for display on platform
-    name: { type: String, required: true },
+    name: { type: String, required: false },
 
     // has the user verified email
     isVerified: { type: Boolean, required: true, default: false },
@@ -37,6 +37,34 @@ const userSchema = new Schema(
       type: String,
       enum: ["person", "company"],
     },
+    activeReservations: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Reservation",
+        required: true,
+      },
+    ],
+    pastReservations: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Reservation",
+        required: true,
+      },
+    ],
+    canceledReservations: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Reservation",
+        required: true,
+      },
+    ],
+    favorites: [
+      // new Schema(
+      { type: Schema.Types.ObjectId, ref: "Property", required: true },
+      // { _id: false }
+      // ),
+    ],
+    contacts: {},
   },
   { timestamps: true }
 );

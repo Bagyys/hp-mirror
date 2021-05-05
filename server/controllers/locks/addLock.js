@@ -44,6 +44,7 @@ exports.addLock = async (req, res) => {
 
     const createdLock = new Lock(lockObject);
     newLock = await createdLock.save();
+    console.log("added");
     if (newLock !== undefined || newLock !== null) {
       const {
         _id,

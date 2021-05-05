@@ -1,11 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import socket from "../../utilities/socketConnection";
+
 import { StoreState } from "../../store/configureStore";
 import Flats from "../../components/Flats/flats";
 import Map from "../../components/Map/map";
 import Lock from "../../containers/Lock/Lock";
-import { getAllLocksAction } from "../../store/actions/lockActions";
+import {
+  getAllLocksAction,
+  updateLockAction,
+} from "../../store/actions/lockActions";
 import { LockProps } from "../../store/reducers/lockReducer";
 
 import classes from "../../App.module.scss";
@@ -14,7 +19,12 @@ function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllLocksAction());
+    socket.on("lockUpdate", (data) => {
+      const { id, o1, o2, o3 } = data;
+      dispatch(updateLockAction(id, o1, o2, o3));
+    });
   }, []);
+
   const locks: Array<LockProps> = useSelector(
     (state: StoreState) => state.lock.locks
   );
@@ -28,6 +38,7 @@ function Home() {
   } else {
     lockComps = <></>;
   }
+
   return (
     <div className={classes.App}>
       <Filter />
@@ -36,11 +47,9 @@ function Home() {
         <Map />
       </div>
       <h1>Hello there</h1>
-      <button onClick={() => testAction("o1")}>Front Door</button>
-      <button onClick={() => testAction("o2")}>Flat Door</button>
-      <button onClick={() => resetAction()}>Reset Door</button>
+      {lockComps}
     </div>
   );
-};
+}
 
 export default Home;

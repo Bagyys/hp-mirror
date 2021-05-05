@@ -9,6 +9,8 @@ enum lockTypes {
   OPEN_LOCK_SUCCESS = "OPEN_LOCK_SUCCESS",
   OPEN_LOCK_FAIL = "OPEN_LOCK_FAIL",
 
+  UPDATE_LOCK = "UPDATE_LOCK",
+
   RESET_LOCK_START = "RESET_LOCK_START",
   RESET_LOCK_SUCCESS = "RESET_LOCK_SUCCESS",
   RESET_LOCK_FAIL = "RESET_LOCK_FAIL",
@@ -19,5 +21,3 @@ enum lockTypes {
 }
 
 export default lockTypes;
-
-
