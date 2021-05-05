@@ -1,17 +1,19 @@
 const bcrypt = require("bcrypt");
 
 const { User } = require("../../models/userModel");
-const { encrypt } = require("../../utils/encryption");
+const { encrypt, decrypt } = require("../../utils/encryption");
 const { getSignedToken } = require("../../utils/signedToken");
+const { verification } = require("../mail/verification");
 
 exports.register = async (req, res, next) => {
   try {
+    console.log("register");
     console.log("req.body");
     console.log(req.body);
     const body = req.body;
     const encryptedEmail = encrypt(body.email);
-    // console.log("encryptedEmail");
-    // console.log(encryptedEmail);
+    console.log("encryptedEmail");
+    console.log(encryptedEmail);
     // const user = await User.findOne({ email: encryptedEmail });
     // // const user = await User.findOne({ email: encrypt(body.email) });
     // console.log("user");
@@ -40,6 +42,9 @@ exports.register = async (req, res, next) => {
             // console.log("token");
             // console.log(token);
             await newUser.save();
+            newUser.email = decrypt(encryptedEmail);
+            console.log("newUser.email");
+            console.log(newUser.email);
             const payload = {
               user: newUser,
               token,
@@ -51,9 +56,15 @@ exports.register = async (req, res, next) => {
           .catch((err) => {
             console.log("err.message");
             console.log(err.message);
-            throw new Error("All fields required");
+            // throw new Error("All fields required");
           });
       });
+
+    const decryptedEmail = decrypt(encryptedEmail);
+    console.log("decryptedEmail");
+    console.log(decryptedEmail);
+    verification(decryptedEmail, token);
+
     console.log("before return from controler");
     console.log("token");
     console.log(token);

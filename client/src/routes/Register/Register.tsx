@@ -40,7 +40,7 @@ const Register = () => {
           onChange={(event) => setPassword(event.target.value)}
         />
         {/* {error !== null ? <div className="error">{error}</div> : null} */}
-        <button onClick={(event) => handleSignUpClick(event)}>Register</button>
+        <button onClick={handleSignUpClick}>Register</button>
         <h5>
           <Link to="/login">Already have an account?</Link>
         </h5>

@@ -98,10 +98,10 @@ const userReducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         isLoading: false,
+        isAuthenticated: true,
         token: action.payload.token,
         // currentUser: action.payload.user,
         user: action.payload.user,
-        isAuthenticated: true,
       };
     case userTypes.LOG_OUT_SUCCESS:
       localStorage.removeItem("USER-TOKEN");

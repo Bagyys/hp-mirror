@@ -101,10 +101,10 @@ export const registerAction = (email: string, password: string) => async (
   dispatch: Dispatch
 ) => {
   console.log("registerAction");
-  console.log("email");
-  console.log(email);
-  console.log("password");
-  console.log(password);
+  // console.log("email");
+  // console.log(email);
+  // console.log("password");
+  // console.log(password);
   dispatch({
     type: userTypes.REGISTER_REQUEST,
   });
@@ -129,27 +129,65 @@ export const registerAction = (email: string, password: string) => async (
       payload: error.message,
     });
   }
+};
 
-  // axios({
-  //   method: "post",
-  //   url: "/user/register",
-  //   data: { email, password },
-  // })
-  //   .then((response) => {
-  //     const { data } = response.data;
-  //     console.log("data");
-  //     console.log(data);
-  //     dispatch({
-  //       type: userTypes.REGISTER_SUCCESS,
-  //       payload: data,
-  //     });
-  //   })
-  //   .catch((error) => {
-  //     dispatch({
-  //       type: userTypes.REGISTER_FAILURE,
-  //       payload: error.message,
-  //     });
-  //   });
+export const sendVerificationAction = (email: string) => (
+  dispatch: Dispatch
+) => {
+  dispatch({
+    type: userTypes.SEND_VERIFICATION_REQUEST,
+  });
+  const body = {
+    email,
+  };
+  axios
+    .put(`${url}/user/send-verify`, body)
+    .then((res) => {
+      // dispatch(returnSuccess(res.data.msg, res.status, "SENDVERIFY_SUCCESS"));
+      dispatch({
+        type: userTypes.SEND_VERIFICATION_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      // dispatch(
+      //   returnErrors(err.response.data, err.response.status, "SENDVERIFY_FAIL")
+      // );
+      dispatch({
+        type: userTypes.SEND_VERIFICATION_FAIL,
+        payload: err.message,
+      });
+    });
+};
+
+export const verifyAction = (params: string, userLanguage: string) => (
+  dispatch: Dispatch
+) => {
+  dispatch({
+    type: userTypes.VERIFY_REQUEST,
+  });
+  const body = {
+    userLanguage,
+    params,
+  };
+  axios
+    .put(`${url}/user/verify/${params}`, body)
+    .then((res) => {
+      // dispatch(returnSuccess(res.data, res.status, "VERIFY_FAIL"));
+      dispatch({
+        type: userTypes.VERIFY_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      // dispatch(
+      //   returnErrors(err.response.data, err.response.status, "VERIFY_FAIL")
+      // );
+      dispatch({
+        type: userTypes.VERIFY_FAIL,
+        payload: err.message,
+      });
+    });
 };
 
 export const loginAction = (payload: {
@@ -200,66 +238,6 @@ export const logoutAction = () => async (dispatch: Dispatch) => {
       type: userTypes.LOG_OUT_SUCCESS,
     });
   }
-};
-
-export const sendVerificationAction = ({ email, userLanguage }: any) => (
-  dispatch: Dispatch
-) => {
-  dispatch({
-    type: userTypes.SEND_VERIFICATION_REQUEST,
-  });
-  const body = {
-    email,
-    userLanguage,
-  };
-  axios
-    .put(`${url}/user/send-verify`, body)
-    .then((res) => {
-      // dispatch(returnSuccess(res.data.msg, res.status, "SENDVERIFY_SUCCESS"));
-      dispatch({
-        type: userTypes.SEND_VERIFICATION_SUCCESS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      // dispatch(
-      //   returnErrors(err.response.data, err.response.status, "SENDVERIFY_FAIL")
-      // );
-      dispatch({
-        type: userTypes.SEND_VERIFICATION_FAIL,
-        payload: err.message,
-      });
-    });
-};
-
-export const verifyAction = (params: string, userLanguage: string) => (
-  dispatch: Dispatch
-) => {
-  dispatch({
-    type: userTypes.VERIFY_REQUEST,
-  });
-  const body = {
-    userLanguage,
-    params,
-  };
-  axios
-    .put(`${url}/user/verify/${params}`, body)
-    .then((res) => {
-      // dispatch(returnSuccess(res.data, res.status, "VERIFY_FAIL"));
-      dispatch({
-        type: userTypes.VERIFY_SUCCESS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      // dispatch(
-      //   returnErrors(err.response.data, err.response.status, "VERIFY_FAIL")
-      // );
-      dispatch({
-        type: userTypes.VERIFY_FAIL,
-        payload: err.message,
-      });
-    });
 };
 
 export const getUserReservationsAction = (userId: string) => async (

@@ -2,16 +2,15 @@ const nodemailer = require("nodemailer");
 
 // nodemailer setup gmail
 
-module.exportssendEmail = async (
+exports.verification = async (
   userEmail,
   token // how come??
 ) => {
-  let transporter = nodemailer.createTransport({
-    host: "skorpionas.serveriai.lt",
-    port: 465,
+  let transporter = nodemailer.createTransport("SMTP", {
+    service: "Gmail",
     auth: {
-      user: "info@spareex.lt",
-      pass: "Sparexinfo9358",
+      user: process.env.GMAIL,
+      pass: process.env.PSW,
     },
   });
 

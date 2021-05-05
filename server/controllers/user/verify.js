@@ -11,35 +11,37 @@ const { encrypt } = require("../../utils/encryption");
 
 // locale tavo draugas
 exports.sendVerify = async (req, res) => {
-  console.log("sendVerify");
+
+  console.log("verify");
   try {
-    let { email } = req.body;
-    email = xss(email);
-    if (!email) {
-      return res.status(400).json({ msg: "Enter your email" });
-    }
-    const encryptedEmail = encrypt(email);
+    const verifyToken = req.params.verifyToken;
 
-    const user = await User.findOne({ email: encryptedEmail });
-    if (user.isVerified === true) {
-      return res.status(400).json({ msg: "User is already verified" });
-    }
-    if (user === null) {
-      return res.status(400).json({ msg: "User does not exist" });
+    try {
+      const verified = jwt.verify(verifyToken, process.env.JWT_EMAIL_CONFIRM);
+      console.log("verified");
+      console.log(verified);
+    } catch (err) {
+      console.log(err.message);
+      //   return errorHandling(704, userLanguage, res);
     }
 
-    // sets successs message
-    let successMessage = "Email confirmation link sent";
+    const user = await User.findOne({ verifyToken: verifyToken });
+    console.log("user before update");
+    console.log(user);
+    // if (!user) {
+    //   return errorHandling(704, userLanguage, res);
+    // }
 
-    // signs email confirm token
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_EMAIL_CONFIRM, {
-      expiresIn: "20m",
-    });
-    // sends email
-    verification(email, token);
-    await user.updateOne({ verifyToken: token });
-    return res.status(200).json({ msg: successMessage });
+    if (user.verifyToken === verifyToken) {
+      await user.updateOne({ $set: { isVerified: true, verifyToken: "" } });
+      //   return successHandling(701, userLanguage, res);
+    }
+    console.log("user after update");
+    console.log(user);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.log(err);
+    // return res.status(500).json({ msg: 'Nuoroda neteisinga arba nebegalioja' });
+    // return res.status(500).json({ error: err.message });
   }
+  
 };

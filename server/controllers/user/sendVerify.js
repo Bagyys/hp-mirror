@@ -1,41 +1,39 @@
-const { User } = require("../../models/userModel");
 const jwt = require("jsonwebtoken");
-// const { errorHandling } = require("../../utils/errorHandling/errorHandling");
-// const {
-//   successHandling,
-// } = require("../../utils/errorHandling/successHandling");
 
-// locale tavo draugas
+const { User } = require("../../models/userModel");
+const { encrypt } = require("../../utils/encryption");
+const { verification } = require("../mail/verification");
+
 exports.sendVerify = async (req, res) => {
-  console.log("verify");
+  console.log("sendVerify");
   try {
-    const verifyToken = req.params.verifyToken;
+    let { email } = req.body;
+    email = xss(email);
+    if (!email) {
+      return res.status(400).json({ msg: "Enter your email" });
+    }
+    const encryptedEmail = encrypt(email);
 
-    try {
-      const verified = jwt.verify(verifyToken, process.env.JWT_EMAIL_CONFIRM);
-      console.log("verified");
-      console.log(verified);
-    } catch (err) {
-      console.log(err.message);
-      //   return errorHandling(704, userLanguage, res);
+    const user = await User.findOne({ email: encryptedEmail });
+    if (user === null) {
+      return res.status(400).json({ msg: "User does not exist" });
+    }
+    if (user.isVerified === true) {
+      return res.status(400).json({ msg: "User is already verified" });
     }
 
-    const user = await User.findOne({ verifyToken: verifyToken });
-    console.log("user before update");
-    console.log(user);
-    // if (!user) {
-    //   return errorHandling(704, userLanguage, res);
-    // }
+    // sets successs message
+    let successMessage = "Email confirmation link sent";
 
-    if (user.verifyToken === verifyToken) {
-      await user.updateOne({ $set: { isVerified: true, verifyToken: "" } });
-      //   return successHandling(701, userLanguage, res);
-    }
-    console.log("user after update");
-    console.log(user);
+    // signs email confirm token
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_EMAIL_CONFIRM, {
+      expiresIn: "20m",
+    });
+    // sends email
+    verification(email, token);
+    await user.updateOne({ verifyToken: token });
+    return res.status(200).json({ msg: successMessage });
   } catch (err) {
-    console.log(err);
-    // return res.status(500).json({ msg: 'Nuoroda neteisinga arba nebegalioja' });
-    // return res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
