@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 // } = require("../../utils/errorHandling/successHandling");
 
 // locale tavo draugas
-exports.verify = async (req, res) => {
+exports.sendVerify = async (req, res) => {
   console.log("verify");
   try {
     const verifyToken = req.params.verifyToken;

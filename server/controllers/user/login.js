@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 
 const { User } = require("../../models/userModel");
 const { encrypt } = require("../../utils/encryption");
+const { getSignedToken } = require("../../utils/signedToken");
 
 exports.login = async (req, res, next) => {
   try {

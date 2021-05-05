@@ -110,16 +110,18 @@ export const registerAction = (email: string, password: string) => async (
   });
   const body = { email, password };
   try {
-    const response: AxiosResponse<any> = await axios.post(
-      `${url}/user/register`,
-      body
-    );
-    const { data } = response.data;
-    console.log("data");
-    console.log(data);
+    const response: AxiosResponse<{
+      token: string;
+      user: UserInterface;
+    }> = await axios.post(`${url}/user/register`, body);
+    // console.log("response");
+    // console.log(response);
+    // const { data } = response;
+    // console.log("data");
+    // console.log(data);
     dispatch({
       type: userTypes.REGISTER_SUCCESS,
-      payload: data,
+      payload: response.data,
     });
   } catch (error) {
     dispatch({
