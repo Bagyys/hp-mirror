@@ -6,8 +6,8 @@ exports.verification = async (
   userEmail,
   token // how come??
 ) => {
-  let transporter = nodemailer.createTransport("SMTP", {
-    service: "Gmail",
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
     auth: {
       user: process.env.GMAIL,
       pass: process.env.PSW,
@@ -21,11 +21,23 @@ exports.verification = async (
     },
     to: userEmail,
     subject: "Verify Your Email",
+    // html:
+    //   "<p>Hello, verify your account by clicking the link:</p>" +
+    //   eval(
+    //     `"<a href='${process.env.CLIENT_URL}/verify/${token}' target="_blank">${process.env.CLIENT_URL}/verify/${token}</a>"`
+    //   ),
     html:
       "<p>Hello, verify your account by clicking the link:</p>" +
-      eval(
-        `<a href='${process.env.CLIENT_URL}/verify/${token}' target="_blank">${process.env.CLIENT_URL}/verify/${token}</a>`
-      ),
+      "<a href=" +
+      process.env.CLIENT_URL +
+      "/verify/" +
+      token +
+      " target='_blank'>" +
+      "click on this link to verify yor email" +
+      // process.env.CLIENT_URL +
+      // "/verify/" +
+      // token +
+      "</a>",
   };
 
   transporter

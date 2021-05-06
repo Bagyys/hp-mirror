@@ -84,7 +84,7 @@ const initialState: userState = {
 
 const userReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
-    case userTypes.USER_LOADING:
+    case userTypes.LOAD_USER_REQUEST:
     case userTypes.LOG_IN_REQUEST:
     case userTypes.REGISTER_REQUEST:
     case userTypes.LOG_OUT_REQUEST:
@@ -92,6 +92,16 @@ const userReducer = (state = initialState, action: Actions) => {
         ...state,
         isLoading: true,
         isAuthenticated: false,
+      };
+    case userTypes.LOAD_USER_SUCCESS:
+      // typeof window !== "undefined" ? localStorage.getItem("token") : undefined;
+      return {
+        ...state,
+        isAuthenticated: true,
+        isLoading: false,
+        user: action.payload,
+        token:
+          typeof window !== "undefined" ? localStorage.getItem("token") : null,
       };
     case userTypes.LOG_IN_SUCCESS:
     case userTypes.REGISTER_SUCCESS:
@@ -102,6 +112,12 @@ const userReducer = (state = initialState, action: Actions) => {
         token: action.payload.token,
         // currentUser: action.payload.user,
         user: action.payload.user,
+      };
+    case userTypes.VERIFY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        user: action.payload,
       };
     case userTypes.LOG_OUT_SUCCESS:
       localStorage.removeItem("USER-TOKEN");
@@ -119,7 +135,7 @@ const userReducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload, // what about errors?
+        // error: action.payload, // what about errors?
         currentUser: null,
         user: null,
         isAuthenticated: false,

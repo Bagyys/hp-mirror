@@ -8,12 +8,12 @@ const { verification } = require("../mail/verification");
 exports.register = async (req, res, next) => {
   try {
     console.log("register");
-    console.log("req.body");
-    console.log(req.body);
+    // console.log("req.body");
+    // console.log(req.body);
     const body = req.body;
     const encryptedEmail = encrypt(body.email);
-    console.log("encryptedEmail");
-    console.log(encryptedEmail);
+    // console.log("encryptedEmail");
+    // console.log(encryptedEmail);
     // const user = await User.findOne({ email: encryptedEmail });
     // // const user = await User.findOne({ email: encrypt(body.email) });
     // console.log("user");
@@ -26,6 +26,11 @@ exports.register = async (req, res, next) => {
         if (user.length > 0) {
           console.log("User already exist");
           // throw new Error("User already exist");
+          // TODO: error handling
+          res.status(400).json({
+            token: undefined,
+            user: undefined,
+          });
         }
         return bcrypt
           .hash(body.password, 10)
@@ -43,14 +48,14 @@ exports.register = async (req, res, next) => {
             // console.log(token);
             await newUser.save();
             newUser.email = decrypt(encryptedEmail);
-            console.log("newUser.email");
-            console.log(newUser.email);
+            // console.log("newUser.email");
+            // console.log(newUser.email);
             const payload = {
               user: newUser,
               token,
             };
-            console.log("payload");
-            console.log(payload);
+            // console.log("payload");
+            // console.log(payload);
             return payload;
           })
           .catch((err) => {
@@ -61,8 +66,8 @@ exports.register = async (req, res, next) => {
       });
 
     const decryptedEmail = decrypt(encryptedEmail);
-    console.log("decryptedEmail");
-    console.log(decryptedEmail);
+    // console.log("decryptedEmail");
+    // console.log(decryptedEmail);
     verification(decryptedEmail, token);
 
     console.log("before return from controler");
@@ -76,5 +81,6 @@ exports.register = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
+    // TODO: error handling
   }
 };

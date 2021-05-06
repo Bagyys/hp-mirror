@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // import { StoreState } from "../../store/configureStore";
@@ -9,6 +9,7 @@ import classes from "./Login.module.scss";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +19,7 @@ const Login = () => {
   ) => {
     event.preventDefault();
     dispatch(loginAction({ email, password }));
+    history.push("/login");
   };
 
   return (

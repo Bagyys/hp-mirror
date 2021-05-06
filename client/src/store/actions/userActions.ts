@@ -2,7 +2,7 @@ import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
 // import moment from "moment-timezone";
 // import Swal from "sweetalert2";
-
+import { StoreState } from "../configureStore";
 import userTypes from "../types/userTypes";
 import { ReservationInterface } from "../types/reservationInterfaces";
 import { UserInterface } from "../types/userInterfaces";
@@ -17,8 +17,17 @@ const url = process.env.REACT_APP_DEV_URL;
 
 // -------------------- ACTION INTERFACES --------------------
 
-export interface UserLoading extends Action<typeof userTypes.USER_LOADING> {}
+export interface LoadUserRequest
+  extends Action<typeof userTypes.LOAD_USER_REQUEST> {}
 
+export interface LoadUserSuccess
+  extends Action<typeof userTypes.LOAD_USER_SUCCESS> {
+  payload: UserInterface;
+}
+
+export interface LoadUserFail extends Action<typeof userTypes.LOAD_USER_FAIL> {
+  payload: string;
+}
 export interface RegisterRequest
   extends Action<typeof userTypes.REGISTER_REQUEST> {}
 
@@ -76,7 +85,9 @@ export interface GetUserReservationsFail
 }
 
 export type Actions =
-  | UserLoading
+  | LoadUserRequest
+  | LoadUserSuccess
+  | LoadUserFail
   | RegisterRequest
   | RegisterSuccess
   | RegisterFail
@@ -97,14 +108,43 @@ export type Actions =
 
 // -------------------- ACTIONS --------------------
 
+export const loadUser = () => async (
+  dispatch: Dispatch,
+  getState: () => StoreState
+) => {
+  dispatch({ type: userTypes.LOAD_USER_REQUEST });
+  console.log("tokenConfig(getState)");
+  console.log(tokenConfig(getState));
+  let x = tokenConfig(getState).headers["x-auth-token"];
+  console.log("x");
+  console.log(x);
+  if (x === undefined) {
+    return;
+  }
+  await axios
+    .get(url + "/user/", tokenConfig(getState))
+    .then((res) => {
+      console.log("res.data");
+      console.log(res.data);
+      dispatch({
+        type: userTypes.LOAD_USER_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err: Error) => {
+      console.log("err.message");
+      console.log(err.message);
+      dispatch({
+        type: userTypes.LOAD_USER_FAIL,
+        payload: err.message,
+      });
+    });
+};
+
 export const registerAction = (email: string, password: string) => async (
   dispatch: Dispatch
 ) => {
   console.log("registerAction");
-  // console.log("email");
-  // console.log(email);
-  // console.log("password");
-  // console.log(password);
   dispatch({
     type: userTypes.REGISTER_REQUEST,
   });
@@ -114,11 +154,6 @@ export const registerAction = (email: string, password: string) => async (
       token: string;
       user: UserInterface;
     }> = await axios.post(`${url}/user/register`, body);
-    // console.log("response");
-    // console.log(response);
-    // const { data } = response;
-    // console.log("data");
-    // console.log(data);
     dispatch({
       type: userTypes.REGISTER_SUCCESS,
       payload: response.data,
@@ -143,16 +178,12 @@ export const sendVerificationAction = (email: string) => (
   axios
     .put(`${url}/user/send-verify`, body)
     .then((res) => {
-      // dispatch(returnSuccess(res.data.msg, res.status, "SENDVERIFY_SUCCESS"));
       dispatch({
         type: userTypes.SEND_VERIFICATION_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
-      // dispatch(
-      //   returnErrors(err.response.data, err.response.status, "SENDVERIFY_FAIL")
-      // );
       dispatch({
         type: userTypes.SEND_VERIFICATION_FAIL,
         payload: err.message,
@@ -160,29 +191,22 @@ export const sendVerificationAction = (email: string) => (
     });
 };
 
-export const verifyAction = (params: string, userLanguage: string) => (
-  dispatch: Dispatch
-) => {
+export const verifyAction = (params: string) => (dispatch: Dispatch) => {
   dispatch({
     type: userTypes.VERIFY_REQUEST,
   });
   const body = {
-    userLanguage,
     params,
   };
   axios
     .put(`${url}/user/verify/${params}`, body)
     .then((res) => {
-      // dispatch(returnSuccess(res.data, res.status, "VERIFY_FAIL"));
       dispatch({
         type: userTypes.VERIFY_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
-      // dispatch(
-      //   returnErrors(err.response.data, err.response.status, "VERIFY_FAIL")
-      // );
       dispatch({
         type: userTypes.VERIFY_FAIL,
         payload: err.message,
@@ -263,4 +287,28 @@ export const getUserReservationsAction = (userId: string) => async (
       payload: error.message,
     });
   }
+};
+
+export const tokenConfig = (getState: () => StoreState) => {
+  // gets token from local storage
+  const token = getState().user.token;
+  console.log("token");
+  console.log(token);
+  // headers
+  const config: {
+    headers: { "content-type": string; "x-auth-token"?: string };
+  } = {
+    headers: {
+      "content-type": "application/json",
+    },
+  };
+  console.log("config b");
+  console.log(config);
+  //iff token, add to headers
+  if (token) {
+    config.headers["x-auth-token"] = token;
+  }
+  console.log("config a");
+  console.log(config);
+  return config;
 };

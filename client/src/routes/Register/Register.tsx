@@ -17,10 +17,6 @@ const Register = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
-    // console.log("email");
-    // console.log(email);
-    // console.log("password");
-    // console.log(password);
     dispatch(registerAction(email, password));
   };
 
