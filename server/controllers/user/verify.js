@@ -9,17 +9,12 @@ const { encrypt, decrypt } = require("../../utils/encryption");
 //   successHandling,
 // } = require("../../utils/errorHandling/successHandling");
 
-// locale tavo draugas
 exports.verify = async(req, res) => {
     console.log("verify");
     try {
         const verifyToken = req.params.verifyToken;
-        console.log("verifyToken");
-        console.log(verifyToken);
         try {
             const verified = jwt.verify(verifyToken, process.env.JWT_EMAIL_CONFIRM);
-            console.log("verified");
-            console.log(verified);
         } catch (err) {
             console.log(err)
             console.log(err.message);
@@ -27,20 +22,12 @@ exports.verify = async(req, res) => {
         }
 
         const user = await User.findOne({ verifyToken: verifyToken });
-        console.log("user before update");
-        console.log(user);
-        // if (!user) {
-        //   return errorHandling(704, userLanguage, res);
-        // }
-        console.log("user.verifyToken === verifyToken")
-        console.log(user.verifyToken === verifyToken)
         let updatedUser = user;
         if (user.verifyToken === verifyToken) {
             updatedUser = await User.findByIdAndUpdate(user._id, { isVerified: true, verifyToken: "" }, { new: true });
             //   return successHandling(701, userLanguage, res);
         }
-        console.log("updatedUser after update");
-        console.log(updatedUser);
+        updatedUser.email = decrypt(updatedUser.email);
         res.status(200).json(updatedUser);
     } catch (err) {
         console.log(err);

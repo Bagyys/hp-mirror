@@ -128,40 +128,32 @@ export const loadUser = () => async (
   dispatch: Dispatch,
   getState: () => StoreState
 ) => {
-  console.log("loadUser");
   dispatch({ type: userTypes.LOAD_USER_REQUEST });
-  console.log("tokenConfig(getState)");
-  console.log(tokenConfig(getState));
   let x = tokenConfig(getState).headers["x-auth-token"];
-  console.log("x");
-  console.log(x);
   if (x === undefined) {
     return;
   }
-  // await axios
-  //   .get(url + "/", tokenConfig(getState))
-  //   .then((res) => {
-  //     console.log("res.data");
-  //     console.log(res.data);
-  //     dispatch({
-  //       type: userTypes.LOAD_USER_SUCCESS,
-  //       payload: res.data,
-  //     });
-  //   })
-  //   .catch((err: Error) => {
-  //     console.log("err.message");
-  //     console.log(err.message);
-  //     dispatch({
-  //       type: userTypes.LOAD_USER_FAIL,
-  //       payload: err.message,
-  //     });
-  //   });
+  await axios
+    .get(url + "/", tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: userTypes.LOAD_USER_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err: Error) => {
+      console.log("err.message");
+      console.log(err.message);
+      dispatch({
+        type: userTypes.LOAD_USER_FAIL,
+        payload: err.message,
+      });
+    });
 };
 
 export const registerAction = (email: string, password: string) => async (
   dispatch: Dispatch
 ) => {
-  console.log("registerAction");
   dispatch({
     type: userTypes.REGISTER_REQUEST,
   });
@@ -171,6 +163,8 @@ export const registerAction = (email: string, password: string) => async (
       token: string;
       user: UserInterface;
     }> = await axios.post(`${url}/register`, body);
+    localStorage.setItem("token", response.data.token);
+
     dispatch({
       type: userTypes.REGISTER_SUCCESS,
       payload: response.data,
@@ -239,21 +233,17 @@ export const loginAction = (payload: {
   dispatch({
     type: userTypes.LOG_IN_REQUEST,
   });
-  console.log("loginAction localStorage.getItem(USER-TOKEN)");
-  console.log(localStorage.getItem("USER-TOKEN"));
   axios({
     method: "post",
     url: "/login",
     data: payload,
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("USER-TOKEN")}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   })
     .then((response) => {
-      console.log("response.data");
-      console.log(response.data);
       const { token } = response.data;
-      localStorage.setItem("USER-TOKEN", token);
+      localStorage.setItem("token", token);
 
       dispatch({
         type: userTypes.LOG_IN_SUCCESS,
@@ -274,7 +264,7 @@ export const logoutAction = () => async (dispatch: Dispatch) => {
   });
   localStorage.clear();
 
-  if (localStorage.getItem("USER_TOKEN")) {
+  if (localStorage.getItem("token")) {
     dispatch({
       type: userTypes.LOG_OUT_FAILURE,
       payload: "logout error",
@@ -296,8 +286,6 @@ export const getUserReservationsAction = (userId: string) => async (
     const response: AxiosResponse<ReservationInterface> = await axios.get(
       `${url}/getReservations/${userId}`
     );
-    console.log("response.data");
-    console.log(response.data);
     dispatch({
       type: userTypes.GET_USER_RESERVATIONS_SUCCESS,
       payload: response.data,
@@ -314,8 +302,6 @@ export const getUserReservationsAction = (userId: string) => async (
 export const tokenConfig = (getState: () => StoreState) => {
   // gets token from local storage
   const token = getState().user.token;
-  console.log("token");
-  console.log(token);
   // headers
   const config: {
     headers: { "content-type": string; "x-auth-token"?: string };
@@ -324,13 +310,9 @@ export const tokenConfig = (getState: () => StoreState) => {
       "content-type": "application/json",
     },
   };
-  console.log("config b");
-  console.log(config);
   //iff token, add to headers
   if (token) {
     config.headers["x-auth-token"] = token;
   }
-  console.log("config a");
-  console.log(config);
   return config;
 };

@@ -31,15 +31,9 @@ exports.sendVerify = async(req, res) => {
         //     expiresIn: "20m",
         // });
         const token = getSignedToken(user._id, process.env.JWT_EMAIL_CONFIRM, "20m");
-        console.log("token")
-        console.log(token)
         const updated = await User.findByIdAndUpdate(user._id, { verifyToken: token }, { new: true });
-        console.log("sendVerify updated with verification token")
-        console.log(updated)
-            // sends email
-        console.log("siusim meila")
+        // sends email
         verification(email, token);
-        console.log("we've sent an email")
         return res.status(200).json(updated);
     } catch (err) {
         res.status(500).json({ error: err.message });

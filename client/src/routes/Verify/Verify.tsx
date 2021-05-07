@@ -1,44 +1,26 @@
-import React, { useState, useEffect, MouseEventHandler } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Redirect } from "react-router-dom";
 
 import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";
 import { verifyAction } from "../../store/actions/userActions";
 
-import classes from "./Verify.module.scss";
-
 const Verify = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const params = useParams<{ token: string }>();
   const auth: userState = useSelector((state: StoreState) => state.user);
-  // const user = auth.user;
-  console.log("params");
-  console.log(params);
-  console.log("auth");
-  console.log(auth);
-  // let token = ""
-
-  // useEffect(() => {
-  //    token = params.token
-
-  // }, []);
 
   useEffect(() => {
-    if (params.token === undefined) {
-      <div>... Loading ... </div>;
-    } else {
-      console.log("useeffect in veriy else part");
+    if (params.token !== undefined) {
       dispatch(verifyAction(params.token));
-      // history.push("/");
     }
   }, []);
 
   if (auth.isLoading) {
     return <div>... Loading ... </div>;
   } else {
-    return <div className={classes.sendVerifyContainer}>kazkas vyksta</div>;
+    return <Redirect to={"/"} />;
   }
 };
 

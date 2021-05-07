@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 // import { useDispatch } from "react-redux";
 import Routes from "./routes/index";
 
@@ -7,8 +7,8 @@ import Routes from "./routes/index";
 function App() {
   // const dispatch = useDispatch();
 
-  axios.defaults.headers.common["auth-token"] =
-    typeof window !== "undefined" ? localStorage.getItem("token") : "";
+  // axios.defaults.headers.common["auth-token"] =
+  //   typeof window !== "undefined" ? localStorage.getItem("token") : "";
 
   // dispatch(loadUser());
   return (

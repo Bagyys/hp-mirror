@@ -31,8 +31,8 @@ const Routes = () => {
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/flat/:id" component={FlatReview} />
-        <UserRoute path="/send-verify" component={SendVerify} />
         <Route path="/verify/:token" component={Verify} />
+        <UserRoute path="/send-verify" component={SendVerify} />
         <UserRoute path="/reservations" component={Reservations} />
       </Switch>
     </div>

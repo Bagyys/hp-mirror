@@ -40,21 +40,18 @@ const initialState: userState = {
     favorites: [],
     contacts: {},
   },
-  currentUser: localStorage.getItem("USER-TOKEN")
-    ? isValidToken(localStorage.getItem("USER-TOKEN"))
+  currentUser: localStorage.getItem("token")
+    ? isValidToken(localStorage.getItem("token"))
     : null,
-  token: localStorage.getItem("USER-TOKEN")
-    ? localStorage.getItem("USER-TOKEN")
-    : null,
+  token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
   isAuthenticated: false,
   isLoading: false,
 };
 
 const userReducer = (state = initialState, action: Actions) => {
-  console.log("userReducer localStorage.getItem(USER-TOKEN)");
-  console.log(localStorage.getItem("USER-TOKEN"));
   switch (action.type) {
     case userTypes.LOAD_USER_REQUEST:
+    case userTypes.VERIFY_REQUEST:
     case userTypes.LOG_IN_REQUEST:
     case userTypes.REGISTER_REQUEST:
     case userTypes.LOG_OUT_REQUEST:
@@ -64,7 +61,6 @@ const userReducer = (state = initialState, action: Actions) => {
         isAuthenticated: false,
       };
     case userTypes.LOAD_USER_SUCCESS:
-      // typeof window !== "undefined" ? localStorage.getItem("token") : undefined;
       return {
         ...state,
         isAuthenticated: true,
@@ -79,11 +75,19 @@ const userReducer = (state = initialState, action: Actions) => {
         ...state,
         isLoading: false,
         isAuthenticated: true,
-        token: action.payload.token,
+        // token: action.payload.token,
+        token:
+          typeof window !== "undefined" ? localStorage.getItem("token") : null,
         // currentUser: action.payload.user,
         user: action.payload.user,
       };
     case userTypes.VERIFY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: true,
+        user: action.payload,
+      };
     case userTypes.SEND_VERIFICATION_SUCCESS:
       return {
         ...state,
@@ -91,7 +95,7 @@ const userReducer = (state = initialState, action: Actions) => {
         user: action.payload,
       };
     case userTypes.LOG_OUT_SUCCESS:
-      localStorage.removeItem("USER-TOKEN");
+      localStorage.removeItem("token");
       return {
         ...state,
         isAuthenticated: false,
