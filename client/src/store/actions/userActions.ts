@@ -230,12 +230,15 @@ export const loginAction = (payload: {
   email: string;
   password: string;
 }) => async (dispatch: Dispatch) => {
+  console.log("loginAction");
   dispatch({
     type: userTypes.LOG_IN_REQUEST,
   });
+  console.log("localStorage.getItem(token)");
+  console.log(localStorage.getItem("token"));
   axios({
     method: "post",
-    url: "/login",
+    url: `${url}/login`,
     data: payload,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -251,6 +254,8 @@ export const loginAction = (payload: {
       });
     })
     .catch((error) => {
+      console.log("login action error");
+      console.log(error);
       dispatch({
         type: userTypes.LOG_IN_FAILURE,
         payload: error.message,
