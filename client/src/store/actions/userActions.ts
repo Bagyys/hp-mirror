@@ -97,6 +97,8 @@ export interface GetUserReservationsFail
   payload: string;
 }
 
+export interface ClearError extends Action<typeof userTypes.CLEAR_ERROR> {}
+
 export type Actions =
   | LoadUserRequest
   | LoadUserSuccess
@@ -118,7 +120,8 @@ export type Actions =
   | VerifyFail
   | GetUserReservationsStart
   | GetUserReservationsSuccess
-  | GetUserReservationsFail;
+  | GetUserReservationsFail
+  | ClearError;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -320,4 +323,10 @@ export const tokenConfig = (getState: () => StoreState) => {
     config.headers["x-auth-token"] = token;
   }
   return config;
+};
+
+export const clearErrorAction = () => async (dispatch: Dispatch) => {
+  dispatch({
+    type: userTypes.CLEAR_ERROR,
+  });
 };

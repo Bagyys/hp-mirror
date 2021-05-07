@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, useParams, Redirect } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 
 import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";

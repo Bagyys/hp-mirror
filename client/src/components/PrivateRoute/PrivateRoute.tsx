@@ -16,6 +16,6 @@ export const UserRoute: React.FC<Props> = ({ component, path, ...rest }) => {
   return isAuthenticated && token ? (
     <Route exact path={path} component={component} {...rest} />
   ) : (
-    <Redirect to={"/"} />
+    <Redirect to={"/login"} />
   );
 };

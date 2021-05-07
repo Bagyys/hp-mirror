@@ -1,16 +1,24 @@
-import React, { useState, useEffect, MouseEventHandler } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";
-import { sendVerificationAction } from "../../store/actions/userActions";
+import { UserInterface } from "../../store/types/userInterfaces";
+import {
+  sendVerificationAction,
+  clearErrorAction,
+} from "../../store/actions/userActions";
 
 import classes from "./SendVerify.module.scss";
 
 const SendVerify = () => {
   const dispatch = useDispatch();
-  const auth: userState = useSelector((state: StoreState) => state.user);
-  const user = auth.user;
+  // const auth: userState = useSelector((state: StoreState) => state.user);
+  const { user, isLoading, error } = useSelector(
+    (state: StoreState) => state.user
+  );
+  // const user = auth.user;
 
   const submit = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -19,7 +27,7 @@ const SendVerify = () => {
     dispatch(sendVerificationAction(user.email));
   };
 
-  if (auth.isLoading) {
+  if (isLoading) {
     return <div>... Loading ... </div>;
   } else {
     return (

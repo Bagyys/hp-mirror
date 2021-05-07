@@ -10,6 +10,7 @@ export interface userState {
   isAuthenticated: boolean;
   isLoading: boolean;
   token: string | null;
+  error: string;
 }
 
 export const isValidToken = (token: string | null) => {
@@ -46,6 +47,7 @@ const initialState: userState = {
   token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
   isAuthenticated: false,
   isLoading: false,
+  error: "",
 };
 
 const userReducer = (state = initialState, action: Actions) => {
@@ -104,13 +106,16 @@ const userReducer = (state = initialState, action: Actions) => {
         user: null,
         token: "",
       };
-    case userTypes.LOG_IN_FAILURE:
+    case userTypes.LOAD_USER_FAIL:
     case userTypes.REGISTER_FAILURE:
+    case userTypes.SEND_VERIFICATION_FAIL:
+    case userTypes.VERIFY_FAIL:
+    case userTypes.LOG_IN_FAILURE:
     case userTypes.LOG_OUT_FAILURE:
       return {
         ...state,
         isLoading: false,
-        // error: action.payload, // what about errors?
+        error: action.payload,
         currentUser: null,
         user: null,
         isAuthenticated: false,
@@ -120,7 +125,11 @@ const userReducer = (state = initialState, action: Actions) => {
         ...state,
         activeReservations: action.payload,
       };
-
+    case userTypes.GET_USER_RESERVATIONS_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       return state;
   }

@@ -7,7 +7,6 @@ const { getSignedToken } = require("../../utils/signedToken");
 exports.login = async(req, res, next) => {
     try {
         const payload = req.body;
-        // const token = await UserServices.logInUser(payload);
 
         const { user, token } = await User.findOne({
                 email: encrypt(payload.email),

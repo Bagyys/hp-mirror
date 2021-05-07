@@ -1,8 +1,5 @@
-import { useDispatch, useStore } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import axios from "axios";
 
-import { loadUser } from "../store/actions/userActions";
 import { UserRoute } from "../components/PrivateRoute/PrivateRoute";
 import Navigation from "../components/Navigation/navigation";
 import Home from "./Home/home";
@@ -14,14 +11,6 @@ import FlatReview from "../routes/FlatReview/FlatView";
 import Reservations from "../routes/Reservations/Reservations";
 
 const Routes = () => {
-  // const store = useStore(pageProps.initialReduxState);
-  // const dispatch = useDispatch();
-
-  // axios.defaults.headers.common["auth-token"] =
-  //   typeof window !== "undefined" ? localStorage.getItem("token") : "";
-
-  // dispatch(loadUser());
-
   return (
     <div>
       <Navigation />
