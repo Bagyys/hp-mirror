@@ -10,22 +10,6 @@ export interface userState {
   isAuthenticated: boolean;
   isLoading: boolean;
   token: string | null;
-  userId: string;
-  // _id: string;
-  // email: string;
-  // password: string;
-  // name: string;
-  // isVerified: boolean;
-  // verifyToken: string;
-  // changeEmailToken: string;
-  // passwordResetToken: string;
-  // role: string;
-  // legalEntity: string;
-  // activeReservations: Array<ReservationInterface>;
-  // pastReservations: Array<ReservationInterface>;
-  // canceledReservations: Array<ReservationInterface>;
-  // favorites: Array<string>;
-  // contacts: Object;
 }
 
 export const isValidToken = (token: string | null) => {
@@ -40,7 +24,6 @@ export const isValidToken = (token: string | null) => {
 
 const initialState: userState = {
   user: {
-    // _id: "607d45c5687db96d68ed41fa", // TODO: make dynamic after login
     _id: "",
     email: "",
     password: "",
@@ -60,29 +43,16 @@ const initialState: userState = {
   currentUser: localStorage.getItem("USER-TOKEN")
     ? isValidToken(localStorage.getItem("USER-TOKEN"))
     : null,
-  token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
+  token: localStorage.getItem("USER-TOKEN")
+    ? localStorage.getItem("USER-TOKEN")
+    : null,
   isAuthenticated: false,
   isLoading: false,
-  userId: "",
-
-  // _id: "607d45c5687db96d68ed41fa", // TODO: make dynamic after login
-  // email: "",
-  // password: "",
-  // name: "",
-  // isVerified: false,
-  // verifyToken: "",
-  // changeEmailToken: "",
-  // passwordResetToken: "",
-  // role: "",
-  // legalEntity: "",
-  // activeReservations: [],
-  // pastReservations: [],
-  // canceledReservations: [],
-  // favorites: [],
-  // contacts: {},
 };
 
 const userReducer = (state = initialState, action: Actions) => {
+  console.log("userReducer localStorage.getItem(USER-TOKEN)");
+  console.log(localStorage.getItem("USER-TOKEN"));
   switch (action.type) {
     case userTypes.LOAD_USER_REQUEST:
     case userTypes.LOG_IN_REQUEST:
@@ -114,6 +84,7 @@ const userReducer = (state = initialState, action: Actions) => {
         user: action.payload.user,
       };
     case userTypes.VERIFY_SUCCESS:
+    case userTypes.SEND_VERIFICATION_SUCCESS:
       return {
         ...state,
         isLoading: false,

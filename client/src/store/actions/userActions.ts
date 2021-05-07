@@ -61,6 +61,19 @@ export interface LogoutFail extends Action<typeof userTypes.LOG_OUT_FAILURE> {
   payload: string;
 }
 
+export interface SendVerificationRequest
+  extends Action<typeof userTypes.SEND_VERIFICATION_REQUEST> {}
+
+export interface SendVerificationSuccess
+  extends Action<typeof userTypes.SEND_VERIFICATION_SUCCESS> {
+  payload: UserInterface;
+}
+
+export interface SendVerificationFail
+  extends Action<typeof userTypes.SEND_VERIFICATION_FAIL> {
+  payload: string;
+}
+
 export interface VerifyRequest
   extends Action<typeof userTypes.VERIFY_REQUEST> {}
 
@@ -97,6 +110,9 @@ export type Actions =
   | LogoutRequest
   | LogoutSuccess
   | LogoutFail
+  | SendVerificationRequest
+  | SendVerificationSuccess
+  | SendVerificationFail
   | VerifyRequest
   | VerifySuccess
   | VerifyFail
@@ -112,6 +128,7 @@ export const loadUser = () => async (
   dispatch: Dispatch,
   getState: () => StoreState
 ) => {
+  console.log("loadUser");
   dispatch({ type: userTypes.LOAD_USER_REQUEST });
   console.log("tokenConfig(getState)");
   console.log(tokenConfig(getState));
@@ -121,24 +138,24 @@ export const loadUser = () => async (
   if (x === undefined) {
     return;
   }
-  await axios
-    .get(url + "/user/", tokenConfig(getState))
-    .then((res) => {
-      console.log("res.data");
-      console.log(res.data);
-      dispatch({
-        type: userTypes.LOAD_USER_SUCCESS,
-        payload: res.data,
-      });
-    })
-    .catch((err: Error) => {
-      console.log("err.message");
-      console.log(err.message);
-      dispatch({
-        type: userTypes.LOAD_USER_FAIL,
-        payload: err.message,
-      });
-    });
+  // await axios
+  //   .get(url + "/", tokenConfig(getState))
+  //   .then((res) => {
+  //     console.log("res.data");
+  //     console.log(res.data);
+  //     dispatch({
+  //       type: userTypes.LOAD_USER_SUCCESS,
+  //       payload: res.data,
+  //     });
+  //   })
+  //   .catch((err: Error) => {
+  //     console.log("err.message");
+  //     console.log(err.message);
+  //     dispatch({
+  //       type: userTypes.LOAD_USER_FAIL,
+  //       payload: err.message,
+  //     });
+  //   });
 };
 
 export const registerAction = (email: string, password: string) => async (
@@ -153,7 +170,7 @@ export const registerAction = (email: string, password: string) => async (
     const response: AxiosResponse<{
       token: string;
       user: UserInterface;
-    }> = await axios.post(`${url}/user/register`, body);
+    }> = await axios.post(`${url}/register`, body);
     dispatch({
       type: userTypes.REGISTER_SUCCESS,
       payload: response.data,
@@ -176,7 +193,7 @@ export const sendVerificationAction = (email: string) => (
     email,
   };
   axios
-    .put(`${url}/user/send-verify`, body)
+    .put(`${url}/send-verify`, body)
     .then((res) => {
       dispatch({
         type: userTypes.SEND_VERIFICATION_SUCCESS,
@@ -199,12 +216,13 @@ export const verifyAction = (params: string) => (dispatch: Dispatch) => {
     params,
   };
   axios
-    .put(`${url}/user/verify/${params}`, body)
+    .put(`${url}/verify/${params}`, body)
     .then((res) => {
       dispatch({
         type: userTypes.VERIFY_SUCCESS,
         payload: res.data,
       });
+      // TODO: cia ideti swala, kad yay viskas pavyko
     })
     .catch((err) => {
       dispatch({
@@ -221,6 +239,8 @@ export const loginAction = (payload: {
   dispatch({
     type: userTypes.LOG_IN_REQUEST,
   });
+  console.log("loginAction localStorage.getItem(USER-TOKEN)");
+  console.log(localStorage.getItem("USER-TOKEN"));
   axios({
     method: "post",
     url: "/login",
@@ -230,6 +250,8 @@ export const loginAction = (payload: {
     },
   })
     .then((response) => {
+      console.log("response.data");
+      console.log(response.data);
       const { token } = response.data;
       localStorage.setItem("USER-TOKEN", token);
 
@@ -272,7 +294,7 @@ export const getUserReservationsAction = (userId: string) => async (
   });
   try {
     const response: AxiosResponse<ReservationInterface> = await axios.get(
-      `${url}/user/getReservations/${userId}`
+      `${url}/getReservations/${userId}`
     );
     console.log("response.data");
     console.log(response.data);

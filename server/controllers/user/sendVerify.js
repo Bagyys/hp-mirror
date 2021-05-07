@@ -2,38 +2,46 @@ const jwt = require("jsonwebtoken");
 
 const { User } = require("../../models/userModel");
 const { encrypt } = require("../../utils/encryption");
+const { getSignedToken } = require("../../utils/signedToken");
 const { verification } = require("../mail/verification");
 
-exports.sendVerify = async (req, res) => {
-  console.log("sendVerify");
-  try {
-    let { email } = req.body;
-    email = xss(email);
-    if (!email) {
-      return res.status(400).json({ msg: "Enter your email" });
-    }
-    const encryptedEmail = encrypt(email);
+exports.sendVerify = async(req, res) => {
+    console.log("sendVerify");
+    try {
+        let { email } = req.body;
+        email = xss(email);
+        if (!email) {
+            return res.status(400).json({ msg: "Enter your email" });
+        }
+        const encryptedEmail = encrypt(email);
 
-    const user = await User.findOne({ email: encryptedEmail });
-    if (user === null) {
-      return res.status(400).json({ msg: "User does not exist" });
-    }
-    if (user.isVerified === true) {
-      return res.status(400).json({ msg: "User is already verified" });
-    }
+        const user = await User.findOne({ email: encryptedEmail });
+        if (user === null) {
+            return res.status(400).json({ msg: "User does not exist" });
+        }
+        if (user.isVerified === true) {
+            return res.status(400).json({ msg: "User is already verified" });
+        }
 
-    // sets successs message
-    let successMessage = "Email confirmation link sent";
+        // sets successs message
+        let successMessage = "Email confirmation link sent";
 
-    // signs email confirm token
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_EMAIL_CONFIRM, {
-      expiresIn: "20m",
-    });
-    // sends email
-    verification(email, token);
-    await user.updateOne({ verifyToken: token });
-    return res.status(200).json({ msg: successMessage });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+        // signs email confirm token
+        // const token = jwt.sign({ _id: user._id }, process.env.JWT_EMAIL_CONFIRM, {
+        //     expiresIn: "20m",
+        // });
+        const token = getSignedToken(user._id, process.env.JWT_EMAIL_CONFIRM, "20m");
+        console.log("token")
+        console.log(token)
+        const updated = await User.findByIdAndUpdate(user._id, { verifyToken: token }, { new: true });
+        console.log("sendVerify updated with verification token")
+        console.log(updated)
+            // sends email
+        console.log("siusim meila")
+        verification(email, token);
+        console.log("we've sent an email")
+        return res.status(200).json(updated);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };

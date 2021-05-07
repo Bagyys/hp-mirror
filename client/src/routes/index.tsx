@@ -32,7 +32,7 @@ const Routes = () => {
         <Route path="/login" component={Login} />
         <Route path="/flat/:id" component={FlatReview} />
         <UserRoute path="/send-verify" component={SendVerify} />
-        <UserRoute path="/verify/:token" component={Verify} />
+        <Route path="/verify/:token" component={Verify} />
         <UserRoute path="/reservations" component={Reservations} />
       </Switch>
     </div>

@@ -91,7 +91,7 @@ export const getAllLocksAction = () => async (dispatch: Dispatch) => {
   dispatch({ type: lockTypes.GET_ALL_LOCKS_START });
   try {
     const response: AxiosResponse<LockProps> = await axios.get(
-      `${url}/allLocks/?h=A3%nm*Wb`
+      `${url}/door/allLocks/?h=A3%nm*Wb`
     );
     dispatch({
       type: lockTypes.GET_ALL_LOCKS_SUCCESS,
@@ -113,7 +113,7 @@ export const openLockAction = (
   dispatch({ type: lockTypes.OPEN_LOCK_START });
   try {
     const response: AxiosResponse<LockProps> = await axios.put(
-      `${url}/openLock/?h=A3%nm*Wb&id=${lockId}&${door}=1`
+      `${url}/door/openLock/?h=A3%nm*Wb&id=${lockId}&${door}=1`
     );
     dispatch({
       type: lockTypes.OPEN_LOCK_SUCCESS,
@@ -146,7 +146,7 @@ export const resetLockAction = (index: number, lockId: string) => async (
 
   try {
     const response: AxiosResponse<LockProps> = await axios.put(
-      `${url}/reset/?h=A3%nm*Wb&id=${lockId}`
+      `${url}/door/reset/?h=A3%nm*Wb&id=${lockId}`
     );
     dispatch({
       type: lockTypes.RESET_LOCK_SUCCESS,
@@ -167,7 +167,7 @@ export const deleteLockAction = (lockId: string) => async (
 
   try {
     const response: AxiosResponse<boolean> = await axios.delete(
-      `${url}/delete/?h=A3%nm*Wb&id=${lockId}`
+      `${url}/door/delete/?h=A3%nm*Wb&id=${lockId}`
     );
     response.status === 200
       ? dispatch({

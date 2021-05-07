@@ -13,7 +13,11 @@ const Verify = () => {
   const history = useHistory();
   const params = useParams<{ token: string }>();
   const auth: userState = useSelector((state: StoreState) => state.user);
-  const user = auth.user;
+  // const user = auth.user;
+  console.log("params");
+  console.log(params);
+  console.log("auth");
+  console.log(auth);
   // let token = ""
 
   // useEffect(() => {
@@ -25,15 +29,16 @@ const Verify = () => {
     if (params.token === undefined) {
       <div>... Loading ... </div>;
     } else {
+      console.log("useeffect in veriy else part");
       dispatch(verifyAction(params.token));
-      history.push("/");
+      // history.push("/");
     }
-  }, [params.token]);
+  }, []);
 
   if (auth.isLoading) {
     return <div>... Loading ... </div>;
   } else {
-    return <div className={classes.sendVerifyContainer}></div>;
+    return <div className={classes.sendVerifyContainer}>kazkas vyksta</div>;
   }
 };
 

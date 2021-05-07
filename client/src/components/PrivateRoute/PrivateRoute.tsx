@@ -9,9 +9,11 @@ interface Props {
   path: string;
 }
 export const UserRoute: React.FC<Props> = ({ component, path, ...rest }) => {
-  const { isAuthenticated } = useSelector((state: StoreState) => state.user);
+  const { isAuthenticated, token } = useSelector(
+    (state: StoreState) => state.user
+  );
 
-  return isAuthenticated ? (
+  return isAuthenticated && token ? (
     <Route exact path={path} component={component} {...rest} />
   ) : (
     <Redirect to={"/"} />

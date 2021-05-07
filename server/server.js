@@ -17,26 +17,26 @@ app.use(cors());
 app.use(express.json());
 // extended false leidzia parse'inti non default features
 app.use(
-  express.urlencoded({
-    extended: false,
-  })
+    express.urlencoded({
+        extended: false,
+    })
 );
 
 app.use(
-  morgan("dev", {
-    skip: function (req, res) {
-      return res.statusCode < 400;
-    },
-  })
+    morgan("dev", {
+        skip: function(req, res) {
+            return res.statusCode < 400;
+        },
+    })
 );
 
 // log all requests to access.log
 app.use(
-  morgan("common", {
-    stream: fs.createWriteStream(path.join(__dirname, "access.log"), {
-      flags: "a",
-    }),
-  })
+    morgan("common", {
+        stream: fs.createWriteStream(path.join(__dirname, "access.log"), {
+            flags: "a",
+        }),
+    })
 );
 
 // Routes
@@ -46,11 +46,11 @@ const allFlats = require("./routes/flatRoutes");
 const allProperties = require("./routes/propertyRoutes");
 const allReservations = require("./routes/reservationRoutes");
 
-app.use("/", allDoors);
-app.use("/user/", allUsers);
+app.use("/door/", allDoors);
 app.use("/flat/", allFlats);
 app.use("/property/", allProperties);
 app.use("/reservation/", allReservations);
+app.use("/", allUsers);
 
 const expressServer = app.listen(9000);
 socketConnection.io.attach(expressServer);

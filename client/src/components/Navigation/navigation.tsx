@@ -24,14 +24,14 @@ const Navigation = () => {
   if (isAuthenticated) {
     // router.push(`/send-verify/`);
     history.push(`/send-verify/`);
-    return (
-      <Link
-        to={{
-          pathname: `/send-verify`,
-        }}
-      ></Link>
-    );
-    // return null;
+    // return (
+    //   <Link
+    //     to={{
+    //       pathname: `/send-verify`,
+    //     }}
+    //   ></Link>
+    // );
+    return null;
   } else {
     return (
       <div className={classes.Navigation}>
