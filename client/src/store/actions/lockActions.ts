@@ -27,6 +27,19 @@ export interface GetAllLocksFail
   payload: string;
 }
 
+export interface GetUnassignedLocksStart
+  extends Action<typeof lockTypes.GET_UNASSIGNED_LOCKS_START> {}
+
+export interface GetUnassignedLocksSuccess
+  extends Action<typeof lockTypes.GET_UNASSIGNED_LOCKS_SUCCESS> {
+  payload: Array<LockProps>;
+}
+
+export interface GetUnassignedLocksFail
+  extends Action<typeof lockTypes.GET_UNASSIGNED_LOCKS_FAIL> {
+  payload: string;
+}
+
 export interface OpenLockStart
   extends Action<typeof lockTypes.OPEN_LOCK_START> {}
 
@@ -73,6 +86,9 @@ export type Actions =
   | GetAllLocksStart
   | GetAllLocksSuccess
   | GetAllLocksFail
+  | GetUnassignedLocksStart
+  | GetUnassignedLocksSuccess
+  | GetUnassignedLocksFail
   | OpenLockStart
   | OpenLockSuccess
   | OpenLockFail
@@ -98,9 +114,27 @@ export const getAllLocksAction = () => async (dispatch: Dispatch) => {
       payload: response.data,
     });
   } catch (err) {
-    console.log("Erroras");
     dispatch({
       type: lockTypes.GET_ALL_LOCKS_FAIL,
+      payload: err.message,
+    });
+  }
+};
+
+export const getUnasSignedLocksAction = () => async (dispatch: Dispatch) => {
+  dispatch({ type: lockTypes.GET_UNASSIGNED_LOCKS_START });
+  try {
+    const response: AxiosResponse<LockProps> = await axios.get(
+      `${url}/door/unassignedLocks/?h=A3%nm*Wb`
+    );
+    dispatch({
+      type: lockTypes.GET_UNASSIGNED_LOCKS_SUCCESS,
+      payload: response.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: lockTypes.GET_UNASSIGNED_LOCKS_FAIL,
+      payload: err.message,
     });
   }
 };

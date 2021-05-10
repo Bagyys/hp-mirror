@@ -1,14 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
-import { userState } from "../../store/reducers/userReducer";
-import { UserInterface } from "../../store/types/userInterfaces";
-import {
-  sendVerificationAction,
-  clearErrorAction,
-} from "../../store/actions/userActions";
+import { sendVerificationAction } from "../../store/actions/userActions";
 
 import classes from "./SendVerify.module.scss";
 

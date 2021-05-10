@@ -9,6 +9,7 @@ import Verify from "../routes/Verify/Verify";
 import Login from "../routes/Login/Login";
 import FlatReview from "../routes/FlatReview/FlatView";
 import Reservations from "../routes/Reservations/Reservations";
+import Settings from "../routes/Settings/Settings";
 
 const Routes = () => {
   return (
@@ -23,6 +24,7 @@ const Routes = () => {
         <Route path="/verify/:token" component={Verify} />
         <UserRoute path="/send-verify" component={SendVerify} />
         <UserRoute path="/reservations" component={Reservations} />
+        <UserRoute path="/settings" component={Settings} />
       </Switch>
     </div>
   );
