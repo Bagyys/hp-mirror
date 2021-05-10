@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";
-import { getUserReservationsAction } from "../../store/actions/userActions";
+import {
+  loadUser,
+  getUserReservationsAction,
+} from "../../store/actions/userActions";
 import { ReservationInterface } from "../../store/types/reservationInterfaces";
-// import { UserInterface } from "../../store/types/userInterfaces";
 
 import classes from "./Reservations.module.scss";
 
@@ -14,27 +16,30 @@ const Reservations = () => {
   const userState: userState = useSelector((state: StoreState) => state.user);
   const user = userState.user;
   useEffect(() => {
+    console.log("useEffect 1 user");
+    console.log(user);
     if (user && user._id) {
+      console.log(true);
       dispatch(getUserReservationsAction(user._id));
+    } else {
+      dispatch(loadUser());
     }
   }, []);
 
   const reservations: Array<ReservationInterface> = user.activeReservations;
-  //   console.log("reservations");
-  //   console.log(reservations);
   let reservationsRender = null;
-  if (reservations.length > 0) {
+  if (reservations.length > 0 && typeof reservations[0] !== "string") {
     reservationsRender = reservations.map((reservation) => {
       return (
-        <>
-          <div key={reservation._id}>
-            <h3>Reservation at: {reservation.property.title}</h3>
-            <p>Number of residents: {reservation.residents}</p>
-            <p>Price: {reservation.price}</p>
-            <p>Start: {reservation.startDate}</p>
-            <p>End: {reservation.endDate}</p>
-          </div>
-        </>
+        // <>
+        <div key={reservation._id}>
+          <h3>Reservation at: {reservation.property.title}</h3>
+          <p>Number of residents: {reservation.residents}</p>
+          <p>Price: {reservation.price}</p>
+          <p>Start: {reservation.startDate}</p>
+          <p>End: {reservation.endDate}</p>
+        </div>
+        // </>
       );
     });
   } else {

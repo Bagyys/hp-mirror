@@ -123,7 +123,10 @@ const userReducer = (state = initialState, action: Actions) => {
     case userTypes.GET_USER_RESERVATIONS_SUCCESS:
       return {
         ...state,
-        activeReservations: action.payload,
+        user: {
+          ...state.user,
+          activeReservations: action.payload,
+        },
       };
     case userTypes.GET_USER_RESERVATIONS_FAIL:
       return {

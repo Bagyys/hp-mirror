@@ -12,6 +12,6 @@ router.post("/login", login);
 router.put("/send-verify", sendVerify);
 router.put("/verify/:verifyToken", verify);
 router.get("/getReservations/:userId", getReservations);
-router.get("/", loadUser);
+router.post("/", loadUser);
 
 module.exports = router;

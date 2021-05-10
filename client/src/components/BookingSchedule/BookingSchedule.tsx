@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { BsFillHouseDoorFill } from "react-icons/bs";
 import Swal from "sweetalert2";
@@ -11,7 +11,7 @@ import classes from "./BookingSchedule.module.scss";
 
 interface scheduleInterface {
   timeZone: string;
-  handleBooking: () => void;
+  handleBooking: (residents: number) => void;
 }
 
 const BookingSchedule = ({ timeZone, handleBooking }: scheduleInterface) => {
@@ -20,10 +20,9 @@ const BookingSchedule = ({ timeZone, handleBooking }: scheduleInterface) => {
   const isAvailabilityChecked = booking.isAvailabilityChecked;
   const startTime = booking.startTime;
   const endTime = booking.endTime;
+  const [residents, setResidents] = useState<number>(1);
 
-  useEffect(() => {
-    console.log("useffect");
-  }, [isAvailabilityChecked]);
+  useEffect(() => {}, [isAvailabilityChecked]);
 
   const displaySchedule: Array<SelectionAvailabilty> = booking.displayDays;
 
@@ -81,11 +80,17 @@ const BookingSchedule = ({ timeZone, handleBooking }: scheduleInterface) => {
       </div>
       <div className={classes.ResidentsInput}>
         <label htmlFor="">How many people will be staying? </label>
-        <input type="number" name="" id="" defaultValue={1} />
+        <input
+          type="number"
+          name=""
+          id=""
+          defaultValue={1}
+          onChange={(event) => setResidents(+event.target.value)}
+        />
       </div>
       <div className={classes.bookingHours}>
         <button
-          onClick={handleBooking}
+          onClick={() => handleBooking(residents)}
           disabled={
             booking.startTime === undefined && booking.endTime === undefined
           }

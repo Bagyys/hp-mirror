@@ -109,6 +109,8 @@ const propertySchema = new Schema(
       ],
     },
     facilities: {
+      // property size in square meters
+      size: { type: Number, required: true },
       wifi: { type: Boolean, required: true },
       parking: { type: Boolean, required: true },
       petFriendly: { type: Boolean, required: true },

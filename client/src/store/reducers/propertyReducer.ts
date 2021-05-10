@@ -36,6 +36,7 @@ export interface Price {
 }
 
 export interface Facilities {
+  size: number;
   wifi: boolean;
   parking: boolean;
   petFriendly: boolean;

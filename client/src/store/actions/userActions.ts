@@ -132,13 +132,25 @@ export const loadUser = () => async (
   getState: () => StoreState
 ) => {
   dispatch({ type: userTypes.LOAD_USER_REQUEST });
-  let x = tokenConfig(getState).headers["x-auth-token"];
-  if (x === undefined) {
+
+  const currentUser = getState().user.currentUser;
+
+  if (currentUser === null || typeof currentUser === "string") {
     return;
   }
+
+  // let x = tokenConfig(getState).headers["x-auth-token"];
+  // console.log("x");
+  // console.log(x);
+  // if (x === undefined) {
+  //   return;
+  // }
+  const body = { userId: currentUser._id };
   await axios
-    .get(url + "/", tokenConfig(getState))
+    .post(url + "/", body)
     .then((res) => {
+      // console.log("res.data");
+      // console.log(res.data);
       dispatch({
         type: userTypes.LOAD_USER_SUCCESS,
         payload: res.data,
@@ -294,6 +306,8 @@ export const getUserReservationsAction = (userId: string) => async (
     const response: AxiosResponse<ReservationInterface> = await axios.get(
       `${url}/getReservations/${userId}`
     );
+    console.log("response.data")
+    console.log(response.data)
     dispatch({
       type: userTypes.GET_USER_RESERVATIONS_SUCCESS,
       payload: response.data,

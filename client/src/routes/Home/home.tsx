@@ -7,6 +7,7 @@ import { StoreState } from "../../store/configureStore";
 import Flats from "../../components/Flats/flats";
 import Map from "../../components/Map/map";
 import Lock from "../../containers/Lock/Lock";
+import { loadUser } from "../../store/actions/userActions";
 import {
   getAllLocksAction,
   updateLockAction,
@@ -18,6 +19,7 @@ import Filter from "../../components/Filter/filter";
 function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(loadUser());
     dispatch(getAllLocksAction());
     socket.on("lockUpdate", (data) => {
       const { id, o1, o2, o3 } = data;
