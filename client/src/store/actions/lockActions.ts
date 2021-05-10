@@ -40,6 +40,17 @@ export interface GetUnassignedLocksFail
   payload: string;
 }
 
+export interface AssignLockStart
+  extends Action<typeof lockTypes.ASSIGN_LOCK_START> {}
+
+export interface AssignLockSuccess
+  extends Action<typeof lockTypes.ASSIGN_LOCK_SUCCESS> {}
+
+export interface AssignLockFail
+  extends Action<typeof lockTypes.ASSIGN_LOCK_FAIL> {
+  payload: string;
+}
+
 export interface OpenLockStart
   extends Action<typeof lockTypes.OPEN_LOCK_START> {}
 
@@ -89,6 +100,9 @@ export type Actions =
   | GetUnassignedLocksStart
   | GetUnassignedLocksSuccess
   | GetUnassignedLocksFail
+  | AssignLockStart
+  | AssignLockSuccess
+  | AssignLockFail
   | OpenLockStart
   | OpenLockSuccess
   | OpenLockFail
@@ -134,6 +148,37 @@ export const getUnasSignedLocksAction = () => async (dispatch: Dispatch) => {
   } catch (err) {
     dispatch({
       type: lockTypes.GET_UNASSIGNED_LOCKS_FAIL,
+      payload: err.message,
+    });
+  }
+};
+
+export const assignLockAction = (lockId: string, propertyId: string) => async (
+  dispatch: Dispatch
+) => {
+  dispatch({ type: lockTypes.ASSIGN_LOCK_START });
+  const body = {
+    lockId,
+    propertyId,
+  };
+  console.log("body");
+  console.log(body);
+  try {
+    const response = await axios.post(`${url}/door/lock/assign/`, body);
+    if (response.status === 200) {
+      dispatch({
+        type: lockTypes.ASSIGN_LOCK_SUCCESS,
+      });
+    } else {
+      dispatch({
+        type: lockTypes.ASSIGN_LOCK_FAIL,
+        payload: response.data,
+      });
+    }
+  } catch (err) {
+    console.log("Erroras");
+    dispatch({
+      type: lockTypes.ASSIGN_LOCK_FAIL,
       payload: err.message,
     });
   }

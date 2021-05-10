@@ -24,9 +24,9 @@ const Navigation = () => {
     <div className={classes.Navigation}>
       <div className={classes.NavigationWrapper}>
         <div className={classes.Logo}>
-          <a href="/">
+          <Link to="/">
             <img src={LogoImg} alt="Logo" />
-          </a>
+          </Link>
         </div>
 
         <div className={classes.Routes}>

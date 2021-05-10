@@ -26,6 +26,19 @@ export interface GetAllPropertiesFail
   payload: string;
 }
 
+export interface GetPropertieswoLocksStart
+  extends Action<typeof propertyTypes.GET_PROPERTIES_WO_LOCKS_START> {}
+
+export interface GetPropertieswoLocksSuccess
+  extends Action<typeof propertyTypes.GET_PROPERTIES_WO_LOCKS_SUCCESS> {
+  payload: Array<PropertyProps>;
+}
+
+export interface GetPropertieswoLocksFail
+  extends Action<typeof propertyTypes.GET_PROPERTIES_WO_LOCKS_FAIL> {
+  payload: string;
+}
+
 export interface GetPropertyStart
   extends Action<typeof propertyTypes.GET_PROPERTY_START> {}
 
@@ -43,6 +56,9 @@ export type Actions =
   | GetAllPropertiesStart
   | GetAllPropertiesSuccess
   | GetAllPropertiesFail
+  | GetPropertieswoLocksStart
+  | GetPropertieswoLocksSuccess
+  | GetPropertieswoLocksFail
   | GetPropertyStart
   | GetPropertySuccess
   | GetPropertyFail;
@@ -65,6 +81,24 @@ export const getAllPropertiesAction = () => async (dispatch: Dispatch) => {
     console.log("Erroras");
     dispatch({
       type: propertyTypes.GET_ALL_PROPERTIES_FAIL,
+    });
+  }
+};
+
+export const getPropertieswoLocksAction = () => async (dispatch: Dispatch) => {
+  dispatch({ type: propertyTypes.GET_PROPERTIES_WO_LOCKS_START });
+  try {
+    const response: AxiosResponse<Array<PropertyProps>> = await axios.get(
+      `${url}/property/getPropertieswoLocks`
+    );
+    dispatch({
+      type: propertyTypes.GET_PROPERTIES_WO_LOCKS_SUCCESS,
+      payload: response.data,
+    });
+  } catch (err) {
+    console.log("Erroras");
+    dispatch({
+      type: propertyTypes.GET_PROPERTIES_WO_LOCKS_FAIL,
     });
   }
 };
