@@ -10,12 +10,15 @@ import logout from "../../assets/images/logout.png";
 import register from "../../assets/images/register.png";
 
 import classes from "./navigation.module.scss";
+import { useEffect } from "react";
 
 const Navigation = () => {
   const dispatch = useDispatch();
   const { token, isAuthenticated } = useSelector(
     (state: StoreState) => state.user
   );
+  useEffect(() => {}, [token, isAuthenticated]);
+
   const handleSignOut = () => {
     dispatch(logoutAction());
   };
@@ -43,6 +46,9 @@ const Navigation = () => {
             <li>
               <Link to="/settings">Settings</Link>
             </li>
+            <li>
+              <Link to="/locks">Locks</Link>
+            </li>
           </ul>
         </div>
 
@@ -52,11 +58,22 @@ const Navigation = () => {
           </div>
 
           {isAuthenticated && token ? (
-            <div className={classes.Logout} onClick={handleSignOut}>
-              <Link to="/">
-                <img className={classes.navBtn} src={logout} alt="LogoutPic" />
-              </Link>
-            </div>
+            <>
+              <div className={classes.Login}>
+                <Link to="/settings">
+                  <img className={classes.navBtn} src={user} alt="ProfilePic" />
+                </Link>
+              </div>
+              <div className={classes.Logout} onClick={handleSignOut}>
+                <Link to="/">
+                  <img
+                    className={classes.navBtn}
+                    src={logout}
+                    alt="LogoutPic"
+                  />
+                </Link>
+              </div>
+            </>
           ) : (
             <>
               <div className={classes.Register}>
@@ -64,7 +81,7 @@ const Navigation = () => {
                   <img
                     className={classes.navBtn}
                     src={register}
-                    alt="LoginPic"
+                    alt="RegisterPic"
                   />
                 </Link>
               </div>

@@ -71,12 +71,19 @@ const lockReducer = (state = initialState, action: Actions) => {
       };
     case lockTypes.GET_ALL_LOCKS_FAIL:
     case lockTypes.GET_UNASSIGNED_LOCKS_FAIL:
+    case lockTypes.ASSIGN_LOCK_FAIL:
     case lockTypes.OPEN_LOCK_FAIL:
     case lockTypes.RESET_LOCK_FAIL:
     case lockTypes.DELETE_LOCK_FAIL:
+    case lockTypes.THROW_ERROR:
       return {
         ...state,
         error: action.payload,
+      };
+    case lockTypes.CLEAR_ERROR:
+      return {
+        ...state,
+        error: "",
       };
     default:
       return state;

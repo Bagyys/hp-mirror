@@ -10,28 +10,26 @@ exports.assignLock = async (req, res) => {
   console.log(req.body);
   const { propertyId, lockId } = req.body;
   try {
-    const lock = await Lock.findByIdAndUpdate(
-      lockId,
-      { property: propertyId },
-      { new: true }
-    );
-    const property = await Property.findByIdAndUpdate(
-      propertyId,
-      { lock: lockId },
-      { new: true }
-    );
-    console.log("lock");
-    console.log(lock);
-    console.log("property");
-    console.log(property);
-    if (lock && property) {
-      return res.status(200).send("ok");
+    if (lockId && propertyId) {
+      const lock = await Lock.findByIdAndUpdate(
+        lockId,
+        { property: propertyId },
+        { new: true }
+      );
+      const property = await Property.findByIdAndUpdate(
+        propertyId,
+        { lock: lockId },
+        { new: true }
+      );
+      if (lock && property) {
+        return res.status(200).send("ok");
+      } else {
+        return res.status(400).send("error");
+      }
     } else {
       return res.status(400).send("error");
     }
   } catch (err) {
-    console.log("send error");
-    console.log(err);
-    return res.status(404).send("nepravelnyj id");
+    return res.status(400).send(err.message);
   }
 };

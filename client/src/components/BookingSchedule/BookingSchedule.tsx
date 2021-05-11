@@ -88,7 +88,7 @@ const BookingSchedule = ({ timeZone, handleBooking }: scheduleInterface) => {
           onChange={(event) => setResidents(+event.target.value)}
         />
       </div>
-      <div className={classes.bookingHours}>
+      <div className={classes.bookButton}>
         <button
           onClick={() => handleBooking(residents)}
           disabled={

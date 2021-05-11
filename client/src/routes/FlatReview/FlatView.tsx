@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { DateRange, OnChangeProps } from "react-date-range";
 import moment from "moment";
 import "react-date-range/dist/styles.css"; // main style file
@@ -47,6 +47,7 @@ interface PropsInterface {
 
 const FlatView = (props: PropsInterface) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -73,7 +74,6 @@ const FlatView = (props: PropsInterface) => {
       key: "selection",
     },
   ]);
-  // const [displayDays, setDisplayDays] = useState<Array<DisplayDay>>([]);
   const [current, setCurrent] = useState<number>(0);
   const [isScheduleOpened, setIsScheduleOpened] = useState<boolean>(false);
   const occupiedTime = property.occupiedTime;
@@ -154,7 +154,7 @@ const FlatView = (props: PropsInterface) => {
     const body = {
       userId: user._id,
       propertyId: property._id,
-      residents, 
+      residents,
       price: calculatePrice(),
       startDate: booking.startTime!,
       endDate: booking.endTime!,
@@ -164,6 +164,7 @@ const FlatView = (props: PropsInterface) => {
     console.log("body");
     console.log(body);
     dispatch(bookTimeAction(body));
+    history.push("/reservations");
   };
 
   let propertyRender = <></>;

@@ -92,6 +92,11 @@ export interface DeleteLockFail
   extends Action<typeof lockTypes.DELETE_LOCK_FAIL> {
   payload: string;
 }
+export interface ThrowError extends Action<typeof lockTypes.THROW_ERROR> {
+  payload: string;
+}
+
+export interface ClearError extends Action<typeof lockTypes.CLEAR_ERROR> {}
 
 export type Actions =
   | GetAllLocksStart
@@ -112,7 +117,9 @@ export type Actions =
   | ResetLockFail
   | DeleteLockStart
   | DeleteLockSuccess
-  | DeleteLockFail;
+  | DeleteLockFail
+  | ThrowError
+  | ClearError;
 // -------------------- END of ACTION INTERFACES --------------------
 
 // -------------------- ACTIONS --------------------
@@ -262,6 +269,21 @@ export const deleteLockAction = (lockId: string) => async (
       type: lockTypes.DELETE_LOCK_FAIL,
     });
   }
+};
+
+export const throwErrorAction = (message: string) => async (
+  dispatch: Dispatch
+) => {
+  dispatch({
+    type: lockTypes.THROW_ERROR,
+    payload: message,
+  });
+};
+
+export const clearErrorAction = () => async (dispatch: Dispatch) => {
+  dispatch({
+    type: lockTypes.CLEAR_ERROR,
+  });
 };
 
 // -------------------- END of ACTIONS --------------------

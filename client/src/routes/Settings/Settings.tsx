@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 // import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
-import { loadUser } from "../../store/actions/userActions";
-// import { clearErrorAction } from "../../store/actions/userActions";
+// import { loadUser } from "../../store/actions/userActions";
 import {
   getUnasSignedLocksAction,
   assignLockAction,
+  throwErrorAction,
+  clearErrorAction,
 } from "../../store/actions/lockActions";
 import { getPropertieswoLocksAction } from "../../store/actions/propertyActions";
 import { LockProps } from "../../store/reducers/lockReducer";
@@ -19,11 +20,13 @@ import classes from "./Settings.module.scss";
 
 const Settings: React.FC = () => {
   const dispatch = useDispatch();
-  const { token, isAuthenticated, error } = useSelector(
-    (state: StoreState) => state.user
-  );
-  const [selectedProperty, setSelectedProperty] = useState("select property");
-  const [selectedLock, setSelectedLock] = useState("select lock");
+
+  const [selectedProperty, setSelectedProperty] = useState("");
+  const [selectedLock, setSelectedLock] = useState("");
+
+  const handleError = () => {
+    dispatch(clearErrorAction());
+  };
 
   useEffect(() => {
     // dispatch(loadUser());
@@ -31,28 +34,22 @@ const Settings: React.FC = () => {
     dispatch(getUnasSignedLocksAction());
   }, []);
 
-  // const handleError = () => {
-  //   dispatch(clearErrorAction());
-  // };
-
-  // useEffect(() => {
-  //   if (error) {
-  //     Swal.fire({
-  //       title: "Ups, something went wrong",
-  //       text: error,
-  //       icon: "warning",
-  //       showCancelButton: false,
-  //       confirmButtonText: "OK",
-  //     }).then(() => {
-  //       handleError();
-  //     });
-  //   }
-  // }, [error]);
-
-  const locks: Array<LockProps> = useSelector(
-    (state: StoreState) => state.lock.locks
-  );
+  const { locks, error } = useSelector((state: StoreState) => state.lock);
   const properties = useSelector((state: StoreState) => state.properties);
+
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        title: "Ups, something went wrong",
+        text: error,
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      }).then(() => {
+        handleError();
+      });
+    }
+  }, [error]);
 
   useEffect(() => {}, [locks, properties]);
 
@@ -87,11 +84,13 @@ const Settings: React.FC = () => {
   }
   const handleAssign = () => {
     // check selected properties ?
-    dispatch(assignLockAction(selectedLock, selectedProperty));
+    if (selectedLock && selectedProperty) {
+      dispatch(assignLockAction(selectedLock, selectedProperty));
+    } else {
+      dispatch(throwErrorAction("select lock and property"));
+    }
   };
-  // if (isAuthenticated && token) {
-  //   return <Redirect to={"/login"} />;
-  // } else {
+
   return (
     <div className={classes.Settings}>
       <h1>Assign lock to property</h1>
@@ -102,7 +101,7 @@ const Settings: React.FC = () => {
           onChange={(e) => setSelectedProperty(e.target.value)}
         >
           <option value={selectedProperty} disabled>
-            {selectedProperty}
+            select property
           </option>
           {propertyOptions}
         </select>
@@ -114,7 +113,7 @@ const Settings: React.FC = () => {
           onChange={(e) => setSelectedLock(e.target.value)}
         >
           <option value={selectedLock} disabled>
-            {selectedLock}
+            select lock
           </option>
           {lockOptions}
         </select>
@@ -122,7 +121,6 @@ const Settings: React.FC = () => {
       <button onClick={handleAssign}>Assign</button>
     </div>
   );
-  // }
 };
 
 export default Settings;

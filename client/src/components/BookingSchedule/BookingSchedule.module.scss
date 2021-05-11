@@ -36,25 +36,52 @@
       }
     }
 
-    .bookingHours {
-      margin: 1rem;
-      padding: 1rem;
-      h2 {
-        font-size: $largeFontSize;
-        color: $lightGrey2;
-      }
-      ul {
-        text-align: left;
-        margin-top: 1rem;
-        li {
-          padding: 1rem;
-          font-size: $largeFontSize;
-          color: $lightGrey2;
-          list-style: square inside;
-        }
-      }
-      &:disabled {
-        cursor: not-allowed;
+    // .bookingHours {
+    //   margin: 1rem;
+    //   padding: 1rem;
+    //   h2 {
+    //     font-size: $largeFontSize;
+    //     color: $lightGrey2;
+    //   }
+    //   ul {
+    //     text-align: left;
+    //     margin-top: 1rem;
+    //     li {
+    //       padding: 1rem;
+    //       font-size: $largeFontSize;
+    //       color: $lightGrey2;
+    //       list-style: square inside;
+    //     }
+    //   }
+    //   &:disabled {
+    //     cursor: not-allowed;
+    //   }
+    // }
+  }
+  .ResidentsInput {
+    margin: 2rem;
+    font-size: $smallFontSize;
+  }
+  .bookButton {
+    button {
+      margin: 2rem;
+      text-align: center;
+      color: white;
+      max-width: 22rem;
+      background-color: $lightBlue;
+      border-radius: 1rem;
+      min-width: 11.5rem;
+      min-height: 3.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-style: $workSans;
+      box-sizing: border-box;
+      font-size: $smallFontSize;
+      padding: 0.8em 2em;
+      &:hover {
+        background-color: $lightBlue;
       }
     }
   }
