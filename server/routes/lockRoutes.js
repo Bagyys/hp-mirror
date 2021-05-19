@@ -10,6 +10,7 @@ const { getAllLocks } = require("../controllers/locks/getAllLocks");
 const {
   getUnassignedLocks,
 } = require("../controllers/locks/getUnassignedLocks");
+const { getLockByProperty } = require("../controllers/locks/getLockByProperty");
 
 // routes
 router.put("/openLock/", openLock);
@@ -19,6 +20,7 @@ router.put("/reset/", resetLock);
 router.delete("/delete/", deleteLock);
 router.get("/allLocks/", getAllLocks);
 router.get("/unassignedLocks/", getUnassignedLocks);
+router.get("/getLockByProperty/:id", getLockByProperty);
 router.put("/", handleLock);
 
 module.exports = router;

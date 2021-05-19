@@ -12,7 +12,6 @@ export const UserRoute: React.FC<Props> = ({ component, path, ...rest }) => {
   const { isAuthenticated, token } = useSelector(
     (state: StoreState) => state.user
   );
-
   return isAuthenticated && token ? (
     <Route exact path={path} component={component} {...rest} />
   ) : (

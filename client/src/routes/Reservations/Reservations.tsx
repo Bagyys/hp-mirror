@@ -3,44 +3,35 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";
-import {
-  loadUser,
-  getUserReservationsAction,
-} from "../../store/actions/userActions";
-import { ReservationInterface } from "../../store/types/reservationInterfaces";
+import { loadUser } from "../../store/actions/userActions";
+import { getActiveReservationsAction } from "../../store/actions/reservationActions";
+
+import Reservation from "../../containers/Reservation/Reservation";
 
 import classes from "./Reservations.module.scss";
 
 const Reservations = () => {
   const dispatch = useDispatch();
   const userState: userState = useSelector((state: StoreState) => state.user);
+  const reservationsState = useSelector(
+    (state: StoreState) => state.reservation
+  );
   const user = userState.user;
   useEffect(() => {
-    console.log("useEffect 1 user");
-    console.log(user);
     if (user && user._id) {
-      console.log(true);
-      dispatch(getUserReservationsAction(user._id));
+      dispatch(getActiveReservationsAction(user._id));
     } else {
       dispatch(loadUser());
     }
   }, []);
 
-  const reservations: Array<ReservationInterface> = user.activeReservations;
+  const reservations = reservationsState.isFetched
+    ? reservationsState.activeReservations
+    : [];
   let reservationsRender = null;
-  if (reservations.length > 0 && typeof reservations[0] !== "string") {
+  if (reservations.length > 0) {
     reservationsRender = reservations.map((reservation) => {
-      return (
-        // <>
-        <div key={reservation._id}>
-          <h3>Reservation at: {reservation.property.title}</h3>
-          <p>Number of residents: {reservation.residents}</p>
-          <p>Price: {reservation.price}</p>
-          <p>Start: {reservation.startDate}</p>
-          <p>End: {reservation.endDate}</p>
-        </div>
-        // </>
-      );
+      return <Reservation key={reservation._id} reservation={reservation} />;
     });
   } else {
     reservationsRender = (

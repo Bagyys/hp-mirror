@@ -1,37 +1,31 @@
 import React, { useEffect, useState } from "react";
-// import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import socket from "../../utilities/socketConnection";
 
 import { StoreState } from "../../store/configureStore";
-// import { loadUser } from "../../store/actions/userActions";
 import {
-  getUnasSignedLocksAction,
-  assignLockAction,
+  getAllLocksAction,
+  updateLockAction,
   throwErrorAction,
   clearErrorAction,
 } from "../../store/actions/lockActions";
-import { getPropertieswoLocksAction } from "../../store/actions/propertyActions";
 import { LockProps } from "../../store/reducers/lockReducer";
 import { PropertyProps } from "../../store/reducers/propertyReducer";
-// import Lock from "../../containers/Lock/Lock";
+import Lock from "../../containers/Lock/Lock";
 
-import classes from "./Settings.module.scss";
+import classes from "./Locks.module.scss";
 
-const Settings = () => {
+const Locks = () => {
   const dispatch = useDispatch();
-
-  const [selectedProperty, setSelectedProperty] = useState("");
-  const [selectedLock, setSelectedLock] = useState("");
-
-  const handleError = () => {
-    dispatch(clearErrorAction());
-  };
 
   useEffect(() => {
     // dispatch(loadUser());
-    dispatch(getPropertieswoLocksAction());
-    dispatch(getUnasSignedLocksAction());
+    dispatch(getAllLocksAction());
+    socket.on("lockUpdate", (data) => {
+      const { id, o1, o2, o3 } = data;
+      dispatch(updateLockAction(id, o1, o2, o3));
+    });
   }, []);
 
   const { locks, error } = useSelector((state: StoreState) => state.lock);
@@ -52,6 +46,19 @@ const Settings = () => {
   }, [error]);
 
   useEffect(() => {}, [locks, properties]);
+
+  const handleError = () => {
+    dispatch(clearErrorAction());
+  };
+
+  let lockComps = null;
+  if (locks !== undefined && locks !== null) {
+    lockComps = locks.map((lock: LockProps, index: number) => {
+      return <Lock key={lock._id} index={index} />;
+    });
+  } else {
+    lockComps = <></>;
+  }
 
   let lockOptions = null;
   if (locks !== undefined && locks !== null) {
@@ -82,45 +89,13 @@ const Settings = () => {
   } else {
     propertyOptions = <></>;
   }
-  const handleAssign = () => {
-    // check selected properties ?
-    if (selectedLock && selectedProperty) {
-      dispatch(assignLockAction(selectedLock, selectedProperty));
-    } else {
-      dispatch(throwErrorAction("select lock and property"));
-    }
-  };
 
   return (
-    <div className={classes.Settings}>
-      <h1>Assign lock to property</h1>
-      <div className={classes.Properties}>
-        <h4>Properties without locks:</h4>
-        <select
-          defaultValue={selectedProperty}
-          onChange={(e) => setSelectedProperty(e.target.value)}
-        >
-          <option value={selectedProperty} disabled>
-            select property
-          </option>
-          {propertyOptions}
-        </select>
-      </div>
-      <div className={classes.Locks}>
-        <h4>Available locks:</h4>
-        <select
-          defaultValue={selectedLock}
-          onChange={(e) => setSelectedLock(e.target.value)}
-        >
-          <option value={selectedLock} disabled>
-            select lock
-          </option>
-          {lockOptions}
-        </select>
-      </div>
-      <button onClick={handleAssign}>Assign</button>
+    <div className={classes.Locks}>
+      <h1>Handle locks</h1>
+      {lockComps}
     </div>
   );
 };
 
-export default Settings;
+export default Locks;

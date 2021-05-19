@@ -2,10 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
 import { StoreState } from "../../store/configureStore";
-import { logoutAction } from "../../store/actions/userActions";
+import { loadUser, logoutAction } from "../../store/actions/userActions";
 import NotificationImg from "../../assets/images/bell.png";
 import LogoImg from "../../assets/images/Logo.png";
-import user from "../../assets/images/user.png";
+import userImg from "../../assets/images/user.png";
 import logout from "../../assets/images/logout.png";
 import register from "../../assets/images/register.png";
 
@@ -14,9 +14,15 @@ import { useEffect } from "react";
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const { token, isAuthenticated } = useSelector(
+  const { token, isAuthenticated, user } = useSelector(
     (state: StoreState) => state.user
   );
+  useEffect(() => {
+    if (!user._id) {
+      dispatch(loadUser());
+    }
+  }, []);
+
   useEffect(() => {}, [token, isAuthenticated]);
 
   const handleSignOut = () => {
@@ -61,7 +67,11 @@ const Navigation = () => {
             <>
               <div className={classes.Login}>
                 <Link to="/settings">
-                  <img className={classes.navBtn} src={user} alt="ProfilePic" />
+                  <img
+                    className={classes.navBtn}
+                    src={userImg}
+                    alt="ProfilePic"
+                  />
                 </Link>
               </div>
               <div className={classes.Logout} onClick={handleSignOut}>
@@ -87,7 +97,11 @@ const Navigation = () => {
               </div>
               <div className={classes.Login}>
                 <Link to="/login">
-                  <img className={classes.navBtn} src={user} alt="LoginPic" />
+                  <img
+                    className={classes.navBtn}
+                    src={userImg}
+                    alt="LoginPic"
+                  />
                 </Link>
               </div>
             </>

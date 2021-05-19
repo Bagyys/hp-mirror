@@ -10,12 +10,12 @@ import Login from "../routes/Login/Login";
 import FlatReview from "../routes/FlatReview/FlatView";
 import Reservations from "../routes/Reservations/Reservations";
 import Settings from "../routes/Settings/Settings";
+import Locks from "../routes/Locks/Locks";
 
 const Routes = () => {
   return (
     <div>
       <Navigation />
-
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/register" component={Register} />
@@ -25,6 +25,7 @@ const Routes = () => {
         <UserRoute path="/send-verify" component={SendVerify} />
         <UserRoute path="/reservations" component={Reservations} />
         <UserRoute path="/settings" component={Settings} />
+        <UserRoute path="/locks" component={Locks} />
       </Switch>
     </div>
   );

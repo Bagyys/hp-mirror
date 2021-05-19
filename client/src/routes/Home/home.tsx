@@ -19,7 +19,7 @@ import classes from "../../App.module.scss";
 
 function Home() {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(loadUser());
     dispatch(getAllLocksAction());
@@ -51,8 +51,8 @@ function Home() {
         <Flats />
         <Map />
       </div>
-      <h1>Hello there</h1>
-      {lockComps}
+      {/* <h1>Hello there</h1> */}
+      {/* {lockComps} */}
     </div>
   );
 }

@@ -78,9 +78,9 @@ export const getAllPropertiesAction = () => async (dispatch: Dispatch) => {
       payload: response.data,
     });
   } catch (err) {
-    console.log("Erroras");
     dispatch({
       type: propertyTypes.GET_ALL_PROPERTIES_FAIL,
+      payload: err.message,
     });
   }
 };
@@ -96,30 +96,29 @@ export const getPropertieswoLocksAction = () => async (dispatch: Dispatch) => {
       payload: response.data,
     });
   } catch (err) {
-    console.log("Erroras");
     dispatch({
       type: propertyTypes.GET_PROPERTIES_WO_LOCKS_FAIL,
+      payload: err.message,
     });
   }
 };
 
-export const getOnePropertyAction = (propertyId: string) => async (
-  dispatch: Dispatch
-) => {
-  dispatch({ type: propertyTypes.GET_PROPERTY_START });
-  try {
-    const response: AxiosResponse<PropertyProps> = await axios.get(
-      `${url}/property/getOneProperty/${propertyId}`
-    );
-    dispatch({
-      type: propertyTypes.GET_PROPERTY_SUCCESS,
-      payload: response.data,
-    });
-  } catch (err) {
-    console.log("Erroras");
-    dispatch({
-      type: propertyTypes.GET_PROPERTY_FAIL,
-    });
-  }
-};
+export const getOnePropertyAction =
+  (propertyId: string) => async (dispatch: Dispatch) => {
+    dispatch({ type: propertyTypes.GET_PROPERTY_START });
+    try {
+      const response: AxiosResponse<PropertyProps> = await axios.get(
+        `${url}/property/getOneProperty/${propertyId}`
+      );
+      dispatch({
+        type: propertyTypes.GET_PROPERTY_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: propertyTypes.GET_PROPERTY_FAIL,
+        payload: err.message,
+      });
+    }
+  };
 // -------------------- END of ACTIONS --------------------

@@ -148,9 +148,7 @@ const FlatView = (props: PropsInterface) => {
     dispatch(checkAvailabilityAction(selectedDays, occupiedTime));
     setIsScheduleOpened(true);
   };
-
   const handleBooking = (residents: number) => {
-    console.log("handleBooking");
     const body = {
       userId: user._id,
       propertyId: property._id,
@@ -161,8 +159,6 @@ const FlatView = (props: PropsInterface) => {
       timeZone: property.location.timeZone,
       occupiedTime: booking.displayDays,
     };
-    console.log("body");
-    console.log(body);
     dispatch(bookTimeAction(body));
     history.push("/reservations");
   };

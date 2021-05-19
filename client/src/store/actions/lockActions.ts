@@ -160,125 +160,113 @@ export const getUnasSignedLocksAction = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const assignLockAction = (lockId: string, propertyId: string) => async (
-  dispatch: Dispatch
-) => {
-  dispatch({ type: lockTypes.ASSIGN_LOCK_START });
-  const body = {
-    lockId,
-    propertyId,
-  };
-  console.log("body");
-  console.log(body);
-  try {
-    const response = await axios.post(`${url}/door/lock/assign/`, body);
-    if (response.status === 200) {
-      dispatch({
-        type: lockTypes.ASSIGN_LOCK_SUCCESS,
-      });
-    } else {
+export const assignLockAction =
+  (lockId: string, propertyId: string) => async (dispatch: Dispatch) => {
+    dispatch({ type: lockTypes.ASSIGN_LOCK_START });
+    const body = {
+      lockId,
+      propertyId,
+    };
+    try {
+      const response = await axios.post(`${url}/door/lock/assign/`, body);
+      if (response.status === 200) {
+        dispatch({
+          type: lockTypes.ASSIGN_LOCK_SUCCESS,
+        });
+      } else {
+        dispatch({
+          type: lockTypes.ASSIGN_LOCK_FAIL,
+          payload: response.data,
+        });
+      }
+    } catch (err) {
       dispatch({
         type: lockTypes.ASSIGN_LOCK_FAIL,
-        payload: response.data,
+        payload: err.message,
       });
     }
-  } catch (err) {
-    console.log("Erroras");
+  };
+
+export const openLockAction =
+  (index: number, lockId: string, door: string) =>
+  async (dispatch: Dispatch) => {
+    dispatch({ type: lockTypes.OPEN_LOCK_START });
+    try {
+      const response: AxiosResponse<LockProps> = await axios.put(
+        `${url}/door/openLock/?h=A3%nm*Wb&id=${lockId}&${door}=1`
+      );
+      dispatch({
+        type: lockTypes.OPEN_LOCK_SUCCESS,
+        payload: { lock: response.data, index },
+      });
+    } catch (err) {
+      dispatch({
+        type: lockTypes.OPEN_LOCK_FAIL,
+        payload: err.message,
+      });
+    }
+  };
+
+export const updateLockAction =
+  (id: string, o1: number, o2: number, o3: number) =>
+  async (dispatch: Dispatch) => {
     dispatch({
-      type: lockTypes.ASSIGN_LOCK_FAIL,
-      payload: err.message,
+      type: lockTypes.UPDATE_LOCK,
+      payload: { id, o1, o2, o3 },
     });
-  }
-};
+  };
 
-export const openLockAction = (
-  index: number,
-  lockId: string,
-  door: string
-) => async (dispatch: Dispatch) => {
-  dispatch({ type: lockTypes.OPEN_LOCK_START });
-  try {
-    const response: AxiosResponse<LockProps> = await axios.put(
-      `${url}/door/openLock/?h=A3%nm*Wb&id=${lockId}&${door}=1`
-    );
+export const resetLockAction =
+  (index: number, lockId: string) => async (dispatch: Dispatch) => {
+    dispatch({ type: lockTypes.RESET_LOCK_START });
+
+    try {
+      const response: AxiosResponse<LockProps> = await axios.put(
+        `${url}/door/reset/?h=A3%nm*Wb&id=${lockId}`
+      );
+      dispatch({
+        type: lockTypes.RESET_LOCK_SUCCESS,
+        payload: { lock: response.data, index },
+      });
+    } catch (err) {
+      dispatch({
+        type: lockTypes.RESET_LOCK_FAIL,
+        payload: err.message,
+      });
+    }
+  };
+
+export const deleteLockAction =
+  (lockId: string) => async (dispatch: Dispatch) => {
+    dispatch({ type: lockTypes.DELETE_LOCK_START });
+
+    try {
+      const response: AxiosResponse<boolean> = await axios.delete(
+        `${url}/door/delete/?h=A3%nm*Wb&id=${lockId}`
+      );
+      response.status === 200
+        ? dispatch({
+            type: lockTypes.DELETE_LOCK_SUCCESS,
+            payload: response.data,
+          })
+        : dispatch({
+            type: lockTypes.DELETE_LOCK_FAIL,
+          });
+    } catch (err) {
+      dispatch({
+        type: lockTypes.DELETE_LOCK_FAIL,
+        payload: err.message,
+      });
+    }
+  };
+
+export const throwErrorAction =
+  (message: string) => async (dispatch: Dispatch) => {
     dispatch({
-      type: lockTypes.OPEN_LOCK_SUCCESS,
-      payload: { lock: response.data, index },
+      type: lockTypes.THROW_ERROR,
+      payload: message,
     });
-  } catch (err) {
-    console.log("Erroras");
-    dispatch({
-      type: lockTypes.OPEN_LOCK_FAIL,
-    });
-  }
-};
-
-export const updateLockAction = (
-  id: string,
-  o1: number,
-  o2: number,
-  o3: number
-) => async (dispatch: Dispatch) => {
-  dispatch({
-    type: lockTypes.UPDATE_LOCK,
-    payload: { id, o1, o2, o3 },
-  });
-};
-
-export const resetLockAction = (index: number, lockId: string) => async (
-  dispatch: Dispatch
-) => {
-  dispatch({ type: lockTypes.RESET_LOCK_START });
-
-  try {
-    const response: AxiosResponse<LockProps> = await axios.put(
-      `${url}/door/reset/?h=A3%nm*Wb&id=${lockId}`
-    );
-    dispatch({
-      type: lockTypes.RESET_LOCK_SUCCESS,
-      payload: { lock: response.data, index },
-    });
-  } catch (err) {
-    console.log("Erroras");
-    dispatch({
-      type: lockTypes.RESET_LOCK_FAIL,
-    });
-  }
-};
-
-export const deleteLockAction = (lockId: string) => async (
-  dispatch: Dispatch
-) => {
-  dispatch({ type: lockTypes.DELETE_LOCK_START });
-
-  try {
-    const response: AxiosResponse<boolean> = await axios.delete(
-      `${url}/door/delete/?h=A3%nm*Wb&id=${lockId}`
-    );
-    response.status === 200
-      ? dispatch({
-          type: lockTypes.DELETE_LOCK_SUCCESS,
-          payload: response.data,
-        })
-      : dispatch({
-          type: lockTypes.DELETE_LOCK_FAIL,
-        });
-  } catch (err) {
-    console.log("Erroras");
-    dispatch({
-      type: lockTypes.DELETE_LOCK_FAIL,
-    });
-  }
-};
-
-export const throwErrorAction = (message: string) => async (
-  dispatch: Dispatch
-) => {
-  dispatch({
-    type: lockTypes.THROW_ERROR,
-    payload: message,
-  });
-};
+  };
 
 export const clearErrorAction = () => async (dispatch: Dispatch) => {
   dispatch({

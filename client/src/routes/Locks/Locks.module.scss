@@ -1,0 +1,10 @@
+@import "../../styles/global.scss";
+.Locks {
+  h1 {
+    color: $lightBlue;
+    font-size: $titleSizeFont;
+    text-align: center;
+    margin: 2rem 1rem;
+    font-weight: $font-Weight-bold;
+  }
+}

@@ -4,14 +4,12 @@ const { register } = require("../controllers/user/register");
 const { login } = require("../controllers/user/login");
 const { sendVerify } = require("../controllers/user/sendVerify");
 const { verify } = require("../controllers/user/verify");
-const { getReservations } = require("../controllers/user/getReservations");
 
 // Routes
 router.post("/register", register);
 router.post("/login", login);
 router.put("/send-verify", sendVerify);
 router.put("/verify/:verifyToken", verify);
-router.get("/getReservations/:userId", getReservations);
 router.post("/", loadUser);
 
 module.exports = router;
