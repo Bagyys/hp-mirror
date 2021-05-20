@@ -5,9 +5,6 @@ const { Property } = require("../../models/propertyModel");
 // let debug = require("debug");
 
 exports.assignLock = async (req, res) => {
-  console.log("assignLock");
-  console.log("req.body");
-  console.log(req.body);
   const { propertyId, lockId } = req.body;
   try {
     if (lockId && propertyId) {

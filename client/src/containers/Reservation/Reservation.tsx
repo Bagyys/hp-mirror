@@ -33,23 +33,10 @@ const Reservation: React.FC<Props> = ({
 
   const lock = currentReservation ? currentReservation.lock : null;
 
-  console.log("lock");
-  console.log(lock);
-
   useEffect(() => {
-    console.log("Reservation useEffect socketui");
     socket.on("lockUpdate", (data) => {
-      console.log("data");
-      console.log(data);
       const { id, o1, o2, o3 } = data;
-      console.log("lock !== null");
-      console.log(lock !== null);
-      console.log("lock !== undefined");
-      console.log(lock !== undefined);
-      console.log("id === lock._id");
-      console.log(id === lock?._id);
       if (lock !== null && lock !== undefined && id === lock._id) {
-        console.log(true);
         dispatch(updateCurrentLockAction(o1, o2, o3));
       }
     });

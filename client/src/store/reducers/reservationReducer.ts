@@ -24,14 +24,10 @@ const getCurrentReservation = (
   reservationId: string,
   activeReservations: Array<ReservationInterface>
 ): ReservationInterface => {
-  console.log("getCurrentReservation");
   const index = activeReservations.findIndex((reservation) => {
     return reservation._id.toString() === reservationId.toString();
   });
-  console.log("activeReservations[index]");
-  console.log(activeReservations[index]);
   return activeReservations[index];
-  // return index === -1 ? activeReservations[index] : null;
 };
 
 const reservationReducer = (state = initialState, action: Actions) => {

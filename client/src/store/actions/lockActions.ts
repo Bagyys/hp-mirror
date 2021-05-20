@@ -173,6 +173,21 @@ export const assignLockAction =
         dispatch({
           type: lockTypes.ASSIGN_LOCK_SUCCESS,
         });
+        // dispatch({ type: lockTypes.GET_UNASSIGNED_LOCKS_START });
+        // try {
+        //   const response: AxiosResponse<LockProps> = await axios.get(
+        //     `${url}/door/unassignedLocks/?h=A3%nm*Wb`
+        //   );
+        //   dispatch({
+        //     type: lockTypes.GET_UNASSIGNED_LOCKS_SUCCESS,
+        //     payload: response.data,
+        //   });
+        // } catch (err) {
+        //   dispatch({
+        //     type: lockTypes.GET_UNASSIGNED_LOCKS_FAIL,
+        //     payload: err.message,
+        //   });
+        // }
       } else {
         dispatch({
           type: lockTypes.ASSIGN_LOCK_FAIL,

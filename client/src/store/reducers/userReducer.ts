@@ -80,7 +80,6 @@ const userReducer = (state = initialState, action: Actions) => {
         ...state,
         isLoading: false,
         isAuthenticated: true,
-        // token: action.payload.token,
         token:
           typeof window !== "undefined" ? localStorage.getItem("token") : null,
         currentUser: localStorage.getItem("token")

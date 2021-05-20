@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { StoreState } from "../../store/configureStore";
+
+import Spinner from "../Spinner/Spinner";
 
 interface Props {
   component: React.FC;
@@ -14,8 +16,7 @@ export const UserRoute: React.FC<Props> = ({ component, path, ...rest }) => {
   );
 
   if (isLoading) {
-    // TODO: spinner
-    return <div>Loading</div>;
+    return <Spinner />;
   } else {
     return isAuthenticated && token ? (
       <Route exact path={path} component={component} {...rest} />

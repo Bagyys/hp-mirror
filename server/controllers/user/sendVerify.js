@@ -6,7 +6,6 @@ const { getSignedToken } = require("../../utils/signedToken");
 const { verification } = require("../mail/verification");
 
 exports.sendVerify = async(req, res) => {
-    console.log("sendVerify");
     try {
         let { email } = req.body;
         email = xss(email);

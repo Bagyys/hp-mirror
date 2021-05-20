@@ -24,11 +24,10 @@ const Routes = () => {
         <Route path="/verify/:token" component={Verify} />
         <UserRoute path="/send-verify" component={SendVerify} />
         <UserRoute path="/reservations" component={Reservations} />
-        <UserRoute path="/settings" component={Settings} />
+        <UserRoute path="/settings" component={() => <Settings />} />
         <UserRoute path="/locks" component={Locks} />
       </Switch>
     </div>
   );
 };
-
 export default Routes;

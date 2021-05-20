@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { StoreState } from "../../store/configureStore";
 import { sendVerificationAction } from "../../store/actions/userActions";
 
+import Spinner from "../../components/Spinner/Spinner";
 import classes from "./SendVerify.module.scss";
 
 const SendVerify = () => {
@@ -22,8 +23,7 @@ const SendVerify = () => {
   };
 
   if (isLoading) {
-    // TODO: spinner
-    return <div>... Loading ... </div>;
+    return <Spinner />;
   } else {
     return (
       <div className={classes.sendVerifyContainer}>

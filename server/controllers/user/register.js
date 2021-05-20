@@ -7,13 +7,11 @@ const { verification } = require("../mail/verification");
 
 exports.register = async (req, res, next) => {
   try {
-    // console.log(req.body);
     const body = req.body;
     const encryptedEmail = encrypt(body.email);
 
     const existingUser = await User.findOne({ email: encryptedEmail });
     if (existingUser) {
-      console.log("User already exist");
       res.status(400).json({
         token: undefined,
         user: undefined,

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-// import { Link, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
-// import { loadUser } from "../../store/actions/userActions";
 import {
   getUnasSignedLocksAction,
   assignLockAction,
@@ -14,12 +13,12 @@ import {
 import { getPropertieswoLocksAction } from "../../store/actions/propertyActions";
 import { LockProps } from "../../store/reducers/lockReducer";
 import { PropertyProps } from "../../store/reducers/propertyReducer";
-// import Lock from "../../containers/Lock/Lock";
 
 import classes from "./Settings.module.scss";
 
 const Settings = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [selectedProperty, setSelectedProperty] = useState("");
   const [selectedLock, setSelectedLock] = useState("");
@@ -29,7 +28,6 @@ const Settings = () => {
   };
 
   useEffect(() => {
-    // dispatch(loadUser());
     dispatch(getPropertieswoLocksAction());
     dispatch(getUnasSignedLocksAction());
   }, []);
@@ -86,6 +84,7 @@ const Settings = () => {
     // check selected properties ?
     if (selectedLock && selectedProperty) {
       dispatch(assignLockAction(selectedLock, selectedProperty));
+      history.push("/locks");
     } else {
       dispatch(throwErrorAction("select lock and property"));
     }

@@ -18,8 +18,6 @@ exports.getReservations = async (req, res) => {
     );
     return res.status(200).send(reservations);
   } catch (err) {
-    console.log("getReservations err.message");
-    console.log(err.message);
     return res.status(500).json({ error: err.message });
   }
 };
