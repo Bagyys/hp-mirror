@@ -24,13 +24,6 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Navigation useEffect");
-    console.log("isAuthenticated");
-    console.log(isAuthenticated);
-    console.log("token");
-    console.log(token);
-    console.log("currentUser");
-    console.log(currentUser);
   }, [token, isAuthenticated]);
 
   const handleSignOut = () => {

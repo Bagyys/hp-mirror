@@ -84,18 +84,6 @@ export interface VerifySuccess extends Action<typeof userTypes.VERIFY_SUCCESS> {
 export interface VerifyFail extends Action<typeof userTypes.VERIFY_FAIL> {
   payload: string;
 }
-export interface GetUserReservationsStart
-  extends Action<typeof userTypes.GET_USER_RESERVATIONS_START> {}
-
-export interface GetUserReservationsSuccess
-  extends Action<typeof userTypes.GET_USER_RESERVATIONS_SUCCESS> {
-  payload: Array<ReservationInterface>;
-}
-
-export interface GetUserReservationsFail
-  extends Action<typeof userTypes.GET_USER_RESERVATIONS_FAIL> {
-  payload: string;
-}
 
 export interface ClearError extends Action<typeof userTypes.CLEAR_ERROR> {}
 
@@ -118,9 +106,6 @@ export type Actions =
   | VerifyRequest
   | VerifySuccess
   | VerifyFail
-  | GetUserReservationsStart
-  | GetUserReservationsSuccess
-  | GetUserReservationsFail
   | ClearError;
 
 // -------------------- END of ACTION INTERFACES --------------------
@@ -269,30 +254,6 @@ export const logoutAction = () => async (dispatch: Dispatch) => {
     });
   }
 };
-
-// export const getUserReservationsAction =
-//   (userId: string) => async (dispatch: Dispatch) => {
-//     dispatch({
-//       type: userTypes.GET_USER_RESERVATIONS_START,
-//     });
-//     try {
-//       const response: AxiosResponse<ReservationInterface> = await axios.get(
-//         `${url}/getReservations/${userId}`
-//       );
-//       console.log("response.data");
-//       console.log(response.data);
-//       dispatch({
-//         type: userTypes.GET_USER_RESERVATIONS_SUCCESS,
-//         payload: response.data,
-//       });
-//     } catch (error) {
-//       console.log(error.message);
-//       dispatch({
-//         type: userTypes.GET_USER_RESERVATIONS_FAIL,
-//         payload: error.message,
-//       });
-//     }
-//   };
 
 export const tokenConfig = (getState: () => StoreState) => {
   // gets token from local storage

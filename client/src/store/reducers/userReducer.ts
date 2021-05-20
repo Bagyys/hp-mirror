@@ -69,8 +69,8 @@ const userReducer = (state = initialState, action: Actions) => {
         isLoading: false,
         user: action.payload,
         currentUser: localStorage.getItem("token")
-    ? isValidToken(localStorage.getItem("token"))
-    : null,
+          ? isValidToken(localStorage.getItem("token"))
+          : null,
         token:
           typeof window !== "undefined" ? localStorage.getItem("token") : null,
       };
@@ -83,7 +83,7 @@ const userReducer = (state = initialState, action: Actions) => {
         // token: action.payload.token,
         token:
           typeof window !== "undefined" ? localStorage.getItem("token") : null,
-          currentUser: localStorage.getItem("token")
+        currentUser: localStorage.getItem("token")
           ? isValidToken(localStorage.getItem("token"))
           : null,
         user: action.payload.user,
@@ -95,8 +95,8 @@ const userReducer = (state = initialState, action: Actions) => {
         isAuthenticated: true,
         user: action.payload,
         currentUser: localStorage.getItem("token")
-    ? isValidToken(localStorage.getItem("token"))
-    : null,
+          ? isValidToken(localStorage.getItem("token"))
+          : null,
       };
     case userTypes.SEND_VERIFICATION_SUCCESS:
       return {
@@ -128,19 +128,6 @@ const userReducer = (state = initialState, action: Actions) => {
         user: null,
         isAuthenticated: false,
       };
-    // case userTypes.GET_USER_RESERVATIONS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     user: {
-    //       ...state.user,
-    //       activeReservations: action.payload,
-    //     },
-    //   };
-    // case userTypes.GET_USER_RESERVATIONS_FAIL:
-    //   return {
-    //     ...state,
-    //     error: action.payload,
-    //   };
     case userTypes.CLEAR_ERROR:
       return {
         ...state,
