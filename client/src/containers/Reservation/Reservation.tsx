@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import socket from "../../utilities/socketConnection";
 
 import { StoreState } from "../../store/configureStore";
+import { reservationState } from "../../store/reducers/reservationReducer";
 import {
   selectReservationAction,
+  unselectReservationAction,
+  openCurrentLockAction,
   updateCurrentLockAction,
 } from "../../store/actions/reservationActions";
 import { ReservationInterface } from "../../store/types/reservationInterfaces";
@@ -13,41 +16,64 @@ import classes from "./Reservation.module.scss";
 
 interface Props {
   reservation: ReservationInterface;
+  visible: boolean;
+  changeVisibility: () => void;
 }
 
-const Reservation: React.FC<Props> = ({ reservation }) => {
+const Reservation: React.FC<Props> = ({
+  reservation,
+  visible,
+  changeVisibility,
+}) => {
   const dispatch = useDispatch();
-  const currentReservation = useSelector(
-    (state: StoreState) => state.reservation.currentReservation
+  const reservationsState: reservationState = useSelector(
+    (state: StoreState) => state.reservation
   );
+  const currentReservation = reservationsState.currentReservation;
+
   const lock = currentReservation ? currentReservation.lock : null;
+
+  console.log("lock");
+  console.log(lock);
+
   useEffect(() => {
+    console.log("Reservation useEffect socketui");
     socket.on("lockUpdate", (data) => {
+      console.log("data");
+      console.log(data);
       const { id, o1, o2, o3 } = data;
-      if (id === lock?._id) {
+      console.log("lock !== null");
+      console.log(lock !== null);
+      console.log("lock !== undefined");
+      console.log(lock !== undefined);
+      console.log("id === lock._id");
+      console.log(id === lock?._id);
+      if (lock !== null && lock !== undefined && id === lock._id) {
+        console.log(true);
         dispatch(updateCurrentLockAction(o1, o2, o3));
       }
     });
   }, []);
 
-  const [visible, setVisible] = useState<boolean>(false);
+  // const [visible, setVisible] = useState<boolean>(false);
 
   const handleClick = () => {
     if (visible) {
-      setVisible(false);
+      changeVisibility();
+      // setVisible(false);
+      dispatch(unselectReservationAction());
     } else {
-      setVisible(true);
-      dispatch(selectReservationAction(reservation.propertyId));
+      changeVisibility();
+      // setVisible(true);
+      dispatch(
+        selectReservationAction(reservation._id, reservation.propertyId)
+      );
     }
   };
-
-  const disableButtons = false;
-
-  const handleDoor = (lockId: string, door: string) => {
-    console.log("Reservation handleDoor gavau propsus");
-    console.log(lockId);
-    console.log(door);
-  };
+  let disableButtons = false;
+  if (lock) {
+    disableButtons = lock.o1 === 1 || lock.o2 === 1 ? true : false;
+  }
 
   return (
     <div className={classes.Reservation}>
@@ -61,13 +87,17 @@ const Reservation: React.FC<Props> = ({ reservation }) => {
           <div className={classes.FullView}>
             <button
               disabled={disableButtons}
-              onClick={() => handleDoor(reservation.property.lock, "o1")}
+              onClick={() =>
+                dispatch(openCurrentLockAction(reservation.property.lock, "o1"))
+              }
             >
               Open front lock
             </button>
             <button
               disabled={disableButtons}
-              onClick={() => handleDoor(reservation.property.lock, "o2")}
+              onClick={() =>
+                dispatch(openCurrentLockAction(reservation.property.lock, "o2"))
+              }
             >
               Open flat lock
             </button>

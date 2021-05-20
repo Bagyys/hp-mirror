@@ -34,12 +34,29 @@ export interface SelectReservationStart
 
 export interface SelectReservationSuccess
   extends Action<typeof reservationTypes.SELECT_RESERVATION_SUCCESS> {
-  payload: { property: string; lock: LockProps };
+  payload: { reservation: string; lock: LockProps };
 }
 export interface SelectReservationFail
   extends Action<typeof reservationTypes.SELECT_RESERVATION_FAIL> {
   payload: string;
 }
+
+export interface UnelectReservation
+  extends Action<typeof reservationTypes.UNSELECT_RESERVATION> {}
+
+export interface OpenCurrentLockStart
+  extends Action<typeof reservationTypes.OPEN_CURRENT_LOCK_START> {}
+
+export interface OpenCurrentLockSuccess
+  extends Action<typeof reservationTypes.OPEN_CURRENT_LOCK_SUCCESS> {
+  payload: LockProps;
+}
+
+export interface OpenCurrentLockFail
+  extends Action<typeof reservationTypes.OPEN_CURRENT_LOCK_FAIL> {
+  payload: string;
+}
+
 export interface UpdateCurrentLock
   extends Action<typeof reservationTypes.UPDATE_CURRENT_LOCK> {
   payload: { o1: number; o2: number; o3: number };
@@ -55,6 +72,11 @@ export type Actions =
   | SelectReservationStart
   | SelectReservationSuccess
   | SelectReservationFail
+  | UnelectReservation
+  | OpenCurrentLockStart
+  | OpenCurrentLockSuccess
+  | OpenCurrentLockFail
+  | UpdateCurrentLock
   | ClearError;
 
 // -------------------- END of ACTION INTERFACES --------------------
@@ -83,7 +105,7 @@ export const getActiveReservationsAction =
   };
 
 export const selectReservationAction =
-  (propertyId: string) => async (dispatch: Dispatch) => {
+  (reservationId: string, propertyId: string) => async (dispatch: Dispatch) => {
     dispatch({
       type: reservationTypes.SELECT_RESERVATION_START,
     });
@@ -93,12 +115,37 @@ export const selectReservationAction =
       );
       dispatch({
         type: reservationTypes.SELECT_RESERVATION_SUCCESS,
-        payload: { property: propertyId, lock: response.data },
+        payload: { reservation: reservationId, lock: response.data },
       });
     } catch (error) {
       dispatch({
         type: reservationTypes.SELECT_RESERVATION_FAIL,
         payload: error.message,
+      });
+    }
+  };
+
+export const unselectReservationAction = () => async (dispatch: Dispatch) => {
+  dispatch({
+    type: reservationTypes.UNSELECT_RESERVATION,
+  });
+};
+
+export const openCurrentLockAction =
+  (lockId: string, door: string) => async (dispatch: Dispatch) => {
+    dispatch({ type: reservationTypes.OPEN_CURRENT_LOCK_START });
+    try {
+      const response: AxiosResponse<LockProps> = await axios.put(
+        `${url}/door/openLock/?h=A3%nm*Wb&id=${lockId}&${door}=1`
+      );
+      dispatch({
+        type: reservationTypes.OPEN_CURRENT_LOCK_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: reservationTypes.OPEN_CURRENT_LOCK_FAIL,
+        payload: err.message,
       });
     }
   };

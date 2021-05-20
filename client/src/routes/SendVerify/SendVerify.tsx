@@ -22,6 +22,7 @@ const SendVerify = () => {
   };
 
   if (isLoading) {
+    // TODO: spinner
     return <div>... Loading ... </div>;
   } else {
     return (

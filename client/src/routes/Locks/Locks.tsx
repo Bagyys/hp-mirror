@@ -20,9 +20,11 @@ const Locks = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(loadUser());
+    console.log("Locks useEffect socketui");
     dispatch(getAllLocksAction());
     socket.on("lockUpdate", (data) => {
+      console.log("data");
+      console.log(data);
       const { id, o1, o2, o3 } = data;
       dispatch(updateLockAction(id, o1, o2, o3));
     });

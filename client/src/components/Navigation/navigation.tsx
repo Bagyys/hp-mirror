@@ -14,7 +14,7 @@ import { useEffect } from "react";
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const { token, isAuthenticated, user, currentUser } = useSelector(
+  const { token, isAuthenticated, user } = useSelector(
     (state: StoreState) => state.user
   );
   useEffect(() => {
@@ -23,8 +23,7 @@ const Navigation = () => {
     }
   }, []);
 
-  useEffect(() => {
-  }, [token, isAuthenticated]);
+  useEffect(() => {}, [token, isAuthenticated]);
 
   const handleSignOut = () => {
     dispatch(logoutAction());

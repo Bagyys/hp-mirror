@@ -21,12 +21,15 @@ const initialState: reservationState = {
 };
 
 const getCurrentReservation = (
-  propertyId: string,
+  reservationId: string,
   activeReservations: Array<ReservationInterface>
 ): ReservationInterface => {
+  console.log("getCurrentReservation");
   const index = activeReservations.findIndex((reservation) => {
-    return reservation.propertyId.toString() === propertyId.toString();
+    return reservation._id.toString() === reservationId.toString();
   });
+  console.log("activeReservations[index]");
+  console.log(activeReservations[index]);
   return activeReservations[index];
   // return index === -1 ? activeReservations[index] : null;
 };
@@ -41,7 +44,7 @@ const reservationReducer = (state = initialState, action: Actions) => {
       };
     case reservationTypes.SELECT_RESERVATION_SUCCESS:
       const cuReservation = getCurrentReservation(
-        action.payload.property,
+        action.payload.reservation,
         state.activeReservations
       );
       return {
@@ -51,11 +54,39 @@ const reservationReducer = (state = initialState, action: Actions) => {
           lock: action.payload.lock,
         },
       };
-    case reservationTypes.GET_ACTIVE_RESERVATIONS_FAIL:
-    case reservationTypes.SELECT_RESERVATION_FAIL:
+    case reservationTypes.UNSELECT_RESERVATION:
       return {
         ...state,
-        // isFetched: false,
+        currentReservation: null,
+      };
+    case reservationTypes.OPEN_CURRENT_LOCK_SUCCESS:
+      return {
+        ...state,
+        currentReservation: {
+          ...state.currentReservation,
+          lock: action.payload,
+        },
+      };
+    case reservationTypes.UPDATE_CURRENT_LOCK:
+      if (state.currentReservation) {
+        return {
+          ...state,
+          currentReservation: {
+            ...state.currentReservation,
+            lock: {
+              ...state.currentReservation.lock,
+              o1: action.payload.o1,
+              o2: action.payload.o2,
+              o3: action.payload.o3,
+            },
+          },
+        };
+      } else return { ...state };
+    case reservationTypes.GET_ACTIVE_RESERVATIONS_FAIL:
+    case reservationTypes.SELECT_RESERVATION_FAIL:
+    case reservationTypes.OPEN_CURRENT_LOCK_FAIL:
+      return {
+        ...state,
         error: action.payload,
       };
     case reservationTypes.CLEAR_ERROR:
