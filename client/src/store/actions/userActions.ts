@@ -127,95 +127,76 @@ export type Actions =
 
 // -------------------- ACTIONS --------------------
 
-export const loadUser = () => async (
-  dispatch: Dispatch,
-  getState: () => StoreState
-) => {
-  dispatch({ type: userTypes.LOAD_USER_REQUEST });
-
-  const currentUser = getState().user.currentUser;
-
-  if (currentUser === null || typeof currentUser === "string") {
-    return;
-  }
-
-  // let x = tokenConfig(getState).headers["x-auth-token"];
-  // console.log("x");
-  // console.log(x);
-  // if (x === undefined) {
-  //   return;
-  // }
-  const body = { userId: currentUser._id };
-  await axios
-    .post(url + "/", body)
-    .then((res) => {
-      // console.log("res.data");
-      // console.log(res.data);
+export const loadUser =
+  () => async (dispatch: Dispatch, getState: () => StoreState) => {
+    dispatch({ type: userTypes.LOAD_USER_REQUEST });
+    const currentUser = getState().user.currentUser;
+    if (currentUser === null || typeof currentUser === "string") {
+      return;
+    }
+    const body = { userId: currentUser._id };
+    try {
+      const response = await axios.post(url + "/", body);
       dispatch({
         type: userTypes.LOAD_USER_SUCCESS,
-        payload: res.data,
+        payload: response.data,
       });
-    })
-    .catch((err: Error) => {
-      console.log("err.message");
-      console.log(err.message);
+    } catch (err) {
       dispatch({
         type: userTypes.LOAD_USER_FAIL,
         payload: err.message,
       });
-    });
-};
-
-export const registerAction = (email: string, password: string) => async (
-  dispatch: Dispatch
-) => {
-  dispatch({
-    type: userTypes.REGISTER_REQUEST,
-  });
-  const body = { email, password };
-  try {
-    const response: AxiosResponse<{
-      token: string;
-      user: UserInterface;
-    }> = await axios.post(`${url}/register`, body);
-    localStorage.setItem("token", response.data.token);
-
-    dispatch({
-      type: userTypes.REGISTER_SUCCESS,
-      payload: response.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: userTypes.REGISTER_FAILURE,
-      payload: error.message,
-    });
-  }
-};
-
-export const sendVerificationAction = (email: string) => (
-  dispatch: Dispatch
-) => {
-  dispatch({
-    type: userTypes.SEND_VERIFICATION_REQUEST,
-  });
-  const body = {
-    email,
+    }
   };
-  axios
-    .put(`${url}/send-verify`, body)
-    .then((res) => {
-      dispatch({
-        type: userTypes.SEND_VERIFICATION_SUCCESS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: userTypes.SEND_VERIFICATION_FAIL,
-        payload: err.message,
-      });
+
+export const registerAction =
+  (email: string, password: string) => async (dispatch: Dispatch) => {
+    dispatch({
+      type: userTypes.REGISTER_REQUEST,
     });
-};
+    const body = { email, password };
+    try {
+      const response: AxiosResponse<{
+        token: string;
+        user: UserInterface;
+      }> = await axios.post(`${url}/register`, body);
+      localStorage.setItem("token", response.data.token);
+
+      dispatch({
+        type: userTypes.REGISTER_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: userTypes.REGISTER_FAILURE,
+        payload: error.message,
+      });
+    }
+  };
+
+export const sendVerificationAction =
+  (email: string) => (dispatch: Dispatch) => {
+    dispatch({
+      type: userTypes.SEND_VERIFICATION_REQUEST,
+    });
+    const body = {
+      email,
+    };
+    axios
+      .put(`${url}/send-verify`, body)
+      .then((res) => {
+        dispatch({
+          type: userTypes.SEND_VERIFICATION_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: userTypes.SEND_VERIFICATION_FAIL,
+          payload: err.message,
+        });
+      });
+  };
 
 export const verifyAction = (params: string) => (dispatch: Dispatch) => {
   dispatch({
@@ -241,42 +222,35 @@ export const verifyAction = (params: string) => (dispatch: Dispatch) => {
     });
 };
 
-export const loginAction = (payload: {
-  email: string;
-  password: string;
-}) => async (dispatch: Dispatch) => {
-  console.log("loginAction");
-  dispatch({
-    type: userTypes.LOG_IN_REQUEST,
-  });
-  console.log("localStorage.getItem(token)");
-  console.log(localStorage.getItem("token"));
-  axios({
-    method: "post",
-    url: `${url}/login`,
-    data: payload,
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  })
-    .then((response) => {
-      const { token } = response.data;
-      localStorage.setItem("token", token);
-
-      dispatch({
-        type: userTypes.LOG_IN_SUCCESS,
-        payload: response.data,
-      });
-    })
-    .catch((error) => {
-      console.log("login action error");
-      console.log(error);
-      dispatch({
-        type: userTypes.LOG_IN_FAILURE,
-        payload: error.message,
-      });
+export const loginAction =
+  (payload: { email: string; password: string }) =>
+  async (dispatch: Dispatch) => {
+    dispatch({
+      type: userTypes.LOG_IN_REQUEST,
     });
-};
+    axios({
+      method: "post",
+      url: `${url}/login`,
+      data: payload,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        const { token } = response.data;
+        localStorage.setItem("token", token);
+        dispatch({
+          type: userTypes.LOG_IN_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: userTypes.LOG_IN_FAILURE,
+          payload: error.message,
+        });
+      });
+  };
 
 export const logoutAction = () => async (dispatch: Dispatch) => {
   dispatch({
@@ -296,30 +270,29 @@ export const logoutAction = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const getUserReservationsAction = (userId: string) => async (
-  dispatch: Dispatch
-) => {
-  dispatch({
-    type: userTypes.GET_USER_RESERVATIONS_START,
-  });
-  try {
-    const response: AxiosResponse<ReservationInterface> = await axios.get(
-      `${url}/getReservations/${userId}`
-    );
-    console.log("response.data")
-    console.log(response.data)
-    dispatch({
-      type: userTypes.GET_USER_RESERVATIONS_SUCCESS,
-      payload: response.data,
-    });
-  } catch (error) {
-    console.log(error.message);
-    dispatch({
-      type: userTypes.GET_USER_RESERVATIONS_FAIL,
-      payload: error.message,
-    });
-  }
-};
+// export const getUserReservationsAction =
+//   (userId: string) => async (dispatch: Dispatch) => {
+//     dispatch({
+//       type: userTypes.GET_USER_RESERVATIONS_START,
+//     });
+//     try {
+//       const response: AxiosResponse<ReservationInterface> = await axios.get(
+//         `${url}/getReservations/${userId}`
+//       );
+//       console.log("response.data");
+//       console.log(response.data);
+//       dispatch({
+//         type: userTypes.GET_USER_RESERVATIONS_SUCCESS,
+//         payload: response.data,
+//       });
+//     } catch (error) {
+//       console.log(error.message);
+//       dispatch({
+//         type: userTypes.GET_USER_RESERVATIONS_FAIL,
+//         payload: error.message,
+//       });
+//     }
+//   };
 
 export const tokenConfig = (getState: () => StoreState) => {
   // gets token from local storage
