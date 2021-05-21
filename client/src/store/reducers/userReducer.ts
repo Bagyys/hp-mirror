@@ -16,10 +16,14 @@ export interface userState {
 export const isValidToken = (token: string | null) => {
   if (token !== null) {
     const decoded = jwt.decode(token);
-    const { exp } = decoded as {
-      exp: number;
-    };
-    return new Date(exp * 1000) > new Date() ? decoded : null;
+    let expiration: number = 0;
+    if (decoded !== null) {
+      const { exp } = decoded as {
+        exp: number;
+      };
+      expiration = exp;
+    }
+    return new Date(expiration * 1000) > new Date() ? decoded : null;
   } else return null;
 };
 

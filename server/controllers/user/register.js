@@ -11,13 +11,8 @@ exports.register = async (req, res, next) => {
     const encryptedEmail = encrypt(body.email);
 
     const existingUser = await User.findOne({ email: encryptedEmail });
-    if (existingUser) {
-      res.status(400).json({
-        token: undefined,
-        user: undefined,
-      });
-    } else {
-      const { user, userToken, emailToken } = bcrypt
+    if (!existingUser) {
+      const { user, userToken, emailToken } = await bcrypt
         .hash(body.password, 10)
         .then(async (hashed) => {
           const newUser = new User({
@@ -43,17 +38,37 @@ exports.register = async (req, res, next) => {
             emailToken,
           };
           return payload;
+        })
+        .catch((err) => {
+          res.status(400).json({
+            token: undefined,
+            user: undefined,
+            message: err.message,
+          });
         });
 
       const decryptedEmail = decrypt(encryptedEmail);
       verification(decryptedEmail, emailToken);
+      console.log("userToken");
+      console.log(userToken);
+      console.log("user");
+      console.log(user);
       res.status(200).json({
         token: userToken,
         user: user,
       });
+    } else {
+      res.json({
+        token: undefined,
+        user: undefined,
+        message: "There is a user registered with this email",
+      });
     }
-  } catch (error) {
-    console.log(error);
-    // TODO: error handling
+  } catch (err) {
+    res.json({
+      token: undefined,
+      user: undefined,
+      message: err.message,
+    });
   }
 };

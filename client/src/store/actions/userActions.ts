@@ -144,13 +144,23 @@ export const registerAction =
       const response: AxiosResponse<{
         token: string;
         user: UserInterface;
+        message?: string;
       }> = await axios.post(`${url}/register`, body);
-      localStorage.setItem("token", response.data.token);
 
-      dispatch({
-        type: userTypes.REGISTER_SUCCESS,
-        payload: response.data,
-      });
+      if (response.status === 200 && response.data.message === undefined) {
+        console.log("registerAction response.data");
+        console.log(response.data);
+        localStorage.setItem("token", response.data.token);
+        dispatch({
+          type: userTypes.REGISTER_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: userTypes.REGISTER_FAILURE,
+          payload: response.data.message,
+        });
+      }
     } catch (error) {
       dispatch({
         type: userTypes.REGISTER_FAILURE,
@@ -222,12 +232,19 @@ export const loginAction =
       },
     })
       .then((response) => {
-        const { token } = response.data;
-        localStorage.setItem("token", token);
-        dispatch({
-          type: userTypes.LOG_IN_SUCCESS,
-          payload: response.data,
-        });
+        if (response.status === 200 && response.data.message === undefined) {
+          const { token } = response.data;
+          localStorage.setItem("token", token);
+          dispatch({
+            type: userTypes.LOG_IN_SUCCESS,
+            payload: response.data,
+          });
+        } else {
+          dispatch({
+            type: userTypes.LOG_IN_FAILURE,
+            payload: response.data.message,
+          });
+        }
       })
       .catch((error) => {
         dispatch({

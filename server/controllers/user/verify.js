@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-// const xss = require("xss");
 
 const { User } = require("../../models/userModel");
 const { verification } = require("../mail/verification");
