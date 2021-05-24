@@ -17,12 +17,14 @@ import classes from "./Reservation.module.scss";
 interface Props {
   reservation: ReservationInterface;
   visible: boolean;
+  clickable: boolean;
   changeVisibility: () => void;
 }
 
 const Reservation: React.FC<Props> = ({
   reservation,
   visible,
+  clickable,
   changeVisibility,
 }) => {
   const dispatch = useDispatch();
@@ -42,16 +44,12 @@ const Reservation: React.FC<Props> = ({
     });
   }, []);
 
-  // const [visible, setVisible] = useState<boolean>(false);
-
   const handleClick = () => {
     if (visible) {
       changeVisibility();
-      // setVisible(false);
       dispatch(unselectReservationAction());
     } else {
       changeVisibility();
-      // setVisible(true);
       dispatch(
         selectReservationAction(reservation._id, reservation.propertyId)
       );
@@ -73,7 +71,7 @@ const Reservation: React.FC<Props> = ({
         <>
           <div className={classes.FullView}>
             <button
-              disabled={disableButtons}
+              disabled={disableButtons && clickable}
               onClick={() =>
                 dispatch(openCurrentLockAction(reservation.property.lock, "o1"))
               }
@@ -81,7 +79,7 @@ const Reservation: React.FC<Props> = ({
               Open front lock
             </button>
             <button
-              disabled={disableButtons}
+              disabled={disableButtons && clickable}
               onClick={() =>
                 dispatch(openCurrentLockAction(reservation.property.lock, "o2"))
               }

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
 import { StoreState } from "../../store/configureStore";
+import { userState } from "../../store/reducers/userReducer";
 import { loadUser, logoutAction } from "../../store/actions/userActions";
 import NotificationImg from "../../assets/images/bell.png";
 import LogoImg from "../../assets/images/Logo.png";
@@ -14,9 +15,8 @@ import { useEffect } from "react";
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const { token, isAuthenticated, user } = useSelector(
-    (state: StoreState) => state.user
-  );
+  const auth: userState = useSelector((state: StoreState) => state.user);
+  const { token, isAuthenticated, user } = auth;
   useEffect(() => {
     if (!user._id) {
       dispatch(loadUser());

@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
-import { sendVerificationAction } from "../../store/actions/userActions";
+import { userState } from "../../store/reducers/userReducer";
+import {
+  sendVerificationAction,
+  clearErrorAction,
+} from "../../store/actions/userActions";
 
 import Spinner from "../../components/Spinner/Spinner";
 
@@ -12,11 +17,27 @@ import classes from "./SendVerify.module.scss";
 const SendVerify = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const auth: userState = useSelector((state: StoreState) => state.user);
-  const { user, isLoading, error } = useSelector(
-    (state: StoreState) => state.user
-  );
-  // const user = auth.user;
+
+  const auth: userState = useSelector((state: StoreState) => state.user);
+  const { user, isLoading, error } = auth;
+
+  const handleError = () => {
+    dispatch(clearErrorAction());
+  };
+
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        title: error,
+        text: "Please try again",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      }).then(() => {
+        handleError();
+      });
+    }
+  }, [error]);
 
   const submit = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>

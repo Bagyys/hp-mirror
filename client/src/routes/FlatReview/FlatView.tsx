@@ -16,6 +16,7 @@ import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
 import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
 import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
 import { StoreState } from "../../store/configureStore";
+import { userState } from "../../store/reducers/userReducer";
 import { PropertyProps } from "../../store/reducers/propertyReducer";
 import { getOnePropertyAction } from "../../store/actions/propertyActions";
 import {
@@ -58,7 +59,7 @@ const FlatView = (props: PropsInterface) => {
 
   const stateProperty = useSelector((state: StoreState) => state.properties[0]);
   const booking = useSelector((state: StoreState) => state.booking);
-  const auth = useSelector((state: StoreState) => state.user);
+  const auth: userState = useSelector((state: StoreState) => state.user);
   const user = auth.user;
   let property: PropertyProps = {} as PropertyProps;
   if (props && props.location.state) {
@@ -236,6 +237,7 @@ const FlatView = (props: PropsInterface) => {
                       ? `${classes.slide} ${classes.active}`
                       : classes.slide
                   }
+                  key={index}
                 >
                   {index === current && (
                     <div key={index} className={classes.Images}>

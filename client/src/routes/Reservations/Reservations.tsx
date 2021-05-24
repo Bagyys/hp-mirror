@@ -22,8 +22,6 @@ const Reservations = () => {
   useEffect(() => {
     if (user && user._id) {
       dispatch(getActiveReservationsAction(user._id));
-    } else {
-      dispatch(loadUser());
     }
   }, []);
 
@@ -40,9 +38,17 @@ const Reservations = () => {
     Array.from({ length: reservations.length }, (i) => (i = false))
   );
 
+  //TODO: development starting stages
+  const [isReservationClickable, setReservationClickability] = useState<
+    boolean[]
+  >(
+    Array.from({ length: reservations.length }, (i) => (i = true)) // pakeisti paskui i false
+  );
+
   useEffect(() => {
     if (reservations.length) {
       setReservationVisibility(initialArray);
+      setReservationClickability(initialArray);
     }
   }, [reservations]);
 
@@ -63,6 +69,7 @@ const Reservations = () => {
           key={reservation._id}
           reservation={reservation}
           visible={isReservationVisible[index]}
+          clickable={isReservationClickable[index]}
           changeVisibility={() => {
             changeVisibility(index);
           }}

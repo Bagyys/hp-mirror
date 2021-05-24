@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from "axios";
 // import Swal from "sweetalert2";
 import { StoreState } from "../configureStore";
 import userTypes from "../types/userTypes";
+import { userState } from "../reducers/userReducer";
 import { ReservationInterface } from "../types/reservationInterfaces";
 import { UserInterface } from "../types/userInterfaces";
 
@@ -22,11 +23,11 @@ export interface LoadUserRequest
 
 export interface LoadUserSuccess
   extends Action<typeof userTypes.LOAD_USER_SUCCESS> {
-  payload: UserInterface;
+  payload: { user: UserInterface };
 }
 
 export interface LoadUserFail extends Action<typeof userTypes.LOAD_USER_FAIL> {
-  payload: string;
+  payload: { message: string };
 }
 export interface RegisterRequest
   extends Action<typeof userTypes.REGISTER_REQUEST> {}
@@ -38,7 +39,7 @@ export interface RegisterSuccess
 
 export interface RegisterFail
   extends Action<typeof userTypes.REGISTER_FAILURE> {
-  payload: string;
+  payload: { message: string };
 }
 
 export interface LoginRequest extends Action<typeof userTypes.LOG_IN_REQUEST> {}
@@ -48,7 +49,7 @@ export interface LoginSuccess extends Action<typeof userTypes.LOG_IN_SUCCESS> {
 }
 
 export interface LoginFail extends Action<typeof userTypes.LOG_IN_FAILURE> {
-  payload: string;
+  payload: { message: string };
 }
 
 export interface LogoutRequest
@@ -58,7 +59,7 @@ export interface LogoutSuccess
   extends Action<typeof userTypes.LOG_OUT_SUCCESS> {}
 
 export interface LogoutFail extends Action<typeof userTypes.LOG_OUT_FAILURE> {
-  payload: string;
+  payload: { message: string };
 }
 
 export interface SendVerificationRequest
@@ -66,23 +67,23 @@ export interface SendVerificationRequest
 
 export interface SendVerificationSuccess
   extends Action<typeof userTypes.SEND_VERIFICATION_SUCCESS> {
-  payload: UserInterface;
+  payload: { user: UserInterface };
 }
 
 export interface SendVerificationFail
   extends Action<typeof userTypes.SEND_VERIFICATION_FAIL> {
-  payload: string;
+  payload: { message: string };
 }
 
 export interface VerifyRequest
   extends Action<typeof userTypes.VERIFY_REQUEST> {}
 
 export interface VerifySuccess extends Action<typeof userTypes.VERIFY_SUCCESS> {
-  payload: any; // TODO: add type
+  payload: { user: UserInterface };
 }
 
 export interface VerifyFail extends Action<typeof userTypes.VERIFY_FAIL> {
-  payload: string;
+  payload: { message: string };
 }
 
 export interface ClearError extends Action<typeof userTypes.CLEAR_ERROR> {}
@@ -115,7 +116,8 @@ export type Actions =
 export const loadUser =
   () => async (dispatch: Dispatch, getState: () => StoreState) => {
     dispatch({ type: userTypes.LOAD_USER_REQUEST });
-    const currentUser = getState().user.currentUser;
+    const user: userState = getState().user;
+    const currentUser = user.currentUser;
 
     if (currentUser !== null && typeof currentUser !== "string") {
       const body = { userId: currentUser._id };
@@ -290,7 +292,8 @@ export const logoutAction = () => async (dispatch: Dispatch) => {
 
 export const tokenConfig = (getState: () => StoreState) => {
   // gets token from local storage
-  const token = getState().user.token;
+  const user: userState = getState().user;
+  const token = user.token;
   // headers
   const config: {
     headers: { "content-type": string; "x-auth-token"?: string };
@@ -299,7 +302,7 @@ export const tokenConfig = (getState: () => StoreState) => {
       "content-type": "application/json",
     },
   };
-  //iff token, add to headers
+  //if token, add to headers
   if (token) {
     config.headers["x-auth-token"] = token;
   }

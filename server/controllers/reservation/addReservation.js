@@ -3,6 +3,8 @@ const { User } = require("../../models/userModel");
 const { Property } = require("../../models/propertyModel");
 
 exports.addReservation = async (req, res) => {
+  console.log("req.body");
+  console.log(req.body);
   const data = req.body;
   const { occupiedTime, ...reservationObject } = data;
   // console.log("reservationObject");

@@ -71,7 +71,7 @@ const userReducer = (state = initialState, action: Actions) => {
         ...state,
         isAuthenticated: true,
         isLoading: false,
-        user: action.payload,
+        user: action.payload.user,
         currentUser: localStorage.getItem("token")
           ? isValidToken(localStorage.getItem("token"))
           : null,
@@ -96,7 +96,7 @@ const userReducer = (state = initialState, action: Actions) => {
         ...state,
         isLoading: false,
         isAuthenticated: true,
-        user: action.payload,
+        user: action.payload.user,
         currentUser: localStorage.getItem("token")
           ? isValidToken(localStorage.getItem("token"))
           : null,
@@ -105,7 +105,7 @@ const userReducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         isLoading: false,
-        user: action.payload,
+        user: action.payload.user,
       };
     case userTypes.LOG_OUT_SUCCESS:
       localStorage.removeItem("token");
@@ -126,7 +126,7 @@ const userReducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
+        error: action.payload.message,
         currentUser: null,
         user: null,
         isAuthenticated: false,
