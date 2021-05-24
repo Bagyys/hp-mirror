@@ -14,12 +14,14 @@ exports.verify = async (req, res) => {
       verifyToken,
       process.env.JWT_EMAIL_CONFIRM
     );
-    const now = new Date().getTime();
+
+    const now = new Date().getTime() / 1000;
+
     if (
       verified !== undefined &&
       verified._id !== undefined &&
-      now < verified.iat &&
-      now > verified.exp
+      now >= verified.iat &&
+      now <= verified.exp
     ) {
       try {
         user = await User.findById(verified._id);

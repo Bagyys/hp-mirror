@@ -78,7 +78,6 @@ const Login = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          {/* {error !== null ? <div className="error">{error}</div> : null} */}
           <button onClick={(event) => handleLoginClick(event)}>Login</button>
           <h5>
             <Link to="/register">Don't have an account?</Link>

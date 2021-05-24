@@ -6,6 +6,7 @@ import { StoreState } from "../../store/configureStore";
 import { sendVerificationAction } from "../../store/actions/userActions";
 
 import Spinner from "../../components/Spinner/Spinner";
+
 import classes from "./SendVerify.module.scss";
 
 const SendVerify = () => {

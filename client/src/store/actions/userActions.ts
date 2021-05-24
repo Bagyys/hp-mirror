@@ -116,21 +116,28 @@ export const loadUser =
   () => async (dispatch: Dispatch, getState: () => StoreState) => {
     dispatch({ type: userTypes.LOAD_USER_REQUEST });
     const currentUser = getState().user.currentUser;
-    if (currentUser === null || typeof currentUser === "string") {
-      return;
-    }
-    const body = { userId: currentUser._id };
-    try {
-      const response = await axios.post(url + "/", body);
-      dispatch({
-        type: userTypes.LOAD_USER_SUCCESS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: userTypes.LOAD_USER_FAIL,
-        payload: err.message,
-      });
+
+    if (currentUser !== null && typeof currentUser !== "string") {
+      const body = { userId: currentUser._id };
+      try {
+        const response = await axios.post(url + "/", body);
+        if (response.status === 200 && response.data.message === undefined) {
+          dispatch({
+            type: userTypes.LOAD_USER_SUCCESS,
+            payload: response.data,
+          });
+        } else {
+          dispatch({
+            type: userTypes.LOAD_USER_FAIL,
+            payload: response.data.message,
+          });
+        }
+      } catch (error) {
+        dispatch({
+          type: userTypes.LOAD_USER_FAIL,
+          payload: error.message,
+        });
+      }
     }
   };
 
@@ -168,51 +175,62 @@ export const registerAction =
   };
 
 export const sendVerificationAction =
-  (email: string) => (dispatch: Dispatch) => {
+  (email: string) => async (dispatch: Dispatch) => {
     dispatch({
       type: userTypes.SEND_VERIFICATION_REQUEST,
     });
     const body = {
       email,
     };
-    axios
-      .put(`${url}/send-verify`, body)
-      .then((res) => {
+
+    try {
+      const response = await axios.put(`${url}/send-verify`, body);
+      if (response.status === 200 && response.data.message === undefined) {
         dispatch({
           type: userTypes.SEND_VERIFICATION_SUCCESS,
-          payload: res.data,
+          payload: response.data,
         });
-      })
-      .catch((err) => {
+      } else {
         dispatch({
           type: userTypes.SEND_VERIFICATION_FAIL,
-          payload: err.message,
+          payload: response.data.message,
         });
+      }
+    } catch (error) {
+      dispatch({
+        type: userTypes.SEND_VERIFICATION_FAIL,
+        payload: error.message,
       });
+    }
   };
 
-export const verifyAction = (params: string) => (dispatch: Dispatch) => {
+export const verifyAction = (params: string) => async (dispatch: Dispatch) => {
   dispatch({
     type: userTypes.VERIFY_REQUEST,
   });
   const body = {
     params,
   };
-  axios
-    .put(`${url}/verify/${params}`, body)
-    .then((res) => {
+
+  try {
+    const response = await axios.put(`${url}/verify/${params}`, body);
+    if (response.status === 200 && response.data.message === undefined) {
       dispatch({
         type: userTypes.VERIFY_SUCCESS,
-        payload: res.data,
+        payload: response.data,
       });
-      // TODO: cia ideti swala, kad yay viskas pavyko
-    })
-    .catch((err) => {
+    } else {
       dispatch({
         type: userTypes.VERIFY_FAIL,
-        payload: err.message,
+        payload: response.data.message,
       });
+    }
+  } catch (error) {
+    dispatch({
+      type: userTypes.VERIFY_FAIL,
+      payload: error.message,
     });
+  }
 };
 
 export const loginAction =
