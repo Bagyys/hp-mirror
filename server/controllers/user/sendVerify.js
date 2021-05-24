@@ -8,46 +8,46 @@ const { verification } = require("../mail/verification");
 exports.sendVerify = async (req, res) => {
   try {
     let { email } = req.body;
+
+    let user;
+    let message;
+
     email = xss(email);
     if (!email) {
-      res.json({
-        user: undefined,
-        message: "Enter your email",
-      });
+      message = "Enter your email";
     }
+
     const encryptedEmail = encrypt(email);
 
-    const user = await User.findOne({ email: encryptedEmail });
-    if (user === null) {
-      res.json({
-        user: undefined,
-        message: "User does not exist",
-      });
-    }
-    if (user.isVerified === true) {
-      res.json({
-        user: user,
-        message: "User is already verified",
-      });
+    user = await User.findOne({ email: encryptedEmail });
+
+    if (user) {
+      if (user.isVerified) {
+        message = "User is already verified";
+      } else {
+        const token = getSignedToken(
+          user._id,
+          process.env.JWT_EMAIL_CONFIRM,
+          "20m"
+        );
+        const updatedUser = await User.findByIdAndUpdate(
+          user._id,
+          { verifyToken: token },
+          { new: true }
+        );
+        verification(email, token);
+        user = updatedUser;
+      }
+    } else {
+      message = "User does not exist";
     }
 
-    const token = getSignedToken(
-      user._id,
-      process.env.JWT_EMAIL_CONFIRM,
-      "20m"
-    );
-    const updated = await User.findByIdAndUpdate(
-      user._id,
-      { verifyToken: token },
-      { new: true }
-    );
-    // sends email
-    verification(email, token);
-    return res.status(200).json(updated);
+    return res.json({
+      user,
+      message,
+    });
   } catch (err) {
-    console.log("45 err");
-    console.log(err);
-    res.json({
+    res.status(400).json({
       user: undefined,
       message: err.message,
     });

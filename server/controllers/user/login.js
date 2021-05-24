@@ -4,57 +4,45 @@ const { User } = require("../../models/userModel");
 const { encrypt, decrypt } = require("../../utils/encryption");
 const { getSignedToken } = require("../../utils/signedToken");
 
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
   try {
-    const payload = req.body;
+    const body = req.body;
+    const encryptedEmail = encrypt(body.email);
 
-    const encryptedEmail = encrypt(req.body.email);
+    let user;
+    let token;
+    let message;
 
     const existingUser = await User.findOne({ email: encryptedEmail });
+
     if (existingUser) {
-      const { user, token } = await bcrypt
-        .compare(payload.password, existingUser.password)
-        .then((res) => {
-          if (res) {
-            const token = getSignedToken(
-              existingUser._id,
-              process.env.JWT_KEY,
-              "1h"
-            );
-            const payload = {
-              user,
-              token,
-            };
-            return payload;
-          } else {
-            res.json({
-              token: undefined,
-              user: undefined,
-              message: "Incorrect password or email, try again",
-            });
-          }
-        })
-        .catch((err) => {
-          res.json({
-            token: undefined,
-            user: undefined,
-            message: err.message,
-          });
-        });
-      user.email = decrypt(user.email);
-      res.status(200).json({
-        token: token,
-        user: user,
-      });
+      try {
+        const bcryptResponse = await bcrypt.compare(
+          body.password,
+          existingUser.password
+        );
+        if (bcryptResponse) {
+          token = getSignedToken(existingUser._id, process.env.JWT_KEY, "1h");
+          user = existingUser;
+        } else {
+          message = "Incorrect password or email";
+        }
+      } catch (error) {
+        message = error.message;
+      }
+      if (user) {
+        user.email = decrypt(user.email);
+      }
     } else {
-      res.json({
-        token: undefined,
-        user: undefined,
-        message: "There is no user with this email",
-      });
+      message = "There is no user with this email";
     }
+    return res.json({
+      token,
+      user,
+      message,
+    });
   } catch (err) {
-    res.json({
+    return res.status(400).json({
       token: undefined,
       user: undefined,
       message: err.message,

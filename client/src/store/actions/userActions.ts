@@ -148,8 +148,6 @@ export const registerAction =
       }> = await axios.post(`${url}/register`, body);
 
       if (response.status === 200 && response.data.message === undefined) {
-        console.log("registerAction response.data");
-        console.log(response.data);
         localStorage.setItem("token", response.data.token);
         dispatch({
           type: userTypes.REGISTER_SUCCESS,

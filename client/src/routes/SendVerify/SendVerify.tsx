@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import { StoreState } from "../../store/configureStore";
 import { sendVerificationAction } from "../../store/actions/userActions";
@@ -9,6 +10,7 @@ import classes from "./SendVerify.module.scss";
 
 const SendVerify = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   // const auth: userState = useSelector((state: StoreState) => state.user);
   const { user, isLoading, error } = useSelector(
     (state: StoreState) => state.user
@@ -20,6 +22,7 @@ const SendVerify = () => {
   ) => {
     event.preventDefault();
     dispatch(sendVerificationAction(user.email));
+    history.push("/reservations");
   };
 
   if (isLoading) {

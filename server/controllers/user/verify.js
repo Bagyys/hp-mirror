@@ -1,38 +1,56 @@
 const jwt = require("jsonwebtoken");
 
 const { User } = require("../../models/userModel");
-const { verification } = require("../mail/verification");
-const { encrypt, decrypt } = require("../../utils/encryption");
-// const { errorHandling } = require("../../utils/errorHandling/errorHandling");
-// const {
-//   successHandling,
-// } = require("../../utils/errorHandling/successHandling");
+const { decrypt } = require("../../utils/encryption");
 
 exports.verify = async (req, res) => {
+  const verifyToken = req.params.verifyToken;
+
+  let user;
+  let message;
+
   try {
-    const verifyToken = req.params.verifyToken;
-    try {
-      const verified = jwt.verify(verifyToken, process.env.JWT_EMAIL_CONFIRM);
-    } catch (err) {
-      console.log(err);
-      console.log(err.message);
-      //   TODO: error handling
+    const verified = await jwt.verify(
+      verifyToken,
+      process.env.JWT_EMAIL_CONFIRM
+    );
+    const now = new Date().getTime();
+    if (
+      verified !== undefined &&
+      verified._id !== undefined &&
+      now < verified.iat &&
+      now > verified.exp
+    ) {
+      try {
+        user = await User.findById(verified._id);
+        let updatedUser;
+        if (user && user.verifyToken === verifyToken) {
+          updatedUser = await User.findByIdAndUpdate(
+            user._id,
+            { isVerified: true, verifyToken: "" },
+            { new: true }
+          );
+          if (updatedUser) {
+            updatedUser.email = decrypt(updatedUser.email);
+            user = updatedUser;
+          } else {
+            message = "User verification failed";
+          }
+        } else {
+          message = "User verification failed";
+        }
+      } catch (error) {
+        message = error.message;
+      }
+    } else {
+      message = "Verification failed";
     }
 
-    const user = await User.findOne({ verifyToken: verifyToken });
-    let updatedUser = user;
-    if (user.verifyToken === verifyToken) {
-      updatedUser = await User.findByIdAndUpdate(
-        user._id,
-        { isVerified: true, verifyToken: "" },
-        { new: true }
-      );
-      //   return successHandling(701, userLanguage, res);
-    }
-    updatedUser.email = decrypt(updatedUser.email);
-    res.status(200).json(updatedUser);
-  } catch (err) {
-    console.log(err);
-    // TODO error handling
+    res.json({ user, message });
+  } catch (error) {
+    return res.status(400).json({
+      user: undefined,
+      message: error.message,
+    });
   }
 };
