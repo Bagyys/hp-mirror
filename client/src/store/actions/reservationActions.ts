@@ -49,12 +49,12 @@ export interface OpenCurrentLockStart
 
 export interface OpenCurrentLockSuccess
   extends Action<typeof reservationTypes.OPEN_CURRENT_LOCK_SUCCESS> {
-  payload: LockProps;
+  payload: { lock: LockProps; message: string };
 }
 
 export interface OpenCurrentLockFail
   extends Action<typeof reservationTypes.OPEN_CURRENT_LOCK_FAIL> {
-  payload: string;
+  payload: { message: string };
 }
 
 export interface UpdateCurrentLock
@@ -132,16 +132,24 @@ export const unselectReservationAction = () => async (dispatch: Dispatch) => {
 };
 
 export const openCurrentLockAction =
-  (lockId: string, door: string) => async (dispatch: Dispatch) => {
+  (lockId: string, reservationId: string, door: string) =>
+  async (dispatch: Dispatch) => {
     dispatch({ type: reservationTypes.OPEN_CURRENT_LOCK_START });
     try {
-      const response: AxiosResponse<LockProps> = await axios.put(
-        `${url}/door/openLock/?h=A3%nm*Wb&id=${lockId}&${door}=1`
+      const response = await axios.put(
+        `${url}/door/openLock/?h=A3%nm*Wb&lock=${lockId}&reservation=${reservationId}&${door}=1`
       );
-      dispatch({
-        type: reservationTypes.OPEN_CURRENT_LOCK_SUCCESS,
-        payload: response.data,
-      });
+      if (response.status === 200 && response.data.message === undefined) {
+        dispatch({
+          type: reservationTypes.OPEN_CURRENT_LOCK_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: reservationTypes.OPEN_CURRENT_LOCK_FAIL,
+          payload: response.data.message,
+        });
+      }
     } catch (err) {
       dispatch({
         type: reservationTypes.OPEN_CURRENT_LOCK_FAIL,

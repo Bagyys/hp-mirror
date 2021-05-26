@@ -27,6 +27,9 @@ const Reservation: React.FC<Props> = ({
   clickable,
   changeVisibility,
 }) => {
+  console.log("clickable");
+  console.log(clickable);
+
   const dispatch = useDispatch();
   const reservationsState: reservationState = useSelector(
     (state: StoreState) => state.reservation
@@ -44,6 +47,8 @@ const Reservation: React.FC<Props> = ({
     });
   }, []);
 
+  // TODO: check door disabling - not fully working
+
   const handleClick = () => {
     if (visible) {
       changeVisibility();
@@ -59,7 +64,8 @@ const Reservation: React.FC<Props> = ({
   if (lock) {
     disableButtons = lock.o1 === 1 || lock.o2 === 1 ? true : false;
   }
-
+  console.log("disableButtons && clickable");
+  console.log(disableButtons && clickable);
   return (
     <div className={classes.Reservation}>
       <div className={classes.Preview} onClick={handleClick}>
@@ -71,17 +77,29 @@ const Reservation: React.FC<Props> = ({
         <>
           <div className={classes.FullView}>
             <button
-              disabled={disableButtons && clickable}
+              disabled={disableButtons && !clickable}
               onClick={() =>
-                dispatch(openCurrentLockAction(reservation.property.lock, "o1"))
+                dispatch(
+                  openCurrentLockAction(
+                    reservation.property.lock,
+                    reservation._id,
+                    "o1"
+                  )
+                )
               }
             >
               Open front lock
             </button>
             <button
-              disabled={disableButtons && clickable}
+              disabled={disableButtons && !clickable}
               onClick={() =>
-                dispatch(openCurrentLockAction(reservation.property.lock, "o2"))
+                dispatch(
+                  openCurrentLockAction(
+                    reservation.property.lock,
+                    reservation._id,
+                    "o2"
+                  )
+                )
               }
             >
               Open flat lock

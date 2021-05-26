@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
 import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";
@@ -29,10 +30,23 @@ const Reservations = () => {
     ? reservationsState.activeReservations
     : [];
 
-  const initialArray = Array.from(
+  const initialVisibleArray = Array.from(
     { length: reservations.length },
     (i) => (i = false)
   );
+
+  const initialClickableArray = Array.from(reservations, (reservation) => {
+    const now = moment.utc(new Date()).toDate();
+    if (
+      moment(moment.utc(reservation.startDate)).isBefore(moment.utc(now)) &&
+      moment(moment.utc(now)).isBefore(moment.utc(reservation.endDate))
+    ) {
+      return true;
+    } else return false;
+  });
+
+  console.log("initialClickableArray");
+  console.log(initialClickableArray);
 
   const [isReservationVisible, setReservationVisibility] = useState<boolean[]>(
     Array.from({ length: reservations.length }, (i) => (i = false))
@@ -47,8 +61,8 @@ const Reservations = () => {
 
   useEffect(() => {
     if (reservations.length) {
-      setReservationVisibility(initialArray);
-      setReservationClickability(initialArray);
+      setReservationVisibility(initialVisibleArray);
+      setReservationClickability(initialClickableArray);
     }
   }, [reservations]);
 
