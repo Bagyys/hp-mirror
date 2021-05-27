@@ -8,10 +8,10 @@ import { UserInterface } from "../types/userInterfaces";
 
 // -------------------- URLS --------------------
 // development URL
-const url = process.env.REACT_APP_DEV_URL;
+// const url = process.env.REACT_APP_DEV_URL;
 
 // production URL
-// const url = process.env.REACT_APP_PROD_URL;
+const url = process.env.REACT_APP_PROD_URL;
 // -------------------- END of URLS --------------------
 
 // -------------------- ACTION INTERFACES --------------------
