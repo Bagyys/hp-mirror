@@ -1,5 +1,5 @@
 import bookingTypes from "../types/bookingTypes";
-import { Actions } from "../actions/bookingActions";
+import { BookingActions } from "../actions/bookingActions";
 
 export interface SelectionAvailabilty {
   date: string;
@@ -26,7 +26,7 @@ const initialState: InitialState = {
   totalHours: 0,
 };
 
-const bookingReducer = (state = initialState, action: Actions) => {
+const bookingReducer = (state = initialState, action: BookingActions) => {
   switch (action.type) {
     case bookingTypes.CHECK_SELECTED_DAYS:
       return {

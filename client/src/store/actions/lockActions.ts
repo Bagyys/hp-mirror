@@ -207,13 +207,20 @@ export const openLockAction =
   async (dispatch: Dispatch) => {
     dispatch({ type: lockTypes.OPEN_LOCK_START });
     try {
-      const response: AxiosResponse<LockProps> = await axios.put(
-        `${url}/door/openLock/?h=A3%nm*Wb&id=${lockId}&${door}=1`
+      const response = await axios.put(
+        `${url}/door/openLockAdmin/?h=A3%nm*Wb&id=${lockId}&${door}=1`
       );
-      dispatch({
-        type: lockTypes.OPEN_LOCK_SUCCESS,
-        payload: { lock: response.data, index },
-      });
+      if (response.status === 200 && response.data.message === undefined) {
+        dispatch({
+          type: lockTypes.OPEN_LOCK_SUCCESS,
+          payload: { lock: response.data.lock, index },
+        });
+      } else {
+        dispatch({
+          type: lockTypes.OPEN_LOCK_FAIL,
+          payload: response.data.message,
+        });
+      }
     } catch (err) {
       dispatch({
         type: lockTypes.OPEN_LOCK_FAIL,

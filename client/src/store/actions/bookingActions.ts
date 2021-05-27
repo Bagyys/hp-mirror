@@ -13,6 +13,7 @@ import {
   unselectDayHours,
 } from "../../utilities/booking";
 import bookingTypes from "../types/bookingTypes";
+import { ReservationInterface } from "../types/reservationInterfaces";
 
 // -------------------- URLS --------------------
 // development URL
@@ -48,7 +49,7 @@ export interface BookTimeStart
 
 export interface BookTimeSuccess
   extends Action<typeof bookingTypes.BOOK_TIME_SUCCESS> {
-  // payload: any;
+  payload: ReservationInterface;
 }
 
 export interface BookTimeFail
@@ -56,7 +57,7 @@ export interface BookTimeFail
   payload: string;
 }
 
-export type Actions =
+export type BookingActions =
   | CheckAvailability
   | SelectHour
   | BookTimeStart
@@ -347,8 +348,11 @@ export const bookTimeAction =
 
       dispatch({
         type: bookingTypes.BOOK_TIME_SUCCESS,
+        payload: response.data,
       });
     } catch (error) {
+      console.log("error");
+      console.log(error);
       dispatch({
         type: bookingTypes.BOOK_TIME_FAIL,
         payload: error.message,

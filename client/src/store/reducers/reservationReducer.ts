@@ -60,7 +60,7 @@ const reservationReducer = (state = initialState, action: Actions) => {
         ...state,
         currentReservation: {
           ...state.currentReservation,
-          lock: action.payload,
+          lock: action.payload.lock,
         },
       };
     case reservationTypes.UPDATE_CURRENT_LOCK:

@@ -1,11 +1,9 @@
 import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
-// import moment from "moment-timezone";
-// import Swal from "sweetalert2";
+
 import { StoreState } from "../configureStore";
 import userTypes from "../types/userTypes";
 import { userState } from "../reducers/userReducer";
-import { ReservationInterface } from "../types/reservationInterfaces";
 import { UserInterface } from "../types/userInterfaces";
 
 // -------------------- URLS --------------------

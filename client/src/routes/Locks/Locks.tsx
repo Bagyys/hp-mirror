@@ -7,7 +7,6 @@ import { StoreState } from "../../store/configureStore";
 import {
   getAllLocksAction,
   updateLockAction,
-  throwErrorAction,
   clearErrorAction,
 } from "../../store/actions/lockActions";
 import { LockProps } from "../../store/reducers/lockReducer";
@@ -33,8 +32,8 @@ const Locks = () => {
   useEffect(() => {
     if (error) {
       Swal.fire({
-        title: "Ups, something went wrong",
-        text: error,
+        title: error,
+        text: "Ups, something went wrong",
         icon: "warning",
         showCancelButton: false,
         confirmButtonText: "OK",

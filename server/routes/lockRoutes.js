@@ -3,6 +3,7 @@ const router = require("express").Router();
 const { handleLock } = require("../controllers/locks/handleLock");
 const { addLock } = require("../controllers/locks/addLock");
 const { openLock } = require("../controllers/locks/openLock");
+const { openLockAdmin } = require("../controllers/locks/openLockAdmin");
 const { assignLock } = require("../controllers/locks/assignLock");
 const { resetLock } = require("../controllers/locks/resetLock");
 const { deleteLock } = require("../controllers/locks/deleteLock");
@@ -13,6 +14,7 @@ const {
 const { getLockByProperty } = require("../controllers/locks/getLockByProperty");
 
 // routes
+router.put("/openLockAdmin/", openLockAdmin);
 router.put("/openLock/", openLock);
 router.put("/lock/add/", addLock);
 router.post("/lock/assign/", assignLock);

@@ -1,8 +1,5 @@
 import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
-// import moment from "moment-timezone";
-// import Swal from "sweetalert2";
-import { StoreState } from "../configureStore";
 import reservationTypes from "../types/reservationTypes";
 import { ReservationInterface } from "../types/reservationInterfaces";
 import { LockProps } from "../reducers/lockReducer";
@@ -135,9 +132,11 @@ export const openCurrentLockAction =
   (lockId: string, reservationId: string, door: string) =>
   async (dispatch: Dispatch) => {
     dispatch({ type: reservationTypes.OPEN_CURRENT_LOCK_START });
+    const body = { lockId, reservationId, door };
     try {
       const response = await axios.put(
-        `${url}/door/openLock/?h=A3%nm*Wb&lock=${lockId}&reservation=${reservationId}&${door}=1`
+        `${url}/door/openLock/?h=A3%nm*Wb`,
+        body
       );
       if (response.status === 200 && response.data.message === undefined) {
         dispatch({
