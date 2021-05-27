@@ -36,6 +36,7 @@ export interface Price {
 }
 
 export interface Facilities {
+  size: number;
   wifi: boolean;
   parking: boolean;
   petFriendly: boolean;
@@ -96,6 +97,7 @@ const initialState: Array<PropertyProps> = [];
 const propertyReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
     case propertyTypes.GET_ALL_PROPERTIES_SUCCESS:
+    case propertyTypes.GET_PROPERTIES_WO_LOCKS_SUCCESS:
       return action.payload;
     case propertyTypes.GET_PROPERTY_SUCCESS:
       return [action.payload];

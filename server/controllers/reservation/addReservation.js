@@ -3,6 +3,8 @@ const { User } = require("../../models/userModel");
 const { Property } = require("../../models/propertyModel");
 
 exports.addReservation = async (req, res) => {
+  console.log("req.body");
+  console.log(req.body);
   const data = req.body;
   const { occupiedTime, ...reservationObject } = data;
   // console.log("reservationObject");
@@ -10,12 +12,13 @@ exports.addReservation = async (req, res) => {
   // console.log("occupiedTime");
   // console.log(occupiedTime);
   let updatedProperty = {};
+  let savedReservation;
   try {
     const createdReservation = new Reservation(reservationObject);
     // console.log("createdReservation");
     // console.log(createdReservation);
     // all good
-    await createdReservation.save();
+    savedReservation = await createdReservation.save();
     try {
       const updatedUser = await User.findByIdAndUpdate(
         data.userId,
@@ -146,7 +149,7 @@ exports.addReservation = async (req, res) => {
     //   console.log("e2" + err.message);
     //   return res.status(500).json({ error: err.message });
     // }
-    return res.status(200).send(updatedProperty.occupiedTime);
+    return res.status(200).send(savedReservation);
   } catch (err) {
     console.log("e3 " + err.message);
 

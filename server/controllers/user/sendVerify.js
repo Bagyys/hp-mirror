@@ -1,41 +1,55 @@
+const xss = require("xss");
+
 const { User } = require("../../models/userModel");
-const jwt = require("jsonwebtoken");
-// const { errorHandling } = require("../../utils/errorHandling/errorHandling");
-// const {
-//   successHandling,
-// } = require("../../utils/errorHandling/successHandling");
+const { encrypt } = require("../../utils/encryption");
+const { getSignedToken } = require("../../utils/signedToken");
+const { verification } = require("../mail/verification");
 
-// locale tavo draugas
 exports.sendVerify = async (req, res) => {
-  console.log("verify");
   try {
-    const verifyToken = req.params.verifyToken;
+    let { email } = req.body;
 
-    try {
-      const verified = jwt.verify(verifyToken, process.env.JWT_EMAIL_CONFIRM);
-      console.log("verified");
-      console.log(verified);
-    } catch (err) {
-      console.log(err.message);
-      //   return errorHandling(704, userLanguage, res);
+    let user;
+    let message;
+
+    email = xss(email);
+    if (!email) {
+      message = "Enter your email";
     }
 
-    const user = await User.findOne({ verifyToken: verifyToken });
-    console.log("user before update");
-    console.log(user);
-    // if (!user) {
-    //   return errorHandling(704, userLanguage, res);
-    // }
+    const encryptedEmail = encrypt(email);
 
-    if (user.verifyToken === verifyToken) {
-      await user.updateOne({ $set: { isVerified: true, verifyToken: "" } });
-      //   return successHandling(701, userLanguage, res);
+    user = await User.findOne({ email: encryptedEmail });
+
+    if (user) {
+      if (user.isVerified) {
+        message = "User is already verified";
+      } else {
+        const token = getSignedToken(
+          user._id,
+          process.env.JWT_EMAIL_CONFIRM,
+          "20m"
+        );
+        const updatedUser = await User.findByIdAndUpdate(
+          user._id,
+          { verifyToken: token },
+          { new: true }
+        );
+        verification(email, token);
+        user = updatedUser;
+      }
+    } else {
+      message = "User does not exist";
     }
-    console.log("user after update");
-    console.log(user);
+
+    return res.json({
+      user,
+      message,
+    });
   } catch (err) {
-    console.log(err);
-    // return res.status(500).json({ msg: 'Nuoroda neteisinga arba nebegalioja' });
-    // return res.status(500).json({ error: err.message });
+    res.status(400).json({
+      user: undefined,
+      message: err.message,
+    });
   }
 };

@@ -1,0 +1,40 @@
+@import "../../styles/global.scss";
+.Settings {
+  h1 {
+    color: $lightBlue;
+    font-size: $titleSizeFont;
+    text-align: center;
+    margin: 2rem 1rem;
+    font-weight: $font-Weight-bold;
+  }
+  .Properties,
+  .Locks {
+    margin: 2rem;
+    h4 {
+      font-size: $smallTitleFont;
+      font-weight: $font-Weight-semiBold;
+      margin: 1rem;
+    }
+  }
+  button {
+    margin: 2rem;
+    text-align: center;
+    color: white;
+    max-width: 22rem;
+    background-color: $lightBlue;
+    border-radius: 1rem;
+    min-width: 11.5rem;
+    min-height: 3.5rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-style: $workSans;
+    box-sizing: border-box;
+    font-size: $smallFontSize;
+    padding: 0.8em 2em;
+    &:hover {
+      background-color: $lightBlue;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 const express = require("express");
 const { socketConnection } = require("./utils/socket");
+const updateReservations = require("./controllers/reservation/updateReservations");
 const app = express();
 const fs = require("fs");
 const path = require("path");
@@ -9,6 +10,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 morgan("tiny");
 const helmet = require("helmet");
+const cron = require("node-cron");
 app.use(helmet());
 
 // setup static files and bodyparser
@@ -46,11 +48,17 @@ const allFlats = require("./routes/flatRoutes");
 const allProperties = require("./routes/propertyRoutes");
 const allReservations = require("./routes/reservationRoutes");
 
-app.use("/", allDoors);
-app.use("/user/", allUsers);
+app.use("/door/", allDoors);
 app.use("/flat/", allFlats);
 app.use("/property/", allProperties);
 app.use("/reservation/", allReservations);
+app.use("/", allUsers);
+
+// cron jobs
+cron.schedule("59 23 * * *", () => {
+  // move active reservations to past reservations after they've ended
+  updateReservations();
+});
 
 const expressServer = app.listen(9000);
 socketConnection.io.attach(expressServer);

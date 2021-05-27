@@ -109,6 +109,8 @@ const propertySchema = new Schema(
       ],
     },
     facilities: {
+      // property size in square meters
+      size: { type: Number, required: true },
       wifi: { type: Boolean, required: true },
       parking: { type: Boolean, required: true },
       petFriendly: { type: Boolean, required: true },
@@ -136,18 +138,11 @@ const propertySchema = new Schema(
       bedrooms: { type: Number, required: true },
       // TODO: what about children??? -----------------------
     },
-    //   locks: {
-    //     outside: {
-    //       type: Schema.Types.ObjectId,
-    //       ref: "Lock",
-    //       required: true,
-    //     },
-    //     inside: {
-    //       type: Schema.Types.ObjectId,
-    //       ref: "Lock",
-    //       required: true,
-    //     },
-    //   },
+    lock: {
+      type: Schema.Types.ObjectId,
+      ref: "Lock",
+      required: false,
+    },
     services: {
       // TODO: how do we handle this info?  -----------------------
     },

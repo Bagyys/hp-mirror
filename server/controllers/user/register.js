@@ -1,69 +1,67 @@
 const bcrypt = require("bcrypt");
 
 const { User } = require("../../models/userModel");
-const { encrypt } = require("../../utils/encryption");
+const { encrypt, decrypt } = require("../../utils/encryption");
 const { getSignedToken } = require("../../utils/signedToken");
+const { verification } = require("../mail/verification");
 
-exports.register = async (req, res, next) => {
+exports.register = async (req, res) => {
   try {
-    console.log("req.body");
-    console.log(req.body);
     const body = req.body;
     const encryptedEmail = encrypt(body.email);
-    // console.log("encryptedEmail");
-    // console.log(encryptedEmail);
-    // const user = await User.findOne({ email: encryptedEmail });
-    // // const user = await User.findOne({ email: encrypt(body.email) });
-    // console.log("user");
-    // console.log(user);
-    const { user, token } = await User.find({ email: encryptedEmail })
-      .exec()
-      .then((user) => {
-        // console.log("user");
-        // console.log(user);
-        if (user.length > 0) {
-          console.log("User already exist");
-          // throw new Error("User already exist");
-        }
-        return bcrypt
-          .hash(body.password, 10)
-          .then(async (hashed) => {
-            // console.log("hashed");
-            // console.log(hashed);
-            const newUser = new User({
-              email: encryptedEmail,
-              password: hashed,
-            });
-            // console.log("newUser");
-            // console.log(newUser);
-            const token = getSignedToken(newUser._id);
-            // console.log("token");
-            // console.log(token);
-            await newUser.save();
-            const payload = {
-              user: newUser,
-              token,
-            };
-            console.log("payload");
-            console.log(payload);
-            return payload;
-          })
-          .catch((err) => {
-            console.log("err.message");
-            console.log(err.message);
-            throw new Error("All fields required");
+
+    let user;
+    let token;
+    let message;
+
+    const existingUser = await User.findOne({ email: encryptedEmail });
+
+    if (!existingUser) {
+      try {
+        const hashedPassword = await bcrypt.hash(body.password, 10);
+        if (hashedPassword) {
+          user = new User({
+            email: encryptedEmail,
+            password: hashedPassword,
           });
-      });
-    console.log("before return from controler");
-    console.log("token");
-    console.log(token);
-    console.log("user");
-    console.log(user);
-    res.status(200).json({
-      token: token,
-      user: user,
+
+          const emailToken = getSignedToken(
+            user._id,
+            process.env.JWT_EMAIL_CONFIRM,
+            "20m"
+          );
+
+          token = getSignedToken(user._id, process.env.JWT_KEY, "1h");
+
+          user.verifyToken = emailToken;
+
+          await user.save();
+
+          user.email = decrypt(encryptedEmail);
+
+          const decryptedEmail = decrypt(encryptedEmail);
+
+          verification(decryptedEmail, emailToken);
+        } else {
+          message = "An unexpected error occured";
+        }
+      } catch (error) {
+        message = error.message;
+      }
+    } else {
+      message = "There is a user registered with this email";
+    }
+
+    return res.json({
+      token,
+      user,
+      message,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    res.json({
+      token: undefined,
+      user: undefined,
+      message: err.message,
+    });
   }
 };

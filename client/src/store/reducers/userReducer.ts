@@ -10,37 +10,25 @@ export interface userState {
   isAuthenticated: boolean;
   isLoading: boolean;
   token: string | null;
-  userId: string;
-  // _id: string;
-  // email: string;
-  // password: string;
-  // name: string;
-  // isVerified: boolean;
-  // verifyToken: string;
-  // changeEmailToken: string;
-  // passwordResetToken: string;
-  // role: string;
-  // legalEntity: string;
-  // activeReservations: Array<ReservationInterface>;
-  // pastReservations: Array<ReservationInterface>;
-  // canceledReservations: Array<ReservationInterface>;
-  // favorites: Array<string>;
-  // contacts: Object;
+  error: string;
 }
 
 export const isValidToken = (token: string | null) => {
   if (token !== null) {
     const decoded = jwt.decode(token);
-    const { exp } = decoded as {
-      exp: number;
-    };
-    return new Date(exp * 1000) > new Date() ? decoded : null;
+    let expiration: number = 0;
+    if (decoded !== null) {
+      const { exp } = decoded as {
+        exp: number;
+      };
+      expiration = exp;
+    }
+    return new Date(expiration * 1000) > new Date() ? decoded : null;
   } else return null;
 };
 
 const initialState: userState = {
   user: {
-    // _id: "607d45c5687db96d68ed41fa", // TODO: make dynamic after login
     _id: "",
     email: "",
     password: "",
@@ -57,34 +45,19 @@ const initialState: userState = {
     favorites: [],
     contacts: {},
   },
-  currentUser: localStorage.getItem("USER-TOKEN")
-    ? isValidToken(localStorage.getItem("USER-TOKEN"))
+  currentUser: localStorage.getItem("token")
+    ? isValidToken(localStorage.getItem("token"))
     : null,
-  token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
+  token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
   isAuthenticated: false,
-  isLoading: false,
-  userId: "",
-
-  // _id: "607d45c5687db96d68ed41fa", // TODO: make dynamic after login
-  // email: "",
-  // password: "",
-  // name: "",
-  // isVerified: false,
-  // verifyToken: "",
-  // changeEmailToken: "",
-  // passwordResetToken: "",
-  // role: "",
-  // legalEntity: "",
-  // activeReservations: [],
-  // pastReservations: [],
-  // canceledReservations: [],
-  // favorites: [],
-  // contacts: {},
+  isLoading: true,
+  error: "",
 };
 
 const userReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
-    case userTypes.USER_LOADING:
+    case userTypes.LOAD_USER_REQUEST:
+    case userTypes.VERIFY_REQUEST:
     case userTypes.LOG_IN_REQUEST:
     case userTypes.REGISTER_REQUEST:
     case userTypes.LOG_OUT_REQUEST:
@@ -93,18 +66,49 @@ const userReducer = (state = initialState, action: Actions) => {
         isLoading: true,
         isAuthenticated: false,
       };
+    case userTypes.LOAD_USER_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        isLoading: false,
+        user: action.payload.user,
+        currentUser: localStorage.getItem("token")
+          ? isValidToken(localStorage.getItem("token"))
+          : null,
+        token:
+          typeof window !== "undefined" ? localStorage.getItem("token") : null,
+      };
     case userTypes.LOG_IN_SUCCESS:
     case userTypes.REGISTER_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        token: action.payload.token,
-        // currentUser: action.payload.user,
-        user: action.payload.user,
         isAuthenticated: true,
+        token:
+          typeof window !== "undefined" ? localStorage.getItem("token") : null,
+        currentUser: localStorage.getItem("token")
+          ? isValidToken(localStorage.getItem("token"))
+          : null,
+        user: action.payload.user,
+      };
+    case userTypes.VERIFY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: true,
+        user: action.payload.user,
+        currentUser: localStorage.getItem("token")
+          ? isValidToken(localStorage.getItem("token"))
+          : null,
+      };
+    case userTypes.SEND_VERIFICATION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        user: action.payload.user,
       };
     case userTypes.LOG_OUT_SUCCESS:
-      localStorage.removeItem("USER-TOKEN");
+      localStorage.removeItem("token");
       return {
         ...state,
         isAuthenticated: false,
@@ -113,23 +117,25 @@ const userReducer = (state = initialState, action: Actions) => {
         user: null,
         token: "",
       };
-    case userTypes.LOG_IN_FAILURE:
+    case userTypes.LOAD_USER_FAIL:
     case userTypes.REGISTER_FAILURE:
+    case userTypes.SEND_VERIFICATION_FAIL:
+    case userTypes.VERIFY_FAIL:
+    case userTypes.LOG_IN_FAILURE:
     case userTypes.LOG_OUT_FAILURE:
       return {
         ...state,
         isLoading: false,
-        error: action.payload, // what about errors?
+        error: action.payload.message,
         currentUser: null,
         user: null,
         isAuthenticated: false,
       };
-    case userTypes.GET_USER_RESERVATIONS_SUCCESS:
+    case userTypes.CLEAR_ERROR:
       return {
         ...state,
-        activeReservations: action.payload,
+        error: "",
       };
-
     default:
       return state;
   }

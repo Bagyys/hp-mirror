@@ -1,49 +1,51 @@
 const bcrypt = require("bcrypt");
 
 const { User } = require("../../models/userModel");
-const { encrypt } = require("../../utils/encryption");
+const { encrypt, decrypt } = require("../../utils/encryption");
 const { getSignedToken } = require("../../utils/signedToken");
 
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
   try {
-    const payload = req.body;
-    // const token = await UserServices.logInUser(payload);
+    const body = req.body;
+    const encryptedEmail = encrypt(body.email);
 
-    const { user, token } = await User.findOne({
-      email: encrypt(payload.email),
-    })
-      .exec()
-      .then((user) => {
-        if (!user) {
-          throw new Error("Please enter email or password");
+    let user;
+    let token;
+    let message;
+
+    const existingUser = await User.findOne({ email: encryptedEmail });
+
+    if (existingUser) {
+      try {
+        const bcryptResponse = await bcrypt.compare(
+          body.password,
+          existingUser.password
+        );
+        if (bcryptResponse) {
+          token = getSignedToken(existingUser._id, process.env.JWT_KEY, "1h");
+          user = existingUser;
         } else {
-          return bcrypt
-            .compare(payload.password, user.password)
-            .then((res) => {
-              if (res) {
-                const token = getSignedToken(user._id);
-                const payload = {
-                  user,
-                  token,
-                };
-                return payload;
-              } else {
-                throw new Error("Incorrect password or email, try again");
-              }
-            })
-            .catch((err) => {
-              console.log("err.message");
-              console.log(err.message);
-              throw new Error("All fields required");
-            });
+          message = "Incorrect password or email";
         }
-      });
-
-    res.status(200).json({
-      token: token,
-      user: user,
+      } catch (error) {
+        message = error.message;
+      }
+      if (user) {
+        user.email = decrypt(user.email);
+      }
+    } else {
+      message = "There is no user with this email";
+    }
+    return res.json({
+      token,
+      user,
+      message,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    return res.status(400).json({
+      token: undefined,
+      user: undefined,
+      message: err.message,
+    });
   }
 };

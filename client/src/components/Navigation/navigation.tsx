@@ -2,73 +2,78 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
 import { StoreState } from "../../store/configureStore";
-import { logoutAction } from "../../store/actions/userActions";
+import { userState } from "../../store/reducers/userReducer";
+import { loadUser, logoutAction } from "../../store/actions/userActions";
 import NotificationImg from "../../assets/images/bell.png";
-import ProfileImg from "../../assets/images/profile.png";
 import LogoImg from "../../assets/images/Logo.png";
-import user from "../../assets/images/user.png";
+import userImg from "../../assets/images/user.png";
 import logout from "../../assets/images/logout.png";
 import register from "../../assets/images/register.png";
 
 import classes from "./navigation.module.scss";
+import { useEffect } from "react";
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { currentUser, isAuthenticated } = useSelector(
-    (state: StoreState) => state.user
-  );
+  const auth: userState = useSelector((state: StoreState) => state.user);
+  const { token, isAuthenticated, user } = auth;
+  useEffect(() => {
+    if (!user._id) {
+      dispatch(loadUser());
+    }
+  }, []);
+
+  useEffect(() => {}, [token, isAuthenticated]);
+
   const handleSignOut = () => {
     dispatch(logoutAction());
   };
-  if (isAuthenticated) {
-    // router.push(`/send-verify/`);
-    history.push(`/send-verify/`);
-    return (
-      <Link
-        to={{
-          pathname: `/send-verify`,
-        }}
-      ></Link>
-    );
-    // return null;
-  } else {
-    return (
-      <div className={classes.Navigation}>
-        <div className={classes.NavigationWrapper}>
-          <div className={classes.Logo}>
-            <a href="/">
-              <img src={LogoImg} alt="Logo" />
-            </a>
+
+  return (
+    <div className={classes.Navigation}>
+      <div className={classes.NavigationWrapper}>
+        <div className={classes.Logo}>
+          <Link to="/">
+            <img src={LogoImg} alt="Logo" />
+          </Link>
+        </div>
+
+        <div className={classes.Routes}>
+          <ul>
+            <li>
+              <Link to="/reservations">Reservations</Link>
+            </li>
+            <li>
+              <Link to="/favorites">Favorites</Link>
+            </li>
+            <li>
+              <Link to="/history">History</Link>
+            </li>
+            <li>
+              <Link to="/settings">Settings</Link>
+            </li>
+            <li>
+              <Link to="/locks">Locks</Link>
+            </li>
+          </ul>
+        </div>
+
+        <div className={classes.Profile}>
+          <div className={classes.Notification}>
+            <img src={NotificationImg} alt="Notification Bell" />
           </div>
 
-          <div className={classes.Routes}>
-            <ul>
-              <li>
-                <Link to="/reservations">Reservations</Link>
-              </li>
-              <li>
-                <Link to="/favorites">Favorites</Link>
-              </li>
-              <li>
-                <Link to="/history">History</Link>
-              </li>
-              <li>
-                <Link to="/settings">Settings</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className={classes.Profile}>
-            <div className={classes.Notification}>
-              <img src={NotificationImg} alt="Notification Bell" />
-            </div>
-            <div className={classes.Register}>
-              <Link to="/register">
-                <img className={classes.navBtn} src={register} alt="LoginPic" />
-              </Link>
-            </div>
-            {currentUser !== null ? (
+          {isAuthenticated && token ? (
+            <>
+              <div className={classes.Login}>
+                <Link to="/settings">
+                  <img
+                    className={classes.navBtn}
+                    src={userImg}
+                    alt="ProfilePic"
+                  />
+                </Link>
+              </div>
               <div className={classes.Logout} onClick={handleSignOut}>
                 <Link to="/">
                   <img
@@ -78,20 +83,34 @@ const Navigation = () => {
                   />
                 </Link>
               </div>
-            ) : (
-              <div className={classes.Login}>
-                <Link to="/login">
-                  <img className={classes.navBtn} src={user} alt="LoginPic" />
+            </>
+          ) : (
+            <>
+              <div className={classes.Register}>
+                <Link to="/register">
+                  <img
+                    className={classes.navBtn}
+                    src={register}
+                    alt="RegisterPic"
+                  />
                 </Link>
               </div>
-            )}
-
-            {/* <img src={ProfileImg} alt="Profile" /> */}
-          </div>
+              <div className={classes.Login}>
+                <Link to="/login">
+                  <img
+                    className={classes.navBtn}
+                    src={userImg}
+                    alt="LoginPic"
+                  />
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+  // }
 };
 
 export default Navigation;

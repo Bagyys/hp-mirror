@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { DateRange, OnChangeProps } from "react-date-range";
 import moment from "moment";
-// import { addDays } from "date-fns";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { IoShareSocialSharp } from "react-icons/io5";
@@ -14,12 +13,11 @@ import { GrRotateRight } from "react-icons/gr";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
-// import "./calendar.scss";
 import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
 import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
 import { StoreState } from "../../store/configureStore";
+import { userState } from "../../store/reducers/userReducer";
 import { PropertyProps } from "../../store/reducers/propertyReducer";
-// import { occupiedDay } from "../../store/reducers/propertyReducer";
 import { getOnePropertyAction } from "../../store/actions/propertyActions";
 import {
   checkAvailabilityAction,
@@ -50,6 +48,7 @@ interface PropsInterface {
 
 const FlatView = (props: PropsInterface) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -60,6 +59,8 @@ const FlatView = (props: PropsInterface) => {
 
   const stateProperty = useSelector((state: StoreState) => state.properties[0]);
   const booking = useSelector((state: StoreState) => state.booking);
+  const auth: userState = useSelector((state: StoreState) => state.user);
+  const user = auth.user;
   let property: PropertyProps = {} as PropertyProps;
   if (props && props.location.state) {
     property = props.location.state.property;
@@ -74,7 +75,6 @@ const FlatView = (props: PropsInterface) => {
       key: "selection",
     },
   ]);
-  // const [displayDays, setDisplayDays] = useState<Array<DisplayDay>>([]);
   const [current, setCurrent] = useState<number>(0);
   const [isScheduleOpened, setIsScheduleOpened] = useState<boolean>(false);
   const occupiedTime = property.occupiedTime;
@@ -149,22 +149,19 @@ const FlatView = (props: PropsInterface) => {
     dispatch(checkAvailabilityAction(selectedDays, occupiedTime));
     setIsScheduleOpened(true);
   };
-
-  const handleBooking = () => {
-    console.log("handleBooking");
+  const handleBooking = (residents: number) => {
     const body = {
-      userId: "607d45c5687db96d68ed41fa",
+      userId: user._id,
       propertyId: property._id,
-      residents: 1, // TODO: user input for number of residents
+      residents,
       price: calculatePrice(),
       startDate: booking.startTime!,
       endDate: booking.endTime!,
       timeZone: property.location.timeZone,
       occupiedTime: booking.displayDays,
     };
-    console.log("body");
-    console.log(body);
     dispatch(bookTimeAction(body));
+    history.push("/reservations");
   };
 
   let propertyRender = <></>;
@@ -240,6 +237,7 @@ const FlatView = (props: PropsInterface) => {
                       ? `${classes.slide} ${classes.active}`
                       : classes.slide
                   }
+                  key={index}
                 >
                   {index === current && (
                     <div key={index} className={classes.Images}>
@@ -311,14 +309,22 @@ const FlatView = (props: PropsInterface) => {
               </div>
             </div>
             <div className={classes.Specifications}>
-              <div>
-                <h2>Daily Rent</h2>
-                <p>{property.price.daily}€</p>
-              </div>
-              <div>
-                <h2>Hourly Rent</h2>
-                <p>{property.price.daily}€</p>
-              </div>
+              {property.price.daily ? (
+                <div>
+                  <h2>Daily Rent</h2>
+                  <p>{property.price.daily}€</p>
+                </div>
+              ) : (
+                <></>
+              )}
+              {property.price.hourly ? (
+                <div>
+                  <h2>Hourly Rent</h2>
+                  <p>{property.price.hourly}€</p>
+                </div>
+              ) : (
+                <></>
+              )}
               <div>
                 <h2>Bedrooms</h2>
                 <p>
@@ -326,8 +332,8 @@ const FlatView = (props: PropsInterface) => {
                 </p>
               </div>
               <div>
-                <h2>Square Feet</h2>
-                <p>50 sq ft</p>
+                <h2>Square Meters</h2>
+                <p>{property.facilities.size} sq m</p>
               </div>
             </div>
           </div>

@@ -29,8 +29,6 @@ exports.reset = async (lockId, n1, n3, error) => {
     },
     { new: true }
   );
-  console.log("reset");
-  console.log(updatedLock);
   // get values to return from updated door
   if (updatedLock) {
     socketConnection.socket.emit("lockUpdate", {

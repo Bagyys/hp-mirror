@@ -4,20 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 import socket from "../../utilities/socketConnection";
 
 import { StoreState } from "../../store/configureStore";
-import Flats from "../../components/Flats/flats";
-import Map from "../../components/Map/map";
-import Lock from "../../containers/Lock/Lock";
+import { loadUser } from "../../store/actions/userActions";
 import {
   getAllLocksAction,
   updateLockAction,
 } from "../../store/actions/lockActions";
 import { LockProps } from "../../store/reducers/lockReducer";
+import Flats from "../../components/Flats/flats";
+import Map from "../../components/Map/map";
+import Lock from "../../containers/Lock/Lock";
+import Filter from "../../components/Filter/filter";
 
 import classes from "../../App.module.scss";
-import Filter from "../../components/Filter/filter";
+
 function Home() {
   const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(loadUser());
     dispatch(getAllLocksAction());
     socket.on("lockUpdate", (data) => {
       const { id, o1, o2, o3 } = data;
@@ -30,6 +34,7 @@ function Home() {
   );
 
   useEffect(() => {}, [locks]);
+
   let lockComps = null;
   if (locks !== undefined && locks !== null) {
     lockComps = locks.map((lock: LockProps, index: number) => {
@@ -46,8 +51,8 @@ function Home() {
         <Flats />
         <Map />
       </div>
-      <h1>Hello there</h1>
-      {lockComps}
+      {/* <h1>Hello there</h1> */}
+      {/* {lockComps} */}
     </div>
   );
 }

@@ -9,6 +9,7 @@ export interface PropertyInterface {
   images: Array<string>;
   price: PriceInterface;
   facilities: FacilitiesInterface;
+  lock: string;
   services: Object;
   occupiedTime: Array<OccupiedDayInterface>;
   ratings: Array<RatingInterface>;

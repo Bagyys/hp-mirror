@@ -1,5 +1,5 @@
 import { PropertyInterface } from "./propertyInterfaces";
-
+import { LockProps } from "../reducers/lockReducer";
 export interface ReservationInterface {
   _id: string;
   userId: string;
@@ -12,4 +12,5 @@ export interface ReservationInterface {
   timeZone: string;
   updatedAt: Date;
   createdAt: Date;
+  lock?: LockProps;
 }
