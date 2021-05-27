@@ -9,6 +9,7 @@ import Verify from "../routes/Verify/Verify";
 import Login from "../routes/Login/Login";
 import FlatReview from "../routes/FlatReview/FlatView";
 import Reservations from "../routes/Reservations/Reservations";
+import History from "../routes/History/History";
 import Settings from "../routes/Settings/Settings";
 import Locks from "../routes/Locks/Locks";
 
@@ -23,6 +24,7 @@ const Routes = () => {
         <Route path="/flat/:id" component={FlatReview} />
         <Route path="/verify/:token" component={Verify} />
         <UserRoute path="/send-verify" component={SendVerify} />
+        <UserRoute path="/history" component={History} />
         <UserRoute path="/reservations" component={Reservations} />
         <UserRoute path="/settings" component={() => <Settings />} />
         <UserRoute path="/locks" component={Locks} />

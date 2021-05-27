@@ -59,6 +59,19 @@ export interface UpdateCurrentLock
   payload: { o1: number; o2: number; o3: number };
 }
 
+export interface GetPastReservationsStart
+  extends Action<typeof reservationTypes.GET_PAST_RESERVATIONS_START> {}
+
+export interface GetPastReservationsSuccess
+  extends Action<typeof reservationTypes.GET_PAST_RESERVATIONS_SUCCESS> {
+  payload: Array<ReservationInterface>;
+}
+
+export interface GetPastReservationsFail
+  extends Action<typeof reservationTypes.GET_PAST_RESERVATIONS_FAIL> {
+  payload: string;
+}
+
 export interface ClearError
   extends Action<typeof reservationTypes.CLEAR_ERROR> {}
 
@@ -74,6 +87,9 @@ export type Actions =
   | OpenCurrentLockSuccess
   | OpenCurrentLockFail
   | UpdateCurrentLock
+  | GetPastReservationsStart
+  | GetPastReservationsSuccess
+  | GetPastReservationsFail
   | ClearError;
 
 // -------------------- END of ACTION INTERFACES --------------------
@@ -163,6 +179,27 @@ export const updateCurrentLockAction =
       type: reservationTypes.UPDATE_CURRENT_LOCK,
       payload: { o1, o2, o3 },
     });
+  };
+
+export const getPastReservationsAction =
+  (userId: string) => async (dispatch: Dispatch) => {
+    dispatch({
+      type: reservationTypes.GET_PAST_RESERVATIONS_START,
+    });
+    try {
+      const response: AxiosResponse<ReservationInterface> = await axios.get(
+        `${url}/reservation/getPastReservations/${userId}`
+      );
+      dispatch({
+        type: reservationTypes.GET_PAST_RESERVATIONS_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: reservationTypes.GET_PAST_RESERVATIONS_FAIL,
+        payload: error.message,
+      });
+    }
   };
 
 export const clearErrorAction = () => async (dispatch: Dispatch) => {
