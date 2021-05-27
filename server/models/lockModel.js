@@ -3,9 +3,11 @@ const Schema = mongoose.Schema;
 
 const lockSchema = new Schema(
   {
-    // lock id
-    // lockId: { type: String, required: false },
-    
+    property: {
+      type: Schema.Types.ObjectId,
+      ref: "Property",
+      required: false,
+    },
     // interval for lock
     timeInterval: { type: Number, default: 1 },
     // parameters
@@ -31,7 +33,7 @@ const lockSchema = new Schema(
           new Schema(
             {
               time: { type: Date },
-              user: { type: Schema.Types.ObjectId, ref: "User" }, // if closed by system - what user???
+              user: { type: Schema.Types.ObjectId, ref: "User" }, // if closed by system - what user??? maybe create a system user?
             },
             { _id: false }
           ),

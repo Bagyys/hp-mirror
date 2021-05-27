@@ -2,12 +2,12 @@ import { applyMiddleware, createStore } from "redux";
 import thunkMiddleware from "redux-thunk";
 import monitorReducerEnhancer from "../enhancers/monitorReducer";
 import loggerMiddleware from "../middleware/logger";
-import rootReducer from "./reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
+import reducers from "./reducers";
 
-export type StoreState = ReturnType<typeof rootReducer>;
+export type StoreState = ReturnType<typeof reducers>;
 
-export default function configureStore(preloadedState?: {} | undefined) {
+export default function configureStore(preloadedState?: {}) {
   const middlewares = [loggerMiddleware, thunkMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
@@ -16,10 +16,10 @@ export default function configureStore(preloadedState?: {} | undefined) {
   // const composedEnhancers = compose(...enhancers);
   const composedEnhancers = composeWithDevTools(...(enhancers as any));
 
-  const store = createStore(rootReducer, preloadedState, composedEnhancers);
+  const store = createStore(reducers, preloadedState, composedEnhancers);
 
   if (process.env.NODE_ENV !== "production" && module.hot) {
-    module.hot.accept("./reducers", () => store.replaceReducer(rootReducer));
+    module.hot.accept("./reducers", () => store.replaceReducer(reducers));
   }
 
   return store;

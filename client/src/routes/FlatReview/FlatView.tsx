@@ -1,118 +1,217 @@
-import classes from "./FlatReview.module.scss";
-import { FlatInterface } from "../../components/Flats/flats";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
+import { DateRange, OnChangeProps } from "react-date-range";
+import moment from "moment";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
 import { IoShareSocialSharp } from "react-icons/io5";
 import { BiHeart } from "react-icons/bi";
 import { BsStarFill } from "react-icons/bs";
 import { MdVerifiedUser } from "react-icons/md";
 import { GrRotateRight } from "react-icons/gr";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
-import { useState } from "react";
-import Calendar from "react-calendar";
-import "./calendar.scss";
-// import "react-calendar/dist/Calendar.css";
-import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
 
-import Schedule from "../../components/Schedule/schedule";
+import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
+import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
+import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
+import { StoreState } from "../../store/configureStore";
+import { userState } from "../../store/reducers/userReducer";
+import { PropertyProps } from "../../store/reducers/propertyReducer";
+import { getOnePropertyAction } from "../../store/actions/propertyActions";
+import {
+  checkAvailabilityAction,
+  bookTimeAction,
+} from "../../store/actions/bookingActions";
+
+import classes from "./FlatReview.module.scss";
+interface CustomRange {
+  startDate: Date;
+  endDate: Date;
+  key: string;
+}
+
+export interface DisplayDay {
+  day: Date;
+  occupied: boolean;
+  occIndex?: number;
+}
+
 interface PropsInterface {
   location: {
     state: {
-      flat: FlatInterface;
+      property: PropertyProps;
     };
     pathname: string;
   };
 }
 
-function FlatView(props: PropsInterface) {
-  const flat = props.location.state.flat;
-  const [date, setDate] = useState<any>("");
+const FlatView = (props: PropsInterface) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    if (props.location.state === undefined) {
+      dispatch(getOnePropertyAction(id));
+    }
+  }, []);
+
+  const stateProperty = useSelector((state: StoreState) => state.properties[0]);
+  const booking = useSelector((state: StoreState) => state.booking);
+  const auth: userState = useSelector((state: StoreState) => state.user);
+  const user = auth.user;
+  let property: PropertyProps = {} as PropertyProps;
+  if (props && props.location.state) {
+    property = props.location.state.property;
+  } else {
+    property = stateProperty;
+  }
+
+  const [range, setRange] = useState([
+    {
+      startDate: moment.utc().startOf("day").toDate(),
+      endDate: moment.utc().add(1, "day").startOf("day").toDate(),
+      key: "selection",
+    },
+  ]);
   const [current, setCurrent] = useState<number>(0);
-  const [toggleCalendar, setCalendar] = useState<boolean>(false);
-  const [openSchedule, setSchedule] = useState<boolean>(false);
-  let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
-  const getDatesBetweenDates = (startDate: any, endDate: any) => {
-    let dates: any = [];
-    //to avoid modifying the original date
-    const theDate = new Date(startDate);
-    while (theDate < endDate) {
-      dates = [...dates, new Date(theDate)];
-      theDate.setDate(theDate.getDate() + 1);
+  const [isScheduleOpened, setIsScheduleOpened] = useState<boolean>(false);
+  const occupiedTime = property.occupiedTime;
+
+  const hourlyCheckArray: Array<Date> = [];
+  occupiedTime.map((item: any) => {
+    // TODO: typescript interface
+    if (item.isWholeDayRented) {
+      hourlyCheckArray.push(new Date(item.dateString));
+    }
+    return item;
+  });
+
+  const handleRange = (item: any) => {
+    // TODO: solve typescript conflict
+    setRange([item.selection as CustomRange]);
+  };
+  const getDatesInRange = (start: Date, end: Date) => {
+    let dates: Date[] = [];
+    let theDate = start;
+    if (start === end) {
+      dates.push(theDate);
+    } else {
+      while (theDate <= end) {
+        dates = [...dates, theDate];
+        theDate = moment.utc(theDate).add(1, "day").toDate();
+      }
     }
     return dates;
   };
-  // const daysBetween = getDatesBetweenDates(date[0], date[1]);
 
-  const onChange = (date: any) => {
-    setDate(date);
-  };
-
-  const schedule = () => {
-    if (!openSchedule) {
-      setSchedule(true);
+  const calculatePrice = () => {
+    let finalPrice = 0;
+    const { totalDays, totalHours } = booking;
+    if (totalHours % 24 <= 5) {
+      if (
+        property.price.daily !== undefined &&
+        property.price.hourly !== undefined
+      ) {
+        finalPrice =
+          property.price.daily * (totalDays - 1) +
+          ((property.price.hourly * totalHours) % 24);
+      } else if (property.price.hourly !== undefined) {
+        finalPrice = property.price.hourly * totalHours;
+      } else if (
+        property.price.daily !== undefined &&
+        property.price.hourly === undefined
+      ) {
+        finalPrice = property.price.daily * (totalDays - 1);
+      }
     } else {
-      setSchedule(false);
-    }
-  };
-  const switchCalendar = () => {
-    if (!toggleCalendar) {
-      setCalendar(true);
-    } else {
-      setCalendar(false);
-    }
-  };
-  const element1 = [
-    flat.images[0],
-    flat.images[1],
-    flat.images[2],
-    flat.images[3],
-    flat.images[4],
-  ];
-  let ultimateArray = [];
-  ultimateArray.push(element1);
-
-  let arrayAfterLoad = flat.images.slice(5);
-  var i,
-    j,
-    temparray,
-    chunk = 8;
-
-  for (i = 0, j = arrayAfterLoad.length; i < j; i += chunk) {
-    temparray = arrayAfterLoad.slice(i, i + chunk);
-
-    if (temparray.length < 8) {
-      let leftSpace = 8 - temparray.length;
-      for (i = 0; i < leftSpace; i++) {
-        temparray.push("/no-photo.png");
+      if (
+        property.price.daily !== undefined &&
+        property.price.hourly !== undefined
+      ) {
+        finalPrice = property.price.daily * totalDays;
+      } else if (property.price.hourly !== undefined) {
+        finalPrice = property.price.hourly * totalHours;
+      } else if (
+        property.price.daily !== undefined &&
+        property.price.hourly === undefined
+      ) {
+        finalPrice = property.price.daily * totalDays;
       }
     }
-    const testArray = [];
-    testArray.push(temparray);
-
-    ultimateArray = [...ultimateArray, ...testArray];
-  }
-
-  const length = ultimateArray.length;
-
-  const nextSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
+    return finalPrice;
   };
 
-  const prevSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
+  const checkAvailability = () => {
+    // get number of selected days
+    const selectedDays = getDatesInRange(range[0].startDate, range[0].endDate);
+    dispatch(checkAvailabilityAction(selectedDays, occupiedTime));
+    setIsScheduleOpened(true);
+  };
+  const handleBooking = (residents: number) => {
+    const body = {
+      userId: user._id,
+      propertyId: property._id,
+      residents,
+      price: calculatePrice(),
+      startDate: booking.startTime!,
+      endDate: booking.endTime!,
+      timeZone: property.location.timeZone,
+      occupiedTime: booking.displayDays,
+    };
+    dispatch(bookTimeAction(body));
+    history.push("/reservations");
   };
 
-  if (!Array.isArray(ultimateArray) || ultimateArray.length <= 0) {
-    return null;
-  }
-  const hourlyCheckArray: any = [];
-  flat.occupiedTime.map((item: any) => {
-    if (item.isWholeDayRented) {
-      hourlyCheckArray.push(item.date);
+  let propertyRender = <></>;
+  if (property) {
+    const element1 = [
+      property.images[0],
+      property.images[1],
+      property.images[2],
+      property.images[3],
+      property.images[4],
+    ];
+    let ultimateArray = [];
+    ultimateArray.push(element1);
+
+    let arrayAfterLoad = property.images.slice(5);
+    var i,
+      j,
+      temparray,
+      chunk = 8;
+
+    for (i = 0, j = arrayAfterLoad.length; i < j; i += chunk) {
+      temparray = arrayAfterLoad.slice(i, i + chunk);
+
+      if (temparray.length < 8) {
+        let leftSpace = 8 - temparray.length;
+        for (i = 0; i < leftSpace; i++) {
+          temparray.push("/no-photo.png");
+        }
+      }
+      const testArray = [];
+      testArray.push(temparray);
+
+      ultimateArray = [...ultimateArray, ...testArray];
     }
-  });
-  console.log(date.length, "Date");
-  return (
-    <div className={classes.FlatReview}>
+
+    const length = ultimateArray.length;
+
+    const nextSlide = () => {
+      setCurrent(current === 0 ? length - 1 : current - 1);
+    };
+
+    const prevSlide = () => {
+      setCurrent(current === length - 1 ? 0 : current + 1);
+    };
+
+    if (!Array.isArray(ultimateArray) || ultimateArray.length <= 0) {
+      return null;
+    }
+
+    propertyRender = (
       <div className={classes.FlatBox}>
         <div className={classes.ImagesBox}>
           <div className={classes.arrowRight}>
@@ -138,10 +237,11 @@ function FlatView(props: PropsInterface) {
                       ? `${classes.slide} ${classes.active}`
                       : classes.slide
                   }
+                  key={index}
                 >
                   {index === current && (
                     <div key={index} className={classes.Images}>
-                      <DefaultSlide images={flat.images} />
+                      <DefaultSlide images={property.images} />
                     </div>
                   )}
                 </div>
@@ -156,14 +256,14 @@ function FlatView(props: PropsInterface) {
                   }
                 >
                   <div className={classes.Images2}>
-                    {index === current &&
+                    {/* {index === current &&
                       item.map((photo: string, index: string) => {
                         return (
                           <div key={index} className={classes.imgBox}>
                             <img src={photo} alt="Flat" />
                           </div>
                         );
-                      })}
+                      })} */}
                   </div>
                 </div>
               );
@@ -185,14 +285,14 @@ function FlatView(props: PropsInterface) {
               </div>
             </div>
             <div className={classes.upperDiv}>
-              <h1>{flat.title}</h1>
+              <h1>{property.title}</h1>
               <div className={classes.icons}>
                 <IoShareSocialSharp size="3.5em" color="#4886ff" />
                 <BiHeart size="3.5em" color="#4886ff" />
               </div>
             </div>
             <div className={classes.address}>
-              <h2>{flat.address}</h2>
+              <h2>{property.location.addressString1}</h2>
             </div>
             <div className={classes.rating}>
               <div className={classes.starRating}>
@@ -209,92 +309,64 @@ function FlatView(props: PropsInterface) {
               </div>
             </div>
             <div className={classes.Specifications}>
-              <div>
-                <h2>Daily Rent</h2>
-                <p>{flat.price}€</p>
-              </div>
-              <div>
-                <h2>Hourly Rent</h2>
-                <p>{flat.price}€</p>
-              </div>
+              {property.price.daily ? (
+                <div>
+                  <h2>Daily Rent</h2>
+                  <p>{property.price.daily}€</p>
+                </div>
+              ) : (
+                <></>
+              )}
+              {property.price.hourly ? (
+                <div>
+                  <h2>Hourly Rent</h2>
+                  <p>{property.price.hourly}€</p>
+                </div>
+              ) : (
+                <></>
+              )}
               <div>
                 <h2>Bedrooms</h2>
                 <p>
-                  {flat.type} - {flat.beds} bd
+                  {property.type} - {property.facilities.beds} bd
                 </p>
               </div>
               <div>
-                <h2>Square Feet</h2>
-                <p>50 sq ft</p>
+                <h2>Square Meters</h2>
+                <p>{property.facilities.size} sq m</p>
               </div>
             </div>
           </div>
           <div className={classes.calendar}>
-            <div className={classes.switcher}>
-              <h3>Daily Calendar</h3>
-              <label className={classes.switch}>
-                <input
-                  onClick={() => switchCalendar()}
-                  type="checkbox"
-                  checked
-                />
-                <span className={`${classes.slider} ${classes.round}`}></span>
-              </label>
-              <h3>Hourly Calendar</h3>
+            <div>
+              <DateRange
+                minDate={new Date()}
+                editableDateInputs={true}
+                onChange={(range: OnChangeProps) => {
+                  handleRange(range);
+                  // setRange([range.selection as CustomRange]) // Typescript conflict
+                }}
+                moveRangeOnFirstSelection={false}
+                ranges={range}
+                disabledDates={hourlyCheckArray}
+              />
             </div>
-
-            {toggleCalendar ? (
-              <div>
-                <Calendar
-                  onChange={onChange}
-                  value={date}
-                  selectRange={true}
-                  tileDisabled={({ date }) =>
-                    date < yesterday ||
-                    hourlyCheckArray.some(
-                      (time: any) =>
-                        date.getFullYear() === time.getFullYear() &&
-                        date.getMonth() === time.getMonth() &&
-                        date.getDate() === time.getDate()
-                    )
-                  }
-                />
-              </div>
-            ) : (
-              <div>
-                <Calendar
-                  onChange={onChange}
-                  value={date}
-                  tileDisabled={({ date }) =>
-                    date < yesterday ||
-                    hourlyCheckArray.some(
-                      (time: any) =>
-                        date.getFullYear() === time.getFullYear() &&
-                        date.getMonth() === time.getMonth() &&
-                        date.getDate() === time.getDate()
-                    )
-                  }
-                />
-              </div>
-            )}
-
-            <button onClick={() => schedule()}>Check Availability</button>
+            <button onClick={checkAvailability}>Check Availability</button>
           </div>
         </div>
         <div className={classes.Schedule}>
-          {openSchedule ? (
-            <Schedule
-              date={toggleCalendar ? date[0] : date}
-              endDate={date[1]}
-              occupiedTime={flat.occupiedTime}
-              occupiedTimeByHour={flat.occupiedByHour}
-              calendarSwitcher={toggleCalendar}
+          {isScheduleOpened ? (
+            <BookingSchedule
+              timeZone={property.location.timeZone}
+              handleBooking={handleBooking}
             />
           ) : null}
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+
+  return <div className={classes.FlatReview}>{propertyRender}</div>;
+};
 
 export default FlatView;

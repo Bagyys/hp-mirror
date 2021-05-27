@@ -1,12 +1,17 @@
 import { combineReducers } from "redux";
-import lockReducer from "./lockReducer";
 import { routerReducer } from "react-router-redux";
-import orderReducer from "./bookingReducer";
+
+import lockReducer from "./lockReducer";
+import userReducer from "./userReducer";
 import bookingReducer from "./bookingReducer";
-const rootReducer = combineReducers({
+import reservationReducer from "./reservationReducer";
+import propertyReducer from "./propertyReducer";
+
+export default combineReducers({
+  user: userReducer,
   lock: lockReducer,
   router: routerReducer,
   booking: bookingReducer,
+  reservation: reservationReducer,
+  properties: propertyReducer,
 });
-
-export default rootReducer;

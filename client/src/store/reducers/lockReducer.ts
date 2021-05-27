@@ -22,15 +22,18 @@ export interface LockProps {
 }
 export interface LockState {
   locks: Array<LockProps>;
+  error: string;
 }
 
 const initialState: LockState = {
   locks: [] as Array<LockProps>,
+  error: "",
 };
 
 const lockReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
     case lockTypes.GET_ALL_LOCKS_SUCCESS:
+    case lockTypes.GET_UNASSIGNED_LOCKS_SUCCESS:
       return {
         ...state,
         locks: action.payload,
@@ -41,6 +44,20 @@ const lockReducer = (state = initialState, action: Actions) => {
           [action.payload.index]: { $set: action.payload.lock },
         },
       });
+    case lockTypes.UPDATE_LOCK:
+      return {
+        ...state,
+        locks: state.locks.map((lock) =>
+          lock._id === action.payload.id
+            ? {
+                ...lock,
+                o1: action.payload.o1,
+                o2: action.payload.o2,
+                o3: action.payload.o3,
+              }
+            : lock
+        ),
+      };
     case lockTypes.RESET_LOCK_SUCCESS:
       return update(state, {
         locks: {
@@ -51,6 +68,22 @@ const lockReducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         locks: action.payload,
+      };
+    case lockTypes.GET_ALL_LOCKS_FAIL:
+    case lockTypes.GET_UNASSIGNED_LOCKS_FAIL:
+    case lockTypes.ASSIGN_LOCK_FAIL:
+    case lockTypes.OPEN_LOCK_FAIL:
+    case lockTypes.RESET_LOCK_FAIL:
+    case lockTypes.DELETE_LOCK_FAIL:
+    case lockTypes.THROW_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case lockTypes.CLEAR_ERROR:
+      return {
+        ...state,
+        error: "",
       };
     default:
       return state;

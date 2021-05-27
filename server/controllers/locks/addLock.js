@@ -3,9 +3,6 @@ const { Lock } = require("../../models/lockModel");
 // let debug = require("debug");
 
 exports.addLock = async (req, res) => {
-  console.log("addLock");
-  console.log("req.query");
-  console.log(req.query);
   const data = req.query;
   let newLock;
 
@@ -17,8 +14,6 @@ exports.addLock = async (req, res) => {
     data.id.length !== 24 ||
     data.id !== "Lg18299RHS10MxShFFFFFFFF"
   ) {
-    console.log("data id undefined or incorrect");
-    console.log("send error");
     return res.status(404).send("plochije parametrof");
   }
   try {
@@ -62,13 +57,9 @@ exports.addLock = async (req, res) => {
         timeInterval: t,
         e,
       } = newLock;
-      console.log("newLock");
-      console.log(newLock);
       const result = `A3%nm*Wb&id=${_id}&i1=${i1}&$i2=${i2}&i3=${i3}&i4=${i4}&i5=${i5}&i6=${i6}&i7=${i7}&i8=${i8}&i9=${i9}&n1=0&n2=0&n3=0&o1=${o1}&o2=${o2}&o3=${o3}&t=${t}&e=${e}`;
-      console.log(`return ${result}`);
       return res.status(200).send(result);
     } else {
-      console.log("send error");
       return res.status(404).send("oshibka");
     }
   } catch (err) {

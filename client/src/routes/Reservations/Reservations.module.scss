@@ -1,0 +1,33 @@
+@import "../../styles/global.scss";
+.Reservations {
+  h1 {
+    color: $lightBlue;
+    font-size: $titleSizeFont;
+    text-align: center;
+    margin: 2rem 1rem;
+    font-weight: $font-Weight-bold;
+  }
+  h3 {
+    font-size: $smallTitleFont;
+    font-weight: $font-Weight-semiBold;
+    margin: 1rem;
+  }
+  p {
+    font-size: $largeFontSize;
+    margin: 0.5rem 1rem;
+    line-height: $textLineHeight;
+  }
+  button {
+    background-color: blue;
+    color: white;
+    margin: 10px;
+    padding: 5px 10px;
+    &:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+    &.delete {
+      background-color: rgb(66, 22, 22);
+    }
+  }
+}

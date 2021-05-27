@@ -1,28 +1,25 @@
 const { Lock } = require("../../models/lockModel");
+const { Property } = require("../../models/propertyModel");
 // const { resetLock } = require("./utils/lock");
 // let debug = require("debug");
 
 exports.deleteLock = async (req, res) => {
-  console.log("deleteLock");
-  console.log("req.query");
-  console.log(req.query);
   const data = req.query;
 
   if (!data.h || data.h !== "A3%nm*Wb") {
     return res.status(404).send("netu metki");
   }
   if (data.id === undefined || data.id.length !== 24) {
-    console.log("data id undefined or too short");
-    console.log("send error");
     return res.status(404).send("nepravelnyj id");
   }
   let deletedLock;
   try {
     deletedLock = await Lock.deleteOne({ _id: data.id });
-    console.log("deletedLock");
-    console.log(deletedLock);
+    updatedProperty = await Property.findOneAndUpdate(
+      { lock: data.id },
+      { $unset: { lock: "" } }
+    );
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ error: err.message });
   }
   if (deletedLock.deletedCount === 1) {
@@ -34,11 +31,9 @@ exports.deleteLock = async (req, res) => {
       if (locks !== undefined || locks !== null) {
         return res.status(200).send(locks);
       } else {
-        console.log("send error");
         return res.status(404).send("oshibka");
       }
     } catch (err) {
-      console.log(err);
       return res.status(500).json({ error: err.message });
     }
   } else {
