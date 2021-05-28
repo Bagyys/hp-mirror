@@ -7,6 +7,7 @@ import {
   selectReservationAction,
   unselectReservationAction,
   openCurrentLockAction,
+  cancelUserReservationAction,
 } from "../../store/actions/reservationActions";
 import { ReservationInterface } from "../../store/types/reservationInterfaces";
 
@@ -68,10 +69,27 @@ const Reservation: React.FC<Props> = ({
         </p>
       </div>
       <hr />
+
       {visible && (
         <>
+          {/* <button
+            className={classes.Cancel}
+            // disabled={disableButtons} cancelable
+            onClick={() =>
+              dispatch(
+                cancelUserReservationAction(
+                  reservation._id,
+                  reservation.propertyId,
+                  reservation.userId
+                )
+              )
+            }
+          >
+            Cancel reservation
+          </button> */}
           <div className={classes.FullView}>
             <button
+              className={classes.Open}
               disabled={disableButtons}
               onClick={() =>
                 dispatch(
@@ -86,6 +104,7 @@ const Reservation: React.FC<Props> = ({
               Open front lock
             </button>
             <button
+              className={classes.Open}
               disabled={disableButtons}
               onClick={() =>
                 dispatch(

@@ -58,6 +58,19 @@ export interface UpdateCurrentLock
   payload: { o1: number; o2: number; o3: number };
 }
 
+export interface CancelUserReservationStart
+  extends Action<typeof reservationTypes.CANCEL_USER_RESERVATION_START> {}
+
+export interface CancelUserReservationSuccess
+  extends Action<typeof reservationTypes.CANCEL_USER_RESERVATION_SUCCESS> {
+  payload: Array<ReservationInterface>;
+}
+
+export interface CancelUserReservationFail
+  extends Action<typeof reservationTypes.CANCEL_USER_RESERVATION_FAIL> {
+  payload: string;
+}
+
 export interface GetPastReservationsStart
   extends Action<typeof reservationTypes.GET_PAST_RESERVATIONS_START> {}
 
@@ -86,6 +99,9 @@ export type Actions =
   | OpenCurrentLockSuccess
   | OpenCurrentLockFail
   | UpdateCurrentLock
+  | CancelUserReservationStart
+  | CancelUserReservationSuccess
+  | CancelUserReservationFail
   | GetPastReservationsStart
   | GetPastReservationsSuccess
   | GetPastReservationsFail
@@ -186,6 +202,40 @@ export const updateCurrentLockAction =
       type: reservationTypes.UPDATE_CURRENT_LOCK,
       payload: { o1, o2, o3 },
     });
+  };
+
+export const cancelUserReservationAction =
+  (reservationId: string, propertyId: string, userId: string) =>
+  async (dispatch: Dispatch) => {
+    dispatch({ type: reservationTypes.CANCEL_USER_RESERVATION_START });
+    const body = { reservationId, propertyId };
+    try {
+      const response: AxiosResponse<{
+        reservations: Array<ReservationInterface>;
+        message: string | undefined;
+      }> = await axios.post(
+        `${url}/reservation/cancelUserReservation/${userId}`,
+        body
+      );
+      if (response.status === 200 && response.data.message === undefined) {
+        console.log("cancelUserReservationAction response.data");
+        console.log(response.data);
+        // dispatch({
+        //   type: reservationTypes.CANCEL_USER_RESERVATION_SUCCESS,
+        //   payload: response.data.reservations,
+        // });
+      } else {
+        dispatch({
+          type: reservationTypes.CANCEL_USER_RESERVATION_FAIL,
+          payload: response.data.message,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: reservationTypes.OPEN_CURRENT_LOCK_FAIL,
+        payload: err.message,
+      });
+    }
   };
 
 export const getPastReservationsAction =

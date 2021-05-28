@@ -19,6 +19,7 @@ exports.getReservations = async(req, res) => {
                 try {
                     reservations = await Promise.all(
                         activeReservations.map(async(reservationId) => {
+                            // TODO: try catches for these requests
                             const res = await Reservation.findById(reservationId);
                             const property = await Property.findById(res.propertyId);
                             const reservationFull = JSON.parse(JSON.stringify(res));

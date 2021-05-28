@@ -1,37 +1,40 @@
 @import "../../styles/global";
-
 .Reservation {
-  font-size: 25px;
-  .Preview {
-    h3 {
-      font-size: $smallTitleFont;
-      font-weight: $font-Weight-semiBold;
-      margin: 1rem;
+    font-size: 25px;
+    .Preview {
+        h3 {
+            font-size: $smallTitleFont;
+            font-weight: $font-Weight-semiBold;
+            margin: 1rem;
+        }
+        p {
+            font-size: $largeFontSize;
+            margin: 0.5rem 1rem;
+            line-height: $textLineHeight;
+        }
+        &:hover {
+            color: blue;
+            cursor: pointer;
+        }
     }
-    p {
-      font-size: $largeFontSize;
-      margin: 0.5rem 1rem;
-      line-height: $textLineHeight;
+    .FullView {
+        button {
+            color: white;
+            margin: 10px;
+            padding: 5px 10px;
+            &:disabled {
+                background-color: gray;
+                cursor: not-allowed;
+            }
+            &.delete {
+                background-color: rgb(66, 22, 22);
+            }
+        }
+        .Cancel {
+            background-color: red;
+        }
+        .Open {
+            background-color: blue;
+        }
     }
-
-    &:hover {
-      color: blue;
-      cursor: pointer;
-    }
-  }
-  .FullView {
-    button {
-      background-color: blue;
-      color: white;
-      margin: 10px;
-      padding: 5px 10px;
-      &:disabled {
-        background-color: gray;
-        cursor: not-allowed;
-      }
-      &.delete {
-        background-color: rgb(66, 22, 22);
-      }
-    }
-  }
 }
