@@ -6,11 +6,9 @@ import lockTypes from "../types/lockTypes";
 import { LockProps } from "../reducers/lockReducer";
 
 // -------------------- URLS --------------------
-// development URL
-const url = process.env.REACT_APP_DEV_URL;
 
-// production URL
-// const url = process.env.REACT_APP_PROD_URL;
+const url = process.env.REACT_APP_SERVER_URL;
+
 // -------------------- END of URLS --------------------
 
 // -------------------- ACTION INTERFACES --------------------
@@ -128,7 +126,7 @@ export const getAllLocksAction = () => async (dispatch: Dispatch) => {
   dispatch({ type: lockTypes.GET_ALL_LOCKS_START });
   try {
     const response: AxiosResponse<LockProps> = await axios.get(
-      `${url}/door/allLocks/?h=A3%nm*Wb`
+      `${url}/lock/getAll/?h=A3%nm*Wb`
     );
     dispatch({
       type: lockTypes.GET_ALL_LOCKS_SUCCESS,
@@ -146,7 +144,7 @@ export const getUnasSignedLocksAction = () => async (dispatch: Dispatch) => {
   dispatch({ type: lockTypes.GET_UNASSIGNED_LOCKS_START });
   try {
     const response: AxiosResponse<LockProps> = await axios.get(
-      `${url}/door/unassignedLocks/?h=A3%nm*Wb`
+      `${url}/lock/getUnassigned/?h=A3%nm*Wb`
     );
     dispatch({
       type: lockTypes.GET_UNASSIGNED_LOCKS_SUCCESS,
@@ -168,7 +166,7 @@ export const assignLockAction =
       propertyId,
     };
     try {
-      const response = await axios.post(`${url}/door/lock/assign/`, body);
+      const response = await axios.post(`${url}/lock/assign/`, body);
       if (response.status === 200) {
         dispatch({
           type: lockTypes.ASSIGN_LOCK_SUCCESS,
@@ -208,7 +206,7 @@ export const openLockAction =
     dispatch({ type: lockTypes.OPEN_LOCK_START });
     try {
       const response = await axios.put(
-        `${url}/door/openLockAdmin/?h=A3%nm*Wb&id=${lockId}&${door}=1`
+        `${url}/lock/openAdmin/?h=A3%nm*Wb&id=${lockId}&${door}=1`
       );
       if (response.status === 200 && response.data.message === undefined) {
         dispatch({
@@ -244,7 +242,7 @@ export const resetLockAction =
 
     try {
       const response: AxiosResponse<LockProps> = await axios.put(
-        `${url}/door/reset/?h=A3%nm*Wb&id=${lockId}`
+        `${url}/lock/reset/?h=A3%nm*Wb&id=${lockId}`
       );
       dispatch({
         type: lockTypes.RESET_LOCK_SUCCESS,
@@ -264,7 +262,7 @@ export const deleteLockAction =
 
     try {
       const response: AxiosResponse<boolean> = await axios.delete(
-        `${url}/door/delete/?h=A3%nm*Wb&id=${lockId}`
+        `${url}/lock/delete/?h=A3%nm*Wb&id=${lockId}`
       );
       response.status === 200
         ? dispatch({

@@ -60,42 +60,16 @@ const PastReservation: React.FC<Props> = ({
       <div className={classes.Preview} onClick={handleClick}>
         <h3>Reservation at: {reservation.property.title}</h3>
         <p>
-          Start: {start} | End: {end}
+          Start: {start} | End: {end} (time:{" "}
+          {reservation.property.location.timeZone})
         </p>
       </div>
       <hr />
       {visible && (
         <>
           <div className={classes.FullView}>
-            kazkas dar bus cia
-            {/* <button
-              disabled={disableButtons}
-              onClick={() =>
-                dispatch(
-                  openCurrentLockAction(
-                    reservation.property.lock,
-                    reservation._id,
-                    "o1"
-                  )
-                )
-              }
-            >
-              Open front lock
-            </button>
-            <button
-              disabled={disableButtons}
-              onClick={() =>
-                dispatch(
-                  openCurrentLockAction(
-                    reservation.property.lock,
-                    reservation._id,
-                    "o2"
-                  )
-                )
-              }
-            >
-              Open flat lock
-            </button> */}
+            <p>Residents: {reservation.residents}</p>
+            <p>Price: {reservation.price}</p>
           </div>
           <hr />
         </>

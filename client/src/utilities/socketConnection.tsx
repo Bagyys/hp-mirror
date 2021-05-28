@@ -1,12 +1,10 @@
 import io from "socket.io-client";
-const socket = io("http://localhost:9000", { transports: ["websocket"] });
 
-// export const testAction = () => {
-//   socket.on("messageFromServer", (data) => {
-//     console.log("messageFromServer data received on client");
-//     console.log(data);
-//   });
-//   socket.emit("messageToServer", "are you seeing this?");
-// };
+let url = process.env.REACT_APP_SERVER_URL;
+if (!url) {
+  url = "http://18.195.50.192:9000";
+}
+
+const socket = io(url, { transports: ["websocket"] });
 
 export default socket;

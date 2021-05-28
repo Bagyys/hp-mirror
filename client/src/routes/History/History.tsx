@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import socket from "../../utilities/socketConnection";
+// import moment from "moment";
+// import socket from "../../utilities/socketConnection";
 import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
@@ -29,7 +29,7 @@ const History = () => {
     : [];
   const error = reservationsState.error;
 
-  // getting user's active reservations from database
+  // getting user's past reservations from database
   useEffect(() => {
     if (user && user._id) {
       dispatch(getPastReservationsAction(user._id));
