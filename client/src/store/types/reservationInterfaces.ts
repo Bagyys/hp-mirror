@@ -1,5 +1,5 @@
 import { PropertyInterface } from "./propertyInterfaces";
-import { LockProps } from "../reducers/lockReducer";
+import { LockProps } from "../types/lockInterfaces";
 export interface ReservationInterface {
   _id: string;
   userId: string;
