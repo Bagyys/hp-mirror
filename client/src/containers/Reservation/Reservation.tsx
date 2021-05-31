@@ -72,7 +72,7 @@ const Reservation: React.FC<Props> = ({
 
       {visible && (
         <>
-          {/* <button
+          <button
             className={classes.Cancel}
             // disabled={disableButtons} cancelable
             onClick={() =>
@@ -86,7 +86,7 @@ const Reservation: React.FC<Props> = ({
             }
           >
             Cancel reservation
-          </button> */}
+          </button>
           <div className={classes.FullView}>
             <button
               className={classes.Open}

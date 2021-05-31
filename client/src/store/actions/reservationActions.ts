@@ -2,7 +2,7 @@ import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
 import reservationTypes from "../types/reservationTypes";
 import { ReservationInterface } from "../types/reservationInterfaces";
-import { LockProps } from "../reducers/lockReducer";
+import { LockProps } from "../types/lockInterfaces";
 
 // -------------------- URLS --------------------
 
@@ -206,7 +206,8 @@ export const updateCurrentLockAction =
 
 export const cancelUserReservationAction =
   (reservationId: string, propertyId: string, userId: string) =>
-  async (dispatch: Dispatch) => {
+  async (dispatch: any) => {
+    // TODO: typescript
     dispatch({ type: reservationTypes.CANCEL_USER_RESERVATION_START });
     const body = { reservationId, propertyId };
     try {
@@ -218,8 +219,7 @@ export const cancelUserReservationAction =
         body
       );
       if (response.status === 200 && response.data.message === undefined) {
-        console.log("cancelUserReservationAction response.data");
-        console.log(response.data);
+        dispatch(getActiveReservationsAction(userId));
         // dispatch({
         //   type: reservationTypes.CANCEL_USER_RESERVATION_SUCCESS,
         //   payload: response.data.reservations,
