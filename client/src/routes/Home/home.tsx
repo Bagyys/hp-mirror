@@ -9,7 +9,7 @@ import {
   getAllLocksAction,
   updateLockAction,
 } from "../../store/actions/lockActions";
-import { LockProps } from "../../store/reducers/lockReducer";
+import { LockProps } from "../../store/types/lockInterfaces";
 import Flats from "../../components/Flats/flats";
 import Map from "../../components/Map/map";
 import Lock from "../../containers/Lock/Lock";

@@ -11,7 +11,7 @@ import {
   clearErrorAction,
 } from "../../store/actions/lockActions";
 import { getPropertieswoLocksAction } from "../../store/actions/propertyActions";
-import { LockProps } from "../../store/reducers/lockReducer";
+import { LockProps } from "../../store/types/lockInterfaces";
 import { PropertyProps } from "../../store/reducers/propertyReducer";
 
 import classes from "./Settings.module.scss";
