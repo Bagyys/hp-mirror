@@ -32,11 +32,25 @@ const getCurrentReservation = (
 
 const reservationReducer = (state = initialState, action: Actions) => {
   switch (action.type) {
+    case reservationTypes.GET_ACTIVE_RESERVATIONS_START:
+    case reservationTypes.CANCEL_USER_RESERVATION_START:
+    case reservationTypes.GET_PAST_RESERVATIONS_START:
+      return {
+        ...state,
+        isFetched: false,
+      };
     case reservationTypes.GET_ACTIVE_RESERVATIONS_SUCCESS:
+    case reservationTypes.CANCEL_USER_RESERVATION_SUCCESS:
       return {
         ...state,
         isFetched: true,
         activeReservations: action.payload,
+      };
+    case reservationTypes.GET_PAST_RESERVATIONS_SUCCESS:
+      return {
+        ...state,
+        isFetched: true,
+        pastReservations: action.payload,
       };
     case reservationTypes.SELECT_RESERVATION_SUCCESS:
       const cuReservation = getCurrentReservation(
@@ -60,7 +74,7 @@ const reservationReducer = (state = initialState, action: Actions) => {
         ...state,
         currentReservation: {
           ...state.currentReservation,
-          lock: action.payload.lock,
+          lock: action.payload,
         },
       };
     case reservationTypes.UPDATE_CURRENT_LOCK:
@@ -79,10 +93,13 @@ const reservationReducer = (state = initialState, action: Actions) => {
         };
       } else return { ...state };
     case reservationTypes.GET_ACTIVE_RESERVATIONS_FAIL:
+    case reservationTypes.CANCEL_USER_RESERVATION_FAIL:
+    case reservationTypes.GET_PAST_RESERVATIONS_FAIL:
     case reservationTypes.SELECT_RESERVATION_FAIL:
     case reservationTypes.OPEN_CURRENT_LOCK_FAIL:
       return {
         ...state,
+        isFetched: true,
         error: action.payload,
       };
     case reservationTypes.CLEAR_ERROR:

@@ -2,13 +2,12 @@ import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
 import reservationTypes from "../types/reservationTypes";
 import { ReservationInterface } from "../types/reservationInterfaces";
-import { LockProps } from "../reducers/lockReducer";
-// -------------------- URLS --------------------
-// development URL
-// const url = process.env.REACT_APP_DEV_URL;
+import { LockProps } from "../types/lockInterfaces";
 
-// production URL
-const url = process.env.REACT_APP_PROD_URL;
+// -------------------- URLS --------------------
+
+const url = process.env.REACT_APP_SERVER_URL;
+
 // -------------------- END of URLS --------------------
 
 // -------------------- ACTION INTERFACES --------------------
@@ -59,6 +58,32 @@ export interface UpdateCurrentLock
   payload: { o1: number; o2: number; o3: number };
 }
 
+export interface CancelUserReservationStart
+  extends Action<typeof reservationTypes.CANCEL_USER_RESERVATION_START> {}
+
+export interface CancelUserReservationSuccess
+  extends Action<typeof reservationTypes.CANCEL_USER_RESERVATION_SUCCESS> {
+  payload: Array<ReservationInterface>;
+}
+
+export interface CancelUserReservationFail
+  extends Action<typeof reservationTypes.CANCEL_USER_RESERVATION_FAIL> {
+  payload: string;
+}
+
+export interface GetPastReservationsStart
+  extends Action<typeof reservationTypes.GET_PAST_RESERVATIONS_START> {}
+
+export interface GetPastReservationsSuccess
+  extends Action<typeof reservationTypes.GET_PAST_RESERVATIONS_SUCCESS> {
+  payload: Array<ReservationInterface>;
+}
+
+export interface GetPastReservationsFail
+  extends Action<typeof reservationTypes.GET_PAST_RESERVATIONS_FAIL> {
+  payload: string;
+}
+
 export interface ClearError
   extends Action<typeof reservationTypes.CLEAR_ERROR> {}
 
@@ -74,6 +99,12 @@ export type Actions =
   | OpenCurrentLockSuccess
   | OpenCurrentLockFail
   | UpdateCurrentLock
+  | CancelUserReservationStart
+  | CancelUserReservationSuccess
+  | CancelUserReservationFail
+  | GetPastReservationsStart
+  | GetPastReservationsSuccess
+  | GetPastReservationsFail
   | ClearError;
 
 // -------------------- END of ACTION INTERFACES --------------------
@@ -86,13 +117,21 @@ export const getActiveReservationsAction =
       type: reservationTypes.GET_ACTIVE_RESERVATIONS_START,
     });
     try {
-      const response: AxiosResponse<ReservationInterface> = await axios.get(
-        `${url}/reservation/getReservations/${userId}`
-      );
-      dispatch({
-        type: reservationTypes.GET_ACTIVE_RESERVATIONS_SUCCESS,
-        payload: response.data,
-      });
+      const response: AxiosResponse<{
+        reservations: Array<ReservationInterface>;
+        message: string | undefined;
+      }> = await axios.get(`${url}/reservation/getReservations/${userId}`);
+      if (response.status === 200 && response.data.message === undefined) {
+        dispatch({
+          type: reservationTypes.GET_ACTIVE_RESERVATIONS_SUCCESS,
+          payload: response.data.reservations,
+        });
+      } else {
+        dispatch({
+          type: reservationTypes.GET_ACTIVE_RESERVATIONS_FAIL,
+          payload: response.data.message,
+        });
+      }
     } catch (error) {
       dispatch({
         type: reservationTypes.GET_ACTIVE_RESERVATIONS_FAIL,
@@ -108,7 +147,7 @@ export const selectReservationAction =
     });
     try {
       const response: AxiosResponse<ReservationInterface> = await axios.get(
-        `${url}/door/getLockByProperty/${propertyId}`
+        `${url}/lock/getLockByProperty/${propertyId}`
       );
       dispatch({
         type: reservationTypes.SELECT_RESERVATION_SUCCESS,
@@ -134,14 +173,14 @@ export const openCurrentLockAction =
     dispatch({ type: reservationTypes.OPEN_CURRENT_LOCK_START });
     const body = { lockId, reservationId, door };
     try {
-      const response = await axios.put(
-        `${url}/door/openLock/?h=A3%nm*Wb`,
-        body
-      );
+      const response: AxiosResponse<{
+        lock: LockProps;
+        message: string | undefined;
+      }> = await axios.put(`${url}/lock/open/?h=A3%nm*Wb`, body);
       if (response.status === 200 && response.data.message === undefined) {
         dispatch({
           type: reservationTypes.OPEN_CURRENT_LOCK_SUCCESS,
-          payload: response.data,
+          payload: response.data.lock,
         });
       } else {
         dispatch({
@@ -163,6 +202,69 @@ export const updateCurrentLockAction =
       type: reservationTypes.UPDATE_CURRENT_LOCK,
       payload: { o1, o2, o3 },
     });
+  };
+
+export const cancelUserReservationAction =
+  (reservationId: string, propertyId: string, userId: string) =>
+  async (dispatch: any) => {
+    // TODO: typescript
+    dispatch({ type: reservationTypes.CANCEL_USER_RESERVATION_START });
+    const body = { reservationId, propertyId };
+    try {
+      const response: AxiosResponse<{
+        reservations: Array<ReservationInterface>;
+        message: string | undefined;
+      }> = await axios.post(
+        `${url}/reservation/cancelUserReservation/${userId}`,
+        body
+      );
+      if (response.status === 200 && response.data.message === undefined) {
+        dispatch(getActiveReservationsAction(userId));
+        // dispatch({
+        //   type: reservationTypes.CANCEL_USER_RESERVATION_SUCCESS,
+        //   payload: response.data.reservations,
+        // });
+      } else {
+        dispatch({
+          type: reservationTypes.CANCEL_USER_RESERVATION_FAIL,
+          payload: response.data.message,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: reservationTypes.OPEN_CURRENT_LOCK_FAIL,
+        payload: err.message,
+      });
+    }
+  };
+
+export const getPastReservationsAction =
+  (userId: string) => async (dispatch: Dispatch) => {
+    dispatch({
+      type: reservationTypes.GET_PAST_RESERVATIONS_START,
+    });
+    try {
+      const response: AxiosResponse<{
+        reservations: Array<ReservationInterface>;
+        message: string | undefined;
+      }> = await axios.get(`${url}/reservation/getPastReservations/${userId}`);
+      if (response.status === 200 && response.data.message === undefined) {
+        dispatch({
+          type: reservationTypes.GET_PAST_RESERVATIONS_SUCCESS,
+          payload: response.data.reservations,
+        });
+      } else {
+        dispatch({
+          type: reservationTypes.GET_PAST_RESERVATIONS_FAIL,
+          payload: response.data.message,
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: reservationTypes.GET_PAST_RESERVATIONS_FAIL,
+        payload: error.message,
+      });
+    }
   };
 
 export const clearErrorAction = () => async (dispatch: Dispatch) => {

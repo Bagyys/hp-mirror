@@ -9,19 +9,19 @@ const { resetLock } = require("../controllers/locks/resetLock");
 const { deleteLock } = require("../controllers/locks/deleteLock");
 const { getAllLocks } = require("../controllers/locks/getAllLocks");
 const {
-  getUnassignedLocks,
+    getUnassignedLocks,
 } = require("../controllers/locks/getUnassignedLocks");
 const { getLockByProperty } = require("../controllers/locks/getLockByProperty");
 
 // routes
-router.put("/openLockAdmin/", openLockAdmin);
-router.put("/openLock/", openLock);
-router.put("/lock/add/", addLock);
-router.post("/lock/assign/", assignLock);
+router.put("/openAdmin/", openLockAdmin);
+router.put("/open/", openLock);
+router.put("/add/", addLock);
+router.post("/assign/", assignLock);
 router.put("/reset/", resetLock);
 router.delete("/delete/", deleteLock);
-router.get("/allLocks/", getAllLocks);
-router.get("/unassignedLocks/", getUnassignedLocks);
+router.get("/getAll/", getAllLocks);
+router.get("/getUnassigned/", getUnassignedLocks);
 router.get("/getLockByProperty/:id", getLockByProperty);
 router.put("/", handleLock);
 

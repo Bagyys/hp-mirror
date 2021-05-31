@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
+
 import { StoreState } from "../../store/configureStore";
+import { LockProps } from "../../store/types/lockInterfaces";
 import {
   openLockAction,
   resetLockAction,
@@ -14,7 +16,9 @@ interface Props {
 
 const Lock: React.FC<Props> = ({ index }) => {
   const dispatch = useDispatch();
-  const lock = useSelector((state: StoreState) => state.lock.locks[index]);
+  const lock: LockProps = useSelector(
+    (state: StoreState) => state.lock.locks[index]
+  );
   const disableButtons = lock.o1 === 1 || lock.o2 === 1 ? true : false;
   const doorAction = (index: number, lockId: string, door: string) => {
     dispatch(openLockAction(index, lockId, door));
@@ -30,7 +34,9 @@ const Lock: React.FC<Props> = ({ index }) => {
 
   return (
     <div className={classes.Lock}>
-      <p>Lock id: {lock._id} | </p>
+      <p>
+        Lock id: {lock._id} - - - Property: {lock.propertyFull.title}
+      </p>
       <button
         disabled={disableButtons}
         onClick={() => doorAction(index, lock._id, "o1")}

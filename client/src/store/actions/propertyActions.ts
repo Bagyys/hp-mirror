@@ -5,11 +5,9 @@ import propertyTypes from "../types/propertyTypes";
 import { PropertyProps } from "../reducers/propertyReducer";
 
 // -------------------- URLS --------------------
-// development URL
-// const url = process.env.REACT_APP_DEV_URL;
 
-// production URL
-const url = process.env.REACT_APP_PROD_URL;
+const url = process.env.REACT_APP_SERVER_URL;
+
 // -------------------- END of URLS --------------------
 
 // -------------------- ACTION INTERFACES --------------------

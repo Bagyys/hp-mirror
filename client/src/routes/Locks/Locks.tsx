@@ -9,7 +9,7 @@ import {
   updateLockAction,
   clearErrorAction,
 } from "../../store/actions/lockActions";
-import { LockProps } from "../../store/reducers/lockReducer";
+import { LockProps } from "../../store/types/lockInterfaces";
 import { PropertyProps } from "../../store/reducers/propertyReducer";
 import Lock from "../../containers/Lock/Lock";
 
@@ -71,22 +71,22 @@ const Locks = () => {
     lockOptions = <></>;
   }
 
-  let propertyOptions = null;
-  if (properties !== undefined && properties !== null) {
-    propertyOptions = properties.map(
-      (property: PropertyProps, index: number) => {
-        return (
-          <option
-            key={index}
-            value={property._id}
-          >{`${property.title}, ${property.location.addressString1}, ${property.location.city},
-        ${property.location.zipcode} ${property.location.country}`}</option>
-        );
-      }
-    );
-  } else {
-    propertyOptions = <></>;
-  }
+  // let propertyOptions = null;
+  // if (properties !== undefined && properties !== null) {
+  //   propertyOptions = properties.map(
+  //     (property: PropertyProps, index: number) => {
+  //       return (
+  //         <option
+  //           key={index}
+  //           value={property._id}
+  //         >{`${property.title}, ${property.location.addressString1}, ${property.location.city},
+  //       ${property.location.zipcode} ${property.location.country}`}</option>
+  //       );
+  //     }
+  //   );
+  // } else {
+  //   propertyOptions = <></>;
+  // }
 
   return (
     <div className={classes.Locks}>

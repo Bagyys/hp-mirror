@@ -2,24 +2,22 @@ const { User } = require("../../models/userModel");
 const { Reservation } = require("../../models/reservationModel");
 const { Property } = require("../../models/propertyModel");
 
-exports.getReservations = async(req, res) => {
+exports.getPastReservations = async(req, res) => {
     const userId = req.params.userId;
     let message;
     let reservations = [];
-
     if (userId === undefined || userId === null || userId.length !== 24) {
         message = "bad user identificator"
     }
-
     try {
         const user = await User.findById(userId);
         if (user) {
-            const { activeReservations } = user;
-            if (activeReservations.length > 0) {
+            const { pastReservations } = user;
+
+            if (pastReservations.length > 0) {
                 try {
                     reservations = await Promise.all(
-                        activeReservations.map(async(reservationId) => {
-                            // TODO: try catches for these requests
+                        pastReservations.map(async(reservationId) => {
                             const res = await Reservation.findById(reservationId);
                             const property = await Property.findById(res.propertyId);
                             const reservationFull = JSON.parse(JSON.stringify(res));
