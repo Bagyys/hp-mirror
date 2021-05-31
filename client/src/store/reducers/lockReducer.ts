@@ -1,25 +1,9 @@
 import update from "react-addons-update";
 
 import lockTypes from "../types/lockTypes";
+import { LockProps } from "../types/lockInterfaces";
 import { Actions } from "../actions/lockActions";
 
-export interface LockProps {
-  _id: string;
-  i1: number;
-  i2: number;
-  i3: number;
-  i4: number;
-  i5: number;
-  i6: number;
-  i7: number;
-  i8: number;
-  i9: number;
-  o1: number;
-  o2: number;
-  o3: number;
-  timeInterval: number;
-  e: string;
-}
 export interface LockState {
   locks: Array<LockProps>;
   error: string;

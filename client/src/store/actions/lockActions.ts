@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 // import socket from "../../utilities/socketConnection";
 
 import lockTypes from "../types/lockTypes";
-import { LockProps } from "../reducers/lockReducer";
+import { LockProps } from "../types/lockInterfaces";
 
 // -------------------- URLS --------------------
 
@@ -125,13 +125,21 @@ export type Actions =
 export const getAllLocksAction = () => async (dispatch: Dispatch) => {
   dispatch({ type: lockTypes.GET_ALL_LOCKS_START });
   try {
-    const response: AxiosResponse<LockProps> = await axios.get(
-      `${url}/lock/getAll/?h=A3%nm*Wb`
-    );
-    dispatch({
-      type: lockTypes.GET_ALL_LOCKS_SUCCESS,
-      payload: response.data,
-    });
+    const response: AxiosResponse<{
+      locks: Array<LockProps>;
+      message: string;
+    }> = await axios.get(`${url}/lock/getAll/?h=A3%nm*Wb`);
+    if (response.status === 200 && response.data.message === undefined) {
+      dispatch({
+        type: lockTypes.GET_ALL_LOCKS_SUCCESS,
+        payload: response.data.locks,
+      });
+    } else {
+      dispatch({
+        type: lockTypes.GET_ALL_LOCKS_FAIL,
+        payload: response.data.message,
+      });
+    }
   } catch (err) {
     dispatch({
       type: lockTypes.GET_ALL_LOCKS_FAIL,

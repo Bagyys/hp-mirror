@@ -1,12 +1,17 @@
 const { Lock } = require("../../models/lockModel");
-// const { resetLock } = require("./utils/lock");
-// let debug = require("debug");
+const { Property } = require("../../models/propertyModel");
 
 exports.getAllLocks = async (req, res) => {
-  const data = req.query;
+  const { h } = req.query;
 
-  if (!data.h || data.h !== "A3%nm*Wb") {
-    return res.status(404).send("netu metki");
+  let locksWithProperty;
+  let message;
+
+  if (!h || h !== "A3%nm*Wb") {
+    return res.status(400).json({
+      locks: undefined,
+      message: "no tag",
+    });
   }
 
   try {
@@ -15,11 +20,33 @@ exports.getAllLocks = async (req, res) => {
       { lockOpened: 0, lockClosed: 0, createdAt: 0, updatedAt: 0, __v: 0 }
     );
     if (locks !== undefined || locks !== null) {
-      return res.status(200).send(locks);
+      locksWithProperty = await Promise.all(
+        locks.map(async (lock) => {
+          try {
+            const property = await Property.findById(lock.property, {
+              title: 1,
+              location: 1,
+            });
+            const fullLock = { ...lock._doc };
+            fullLock.propertyFull = property;
+            return fullLock;
+          } catch (error) {
+            return res.status(400).json({
+              locks: undefined,
+              message: error.message,
+            });
+          }
+        })
+      );
+
+      return res.status(200).send({ locks: locksWithProperty, message });
     } else {
-      return res.status(404).send("oshibka");
+      message = "no locks found";
     }
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
+  } catch (error) {
+    return res.status(400).json({
+      locks: undefined,
+      message: error.message,
+    });
   }
 };
