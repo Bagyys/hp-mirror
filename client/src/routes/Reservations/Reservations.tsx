@@ -91,7 +91,8 @@ const Reservations = () => {
   const [areLocksDisabled, setLocksDisabled] = useState<boolean[]>(
     Array.from({ length: reservations.length }, (i) => (i = true))
   );
-
+  console.log("areLocksDisabled");
+  console.log(areLocksDisabled);
   const changeVisibility = (changeIndex: number) => {
     const newArr = isReservationVisible.map((value, index) => {
       if (index === changeIndex) {
@@ -101,7 +102,6 @@ const Reservations = () => {
     setReservationVisibility(newArr);
   };
 
-  //
   useEffect(() => {
     if (reservations.length) {
       setReservationVisibility(initialVisibleArray);

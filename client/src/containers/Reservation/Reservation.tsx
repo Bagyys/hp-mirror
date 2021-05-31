@@ -46,7 +46,7 @@ const Reservation: React.FC<Props> = ({
     }
   };
 
-  let disableButtons = false;
+  let disableButtons = true;
   if (lock && disabled !== undefined) {
     disableButtons = lock.o1 === 1 || lock.o2 === 1 || disabled;
   }
@@ -74,7 +74,6 @@ const Reservation: React.FC<Props> = ({
         <>
           <button
             className={classes.Cancel}
-            // disabled={disableButtons} cancelable
             onClick={() =>
               dispatch(
                 cancelUserReservationAction(

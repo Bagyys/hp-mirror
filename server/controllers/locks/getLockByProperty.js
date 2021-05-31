@@ -2,7 +2,6 @@ const { Lock } = require("../../models/lockModel");
 
 exports.getLockByProperty = async (req, res) => {
   const id = req.params.id;
-
   try {
     const lock = await Lock.findOne(
       { property: id },
