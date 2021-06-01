@@ -50,13 +50,9 @@ const Reservation: React.FC<Props> = ({
   if (lock && disabled !== undefined) {
     disableButtons = lock.o1 === 1 || lock.o2 === 1 || disabled;
   }
-  const startMoment = moment
-    .tz(reservation.startDate, reservation.timeZone)
-    .toDate();
+  const startMoment = moment.tz(reservation.startDate, reservation.timeZone);
   const start = moment(startMoment).format("YYYY-MM-DD HH:mm");
-  const endMoment = moment
-    .tz(reservation.endDate, reservation.timeZone)
-    .toDate();
+  const endMoment = moment.tz(reservation.endDate, reservation.timeZone);
   const end = moment(endMoment).format("YYYY-MM-DD HH:mm");
 
   return (

@@ -2,21 +2,25 @@
 
 .Lock {
   font-size: 20px;
-  p,
-  button {
-    display: inline-block;
+  display: flex;
+  justify-content: space-between;
+  .LockInfo,
+  .Buttons {
+    margin: 3px 30px;
   }
-  button {
-    background-color: blue;
-    color: white;
-    margin: 10px;
-    padding: 5px 10px;
-    &:disabled {
-      background-color: gray;
-      cursor: not-allowed;
-    }
-    &.delete {
-      background-color: rgb(66, 22, 22);
+  .Buttons {
+    button {
+      background-color: blue;
+      color: white;
+      margin: 10px;
+      padding: 5px 10px;
+      &:disabled {
+        background-color: gray;
+        cursor: not-allowed;
+      }
+      &.delete {
+        background-color: rgb(66, 22, 22);
+      }
     }
   }
 }

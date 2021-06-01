@@ -34,25 +34,36 @@ const Lock: React.FC<Props> = ({ index }) => {
 
   return (
     <div className={classes.Lock}>
-      <p>
-        Lock id: {lock._id} - - - Property: {lock.propertyFull.title}
-      </p>
-      <button
-        disabled={disableButtons}
-        onClick={() => doorAction(index, lock._id, "o1")}
-      >
-        Open front lock
-      </button>
-      <button
-        disabled={disableButtons}
-        onClick={() => doorAction(index, lock._id, "o2")}
-      >
-        Open flat lock
-      </button>
-      <button onClick={() => resetAction(index, lock._id)}>Reset lock</button>
-      <button className={classes.delete} onClick={() => deleteAction(lock._id)}>
-        Delete lock
-      </button>
+      <div className={classes.LockInfo}>
+        <p>
+          - Lock id: {lock._id} - | - Property:{" "}
+          {lock.propertyFull
+            ? `${lock.propertyFull.title}, ${lock.propertyFull.location.country}`
+            : ""}
+        </p>
+      </div>
+
+      <div className={classes.Buttons}>
+        <button
+          disabled={disableButtons}
+          onClick={() => doorAction(index, lock._id, "o1")}
+        >
+          Open front lock
+        </button>
+        <button
+          disabled={disableButtons}
+          onClick={() => doorAction(index, lock._id, "o2")}
+        >
+          Open flat lock
+        </button>
+        <button onClick={() => resetAction(index, lock._id)}>Reset lock</button>
+        <button
+          className={classes.delete}
+          onClick={() => deleteAction(lock._id)}
+        >
+          Delete lock
+        </button>
+      </div>
     </div>
   );
 };
