@@ -1,13 +1,10 @@
 const { Lock } = require("../../models/lockModel");
-const { socketConnection } = require("../../utils/socket");
-
-const { reset } = require("./utils/lock");
-let debug = require("debug");
+const { checkActiveReservations } = require("../../utils/reservation");
 
 exports.resetLock = async (req, res) => {
-  console.log("reset");
-  console.log("req.query");
-  console.log(req.query);
+  // console.log("reset");
+  // console.log("req.query");
+  // console.log(req.query);
   const data = req.query;
 
   if (!data.h || data.h !== "A3%nm*Wb") {
@@ -18,6 +15,14 @@ exports.resetLock = async (req, res) => {
     console.log("send error");
     return res.status(404).send("nepravelnyj id");
   }
+
+  let a = 0;
+  try {
+    const active = await checkActiveReservations(data.id);
+    active ? (a = 1) : (a = 0);
+  } catch (error) {
+    return res.status(404).send("e11: " + error.message);
+  }
   try {
     const resetLock = await Lock.findByIdAndUpdate(
       data.id,
@@ -25,6 +30,7 @@ exports.resetLock = async (req, res) => {
         $set: {
           o1: 0,
           o2: 0,
+          // a: a,
         },
         $push: {
           [`lockClosed.o1`]: { time: new Date(), user: "reset button click" },
@@ -37,17 +43,11 @@ exports.resetLock = async (req, res) => {
     if (resetLock === undefined || resetLock === null) {
       return res.status(404).send("e11");
     } else {
-      // socketConnection.socket.emit("lockUpdate", {
-      //   id: resetLock.id,
-      //   o1: resetLock.o1,
-      //   o2: resetLock.o2,
-      //   o3: resetLock.o3,
-      // });
       return res.status(200).send(resetLock);
     }
   } catch (err) {
     console.log("send error");
     console.log(err);
-    return res.status(404).send("nepravelnyj id");
+    return res.status(404).send("nepravelnyj id: " + err.message);
   }
 };

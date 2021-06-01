@@ -11,22 +11,24 @@ const lockSchema = new Schema(
     // interval for lock
     timeInterval: { type: Number, default: 1 },
     // parameters
-    i1: { type: Number, default: 0 },
-    i2: { type: Number, default: 0 },
-    i3: { type: Number, default: 0 },
-    i4: { type: Number, default: 0 },
-    i5: { type: Number, default: 0 },
-    i6: { type: Number, default: 0 },
-    i7: { type: Number, default: 0 },
-    i8: { type: Number, default: 0 },
-    i9: { type: Number, default: 0 },
+    i1: { type: Number, min: 0, max: 1, default: 0 },
+    i2: { type: Number, min: 0, max: 1, default: 0 },
+    i3: { type: Number, min: 0, max: 1, default: 0 },
+    i4: { type: Number, min: 0, max: 1, default: 0 },
+    i5: { type: Number, min: 0, max: 1, default: 0 },
+    i6: { type: Number, min: 0, max: 1, default: 0 },
+    i7: { type: Number, min: 0, max: 1, default: 0 },
+    i8: { type: Number, min: 0, max: 1, default: 0 },
+    i9: { type: Number, min: 0, max: 1, default: 0 },
     // states
-    o1: { type: Number, default: 0 },
-    o2: { type: Number, default: 0 },
-    o3: { type: Number, default: 0 },
+    o1: { type: Number, min: 0, max: 1, default: 0 },
+    o2: { type: Number, min: 0, max: 1, default: 0 },
+    o3: { type: Number, min: 0, max: 1, default: 0 },
     // error
     // do we need to save error?
     e: { type: String, default: "0" },
+    // active reservation
+    a: { type: Number, min: 0, max: 1, default: 0 },
     lockOpened: new Schema(
       {
         o1: [
