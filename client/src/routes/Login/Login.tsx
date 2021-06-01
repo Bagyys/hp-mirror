@@ -26,9 +26,7 @@ const Login = () => {
     }
   };
 
-  const handleLoginClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleLoginClick = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -64,7 +62,7 @@ const Login = () => {
   } else {
     return (
       <div className={classes.Login}>
-        <div>
+        <form onSubmit={(event) => handleLoginClick(event)}>
           <input
             type="email"
             placeholder="email"
@@ -78,11 +76,11 @@ const Login = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <button onClick={(event) => handleLoginClick(event)}>Login</button>
+          <button type="submit">Login</button>
           <h5>
             <Link to="/register">Don't have an account?</Link>
           </h5>
-        </div>
+        </form>
       </div>
     );
   }

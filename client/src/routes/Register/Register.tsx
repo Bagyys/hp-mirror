@@ -29,9 +29,7 @@ const Register = () => {
     }
   };
 
-  const handleSignUpClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleSignUpClick = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -66,7 +64,7 @@ const Register = () => {
   } else {
     return (
       <div className={classes.Register}>
-        <div>
+        <form onSubmit={(event) => handleSignUpClick(event)}>
           <input
             type="email"
             placeholder="email"
@@ -80,12 +78,11 @@ const Register = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          {/* {error !== null ? <div className="error">{error}</div> : null} */}
-          <button onClick={handleSignUpClick}>Register</button>
+          <button type="submit">Register</button>
           <h5>
             <Link to="/login">Already have an account?</Link>
           </h5>
-        </div>
+        </form>
       </div>
     );
   }

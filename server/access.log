@@ -7936,3 +7936,16 @@
 ::1 - - [01/Jun/2021:05:10:32 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 304 -
 ::1 - - [01/Jun/2021:05:10:34 +0000] "POST / HTTP/1.1" 200 355
 ::1 - - [01/Jun/2021:05:10:34 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 304 -
+::1 - - [01/Jun/2021:05:13:34 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [01/Jun/2021:05:13:34 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 304 -
+::1 - - [01/Jun/2021:05:13:36 +0000] "GET /reservation/getReservations/60ab4961895e9547d0ded705 HTTP/1.1" 304 -
+::1 - - [01/Jun/2021:05:13:39 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 304 -
+::1 - - [01/Jun/2021:05:13:39 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [01/Jun/2021:05:18:06 +0000] "POST /login HTTP/1.1" - -
+::1 - - [01/Jun/2021:05:19:15 +0000] "POST /login HTTP/1.1" - -
+::1 - - [01/Jun/2021:05:20:39 +0000] "POST /login HTTP/1.1" 200 538
+::1 - - [01/Jun/2021:05:20:39 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 304 -
+::1 - - [01/Jun/2021:05:20:39 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [01/Jun/2021:05:20:43 +0000] "GET /reservation/getReservations/60ab4961895e9547d0ded705 HTTP/1.1" 304 -
+::1 - - [01/Jun/2021:05:20:44 +0000] "POST / HTTP/1.1" 200 355
+::1 - - [01/Jun/2021:05:20:44 +0000] "GET /reservation/getReservations/60ab4961895e9547d0ded705 HTTP/1.1" 304 -
