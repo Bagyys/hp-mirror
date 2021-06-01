@@ -98,40 +98,40 @@ exports.checkActiveReservations = async (lockId) => {
   }
   console.log("lock");
   console.log(lock);
-  if (!lock) return;
+  if (!lock) return active;
   const { property: propertyId } = lock;
 
   try {
     property = await Property.findById(propertyId);
   } catch (error) {
-    message = error.message;
+    return active;
   }
   // console.log("property");
   // console.log(property);
-  if (!property) return;
+  if (!property) return active;
   const { timeZone } = property.location;
   const now = moment.utc().tz(timeZone);
-  console.log("now");
-  console.log(now);
+  // console.log("now");
+  // console.log(now);
   const nowDate = now.toDate();
-  console.log("nowDate");
-  console.log(nowDate);
+  // console.log("nowDate");
+  // console.log(nowDate);
   const nowDateString = now.format("YYYY-MM-DD");
   const nowHourNumber = +now.format("HH");
-  console.log("nowDateString");
-  console.log(nowDateString);
-  console.log("nowHourNumber");
-  console.log(nowHourNumber);
+  // console.log("nowDateString");
+  // console.log(nowDateString);
+  // console.log("nowHourNumber");
+  // console.log(nowHourNumber);
   const index = property.occupiedTime.findIndex((item) => {
     return (
       item.isRented &&
       nowDateString === moment(item.dateString).format("YYYY-MM-DD")
     );
   });
-  console.log("index");
-  console.log(index);
-  console.log("property.occupiedTime[index].hours[nowHourNumber]");
-  console.log(property.occupiedTime[index].hours[nowHourNumber]);
+  // console.log("index");
+  // console.log(index);
+  // console.log("property.occupiedTime[index].hours[nowHourNumber]");
+  // console.log(property.occupiedTime[index].hours[nowHourNumber]);
   // does property's occupied time array contain current time + timezone?
   // Y: find reservation and double check
   if (index >= 0 && property.occupiedTime[index].hours[nowHourNumber]) {
@@ -151,11 +151,14 @@ exports.checkActiveReservations = async (lockId) => {
         await lock.updateOne({ a: 1 });
       } else {
         // smth
+        return active;
       }
-    } catch (error) {}
+    } catch (error) {
+      return active;
+    }
   }
   // N: return active = 0
-  console.log("active");
-  console.log(active);
+  // console.log("active");
+  // console.log(active);
   return active;
 };
