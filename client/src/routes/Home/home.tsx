@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import socket from "../../utilities/socketConnection";
 
 import { StoreState } from "../../store/configureStore";
-import { loadUser } from "../../store/actions/userActions";
 import {
   getAllLocksAction,
   updateLockAction,
@@ -21,7 +20,6 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadUser());
     dispatch(getAllLocksAction());
     socket.on("lockUpdate", (data) => {
       const { id, o1, o2, o3 } = data;

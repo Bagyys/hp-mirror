@@ -122,7 +122,7 @@ export const loadUser =
         if (response.status === 200 && response.data.message === undefined) {
           dispatch({
             type: userTypes.LOAD_USER_SUCCESS,
-            payload: response.data,
+            payload: response.data.user,
           });
         } else {
           dispatch({
@@ -136,6 +136,11 @@ export const loadUser =
           payload: error.message,
         });
       }
+    } else {
+      dispatch({
+        type: userTypes.LOAD_USER_FAIL,
+        payload: "",
+      });
     }
   };
 

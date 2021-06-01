@@ -71,7 +71,7 @@ const userReducer = (state = initialState, action: Actions) => {
         ...state,
         isAuthenticated: true,
         isLoading: false,
-        user: action.payload.user,
+        user: action.payload,
         currentUser: localStorage.getItem("token")
           ? isValidToken(localStorage.getItem("token"))
           : null,
@@ -126,7 +126,7 @@ const userReducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload.message,
+        error: action.payload,
         currentUser: null,
         user: null,
         isAuthenticated: false,
