@@ -41,9 +41,7 @@ const Reservations = () => {
 
   // updating locks with socket io if they're updated in database
   useEffect(() => {
-    console.log("useffect Reservations");
     socket.on("lockUpdate", (data) => {
-      console.log("socket fire");
       const { id, o1, o2, o3 } = data;
       if (currentLockId !== undefined && id === currentLockId) {
         dispatch(updateCurrentLockAction(o1, o2, o3));

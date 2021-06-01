@@ -46,11 +46,11 @@ const getHoursBetween = (start, end, occupied) => {
   return hours;
 };
 
-exports.formReservationHoursArray = (start, end) => {
-  const startDateString = moment(start).format("YYYY-MM-DD");
-  const startHourNumber = +moment(start).format("HH");
-  const endDateString = moment(end).format("YYYY-MM-DD");
-  const endHourNumber = +moment(end).format("HH");
+exports.formReservationHoursArray = (start, end, timezone) => {
+  const startDateString = moment.tz(start, timezone).format("YYYY-MM-DD");
+  const startHourNumber = +moment.tz(start, timezone).format("HH");
+  const endDateString = moment.tz(end, timezone).format("YYYY-MM-DD");
+  const endHourNumber = +moment.tz(end, timezone).format("HH");
   let datesArray = [];
   if (startDateString === endDateString) {
     const occupiedHours = getHoursBetween(startHourNumber, endHourNumber, true);
@@ -76,6 +76,6 @@ exports.formReservationHoursArray = (start, end) => {
         hours: occupiedHours,
       });
     }
-    return datesArray;
   }
+  return datesArray;
 };

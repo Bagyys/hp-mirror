@@ -25,7 +25,11 @@ const lockReducer = (state = initialState, action: Actions) => {
     case lockTypes.OPEN_LOCK_SUCCESS:
       return update(state, {
         locks: {
-          [action.payload.index]: { $set: action.payload.lock },
+          [action.payload.index]: {
+            o1: { $set: action.payload.lock.o1 },
+            o2: { $set: action.payload.lock.o2 },
+            o3: { $set: action.payload.lock.o3 },
+          },
         },
       });
     case lockTypes.UPDATE_LOCK:
@@ -45,7 +49,11 @@ const lockReducer = (state = initialState, action: Actions) => {
     case lockTypes.RESET_LOCK_SUCCESS:
       return update(state, {
         locks: {
-          [action.payload.index]: { $set: action.payload.lock },
+          [action.payload.index]: {
+            o1: { $set: action.payload.lock.o1 },
+            o2: { $set: action.payload.lock.o2 },
+            o3: { $set: action.payload.lock.o3 },
+          },
         },
       });
     case lockTypes.DELETE_LOCK_SUCCESS:

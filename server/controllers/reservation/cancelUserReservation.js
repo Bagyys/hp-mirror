@@ -32,17 +32,14 @@ exports.cancelUserReservation = async (req, res) => {
         try {
           reservationToBeDeleted = await Reservation.findById(reservationId);
         } catch (error) {
-          return res.status(400).json({
-            // reservations: undefined,
-            message: "Find reservation error: " + error.message,
-          });
+          message = "Find reservation error: " + error.message;
         }
         if (reservationToBeDeleted) {
-          const { startDate, endDate } = reservationToBeDeleted;
-
+          const { startDate, endDate, timeZone } = reservationToBeDeleted;
           reservationOccupiedDays = formReservationHoursArray(
             startDate,
-            endDate
+            endDate,
+            timeZone
           );
         }
 
@@ -52,12 +49,8 @@ exports.cancelUserReservation = async (req, res) => {
             propertyTimeArr = property.occupiedTime;
           }
         } catch (error) {
-          return res.status(400).json({
-            // reservations: undefined,
-            message: "Find property error: " + error.message,
-          });
+          message = "Find property error: " + error.message;
         }
-
         reservationOccupiedDays.map((occupiedDay) => {
           const index = propertyTimeArr.findIndex((item) => {
             return (
@@ -91,30 +84,22 @@ exports.cancelUserReservation = async (req, res) => {
         try {
           await reservationToBeDeleted.remove();
         } catch (error) {
-          return res.status(400).json({
-            // reservations: undefined,
-            message: "Delete reservation error: " + error.message,
-          });
+          message = "Delete reservation error: " + error.message;
         }
         // update property
         try {
           await property.updateOne({ $set: { occupiedTime: propertyTimeArr } });
         } catch (error) {
-          return res.status(400).json({
-            // reservations: undefined,
-            message: "Update property error: " + error.message,
-          });
+          message = "Update property error: " + error.message;
         }
         // update user
         try {
           await user.updateOne({
             $pull: { activeReservations: new ObjectId(reservationId) },
+            // $push: { canceledReservations: new ObjectId(reservationId) },  do we really need this???
           });
         } catch (error) {
-          return res.status(400).json({
-            // reservations: undefined,
-            message: "Update user error: " + error.message,
-          });
+          message = "Update user error: " + error.message;
         }
       }
     } else {
@@ -122,12 +107,10 @@ exports.cancelUserReservation = async (req, res) => {
     }
 
     return res.send({
-    //   reservations,
       message,
     });
   } catch (err) {
     return res.status(400).json({
-    //   reservations: undefined,
       message: "Find user error: " + err.message,
     });
   }
