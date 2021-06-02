@@ -1,10 +1,10 @@
 import moment from "moment-timezone";
 
 import { SelectionAvailabilty } from "../store/reducers/bookingReducer";
-import { OccupiedDay } from "../store/reducers/propertyReducer";
+import { OccupiedDayInterface } from "../store/types/propertyInterfaces";
 
 export const indexInArray = (
-  array: Array<OccupiedDay>,
+  array: Array<OccupiedDayInterface>,
   value: Date
 ): number => {
   return array.findIndex((item) => {

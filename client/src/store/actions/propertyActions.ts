@@ -2,7 +2,7 @@ import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
 
 import propertyTypes from "../types/propertyTypes";
-import { PropertyProps } from "../reducers/propertyReducer";
+import { PropertyInterface } from "../types/propertyInterfaces";
 
 // -------------------- URLS --------------------
 
@@ -16,7 +16,7 @@ export interface GetAllPropertiesStart
 
 export interface GetAllPropertiesSuccess
   extends Action<typeof propertyTypes.GET_ALL_PROPERTIES_SUCCESS> {
-  payload: Array<PropertyProps>;
+  payload: Array<PropertyInterface>;
 }
 
 export interface GetAllPropertiesFail
@@ -29,7 +29,7 @@ export interface GetPropertieswoLocksStart
 
 export interface GetPropertieswoLocksSuccess
   extends Action<typeof propertyTypes.GET_PROPERTIES_WO_LOCKS_SUCCESS> {
-  payload: Array<PropertyProps>;
+  payload: Array<PropertyInterface>;
 }
 
 export interface GetPropertieswoLocksFail
@@ -42,13 +42,19 @@ export interface GetPropertyStart
 
 export interface GetPropertySuccess
   extends Action<typeof propertyTypes.GET_PROPERTY_SUCCESS> {
-  payload: PropertyProps;
+  payload: PropertyInterface;
 }
 
 export interface GetPropertyFail
   extends Action<typeof propertyTypes.GET_PROPERTY_FAIL> {
   payload: string;
 }
+
+export interface ThrowError extends Action<typeof propertyTypes.THROW_ERROR> {
+  payload: string;
+}
+
+export interface ClearError extends Action<typeof propertyTypes.CLEAR_ERROR> {}
 
 export type Actions =
   | GetAllPropertiesStart
@@ -59,7 +65,9 @@ export type Actions =
   | GetPropertieswoLocksFail
   | GetPropertyStart
   | GetPropertySuccess
-  | GetPropertyFail;
+  | GetPropertyFail
+  | ThrowError
+  | ClearError;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -68,7 +76,7 @@ export type Actions =
 export const getAllPropertiesAction = () => async (dispatch: Dispatch) => {
   dispatch({ type: propertyTypes.GET_ALL_PROPERTIES_START });
   try {
-    const response: AxiosResponse<Array<PropertyProps>> = await axios.get(
+    const response: AxiosResponse<Array<PropertyInterface>> = await axios.get(
       `${url}/property/getAllProperties`
     );
     dispatch({
@@ -86,7 +94,7 @@ export const getAllPropertiesAction = () => async (dispatch: Dispatch) => {
 export const getPropertieswoLocksAction = () => async (dispatch: Dispatch) => {
   dispatch({ type: propertyTypes.GET_PROPERTIES_WO_LOCKS_START });
   try {
-    const response: AxiosResponse<Array<PropertyProps>> = await axios.get(
+    const response: AxiosResponse<Array<PropertyInterface>> = await axios.get(
       `${url}/property/getPropertieswoLocks`
     );
     dispatch({
@@ -105,7 +113,7 @@ export const getOnePropertyAction =
   (propertyId: string) => async (dispatch: Dispatch) => {
     dispatch({ type: propertyTypes.GET_PROPERTY_START });
     try {
-      const response: AxiosResponse<PropertyProps> = await axios.get(
+      const response: AxiosResponse<PropertyInterface> = await axios.get(
         `${url}/property/getOneProperty/${propertyId}`
       );
       dispatch({

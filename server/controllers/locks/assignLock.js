@@ -6,27 +6,65 @@ const { Property } = require("../../models/propertyModel");
 
 exports.assignLock = async (req, res) => {
   const { propertyId, lockId } = req.body;
+  let message;
+  let lock;
+  let property;
+  let locks = [];
+  let properties = [];
+
   try {
     if (lockId && propertyId) {
-      const lock = await Lock.findByIdAndUpdate(
+      lock = await Lock.findByIdAndUpdate(
         lockId,
         { property: propertyId },
         { new: true }
       );
-      const property = await Property.findByIdAndUpdate(
-        propertyId,
-        { lock: lockId },
-        { new: true }
-      );
+
+      try {
+        property = await Property.findByIdAndUpdate(
+          propertyId,
+          { lock: lockId },
+          { new: true }
+        );
+      } catch (error) {
+        return res
+          .status(400)
+          .send({ locks, properties, message: error.message });
+      }
+
       if (lock && property) {
-        return res.status(200).send("ok");
+        try {
+          properties = await Property.find();
+        } catch (error) {
+          return res
+            .status(400)
+            .send({ locks, properties, message: error.message });
+        }
+
+        try {
+          locks = await Lock.find(
+            { property: { $exists: false } },
+            {
+              lockOpened: 0,
+              lockClosed: 0,
+              createdAt: 0,
+              updatedAt: 0,
+              __v: 0,
+            }
+          );
+        } catch (error) {
+          return res
+            .status(400)
+            .send({ locks, properties, message: error.message });
+        }
       } else {
-        return res.status(400).send("error");
+        message = "no lock / property found";
       }
     } else {
-      return res.status(400).send("error");
+      message = "no lock / property id";
     }
+    return res.send({ locks, properties, message });
   } catch (err) {
-    return res.status(400).send(err.message);
+    return res.status(400).send({ locks, properties, message: err.message });
   }
 };

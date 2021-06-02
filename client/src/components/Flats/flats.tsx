@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Slider from "../Slider/imageSlider";
 import { StoreState } from "../../store/configureStore";
-import { PropertyProps } from "../../store/reducers/propertyReducer";
+import { PropertyInterface } from "../../store/types/propertyInterfaces";
 import { getAllPropertiesAction } from "../../store/actions/propertyActions";
 
 import newImg from "../../assets/images/flash.png";
@@ -14,7 +14,9 @@ import classes from "./flats.module.scss";
 
 const Flats: React.FC = () => {
   const dispatch = useDispatch();
-  const properties = useSelector((state: StoreState) => state.properties);
+  const properties = useSelector(
+    (state: StoreState) => state.property.properties
+  );
 
   useEffect(() => {
     dispatch(getAllPropertiesAction());
@@ -35,7 +37,7 @@ const Flats: React.FC = () => {
   if (properties) {
     propertiesRender = (
       <ul>
-        {properties.map((property: PropertyProps, index: number) => {
+        {properties.map((property: PropertyInterface, index: number) => {
           return (
             <li className={classes.flat} key={index}>
               <div className={classes.aboutFlat}>

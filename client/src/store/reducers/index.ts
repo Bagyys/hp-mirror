@@ -13,5 +13,5 @@ export default combineReducers({
   router: routerReducer,
   booking: bookingReducer,
   reservation: reservationReducer,
-  properties: propertyReducer,
+  property: propertyReducer,
 });

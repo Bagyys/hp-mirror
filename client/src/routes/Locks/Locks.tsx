@@ -10,7 +10,6 @@ import {
   clearErrorAction,
 } from "../../store/actions/lockActions";
 import { LockProps } from "../../store/types/lockInterfaces";
-import { PropertyProps } from "../../store/reducers/propertyReducer";
 import Lock from "../../containers/Lock/Lock";
 
 import classes from "./Locks.module.scss";
@@ -27,7 +26,9 @@ const Locks = () => {
   }, []);
 
   const { locks, error } = useSelector((state: StoreState) => state.lock);
-  const properties = useSelector((state: StoreState) => state.properties);
+  const properties = useSelector(
+    (state: StoreState) => state.property.properties
+  );
 
   useEffect(() => {
     if (error) {
@@ -70,23 +71,6 @@ const Locks = () => {
   } else {
     lockOptions = <></>;
   }
-
-  // let propertyOptions = null;
-  // if (properties !== undefined && properties !== null) {
-  //   propertyOptions = properties.map(
-  //     (property: PropertyProps, index: number) => {
-  //       return (
-  //         <option
-  //           key={index}
-  //           value={property._id}
-  //         >{`${property.title}, ${property.location.addressString1}, ${property.location.city},
-  //       ${property.location.zipcode} ${property.location.country}`}</option>
-  //       );
-  //     }
-  //   );
-  // } else {
-  //   propertyOptions = <></>;
-  // }
 
   return (
     <div className={classes.Locks}>

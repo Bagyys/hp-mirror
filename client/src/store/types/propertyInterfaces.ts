@@ -34,6 +34,7 @@ export interface OccupiedDayInterface {
 }
 
 export interface FacilitiesInterface {
+  size: number;
   wifi: boolean;
   parking: boolean;
   petFriendly: boolean;
