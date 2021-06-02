@@ -96,7 +96,7 @@ exports.cancelUserReservation = async (req, res) => {
         try {
           await user.updateOne({
             $pull: { activeReservations: new ObjectId(reservationId) },
-            // $push: { canceledReservations: new ObjectId(reservationId) },  do we really need this???
+            // $push: { canceledReservations: new ObjectId(reservationId) }, TODO:  do we really need this??? if so, don't delete reservation
           });
         } catch (error) {
           message = "Update user error: " + error.message;

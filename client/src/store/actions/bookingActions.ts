@@ -3,7 +3,7 @@ import moment from "moment-timezone";
 import axios, { AxiosResponse } from "axios";
 import Swal from "sweetalert2";
 
-import { OccupiedDay } from "../reducers/propertyReducer";
+import { OccupiedDayInterface } from "../types/propertyInterfaces";
 import { SelectionAvailabilty } from "../reducers/bookingReducer";
 import {
   indexInArray,
@@ -67,7 +67,7 @@ export type BookingActions =
 // -------------------- ACTIONS --------------------
 
 export const checkAvailabilityAction =
-  (selectedDays: Array<Date>, occupiedTime: Array<OccupiedDay>) =>
+  (selectedDays: Array<Date>, occupiedTime: Array<OccupiedDayInterface>) =>
   async (dispatch: Dispatch) => {
     const displayDays = selectedDays.map((selectedDay: Date) => {
       const occIndex = indexInArray(occupiedTime, selectedDay);

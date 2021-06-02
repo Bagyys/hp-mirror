@@ -1,106 +1,56 @@
 // import update from "react-addons-update";
 
 import propertyTypes from "../types/propertyTypes";
+import { PropertyInterface } from "../types/propertyInterfaces";
+import lockTypes from "../types/lockTypes";
 import { Actions } from "../actions/propertyActions";
+import { LockActions } from "../actions/lockActions";
 
-export interface Location {
-  country: string;
-  city: string;
-  district: string;
-  zipcode: string;
-  addressString1: string;
-  addressString2?: string;
-  distanceFromCenter?: number;
-  timeZone: string;
+export interface LockState {
+  properties: Array<PropertyInterface>;
+  error: string;
 }
 
-export interface SeasonalPrice {
-  startDate: {
-    month: number;
-    day: number;
-  };
-  endDate: {
-    month: number;
-    day: number;
-  };
-  hourly?: number;
-  daily?: number;
-  weekly?: number;
-}
-export interface Price {
-  hourly?: number;
-  daily?: number;
-  weekly?: number;
-  isSeasonal: boolean;
-  seasonalPrices?: Array<SeasonalPrice>;
-}
+const initialState: LockState = {
+  properties: [] as Array<PropertyInterface>,
+  error: "",
+};
 
-export interface Facilities {
-  size: number;
-  wifi: boolean;
-  parking: boolean;
-  petFriendly: boolean;
-  disabilityAccess: boolean;
-  kitchen: boolean;
-  airConditioning: boolean;
-  bathtub: boolean;
-  washingMachine: boolean;
-  balcony: boolean;
-  breakfast: boolean;
-  crib: boolean;
-  nonSmoking: boolean;
-  bathroomType: string;
-  bathrooms: number;
-  bedType: string;
-  beds: number;
-  bedrooms: number;
-}
-
-export interface OccupiedDay {
-  dateString: string;
-  isRented: boolean;
-  isWholeDayRented: boolean;
-  hours: {
-    [key: number]: boolean;
-  };
-}
-export interface Rating {
-  user: string;
-  ratingTime: Date;
-  givenRating: number;
-}
-
-export interface PropertyProps {
-  _id: string;
-  title: string;
-  description: string;
-  type: string;
-  maxOccupants: number;
-  location: Location;
-  rentType: string;
-  images: Array<string>;
-  price: Price;
-  facilities: Facilities;
-  services: Object;
-  occupiedTime: Array<OccupiedDay>;
-  ratings: Array<Rating>;
-  overallRating: number;
-  ratingsCount: number;
-  createdAt: Date;
-}
-// export interface PropertyState {
-//   Array<PropertyProps>
-// }
-
-const initialState: Array<PropertyProps> = [];
-
-const propertyReducer = (state = initialState, action: Actions) => {
+const propertyReducer = (
+  state = initialState,
+  action: Actions | LockActions
+) => {
   switch (action.type) {
     case propertyTypes.GET_ALL_PROPERTIES_SUCCESS:
     case propertyTypes.GET_PROPERTIES_WO_LOCKS_SUCCESS:
-      return action.payload;
+      return {
+        ...state,
+        properties: action.payload,
+      };
     case propertyTypes.GET_PROPERTY_SUCCESS:
-      return [action.payload];
+      return {
+        ...state,
+        properties: [action.payload],
+      };
+    case lockTypes.ASSIGN_LOCK_SUCCESS:
+    case lockTypes.UNASSIGN_LOCK_SUCCESS:
+      return {
+        ...state,
+        properties: action.payload.properties,
+      };
+    case propertyTypes.GET_ALL_PROPERTIES_FAIL:
+    case propertyTypes.GET_PROPERTIES_WO_LOCKS_FAIL:
+    case propertyTypes.GET_PROPERTY_FAIL:
+    case propertyTypes.THROW_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case propertyTypes.CLEAR_ERROR:
+      return {
+        ...state,
+        error: "",
+      };
     default:
       return state;
   }

@@ -1,9 +1,9 @@
 import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
-// import socket from "../../utilities/socketConnection";
 
 import lockTypes from "../types/lockTypes";
 import { LockProps } from "../types/lockInterfaces";
+import { PropertyInterface } from "../types/propertyInterfaces";
 
 // -------------------- URLS --------------------
 
@@ -42,10 +42,25 @@ export interface AssignLockStart
   extends Action<typeof lockTypes.ASSIGN_LOCK_START> {}
 
 export interface AssignLockSuccess
-  extends Action<typeof lockTypes.ASSIGN_LOCK_SUCCESS> {}
+  extends Action<typeof lockTypes.ASSIGN_LOCK_SUCCESS> {
+  payload: { locks: Array<LockProps>; properties: Array<PropertyInterface> };
+}
 
 export interface AssignLockFail
   extends Action<typeof lockTypes.ASSIGN_LOCK_FAIL> {
+  payload: string;
+}
+
+export interface UnassignLockStart
+  extends Action<typeof lockTypes.UNASSIGN_LOCK_START> {}
+
+export interface UnassignLockSuccess
+  extends Action<typeof lockTypes.UNASSIGN_LOCK_SUCCESS> {
+  payload: { locks: Array<LockProps>; properties: Array<PropertyInterface> };
+}
+
+export interface UnassignLockFail
+  extends Action<typeof lockTypes.UNASSIGN_LOCK_FAIL> {
   payload: string;
 }
 
@@ -96,7 +111,7 @@ export interface ThrowError extends Action<typeof lockTypes.THROW_ERROR> {
 
 export interface ClearError extends Action<typeof lockTypes.CLEAR_ERROR> {}
 
-export type Actions =
+export type LockActions =
   | GetAllLocksStart
   | GetAllLocksSuccess
   | GetAllLocksFail
@@ -106,6 +121,9 @@ export type Actions =
   | AssignLockStart
   | AssignLockSuccess
   | AssignLockFail
+  | UnassignLockStart
+  | UnassignLockSuccess
+  | UnassignLockFail
   | OpenLockStart
   | OpenLockSuccess
   | OpenLockFail
@@ -148,7 +166,7 @@ export const getAllLocksAction = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const getUnasSignedLocksAction = () => async (dispatch: Dispatch) => {
+export const getUnassignedLocksAction = () => async (dispatch: Dispatch) => {
   dispatch({ type: lockTypes.GET_UNASSIGNED_LOCKS_START });
   try {
     const response: AxiosResponse<LockProps> = await axios.get(
@@ -175,34 +193,47 @@ export const assignLockAction =
     };
     try {
       const response = await axios.post(`${url}/lock/assign/`, body);
-      if (response.status === 200) {
+      if (response.status === 200 && response.data.message === undefined) {
         dispatch({
           type: lockTypes.ASSIGN_LOCK_SUCCESS,
+          payload: response.data,
         });
-        // dispatch({ type: lockTypes.GET_UNASSIGNED_LOCKS_START });
-        // try {
-        //   const response: AxiosResponse<LockProps> = await axios.get(
-        //     `${url}/door/unassignedLocks/?h=A3%nm*Wb`
-        //   );
-        //   dispatch({
-        //     type: lockTypes.GET_UNASSIGNED_LOCKS_SUCCESS,
-        //     payload: response.data,
-        //   });
-        // } catch (err) {
-        //   dispatch({
-        //     type: lockTypes.GET_UNASSIGNED_LOCKS_FAIL,
-        //     payload: err.message,
-        //   });
-        // }
       } else {
         dispatch({
           type: lockTypes.ASSIGN_LOCK_FAIL,
-          payload: response.data,
+          payload: response.data.message,
         });
       }
     } catch (err) {
       dispatch({
         type: lockTypes.ASSIGN_LOCK_FAIL,
+        payload: err.message,
+      });
+    }
+  };
+
+export const unassignLockAction =
+  (lockId: string) => async (dispatch: Dispatch) => {
+    dispatch({ type: lockTypes.UNASSIGN_LOCK_START });
+    const body = {
+      lockId,
+    };
+    try {
+      const response = await axios.post(`${url}/lock/unassign/`, body);
+      if (response.status === 200 && response.data.message === undefined) {
+        dispatch({
+          type: lockTypes.UNASSIGN_LOCK_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: lockTypes.UNASSIGN_LOCK_FAIL,
+          payload: response.data.message,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: lockTypes.UNASSIGN_LOCK_FAIL,
         payload: err.message,
       });
     }

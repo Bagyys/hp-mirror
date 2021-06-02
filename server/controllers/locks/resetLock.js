@@ -11,8 +11,8 @@ exports.resetLock = async (req, res) => {
     return res.status(404).send("netu metki");
   }
   if (data.id === undefined || data.id.length !== 24) {
-    console.log("data id undefined or too short");
-    console.log("send error");
+    // console.log("data id undefined or too short");
+    // console.log("send error");
     return res.status(404).send("nepravelnyj id");
   }
 
@@ -39,15 +39,15 @@ exports.resetLock = async (req, res) => {
       },
       { new: true }
     );
-    console.log("reset");
+    // console.log("reset");
     if (resetLock === undefined || resetLock === null) {
       return res.status(404).send("e11");
     } else {
       return res.status(200).send(resetLock);
     }
   } catch (err) {
-    console.log("send error");
-    console.log(err);
+    // console.log("send error");
+    // console.log(err);
     return res.status(404).send("nepravelnyj id: " + err.message);
   }
 };

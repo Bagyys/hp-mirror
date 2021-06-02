@@ -17,7 +17,7 @@ import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
 import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
 import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";
-import { PropertyProps } from "../../store/reducers/propertyReducer";
+import { PropertyInterface } from "../../store/types/propertyInterfaces";
 import { getOnePropertyAction } from "../../store/actions/propertyActions";
 import {
   checkAvailabilityAction,
@@ -40,7 +40,7 @@ export interface DisplayDay {
 interface PropsInterface {
   location: {
     state: {
-      property: PropertyProps;
+      property: PropertyInterface;
     };
     pathname: string;
   };
@@ -56,12 +56,14 @@ const FlatView = (props: PropsInterface) => {
       dispatch(getOnePropertyAction(id));
     }
   }, []);
-
-  const stateProperty = useSelector((state: StoreState) => state.properties[0]);
+  const properties: Array<PropertyInterface> = useSelector(
+    (state: StoreState) => state.property.properties
+  );
+  const stateProperty: PropertyInterface = properties[0];
   const booking = useSelector((state: StoreState) => state.booking);
   const auth: userState = useSelector((state: StoreState) => state.user);
   const user = auth.user;
-  let property: PropertyProps = {} as PropertyProps;
+  let property: PropertyInterface = {} as PropertyInterface;
   if (props && props.location.state) {
     property = props.location.state.property;
   } else {
@@ -149,7 +151,7 @@ const FlatView = (props: PropsInterface) => {
     dispatch(checkAvailabilityAction(selectedDays, occupiedTime));
     setIsScheduleOpened(true);
   };
-  const handleBooking = (residents: number) => {
+  const handleBooking = async (residents: number) => {
     const body = {
       userId: user._id,
       propertyId: property._id,
@@ -160,7 +162,7 @@ const FlatView = (props: PropsInterface) => {
       timeZone: property.location.timeZone,
       occupiedTime: booking.displayDays,
     };
-    dispatch(bookTimeAction(body));
+    await dispatch(bookTimeAction(body));
     history.push("/reservations");
   };
 
