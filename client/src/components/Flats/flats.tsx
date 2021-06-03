@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Slider from "../Slider/imageSlider";
+
 import { StoreState } from "../../store/configureStore";
+import { PropertyState } from "../../store/reducers/propertyReducer";
 import { PropertyInterface } from "../../store/types/propertyInterfaces";
 import { getAllPropertiesAction } from "../../store/actions/propertyActions";
 
+import Slider from "../Slider/imageSlider";
 import newImg from "../../assets/images/flash.png";
 import phoneImg from "../../assets/images/phone.png";
 import LikeImg from "../../assets/images/like.png";
@@ -14,9 +16,10 @@ import classes from "./flats.module.scss";
 
 const Flats: React.FC = () => {
   const dispatch = useDispatch();
-  const properties = useSelector(
-    (state: StoreState) => state.property.properties
+  const propertyStore: PropertyState = useSelector(
+    (state: StoreState) => state.property
   );
+  const properties: Array<PropertyInterface> = propertyStore.properties;
 
   useEffect(() => {
     dispatch(getAllPropertiesAction());

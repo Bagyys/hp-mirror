@@ -50,6 +50,14 @@ export interface GetPropertyFail
   payload: string;
 }
 
+export interface SelectProperty
+  extends Action<typeof propertyTypes.SELECT_PROPERTY> {
+  payload: string;
+}
+
+export interface ClearSelectedProperty
+  extends Action<typeof propertyTypes.CLEAR_SELECTED_PROPERTY> {}
+
 export interface ThrowError extends Action<typeof propertyTypes.THROW_ERROR> {
   payload: string;
 }
@@ -66,6 +74,8 @@ export type Actions =
   | GetPropertyStart
   | GetPropertySuccess
   | GetPropertyFail
+  | SelectProperty
+  | ClearSelectedProperty
   | ThrowError
   | ClearError;
 
@@ -127,4 +137,35 @@ export const getOnePropertyAction =
       });
     }
   };
+
+export const selectPropertyAction =
+  (id: string) => async (dispatch: Dispatch) => {
+    console.log("selectPropertyAction id");
+    console.log(id);
+    dispatch({
+      type: propertyTypes.SELECT_PROPERTY,
+      payload: id,
+    });
+  };
+
+export const clearSelectedPropertyAction = () => async (dispatch: Dispatch) => {
+  dispatch({
+    type: propertyTypes.CLEAR_SELECTED_PROPERTY,
+  });
+};
+
+export const throwErrorAction =
+  (message: string) => async (dispatch: Dispatch) => {
+    dispatch({
+      type: propertyTypes.THROW_ERROR,
+      payload: message,
+    });
+  };
+
+export const clearErrorAction = () => async (dispatch: Dispatch) => {
+  dispatch({
+    type: propertyTypes.CLEAR_ERROR,
+  });
+};
+
 // -------------------- END of ACTIONS --------------------

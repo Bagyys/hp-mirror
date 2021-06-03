@@ -1,71 +1,81 @@
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
+import { PropertyState } from "../../store/reducers/propertyReducer";
 import {
   getUnassignedLocksAction,
   assignLockAction,
   unassignLockAction,
+  selectLockAction,
+  clearSelectedLockAction,
   throwErrorAction,
-  clearErrorAction,
+  clearErrorAction as clearLockError,
 } from "../../store/actions/lockActions";
-import {
-  getPropertieswoLocksAction,
-  getAllPropertiesAction,
-} from "../../store/actions/propertyActions";
 import { LockProps } from "../../store/types/lockInterfaces";
+import {
+  getAllPropertiesAction,
+  selectPropertyAction,
+  clearSelectedPropertyAction,
+  clearErrorAction as clearPropertyError,
+} from "../../store/actions/propertyActions";
 import { PropertyInterface } from "../../store/types/propertyInterfaces";
 
 import classes from "./Settings.module.scss";
 
 const Settings = () => {
   const dispatch = useDispatch();
-  // const history = useHistory();
 
-  const [selectedPropertyWithLock, setSelectedPropertyWithLock] = useState("");
-  const [selectedPropertyWithoutLock, setSelectedPropertyWithoutLock] =
-    useState("");
-  const [selectedLock, setSelectedLock] = useState("");
-  const [LockOfProperty, setLockOfProperty] = useState("");
-
-  const handleError = () => {
-    dispatch(clearErrorAction());
+  const handleError = (type: string) => {
+    switch (type) {
+      case "lock":
+        dispatch(clearLockError());
+        break;
+      case "property":
+        dispatch(clearPropertyError());
+        break;
+    }
   };
 
   useEffect(() => {
-    // dispatch(getPropertieswoLocksAction());
     dispatch(getAllPropertiesAction());
     dispatch(getUnassignedLocksAction());
   }, []);
 
-  const { locks, error } = useSelector((state: StoreState) => state.lock);
-  const properties: Array<PropertyInterface> = useSelector(
-    (state: StoreState) => state.property.properties
+  const { locks, selectedLock } = useSelector(
+    (state: StoreState) => state.lock
   );
+  const lockError = useSelector((state: StoreState) => state.lock.error);
+
+  const propertyStore: PropertyState = useSelector(
+    (state: StoreState) => state.property
+  );
+  const properties: Array<PropertyInterface> = propertyStore.properties;
+  const selectedProperty: string = propertyStore.selectedProperty;
+  const propertyError: string = propertyStore.error;
 
   useEffect(() => {
-    if (error) {
+    if (lockError) {
       Swal.fire({
         title: "Ups, something went wrong",
-        text: error,
+        text: lockError,
         icon: "warning",
         showCancelButton: false,
         confirmButtonText: "OK",
       }).then(() => {
-        handleError();
+        handleError("lock");
       });
     }
-  }, [error]);
+  }, [lockError, propertyError]);
 
-  useEffect(() => {}, [locks, properties]);
+  useEffect(() => {}, [locks, properties, selectedLock, selectedProperty]);
 
   let lockOptions = null;
   if (locks !== undefined && locks !== null && locks.length > 0) {
     lockOptions = locks.map((lock: LockProps, index: number) => {
       return (
-        <option key={index} value={lock._id}>
+        <option key={lock._id} value={lock._id}>
           {lock._id}
         </option>
       );
@@ -81,7 +91,7 @@ const Settings = () => {
       if (property.lock) {
         propertiesWithLocks.push(
           <option
-            key={index}
+            key={property._id}
             value={property._id}
           >{`${property.title}, ${property.location.addressString1}, ${property.location.city},
         ${property.location.zipcode} ${property.location.country}`}</option>
@@ -89,7 +99,7 @@ const Settings = () => {
       } else {
         propertiesWithoutLocks.push(
           <option
-            key={index}
+            key={property._id}
             value={property._id}
           >{`${property.title}, ${property.location.addressString1}, ${property.location.city},
           ${property.location.zipcode} ${property.location.country}`}</option>
@@ -97,37 +107,39 @@ const Settings = () => {
       }
     });
   }
+  const selectedPropertyIndex = properties.findIndex(
+    (property) => property._id === selectedProperty
+  );
+  let selectedPropertyLock;
+  if (selectedProperty && selectedPropertyIndex >= 0) {
+    selectedPropertyLock = properties[selectedPropertyIndex].lock;
+  }
   const handlePropertyWithLockSelection = (propertyId: string) => {
-    setSelectedPropertyWithLock(propertyId);
+    dispatch(selectPropertyAction(propertyId));
     const index = properties.findIndex((prop) => prop._id === propertyId);
-    setLockOfProperty(properties[index].lock);
+    dispatch(selectLockAction(properties[index].lock));
   };
+
   const handleAssign = async () => {
-    // check selected properties ?
-    if (selectedLock && selectedPropertyWithoutLock) {
-      await dispatch(
-        assignLockAction(selectedLock, selectedPropertyWithoutLock)
-      );
-      setSelectedLock("");
-      setSelectedPropertyWithoutLock("");
-      setLockOfProperty("");
-      setSelectedPropertyWithLock("");
+    if (selectedLock && selectedProperty) {
+      await dispatch(assignLockAction(selectedLock, selectedProperty));
+      dispatch(clearSelectedPropertyAction());
+      dispatch(clearSelectedLockAction());
     } else {
       dispatch(throwErrorAction("select lock and property"));
     }
   };
 
   const handleUnassign = async () => {
-    if (LockOfProperty && selectedPropertyWithLock) {
-      dispatch(unassignLockAction(LockOfProperty));
-      setLockOfProperty("");
-      setSelectedPropertyWithLock("");
-      setSelectedLock("");
-      setSelectedPropertyWithoutLock("");
+    if (selectedLock && selectedProperty) {
+      await dispatch(unassignLockAction(selectedLock));
+      dispatch(clearSelectedPropertyAction());
+      dispatch(clearSelectedLockAction());
     } else {
       dispatch(throwErrorAction("select lock and property"));
     }
   };
+
   return (
     <div className={classes.Settings}>
       <h1>Assign / unassign lock to property</h1>
@@ -135,10 +147,10 @@ const Settings = () => {
         <div className={classes.Properties}>
           <h4>Properties without locks:</h4>
           <select
-            defaultValue={selectedPropertyWithoutLock}
-            onChange={(e) => setSelectedPropertyWithoutLock(e.target.value)}
+            defaultValue={selectedProperty}
+            onChange={(e) => dispatch(selectPropertyAction(e.target.value))}
           >
-            <option value={selectedPropertyWithoutLock} disabled>
+            <option value={selectedProperty} disabled={!selectedProperty}>
               select property
             </option>
             {propertiesWithoutLocks}
@@ -148,9 +160,9 @@ const Settings = () => {
           <h4>Available locks:</h4>
           <select
             defaultValue={selectedLock}
-            onChange={(e) => setSelectedLock(e.target.value)}
+            onChange={(e) => dispatch(selectLockAction(e.target.value))}
           >
-            <option value={selectedLock} disabled>
+            <option value={selectedLock} disabled={!selectedLock}>
               select lock
             </option>
             {lockOptions}
@@ -162,11 +174,10 @@ const Settings = () => {
         <div className={classes.Properties}>
           <h4>Properties with locks:</h4>
           <select
-            defaultValue={selectedPropertyWithLock}
+            defaultValue={selectedProperty}
             onChange={(e) => handlePropertyWithLockSelection(e.target.value)}
-            // onChange={(e) => handleSelection(e.target.value, property.lock)}
           >
-            <option value={selectedPropertyWithLock} disabled>
+            <option value={selectedProperty} disabled={!selectedProperty}>
               select property
             </option>
             {propertiesWithLocks}
@@ -174,7 +185,9 @@ const Settings = () => {
         </div>
         <div className={classes.Locks}>
           <h4>Assigned lock:</h4>
-          {LockOfProperty ? LockOfProperty : " --- select property ---"}
+          {selectedPropertyLock
+            ? selectedPropertyLock
+            : " --- select property ---"}
         </div>
         <button onClick={handleUnassign}>Unassign</button>
       </div>
