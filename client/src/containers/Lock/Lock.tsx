@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
 import { LockProps } from "../../store/types/lockInterfaces";
@@ -29,7 +30,24 @@ const Lock: React.FC<Props> = ({ index }) => {
   };
 
   const deleteAction = (lockId: string) => {
-    dispatch(deleteLockAction(lockId));
+    if (lockId) {
+      Swal.fire({
+        title: "Do you really want to delete this lock?",
+        text: lockId,
+        icon: "warning",
+        showCancelButton: false,
+        showDenyButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: "Cancel",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await dispatch(deleteLockAction(lockId));
+          Swal.fire("Succesfully deleted", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Lock is not deleted", "", "info");
+        }
+      });
+    }
   };
 
   return (

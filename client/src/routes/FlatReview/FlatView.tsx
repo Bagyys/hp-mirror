@@ -16,6 +16,7 @@ import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
 import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
 import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
 import { StoreState } from "../../store/configureStore";
+import { PropertyState } from "../../store/reducers/propertyReducer";
 import { userState } from "../../store/reducers/userReducer";
 import { PropertyInterface } from "../../store/types/propertyInterfaces";
 import { getOnePropertyAction } from "../../store/actions/propertyActions";
@@ -56,9 +57,11 @@ const FlatView = (props: PropsInterface) => {
       dispatch(getOnePropertyAction(id));
     }
   }, []);
-  const properties: Array<PropertyInterface> = useSelector(
-    (state: StoreState) => state.property.properties
+
+  const propertyStore: PropertyState = useSelector(
+    (state: StoreState) => state.property
   );
+  const properties: Array<PropertyInterface> = propertyStore.properties;
   const stateProperty: PropertyInterface = properties[0];
   const booking = useSelector((state: StoreState) => state.booking);
   const auth: userState = useSelector((state: StoreState) => state.user);

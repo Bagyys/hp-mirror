@@ -4,12 +4,14 @@ import Swal from "sweetalert2";
 import socket from "../../utilities/socketConnection";
 
 import { StoreState } from "../../store/configureStore";
+import { PropertyState } from "../../store/reducers/propertyReducer";
 import {
   getAllLocksAction,
   updateLockAction,
   clearErrorAction,
 } from "../../store/actions/lockActions";
 import { LockProps } from "../../store/types/lockInterfaces";
+import { PropertyInterface } from "../../store/types/propertyInterfaces";
 import Lock from "../../containers/Lock/Lock";
 
 import classes from "./Locks.module.scss";
@@ -26,9 +28,10 @@ const Locks = () => {
   }, []);
 
   const { locks, error } = useSelector((state: StoreState) => state.lock);
-  const properties = useSelector(
-    (state: StoreState) => state.property.properties
+  const propertyStore: PropertyState = useSelector(
+    (state: StoreState) => state.property
   );
+  const properties: Array<PropertyInterface> = propertyStore.properties;
 
   useEffect(() => {
     if (error) {

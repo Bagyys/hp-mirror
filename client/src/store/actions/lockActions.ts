@@ -80,6 +80,13 @@ export interface UpdateLock extends Action<typeof lockTypes.UPDATE_LOCK> {
   payload: { id: string; o1: number; o2: number; o3: number };
 }
 
+export interface SelectLock extends Action<typeof lockTypes.SELECT_LOCK> {
+  payload: string;
+}
+
+export interface ClearSelectedLock
+  extends Action<typeof lockTypes.CLEAR_SELECTED_LOCK> {}
+
 export interface ResetLockStart
   extends Action<typeof lockTypes.RESET_LOCK_START> {}
 
@@ -128,6 +135,8 @@ export type LockActions =
   | OpenLockSuccess
   | OpenLockFail
   | UpdateLock
+  | SelectLock
+  | ClearSelectedLock
   | ResetLockStart
   | ResetLockSuccess
   | ResetLockFail
@@ -274,6 +283,21 @@ export const updateLockAction =
       payload: { id, o1, o2, o3 },
     });
   };
+
+export const selectLockAction = (id: string) => async (dispatch: Dispatch) => {
+  console.log("selectLockAction id");
+  console.log(id);
+  dispatch({
+    type: lockTypes.SELECT_LOCK,
+    payload: id,
+  });
+};
+
+export const clearSelectedLockAction = () => async (dispatch: Dispatch) => {
+  dispatch({
+    type: lockTypes.CLEAR_SELECTED_LOCK,
+  });
+};
 
 export const resetLockAction =
   (index: number, lockId: string) => async (dispatch: Dispatch) => {

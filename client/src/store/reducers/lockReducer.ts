@@ -6,11 +6,13 @@ import { LockActions } from "../actions/lockActions";
 
 export interface LockState {
   locks: Array<LockProps>;
+  selectedLock: string;
   error: string;
 }
 
 const initialState: LockState = {
   locks: [] as Array<LockProps>,
+  selectedLock: "",
   error: "",
 };
 
@@ -52,6 +54,16 @@ const lockReducer = (state = initialState, action: LockActions) => {
               }
             : lock
         ),
+      };
+    case lockTypes.SELECT_LOCK:
+      return {
+        ...state,
+        selectedLock: action.payload,
+      };
+    case lockTypes.CLEAR_SELECTED_LOCK:
+      return {
+        ...state,
+        selectedLock: "",
       };
     case lockTypes.RESET_LOCK_SUCCESS:
       return update(state, {

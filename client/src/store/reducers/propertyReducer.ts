@@ -6,13 +6,15 @@ import lockTypes from "../types/lockTypes";
 import { Actions } from "../actions/propertyActions";
 import { LockActions } from "../actions/lockActions";
 
-export interface LockState {
+export interface PropertyState {
   properties: Array<PropertyInterface>;
+  selectedProperty: string;
   error: string;
 }
 
-const initialState: LockState = {
+const initialState: PropertyState = {
   properties: [] as Array<PropertyInterface>,
+  selectedProperty: "",
   error: "",
 };
 
@@ -37,6 +39,16 @@ const propertyReducer = (
       return {
         ...state,
         properties: action.payload.properties,
+      };
+    case propertyTypes.SELECT_PROPERTY:
+      return {
+        ...state,
+        selectedProperty: action.payload,
+      };
+    case propertyTypes.CLEAR_SELECTED_PROPERTY:
+      return {
+        ...state,
+        selectedProperty: "",
       };
     case propertyTypes.GET_ALL_PROPERTIES_FAIL:
     case propertyTypes.GET_PROPERTIES_WO_LOCKS_FAIL:
