@@ -139,7 +139,6 @@ const Settings = () => {
       dispatch(throwErrorAction("select lock and property"));
     }
   };
-
   return (
     <div className={classes.Settings}>
       <h1>Assign / unassign lock to property</h1>
