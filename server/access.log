@@ -9441,3 +9441,17 @@
 ::1 - - [03/Jun/2021:09:36:26 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [03/Jun/2021:09:36:29 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 304 -
 ::1 - - [03/Jun/2021:09:36:29 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [04/Jun/2021:02:47:19 +0000] "GET /property/getAllProperties HTTP/1.1" 200 7611
+::1 - - [04/Jun/2021:02:47:19 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 200 181
+::1 - - [04/Jun/2021:02:48:38 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [04/Jun/2021:02:48:38 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 304 -
+::1 - - [04/Jun/2021:03:51:03 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [04/Jun/2021:03:51:03 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 304 -
+::1 - - [04/Jun/2021:03:51:33 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [04/Jun/2021:03:51:33 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 304 -
+::1 - - [04/Jun/2021:03:51:47 +0000] "POST /login HTTP/1.1" 200 46
+::1 - - [04/Jun/2021:03:52:26 +0000] "POST /register HTTP/1.1" 200 56
+::1 - - [04/Jun/2021:03:52:35 +0000] "POST /login HTTP/1.1" 200 41
+::1 - - [04/Jun/2021:03:52:41 +0000] "POST /login HTTP/1.1" 200 699
+::1 - - [04/Jun/2021:03:52:41 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [04/Jun/2021:03:52:41 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 304 -

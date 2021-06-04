@@ -13,6 +13,7 @@ import {
   unselectDayHours,
 } from "../../utilities/booking";
 import bookingTypes from "../types/bookingTypes";
+import errorTypes from "../types/errorTypes";
 import { ReservationInterface } from "../types/reservationInterfaces";
 
 // -------------------- URLS --------------------
@@ -51,9 +52,7 @@ export interface BookTimeSuccess
 }
 
 export interface BookTimeFail
-  extends Action<typeof bookingTypes.BOOK_TIME_FAIL> {
-  payload: string;
-}
+  extends Action<typeof bookingTypes.BOOK_TIME_FAIL> {}
 
 export type BookingActions =
   | CheckAvailability
@@ -68,7 +67,7 @@ export type BookingActions =
 
 export const checkAvailabilityAction =
   (selectedDays: Array<Date>, occupiedTime: Array<OccupiedDayInterface>) =>
-  async (dispatch: Dispatch) => {
+  (dispatch: Dispatch) => {
     const displayDays = selectedDays.map((selectedDay: Date) => {
       const occIndex = indexInArray(occupiedTime, selectedDay);
       let displayDay;
@@ -108,7 +107,7 @@ export const selectHourAction =
     endTime: Date | undefined,
     displayDays: Array<SelectionAvailabilty>
   ) =>
-  async (dispatch: Dispatch) => {
+  (dispatch: Dispatch) => {
     const newDateString =
       date.hour < 10
         ? `${date.day} 0${date.hour}:00`
@@ -335,24 +334,35 @@ export const bookTimeAction =
       type: bookingTypes.BOOK_TIME_START,
     });
     try {
-      const response: AxiosResponse<any> = await axios.post(
-        //TODO: type
-        `${url}/reservation/addReservation`,
-        body
-      );
-      if (response.data.length > 0) {
+      const response: AxiosResponse<{
+        reservation: ReservationInterface;
+        message: string;
+      }> = await axios.post(`${url}/reservation/addReservation`, body);
+      if (
+        response.status === 200 &&
+        response.data.message === undefined &&
+        response.data.reservation !== undefined
+      ) {
         Swal.fire("succesfully booked");
+        dispatch({
+          type: bookingTypes.BOOK_TIME_SUCCESS,
+          payload: response.data.reservation,
+        });
+      } else {
+        dispatch({
+          type: bookingTypes.BOOK_TIME_FAIL,
+        });
+        dispatch({
+          type: errorTypes.THROW_ERROR,
+          payload: response.data.message,
+        });
       }
-
-      dispatch({
-        type: bookingTypes.BOOK_TIME_SUCCESS,
-        payload: response.data,
-      });
     } catch (error) {
-      console.log("error");
-      console.log(error);
       dispatch({
         type: bookingTypes.BOOK_TIME_FAIL,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
         payload: error.message,
       });
     }

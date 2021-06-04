@@ -4,17 +4,20 @@ import { useParams, Redirect } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
-import {
-  verifyAction,
-  clearErrorAction,
-} from "../../store/actions/userActions";
+import { ErrorState } from "../../store/reducers/errorReducer";
+import { verifyAction } from "../../store/actions/userActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
 import Spinner from "../../components/Spinner/Spinner";
 
 const Verify = () => {
   const dispatch = useDispatch();
   const params = useParams<{ token: string }>();
-  const { isLoading, error } = useSelector((state: StoreState) => state.user);
+  const { isLoading } = useSelector((state: StoreState) => state.user);
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
 
   useEffect(() => {
     if (params.token !== undefined) {

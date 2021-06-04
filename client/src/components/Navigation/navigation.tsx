@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";
+// import { errorState } from "../../store/reducers/errorReducer";
 import { loadUser, logoutAction } from "../../store/actions/userActions";
 import NotificationImg from "../../assets/images/bell.png";
 import BurgerMenu from "../../assets/images/menu.png";
@@ -19,6 +20,10 @@ import classes from "./navigation.module.scss";
 const Navigation = () => {
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
+  // const errorState: errorState = useSelector(
+  //   (state: StoreState) => state.error
+  // );
+  // const { error } = errorState;
   const { token, isAuthenticated, user } = auth;
   useEffect(() => {
     if (!user._id) {
