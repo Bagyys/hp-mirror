@@ -8,7 +8,6 @@ export interface reservationState {
   activeReservations: Array<ReservationInterface>;
   pastReservations: Array<ReservationInterface>;
   canceledReservations: Array<ReservationInterface>;
-  error: string;
 }
 
 const initialState: reservationState = {
@@ -17,7 +16,6 @@ const initialState: reservationState = {
   activeReservations: [],
   pastReservations: [],
   canceledReservations: [],
-  error: "",
 };
 
 const getCurrentReservation = (
@@ -100,12 +98,6 @@ const reservationReducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         isFetched: true,
-        error: action.payload,
-      };
-    case reservationTypes.CLEAR_ERROR:
-      return {
-        ...state,
-        error: "",
       };
     default:
       return state;

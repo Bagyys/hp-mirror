@@ -4,16 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
-import { loginAction, clearErrorAction } from "../../store/actions/userActions";
+import { ErrorState } from "../../store/reducers/errorReducer";
+import { loginAction } from "../../store/actions/userActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
 import classes from "./Login.module.scss";
 
 const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { token, isAuthenticated, error } = useSelector(
+  const { token, isAuthenticated } = useSelector(
     (state: StoreState) => state.user
   );
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
 import { PropertyState } from "../../store/reducers/propertyReducer";
+import { ErrorState } from "../../store/reducers/errorReducer";
 import { PropertyInterface } from "../../store/types/propertyInterfaces";
 import { getAllPropertiesAction } from "../../store/actions/propertyActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
 import Slider from "../Slider/imageSlider";
 import newImg from "../../assets/images/flash.png";
@@ -16,14 +19,38 @@ import classes from "./flats.module.scss";
 
 const Flats: React.FC = () => {
   const dispatch = useDispatch();
+
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
   const properties: Array<PropertyInterface> = propertyStore.properties;
 
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
+
   useEffect(() => {
     dispatch(getAllPropertiesAction());
   }, []);
+
+  const handleError = () => {
+    dispatch(clearErrorAction());
+  };
+
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        title: error,
+        text: "Please try again",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      }).then(() => {
+        handleError();
+      });
+    }
+  }, [error]);
 
   const boxNew = (
     <div className={classes.NEW}>

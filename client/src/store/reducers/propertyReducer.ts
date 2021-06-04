@@ -3,24 +3,22 @@
 import propertyTypes from "../types/propertyTypes";
 import { PropertyInterface } from "../types/propertyInterfaces";
 import lockTypes from "../types/lockTypes";
-import { Actions } from "../actions/propertyActions";
+import { PropertyActions } from "../actions/propertyActions";
 import { LockActions } from "../actions/lockActions";
 
 export interface PropertyState {
   properties: Array<PropertyInterface>;
   selectedProperty: string;
-  error: string;
 }
 
 const initialState: PropertyState = {
   properties: [] as Array<PropertyInterface>,
   selectedProperty: "",
-  error: "",
 };
 
 const propertyReducer = (
   state = initialState,
-  action: Actions | LockActions
+  action: PropertyActions | LockActions
 ) => {
   switch (action.type) {
     case propertyTypes.GET_ALL_PROPERTIES_SUCCESS:
@@ -49,19 +47,6 @@ const propertyReducer = (
       return {
         ...state,
         selectedProperty: "",
-      };
-    case propertyTypes.GET_ALL_PROPERTIES_FAIL:
-    case propertyTypes.GET_PROPERTIES_WO_LOCKS_FAIL:
-    case propertyTypes.GET_PROPERTY_FAIL:
-    case propertyTypes.THROW_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-      };
-    case propertyTypes.CLEAR_ERROR:
-      return {
-        ...state,
-        error: "",
       };
     default:
       return state;

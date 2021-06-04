@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { DateRange, OnChangeProps } from "react-date-range";
 import moment from "moment";
+import Swal from "sweetalert2";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { IoShareSocialSharp } from "react-icons/io5";
@@ -17,6 +18,7 @@ import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
 import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
 import { StoreState } from "../../store/configureStore";
 import { PropertyState } from "../../store/reducers/propertyReducer";
+import { ErrorState } from "../../store/reducers/errorReducer";
 import { userState } from "../../store/reducers/userReducer";
 import { PropertyInterface } from "../../store/types/propertyInterfaces";
 import { getOnePropertyAction } from "../../store/actions/propertyActions";
@@ -24,6 +26,7 @@ import {
   checkAvailabilityAction,
   bookTimeAction,
 } from "../../store/actions/bookingActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
 import classes from "./FlatReview.module.scss";
 interface CustomRange {
@@ -63,9 +66,35 @@ const FlatView = (props: PropsInterface) => {
   );
   const properties: Array<PropertyInterface> = propertyStore.properties;
   const stateProperty: PropertyInterface = properties[0];
+
   const booking = useSelector((state: StoreState) => state.booking);
+
   const auth: userState = useSelector((state: StoreState) => state.user);
   const user = auth.user;
+
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
+
+  const handleError = () => {
+    dispatch(clearErrorAction());
+  };
+
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        title: error,
+        text: "Please try again",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      }).then(() => {
+        handleError();
+      });
+    }
+  }, [error]);
+
   let property: PropertyInterface = {} as PropertyInterface;
   if (props && props.location.state) {
     property = props.location.state.property;

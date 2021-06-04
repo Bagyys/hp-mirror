@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios";
 
 import { StoreState } from "../configureStore";
 import userTypes from "../types/userTypes";
+import errorTypes from "../types/errorTypes";
 import { userState } from "../reducers/userReducer";
 import { UserInterface } from "../types/userInterfaces";
 
@@ -19,12 +20,10 @@ export interface LoadUserRequest
 
 export interface LoadUserSuccess
   extends Action<typeof userTypes.LOAD_USER_SUCCESS> {
-  payload: { user: UserInterface };
+  payload: UserInterface;
 }
 
-export interface LoadUserFail extends Action<typeof userTypes.LOAD_USER_FAIL> {
-  payload: { message: string };
-}
+export interface LoadUserFail extends Action<typeof userTypes.LOAD_USER_FAIL> {}
 export interface RegisterRequest
   extends Action<typeof userTypes.REGISTER_REQUEST> {}
 
@@ -34,9 +33,7 @@ export interface RegisterSuccess
 }
 
 export interface RegisterFail
-  extends Action<typeof userTypes.REGISTER_FAILURE> {
-  payload: { message: string };
-}
+  extends Action<typeof userTypes.REGISTER_FAILURE> {}
 
 export interface LoginRequest extends Action<typeof userTypes.LOG_IN_REQUEST> {}
 
@@ -44,9 +41,7 @@ export interface LoginSuccess extends Action<typeof userTypes.LOG_IN_SUCCESS> {
   payload: { token: string; user: UserInterface };
 }
 
-export interface LoginFail extends Action<typeof userTypes.LOG_IN_FAILURE> {
-  payload: { message: string };
-}
+export interface LoginFail extends Action<typeof userTypes.LOG_IN_FAILURE> {}
 
 export interface LogoutRequest
   extends Action<typeof userTypes.LOG_OUT_REQUEST> {}
@@ -54,37 +49,29 @@ export interface LogoutRequest
 export interface LogoutSuccess
   extends Action<typeof userTypes.LOG_OUT_SUCCESS> {}
 
-export interface LogoutFail extends Action<typeof userTypes.LOG_OUT_FAILURE> {
-  payload: { message: string };
-}
+export interface LogoutFail extends Action<typeof userTypes.LOG_OUT_FAILURE> {}
 
 export interface SendVerificationRequest
   extends Action<typeof userTypes.SEND_VERIFICATION_REQUEST> {}
 
 export interface SendVerificationSuccess
   extends Action<typeof userTypes.SEND_VERIFICATION_SUCCESS> {
-  payload: { user: UserInterface };
+  payload: UserInterface;
 }
 
 export interface SendVerificationFail
-  extends Action<typeof userTypes.SEND_VERIFICATION_FAIL> {
-  payload: { message: string };
-}
+  extends Action<typeof userTypes.SEND_VERIFICATION_FAIL> {}
 
 export interface VerifyRequest
   extends Action<typeof userTypes.VERIFY_REQUEST> {}
 
 export interface VerifySuccess extends Action<typeof userTypes.VERIFY_SUCCESS> {
-  payload: { user: UserInterface };
+  payload: UserInterface;
 }
 
-export interface VerifyFail extends Action<typeof userTypes.VERIFY_FAIL> {
-  payload: { message: string };
-}
+export interface VerifyFail extends Action<typeof userTypes.VERIFY_FAIL> {}
 
-export interface ClearError extends Action<typeof userTypes.CLEAR_ERROR> {}
-
-export type Actions =
+export type UserActions =
   | LoadUserRequest
   | LoadUserSuccess
   | LoadUserFail
@@ -102,8 +89,7 @@ export type Actions =
   | SendVerificationFail
   | VerifyRequest
   | VerifySuccess
-  | VerifyFail
-  | ClearError;
+  | VerifyFail;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -118,8 +104,15 @@ export const loadUser =
     if (currentUser !== null && typeof currentUser !== "string") {
       const body = { userId: currentUser._id };
       try {
-        const response = await axios.post(url + "/", body);
-        if (response.status === 200 && response.data.message === undefined) {
+        const response: AxiosResponse<{
+          user: UserInterface;
+          message: string;
+        }> = await axios.post(url + "/", body);
+        if (
+          response.status === 200 &&
+          response.data.message === undefined &&
+          response.data.user !== undefined
+        ) {
           dispatch({
             type: userTypes.LOAD_USER_SUCCESS,
             payload: response.data.user,
@@ -127,20 +120,21 @@ export const loadUser =
         } else {
           dispatch({
             type: userTypes.LOAD_USER_FAIL,
+          });
+          dispatch({
+            type: errorTypes.THROW_ERROR,
             payload: response.data.message,
           });
         }
       } catch (error) {
         dispatch({
           type: userTypes.LOAD_USER_FAIL,
+        });
+        dispatch({
+          type: errorTypes.THROW_ERROR,
           payload: error.message,
         });
       }
-    } else {
-      dispatch({
-        type: userTypes.LOAD_USER_FAIL,
-        payload: "",
-      });
     }
   };
 
@@ -154,10 +148,15 @@ export const registerAction =
       const response: AxiosResponse<{
         token: string;
         user: UserInterface;
-        message?: string;
+        message: string;
       }> = await axios.post(`${url}/register`, body);
 
-      if (response.status === 200 && response.data.message === undefined) {
+      if (
+        response.status === 200 &&
+        response.data.message === undefined &&
+        response.data.user !== undefined &&
+        response.data.token !== undefined
+      ) {
         localStorage.setItem("token", response.data.token);
         dispatch({
           type: userTypes.REGISTER_SUCCESS,
@@ -166,12 +165,18 @@ export const registerAction =
       } else {
         dispatch({
           type: userTypes.REGISTER_FAILURE,
+        });
+        dispatch({
+          type: errorTypes.THROW_ERROR,
           payload: response.data.message,
         });
       }
     } catch (error) {
       dispatch({
         type: userTypes.REGISTER_FAILURE,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
         payload: error.message,
       });
     }
@@ -187,8 +192,15 @@ export const sendVerificationAction =
     };
 
     try {
-      const response = await axios.put(`${url}/send-verify`, body);
-      if (response.status === 200 && response.data.message === undefined) {
+      const response: AxiosResponse<{
+        user: UserInterface;
+        message: string;
+      }> = await axios.put(`${url}/send-verify`, body);
+      if (
+        response.status === 200 &&
+        response.data.message === undefined &&
+        response.data.user !== undefined
+      ) {
         dispatch({
           type: userTypes.SEND_VERIFICATION_SUCCESS,
           payload: response.data,
@@ -196,12 +208,18 @@ export const sendVerificationAction =
       } else {
         dispatch({
           type: userTypes.SEND_VERIFICATION_FAIL,
+        });
+        dispatch({
+          type: errorTypes.THROW_ERROR,
           payload: response.data.message,
         });
       }
     } catch (error) {
       dispatch({
         type: userTypes.SEND_VERIFICATION_FAIL,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
         payload: error.message,
       });
     }
@@ -216,8 +234,15 @@ export const verifyAction = (params: string) => async (dispatch: Dispatch) => {
   };
 
   try {
-    const response = await axios.put(`${url}/verify/${params}`, body);
-    if (response.status === 200 && response.data.message === undefined) {
+    const response: AxiosResponse<{
+      user: UserInterface;
+      message: string;
+    }> = await axios.put(`${url}/verify/${params}`, body);
+    if (
+      response.status === 200 &&
+      response.data.message === undefined &&
+      response.data.user !== undefined
+    ) {
       dispatch({
         type: userTypes.VERIFY_SUCCESS,
         payload: response.data,
@@ -225,12 +250,18 @@ export const verifyAction = (params: string) => async (dispatch: Dispatch) => {
     } else {
       dispatch({
         type: userTypes.VERIFY_FAIL,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
         payload: response.data.message,
       });
     }
   } catch (error) {
     dispatch({
       type: userTypes.VERIFY_FAIL,
+    });
+    dispatch({
+      type: errorTypes.THROW_ERROR,
       payload: error.message,
     });
   }
@@ -250,31 +281,50 @@ export const loginAction =
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
-      .then((response) => {
-        if (response.status === 200 && response.data.message === undefined) {
-          const { token } = response.data;
-          localStorage.setItem("token", token);
-          dispatch({
-            type: userTypes.LOG_IN_SUCCESS,
-            payload: response.data,
-          });
-        } else {
-          dispatch({
-            type: userTypes.LOG_IN_FAILURE,
-            payload: response.data.message,
-          });
+      .then(
+        (
+          response: AxiosResponse<{
+            token: string;
+            user: UserInterface;
+            message: string;
+          }>
+        ) => {
+          if (
+            response.status === 200 &&
+            response.data.message === undefined &&
+            response.data.user !== undefined &&
+            response.data.token !== undefined
+          ) {
+            const { token } = response.data;
+            localStorage.setItem("token", token);
+            dispatch({
+              type: userTypes.LOG_IN_SUCCESS,
+              payload: response.data,
+            });
+          } else {
+            dispatch({
+              type: userTypes.LOG_IN_FAILURE,
+            });
+            dispatch({
+              type: errorTypes.THROW_ERROR,
+              payload: response.data.message,
+            });
+          }
         }
-      })
+      )
       .catch((error) => {
         dispatch({
           type: userTypes.LOG_IN_FAILURE,
+        });
+        dispatch({
+          type: errorTypes.THROW_ERROR,
           payload: error.message,
         });
       });
   };
 
 export const logoutAction = () => async (dispatch: Dispatch) => {
-  dispatch({
+  await dispatch({
     type: userTypes.LOG_OUT_REQUEST,
   });
   localStorage.clear();
@@ -282,6 +332,9 @@ export const logoutAction = () => async (dispatch: Dispatch) => {
   if (localStorage.getItem("token")) {
     dispatch({
       type: userTypes.LOG_OUT_FAILURE,
+    });
+    dispatch({
+      type: errorTypes.THROW_ERROR,
       payload: "logout error",
     });
   } else {
@@ -308,10 +361,4 @@ export const tokenConfig = (getState: () => StoreState) => {
     config.headers["x-auth-token"] = token;
   }
   return config;
-};
-
-export const clearErrorAction = () => async (dispatch: Dispatch) => {
-  dispatch({
-    type: userTypes.CLEAR_ERROR,
-  });
 };

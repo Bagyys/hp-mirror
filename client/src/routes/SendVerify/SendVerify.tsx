@@ -4,11 +4,10 @@ import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
+import { ErrorState } from "../../store/reducers/errorReducer";
 import { userState } from "../../store/reducers/userReducer";
-import {
-  sendVerificationAction,
-  clearErrorAction,
-} from "../../store/actions/userActions";
+import { sendVerificationAction } from "../../store/actions/userActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
 import Spinner from "../../components/Spinner/Spinner";
 
@@ -19,7 +18,11 @@ const SendVerify = () => {
   const history = useHistory();
 
   const auth: userState = useSelector((state: StoreState) => state.user);
-  const { user, isLoading, error } = auth;
+  const { user, isLoading } = auth;
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
 
   const handleError = () => {
     dispatch(clearErrorAction());

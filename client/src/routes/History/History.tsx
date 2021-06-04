@@ -7,10 +7,9 @@ import Swal from "sweetalert2";
 import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";
 import { reservationState } from "../../store/reducers/reservationReducer";
-import {
-  getPastReservationsAction,
-  clearErrorAction,
-} from "../../store/actions/reservationActions";
+import { ErrorState } from "../../store/reducers/errorReducer";
+import { getPastReservationsAction } from "../../store/actions/reservationActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
 import PastReservation from "../../containers/PastReservation/PastReservation";
 
@@ -27,7 +26,11 @@ const History = () => {
   const reservations = reservationsState.isFetched
     ? reservationsState.pastReservations
     : [];
-  const error = reservationsState.error;
+
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
 
   // getting user's past reservations from database
   useEffect(() => {

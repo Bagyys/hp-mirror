@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 import userTypes from "../types/userTypes";
 import { UserInterface } from "../types/userInterfaces";
-import { Actions } from "../actions/userActions";
+import { UserActions } from "../actions/userActions";
 
 export interface userState {
   user: UserInterface;
@@ -10,7 +10,6 @@ export interface userState {
   isAuthenticated: boolean;
   isLoading: boolean;
   token: string | null;
-  error: string;
 }
 
 export const isValidToken = (token: string | null) => {
@@ -51,10 +50,9 @@ const initialState: userState = {
   token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
   isAuthenticated: false,
   isLoading: true,
-  error: "",
 };
 
-const userReducer = (state = initialState, action: Actions) => {
+const userReducer = (state = initialState, action: UserActions) => {
   switch (action.type) {
     case userTypes.LOAD_USER_REQUEST:
     case userTypes.VERIFY_REQUEST:
@@ -96,7 +94,7 @@ const userReducer = (state = initialState, action: Actions) => {
         ...state,
         isLoading: false,
         isAuthenticated: true,
-        user: action.payload.user,
+        user: action.payload,
         currentUser: localStorage.getItem("token")
           ? isValidToken(localStorage.getItem("token"))
           : null,
@@ -105,7 +103,7 @@ const userReducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         isLoading: false,
-        user: action.payload.user,
+        user: action.payload,
       };
     case userTypes.LOG_OUT_SUCCESS:
       localStorage.removeItem("token");
@@ -126,15 +124,9 @@ const userReducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
         currentUser: null,
         user: null,
         isAuthenticated: false,
-      };
-    case userTypes.CLEAR_ERROR:
-      return {
-        ...state,
-        error: "",
       };
     default:
       return state;

@@ -4,19 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
-import {
-  registerAction,
-  clearErrorAction,
-} from "../../store/actions/userActions";
+import { ErrorState } from "../../store/reducers/errorReducer";
+import { registerAction } from "../../store/actions/userActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
 import classes from "./Register.module.scss";
 
 const Register = () => {
   const dispatch = useDispatch();
-  const { token, isAuthenticated, error } = useSelector(
+  const { token, isAuthenticated } = useSelector(
     (state: StoreState) => state.user
   );
-
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

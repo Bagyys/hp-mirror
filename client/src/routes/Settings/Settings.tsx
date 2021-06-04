@@ -4,22 +4,22 @@ import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
 import { PropertyState } from "../../store/reducers/propertyReducer";
+import { ErrorState } from "../../store/reducers/errorReducer";
 import {
   getUnassignedLocksAction,
   assignLockAction,
   unassignLockAction,
   selectLockAction,
   clearSelectedLockAction,
-  throwErrorAction,
-  clearErrorAction as clearLockError,
 } from "../../store/actions/lockActions";
+import { throwErrorAction } from "../../store/actions/errorActions";
 import { LockProps } from "../../store/types/lockInterfaces";
 import {
   getAllPropertiesAction,
   selectPropertyAction,
   clearSelectedPropertyAction,
-  clearErrorAction as clearPropertyError,
 } from "../../store/actions/propertyActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 import { PropertyInterface } from "../../store/types/propertyInterfaces";
 
 import classes from "./Settings.module.scss";
@@ -27,49 +27,44 @@ import classes from "./Settings.module.scss";
 const Settings = () => {
   const dispatch = useDispatch();
 
-  const handleError = (type: string) => {
-    switch (type) {
-      case "lock":
-        dispatch(clearLockError());
-        break;
-      case "property":
-        dispatch(clearPropertyError());
-        break;
-    }
-  };
+  const { locks, selectedLock } = useSelector(
+    (state: StoreState) => state.lock
+  );
+  const propertyStore: PropertyState = useSelector(
+    (state: StoreState) => state.property
+  );
+  const properties: Array<PropertyInterface> = propertyStore.properties;
+  const selectedProperty: string = propertyStore.selectedProperty;
+
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
 
   useEffect(() => {
     dispatch(getAllPropertiesAction());
     dispatch(getUnassignedLocksAction());
   }, []);
 
-  const { locks, selectedLock } = useSelector(
-    (state: StoreState) => state.lock
-  );
-  const lockError = useSelector((state: StoreState) => state.lock.error);
+  useEffect(() => {}, [locks, properties, selectedLock, selectedProperty]);
 
-  const propertyStore: PropertyState = useSelector(
-    (state: StoreState) => state.property
-  );
-  const properties: Array<PropertyInterface> = propertyStore.properties;
-  const selectedProperty: string = propertyStore.selectedProperty;
-  const propertyError: string = propertyStore.error;
+  const handleError = () => {
+    dispatch(clearErrorAction());
+  };
 
   useEffect(() => {
-    if (lockError) {
+    if (error) {
       Swal.fire({
-        title: "Ups, something went wrong",
-        text: lockError,
+        title: error,
+        text: "Please try again",
         icon: "warning",
         showCancelButton: false,
         confirmButtonText: "OK",
       }).then(() => {
-        handleError("lock");
+        handleError();
       });
     }
-  }, [lockError, propertyError]);
-
-  useEffect(() => {}, [locks, properties, selectedLock, selectedProperty]);
+  }, [error]);
 
   let lockOptions = null;
   if (locks !== undefined && locks !== null && locks.length > 0) {

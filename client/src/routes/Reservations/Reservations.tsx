@@ -7,11 +7,12 @@ import Swal from "sweetalert2";
 import { StoreState } from "../../store/configureStore";
 import { userState } from "../../store/reducers/userReducer";
 import { reservationState } from "../../store/reducers/reservationReducer";
+import { ErrorState } from "../../store/reducers/errorReducer";
 import {
   getActiveReservationsAction,
   updateCurrentLockAction,
-  clearErrorAction,
 } from "../../store/actions/reservationActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
 import Reservation from "../../containers/Reservation/Reservation";
 
@@ -30,7 +31,11 @@ const Reservations = () => {
     ? reservationsState.activeReservations
     : [];
   const currentLockId = currentReservation?.lock?._id;
-  const error = reservationsState.error;
+
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
 
   // getting user's active reservations from database
   useEffect(() => {
@@ -57,7 +62,7 @@ const Reservations = () => {
     if (error) {
       Swal.fire({
         title: error,
-        text: "Ups, something went wrong",
+        text: "Please try again",
         icon: "warning",
         showCancelButton: false,
         confirmButtonText: "OK",

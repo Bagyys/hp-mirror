@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { BsFillHouseDoorFill } from "react-icons/bs";
 import Swal from "sweetalert2";
 
+import { StoreState } from "../../store/configureStore";
+import { SelectionAvailabilty } from "../../store/reducers/bookingReducer";
+import { ErrorState } from "../../store/reducers/errorReducer";
 import { cn } from "../../utilities/joinClasses";
 import { selectHourAction } from "../../store/actions/bookingActions";
-import { SelectionAvailabilty } from "../../store/reducers/bookingReducer";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
 import classes from "./BookingSchedule.module.scss";
 
@@ -15,14 +17,38 @@ interface scheduleInterface {
 }
 
 const BookingSchedule = ({ timeZone, handleBooking }: scheduleInterface) => {
-  const booking = useSelector((state: any) => state.booking);
   const dispatch = useDispatch();
+  const booking = useSelector((state: StoreState) => state.booking);
   const isAvailabilityChecked = booking.isAvailabilityChecked;
   const startTime = booking.startTime;
   const endTime = booking.endTime;
+
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
+
   const [residents, setResidents] = useState<number>(1);
 
   useEffect(() => {}, [isAvailabilityChecked]);
+
+  const handleError = () => {
+    dispatch(clearErrorAction());
+  };
+
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        title: error,
+        text: "Please try again",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      }).then(() => {
+        handleError();
+      });
+    }
+  }, [error]);
 
   const displaySchedule: Array<SelectionAvailabilty> = booking.displayDays;
 

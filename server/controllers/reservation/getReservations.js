@@ -5,7 +5,7 @@ const { Property } = require("../../models/propertyModel");
 exports.getReservations = async(req, res) => {
     const userId = req.params.userId;
     let message;
-    let reservations = [];
+    let reservations;
 
     if (userId === undefined || userId === null || userId.length !== 24) {
         message = "bad user identificator"
@@ -20,16 +20,35 @@ exports.getReservations = async(req, res) => {
                     reservations = await Promise.all(
                         activeReservations.map(async(reservationId) => {
                             // TODO: try catches for these requests
-                            const res = await Reservation.findById(reservationId);
-                            const property = await Property.findById(res.propertyId);
-                            const reservationFull = JSON.parse(JSON.stringify(res));
+                            let reservation;
+                            let property
+                            try {
+                                reservation = await Reservation.findById(reservationId);
+                                if (!reservation) message = "Reservation wasn't found"
+                            } catch (error) {
+                                return res.json({
+                                    reservations: undefined,
+                                    message: error.message,
+                                });
+                            }
+                            try {
+                                property = await Property.findById(reservation.propertyId);
+                                if (!property) message = "Property of reservation wasn't found"
+
+                            } catch (error) {
+                                return res.json({
+                                    reservations: undefined,
+                                    message: error.message,
+                                });
+                            }
+                            const reservationFull = JSON.parse(JSON.stringify(reservation));
                             reservationFull.property = property;
                             return reservationFull;
                         })
                     );
 
                 } catch (error) {
-                    return res.status(400).json({
+                    return res.json({
                         reservations: undefined,
                         message: error.message,
                     });
@@ -39,12 +58,12 @@ exports.getReservations = async(req, res) => {
             message = "such user doesn't exist"
         }
 
-        return res.status(200).send({
+        return res.send({
             reservations,
             message
         });
     } catch (err) {
-        return res.status(400).json({
+        return res.json({
             reservations: undefined,
             message: err.message,
         });
