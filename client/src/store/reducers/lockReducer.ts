@@ -7,13 +7,11 @@ import { LockActions } from "../actions/lockActions";
 export interface LockState {
   locks: Array<LockProps>;
   selectedLock: string;
-  error: string;
 }
 
 const initialState: LockState = {
   locks: [] as Array<LockProps>,
   selectedLock: "",
-  error: "",
 };
 
 const lockReducer = (state = initialState, action: LockActions) => {
@@ -75,23 +73,7 @@ const lockReducer = (state = initialState, action: LockActions) => {
           },
         },
       });
-    case lockTypes.GET_ALL_LOCKS_FAIL:
-    case lockTypes.GET_UNASSIGNED_LOCKS_FAIL:
-    case lockTypes.ASSIGN_LOCK_FAIL:
-    case lockTypes.UNASSIGN_LOCK_FAIL:
-    case lockTypes.OPEN_LOCK_FAIL:
-    case lockTypes.RESET_LOCK_FAIL:
-    case lockTypes.DELETE_LOCK_FAIL:
-    case lockTypes.THROW_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-      };
-    case lockTypes.CLEAR_ERROR:
-      return {
-        ...state,
-        error: "",
-      };
+
     default:
       return state;
   }

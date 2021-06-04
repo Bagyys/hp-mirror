@@ -2,6 +2,7 @@ import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
 
 import lockTypes from "../types/lockTypes";
+import errorTypes from "../types/errorTypes";
 import { LockProps } from "../types/lockInterfaces";
 import { PropertyInterface } from "../types/propertyInterfaces";
 
@@ -21,9 +22,7 @@ export interface GetAllLocksSuccess
 }
 
 export interface GetAllLocksFail
-  extends Action<typeof lockTypes.GET_ALL_LOCKS_FAIL> {
-  payload: string;
-}
+  extends Action<typeof lockTypes.GET_ALL_LOCKS_FAIL> {}
 
 export interface GetUnassignedLocksStart
   extends Action<typeof lockTypes.GET_UNASSIGNED_LOCKS_START> {}
@@ -34,9 +33,7 @@ export interface GetUnassignedLocksSuccess
 }
 
 export interface GetUnassignedLocksFail
-  extends Action<typeof lockTypes.GET_UNASSIGNED_LOCKS_FAIL> {
-  payload: string;
-}
+  extends Action<typeof lockTypes.GET_UNASSIGNED_LOCKS_FAIL> {}
 
 export interface AssignLockStart
   extends Action<typeof lockTypes.ASSIGN_LOCK_START> {}
@@ -47,9 +44,7 @@ export interface AssignLockSuccess
 }
 
 export interface AssignLockFail
-  extends Action<typeof lockTypes.ASSIGN_LOCK_FAIL> {
-  payload: string;
-}
+  extends Action<typeof lockTypes.ASSIGN_LOCK_FAIL> {}
 
 export interface UnassignLockStart
   extends Action<typeof lockTypes.UNASSIGN_LOCK_START> {}
@@ -60,9 +55,7 @@ export interface UnassignLockSuccess
 }
 
 export interface UnassignLockFail
-  extends Action<typeof lockTypes.UNASSIGN_LOCK_FAIL> {
-  payload: string;
-}
+  extends Action<typeof lockTypes.UNASSIGN_LOCK_FAIL> {}
 
 export interface OpenLockStart
   extends Action<typeof lockTypes.OPEN_LOCK_START> {}
@@ -72,9 +65,7 @@ export interface OpenLockSuccess
   payload: { lock: LockProps; index: number };
 }
 
-export interface OpenLockFail extends Action<typeof lockTypes.OPEN_LOCK_FAIL> {
-  payload: string;
-}
+export interface OpenLockFail extends Action<typeof lockTypes.OPEN_LOCK_FAIL> {}
 
 export interface UpdateLock extends Action<typeof lockTypes.UPDATE_LOCK> {
   payload: { id: string; o1: number; o2: number; o3: number };
@@ -96,9 +87,7 @@ export interface ResetLockSuccess
 }
 
 export interface ResetLockFail
-  extends Action<typeof lockTypes.RESET_LOCK_FAIL> {
-  payload: string;
-}
+  extends Action<typeof lockTypes.RESET_LOCK_FAIL> {}
 
 export interface DeleteLockStart
   extends Action<typeof lockTypes.DELETE_LOCK_START> {}
@@ -109,14 +98,7 @@ export interface DeleteLockSuccess
 }
 
 export interface DeleteLockFail
-  extends Action<typeof lockTypes.DELETE_LOCK_FAIL> {
-  payload: string;
-}
-export interface ThrowError extends Action<typeof lockTypes.THROW_ERROR> {
-  payload: string;
-}
-
-export interface ClearError extends Action<typeof lockTypes.CLEAR_ERROR> {}
+  extends Action<typeof lockTypes.DELETE_LOCK_FAIL> {}
 
 export type LockActions =
   | GetAllLocksStart
@@ -142,9 +124,7 @@ export type LockActions =
   | ResetLockFail
   | DeleteLockStart
   | DeleteLockSuccess
-  | DeleteLockFail
-  | ThrowError
-  | ClearError;
+  | DeleteLockFail;
 // -------------------- END of ACTION INTERFACES --------------------
 
 // -------------------- ACTIONS --------------------
@@ -156,7 +136,11 @@ export const getAllLocksAction = () => async (dispatch: Dispatch) => {
       locks: Array<LockProps>;
       message: string;
     }> = await axios.get(`${url}/lock/getAll/?h=A3%nm*Wb`);
-    if (response.status === 200 && response.data.message === undefined) {
+    if (
+      response.status === 200 &&
+      response.data.message === undefined &&
+      response.data.locks !== undefined
+    ) {
       dispatch({
         type: lockTypes.GET_ALL_LOCKS_SUCCESS,
         payload: response.data.locks,
@@ -164,12 +148,18 @@ export const getAllLocksAction = () => async (dispatch: Dispatch) => {
     } else {
       dispatch({
         type: lockTypes.GET_ALL_LOCKS_FAIL,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
         payload: response.data.message,
       });
     }
   } catch (err) {
     dispatch({
       type: lockTypes.GET_ALL_LOCKS_FAIL,
+    });
+    dispatch({
+      type: errorTypes.THROW_ERROR,
       payload: err.message,
     });
   }
@@ -178,16 +168,34 @@ export const getAllLocksAction = () => async (dispatch: Dispatch) => {
 export const getUnassignedLocksAction = () => async (dispatch: Dispatch) => {
   dispatch({ type: lockTypes.GET_UNASSIGNED_LOCKS_START });
   try {
-    const response: AxiosResponse<LockProps> = await axios.get(
-      `${url}/lock/getUnassigned/?h=A3%nm*Wb`
-    );
-    dispatch({
-      type: lockTypes.GET_UNASSIGNED_LOCKS_SUCCESS,
-      payload: response.data,
-    });
+    const response: AxiosResponse<{
+      locks: Array<LockProps>;
+      message: string;
+    }> = await axios.get(`${url}/lock/getUnassigned/?h=A3%nm*Wb`);
+    if (
+      response.status === 200 &&
+      response.data.message === undefined &&
+      response.data.locks !== undefined
+    ) {
+      dispatch({
+        type: lockTypes.GET_UNASSIGNED_LOCKS_SUCCESS,
+        payload: response.data.locks,
+      });
+    } else {
+      dispatch({
+        type: lockTypes.GET_UNASSIGNED_LOCKS_FAIL,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
+        payload: response.data.message,
+      });
+    }
   } catch (err) {
     dispatch({
       type: lockTypes.GET_UNASSIGNED_LOCKS_FAIL,
+    });
+    dispatch({
+      type: errorTypes.THROW_ERROR,
       payload: err.message,
     });
   }
@@ -201,8 +209,17 @@ export const assignLockAction =
       propertyId,
     };
     try {
-      const response = await axios.post(`${url}/lock/assign/`, body);
-      if (response.status === 200 && response.data.message === undefined) {
+      const response: AxiosResponse<{
+        locks: Array<LockProps>;
+        properties: Array<PropertyInterface>;
+        message: string;
+      }> = await axios.post(`${url}/lock/assign/`, body);
+      if (
+        response.status === 200 &&
+        response.data.message === undefined &&
+        response.data.locks !== undefined &&
+        response.data.properties !== undefined
+      ) {
         dispatch({
           type: lockTypes.ASSIGN_LOCK_SUCCESS,
           payload: response.data,
@@ -210,12 +227,18 @@ export const assignLockAction =
       } else {
         dispatch({
           type: lockTypes.ASSIGN_LOCK_FAIL,
+        });
+        dispatch({
+          type: errorTypes.THROW_ERROR,
           payload: response.data.message,
         });
       }
     } catch (err) {
       dispatch({
         type: lockTypes.ASSIGN_LOCK_FAIL,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
         payload: err.message,
       });
     }
@@ -228,8 +251,17 @@ export const unassignLockAction =
       lockId,
     };
     try {
-      const response = await axios.post(`${url}/lock/unassign/`, body);
-      if (response.status === 200 && response.data.message === undefined) {
+      const response: AxiosResponse<{
+        locks: Array<LockProps>;
+        properties: Array<PropertyInterface>;
+        message: string;
+      }> = await axios.post(`${url}/lock/unassign/`, body);
+      if (
+        response.status === 200 &&
+        response.data.message === undefined &&
+        response.data.locks !== undefined &&
+        response.data.properties !== undefined
+      ) {
         dispatch({
           type: lockTypes.UNASSIGN_LOCK_SUCCESS,
           payload: response.data,
@@ -237,12 +269,18 @@ export const unassignLockAction =
       } else {
         dispatch({
           type: lockTypes.UNASSIGN_LOCK_FAIL,
+        });
+        dispatch({
+          type: errorTypes.THROW_ERROR,
           payload: response.data.message,
         });
       }
     } catch (err) {
       dispatch({
         type: lockTypes.UNASSIGN_LOCK_FAIL,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
         payload: err.message,
       });
     }
@@ -253,10 +291,17 @@ export const openLockAction =
   async (dispatch: Dispatch) => {
     dispatch({ type: lockTypes.OPEN_LOCK_START });
     try {
-      const response = await axios.put(
+      const response: AxiosResponse<{
+        lock: LockProps;
+        message: string;
+      }> = await axios.put(
         `${url}/lock/openAdmin/?h=A3%nm*Wb&id=${lockId}&${door}=1`
       );
-      if (response.status === 200 && response.data.message === undefined) {
+      if (
+        response.status === 200 &&
+        response.data.message === undefined &&
+        response.data.lock !== undefined
+      ) {
         dispatch({
           type: lockTypes.OPEN_LOCK_SUCCESS,
           payload: { lock: response.data.lock, index },
@@ -264,12 +309,18 @@ export const openLockAction =
       } else {
         dispatch({
           type: lockTypes.OPEN_LOCK_FAIL,
+        });
+        dispatch({
+          type: errorTypes.THROW_ERROR,
           payload: response.data.message,
         });
       }
     } catch (err) {
       dispatch({
         type: lockTypes.OPEN_LOCK_FAIL,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
         payload: err.message,
       });
     }
@@ -285,8 +336,6 @@ export const updateLockAction =
   };
 
 export const selectLockAction = (id: string) => async (dispatch: Dispatch) => {
-  console.log("selectLockAction id");
-  console.log(id);
   dispatch({
     type: lockTypes.SELECT_LOCK,
     payload: id,
@@ -314,6 +363,9 @@ export const resetLockAction =
     } catch (err) {
       dispatch({
         type: lockTypes.RESET_LOCK_FAIL,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
         payload: err.message,
       });
     }
@@ -324,37 +376,35 @@ export const deleteLockAction =
     dispatch({ type: lockTypes.DELETE_LOCK_START });
 
     try {
-      const response: AxiosResponse<boolean> = await axios.delete(
-        `${url}/lock/delete/?h=A3%nm*Wb&id=${lockId}`
-      );
-      response.status === 200
-        ? dispatch({
-            type: lockTypes.DELETE_LOCK_SUCCESS,
-            payload: response.data,
-          })
-        : dispatch({
-            type: lockTypes.DELETE_LOCK_FAIL,
-          });
+      const response: AxiosResponse<{ locks: LockProps; message: string }> =
+        await axios.delete(`${url}/lock/delete/?h=A3%nm*Wb&id=${lockId}`);
+      if (
+        response.status === 200 &&
+        response.data.message === undefined &&
+        response.data.locks !== undefined
+      ) {
+        dispatch({
+          type: lockTypes.DELETE_LOCK_SUCCESS,
+          payload: response.data.locks,
+        });
+      } else {
+        dispatch({
+          type: lockTypes.DELETE_LOCK_FAIL,
+        });
+        dispatch({
+          type: errorTypes.THROW_ERROR,
+          payload: response.data.message,
+        });
+      }
     } catch (err) {
       dispatch({
         type: lockTypes.DELETE_LOCK_FAIL,
+      });
+      dispatch({
+        type: errorTypes.THROW_ERROR,
         payload: err.message,
       });
     }
   };
-
-export const throwErrorAction =
-  (message: string) => async (dispatch: Dispatch) => {
-    dispatch({
-      type: lockTypes.THROW_ERROR,
-      payload: message,
-    });
-  };
-
-export const clearErrorAction = () => async (dispatch: Dispatch) => {
-  dispatch({
-    type: lockTypes.CLEAR_ERROR,
-  });
-};
 
 // -------------------- END of ACTIONS --------------------

@@ -1,17 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment-timezone";
+import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
 import { reservationState } from "../../store/reducers/reservationReducer";
+import { ErrorState } from "../../store/reducers/errorReducer";
 import {
   selectReservationAction,
   unselectReservationAction,
   openCurrentLockAction,
   cancelUserReservationAction,
 } from "../../store/actions/reservationActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 import { ReservationInterface } from "../../store/types/reservationInterfaces";
 
 import classes from "./Reservation.module.scss";
+import { useEffect } from "react";
 
 interface Props {
   reservation: ReservationInterface;
@@ -31,8 +35,30 @@ const Reservation: React.FC<Props> = ({
     (state: StoreState) => state.reservation
   );
   const currentReservation = reservationsState.currentReservation;
-
   const lock = currentReservation ? currentReservation.lock : null;
+
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
+
+  const handleError = () => {
+    dispatch(clearErrorAction());
+  };
+
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        title: error,
+        text: "Please try again",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      }).then(() => {
+        handleError();
+      });
+    }
+  }, [error]);
 
   const handleClick = () => {
     if (visible) {

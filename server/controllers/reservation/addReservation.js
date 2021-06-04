@@ -3,7 +3,8 @@ const { User } = require("../../models/userModel");
 const { Property } = require("../../models/propertyModel");
 
 exports.addReservation = async(req, res) => {
-    const { occupiedTime, ...reservationObject } = req.body;
+    const data = req.body;
+    const { occupiedTime, ...reservationObject } = data;
     let message;
     let savedReservation;
     let updatedProperty;
@@ -19,7 +20,7 @@ exports.addReservation = async(req, res) => {
             );
             if (!updatedUser) { message = "User wasn't updated" }
         } catch (error) {
-            return res.status(400).json({
+            return res.json({
                 reservation: undefined,
                 message: error.message,
             });
@@ -126,14 +127,14 @@ exports.addReservation = async(req, res) => {
 
                 }
             } catch (error) {
-                return res.status(400).json({
+                return res.json({
                     reservation: undefined,
                     message: error.message,
                 });
             }
 
         } catch (error) {
-            return res.status(400).json({
+            return ResizeObserverSize.json({
                 reservation: undefined,
                 message: error.message,
             });
@@ -143,7 +144,7 @@ exports.addReservation = async(req, res) => {
             message: message
         });
     } catch (err) {
-        return res.status(400).json({
+        return res.json({
             reservation: undefined,
             message: err.message,
         });

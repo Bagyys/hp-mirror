@@ -2,14 +2,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 import { StoreState } from "../../store/configureStore";
+import { ErrorState } from "../../store/reducers/errorReducer";
 import { LockProps } from "../../store/types/lockInterfaces";
 import {
   openLockAction,
   resetLockAction,
   deleteLockAction,
 } from "../../store/actions/lockActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
 import classes from "./Lock.module.scss";
+import { useEffect } from "react";
 
 interface Props {
   index: number;
@@ -20,6 +23,30 @@ const Lock: React.FC<Props> = ({ index }) => {
   const lock: LockProps = useSelector(
     (state: StoreState) => state.lock.locks[index]
   );
+
+  const errorState: ErrorState = useSelector(
+    (state: StoreState) => state.error
+  );
+  const { error } = errorState;
+
+  const handleError = () => {
+    dispatch(clearErrorAction());
+  };
+
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        title: error,
+        text: "Please try again",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      }).then(() => {
+        handleError();
+      });
+    }
+  }, [error]);
+
   const disableButtons = lock.o1 === 1 || lock.o2 === 1 ? true : false;
   const doorAction = (index: number, lockId: string, door: string) => {
     dispatch(openLockAction(index, lockId, door));

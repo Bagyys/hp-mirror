@@ -363,7 +363,7 @@ export const bookTimeAction =
       });
       dispatch({
         type: errorTypes.THROW_ERROR,
-        payload: error.message,
+        payload: error.response,
       });
     }
   };

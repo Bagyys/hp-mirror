@@ -3,40 +3,43 @@ const { Property } = require("../../models/propertyModel");
 // const { resetLock } = require("./utils/lock");
 // let debug = require("debug");
 
-exports.deleteLock = async (req, res) => {
-  const data = req.query;
-
-  if (!data.h || data.h !== "A3%nm*Wb") {
-    return res.status(404).send("netu metki");
-  }
-  if (data.id === undefined || data.id.length !== 24) {
-    return res.status(404).send("nepravelnyj id");
-  }
-  let deletedLock;
-  try {
-    deletedLock = await Lock.deleteOne({ _id: data.id });
-    updatedProperty = await Property.findOneAndUpdate(
-      { lock: data.id },
-      { $unset: { lock: "" } }
-    );
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
-  }
-  if (deletedLock.deletedCount === 1) {
-    try {
-      const locks = await Lock.find(
-        {},
-        { lockOpened: 0, lockClosed: 0, createdAt: 0, updatedAt: 0, __v: 0 }
-      );
-      if (locks !== undefined || locks !== null) {
-        return res.status(200).send(locks);
-      } else {
-        return res.status(404).send("oshibka");
-      }
-    } catch (err) {
-      return res.status(500).json({ error: err.message });
+exports.deleteLock = async(req, res) => {
+    const data = req.query;
+    let deletedLock;
+    let updatedProperty;
+    let locks;
+    let message;
+    if (!data.h || data.h !== "A3%nm*Wb") {
+        return res.send({ locks: undefined, message: "no tag" });
     }
-  } else {
-    return res.status(404).send("No doors found by ID");
-  }
+    if (data.id === undefined || data.id.length !== 24) {
+        return res.send({ locks: undefined, message: "wrong id" });
+    }
+    try {
+        deletedLock = await Lock.deleteOne({ _id: data.id });
+    } catch (err) {
+        return res.send({ locks: undefined, message: err.message });
+    }
+
+    try {
+        updatedProperty = await Property.findOneAndUpdate({ lock: data.id }, { $unset: { lock: "" } });
+        if (!updatedProperty) message = "property not updated"
+    } catch (error) {
+        return res.send({ locks: undefined, message: err.message });
+
+    }
+
+    if (deletedLock.deletedCount === 1) {
+        try {
+            locks = await Lock.find({}, { lockOpened: 0, lockClosed: 0, createdAt: 0, updatedAt: 0, __v: 0 });
+            if (!locks) {
+                return res.send({ locks: undefined, message: "no locks found" });
+            }
+        } catch (err) {
+            return res.send({ locks: undefined, message: err.message });
+        }
+    } else {
+        return res.send({ locks: undefined, message: "no doors find with this id" });
+    }
+    return res.send(locks);
 };

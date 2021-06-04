@@ -1,15 +1,6 @@
 import { Action, Dispatch } from "redux";
-// import moment from "moment-timezone";
-// import axios, { AxiosResponse } from "axios";
-// import Swal from "sweetalert2";
 
 import errorTypes from "../types/errorTypes";
-
-// -------------------- URLS --------------------
-
-// const url = process.env.REACT_APP_SERVER_URL;
-
-// -------------------- END of URLS --------------------
 
 // -------------------- ACTION INTERFACES --------------------
 
