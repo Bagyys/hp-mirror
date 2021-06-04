@@ -73,6 +73,7 @@ const Reservation: React.FC<Props> = ({
   };
 
   let disableButtons = true;
+  
   if (lock && disabled !== undefined) {
     disableButtons = lock.o1 === 1 || lock.o2 === 1 || disabled;
   }
