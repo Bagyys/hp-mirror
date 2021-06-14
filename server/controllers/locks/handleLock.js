@@ -22,7 +22,9 @@ exports.handleLock = async (req, res) => {
   if (data.id === undefined || data.id.length !== 24) {
     // console.log("data id undefined or too short");
     // console.log("send error");
-    return res.status(404).send("nepravelnyj id 1");
+    const result =
+      "A3%nm*Wb&id=XXXXXXXXXXXXXXXXXXXXXXXX&i1=0&$i2=0&i3=0&i4=0&i5=0&i6=0&i7=0&i8=0&i9=0&n1=0&n2=0&n3=0&o1=0&o2=0&o3=0&t=0&e=0&a=0";
+    return res.status(404).send(result);
   }
   let updatedLock;
   let dataInDb;
@@ -39,12 +41,17 @@ exports.handleLock = async (req, res) => {
     if (dataInDb === null || dataInDb === undefined) {
       //   console.log("no lock found by id");
       //   console.log("send error");
-      return res.status(404).send("nepravelnyj id 2");
+      const result =
+        "A3%nm*Wb&id=XXXXXXXXXXXXXXXXXXXXXXXX&i1=0&$i2=0&i3=0&i4=0&i5=0&i6=0&i7=0&i8=0&i9=0&n1=0&n2=0&n3=0&o1=0&o2=0&o3=0&t=0&e=0&a=0";
+      return res.status(404).send(result);
     }
   } catch (error) {
     // console.log("no lock found by id");
     // console.log("send error");
-    return res.status(404).send("nepravelnyj id 3: " + error.message);
+    // return res.status(404).send("nepravelnyj id 3: " + error.message);
+    const result =
+      "A3%nm*Wb&id=XXXXXXXXXXXXXXXXXXXXXXXX&i1=0&$i2=0&i3=0&i4=0&i5=0&i6=0&i7=0&i8=0&i9=0&n1=0&n2=0&n3=0&o1=0&o2=0&o3=0&t=0&e=0&a=0";
+    return res.status(404).send(result);
   }
   //gauname o1===0, o2===0, n2===0
   if (data.o1 === "0" && data.o2 === "0" && data.n2 === "0") {

@@ -9649,3 +9649,12 @@
 ::1 - - [04/Jun/2021:08:58:59 +0000] "GET /reservation/getPastReservations/60ab4961895e9547d0ded705 HTTP/1.1" 200 18122
 ::1 - - [04/Jun/2021:08:58:59 +0000] "GET /reservation/getReservations/60ab4961895e9547d0ded705 HTTP/1.1" 304 -
 ::1 - - [04/Jun/2021:08:59:01 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [14/Jun/2021:03:52:48 +0000] "GET /property/getAllProperties HTTP/1.1" 200 9538
+::1 - - [14/Jun/2021:04:07:03 +0000] "POST /login HTTP/1.1" 200 3588
+::1 - - [14/Jun/2021:04:07:03 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [14/Jun/2021:04:07:05 +0000] "GET /reservation/getReservations/60ab4961895e9547d0ded705 HTTP/1.1" 200 2
+::1 - - [14/Jun/2021:04:07:10 +0000] "GET /reservation/getPastReservations/60ab4961895e9547d0ded705 HTTP/1.1" 200 371819
+::1 - - [14/Jun/2021:04:07:10 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [14/Jun/2021:04:07:10 +0000] "GET /lock/getUnassigned/?h=A3%nm*Wb HTTP/1.1" 200 161
+::1 - - [14/Jun/2021:04:07:19 +0000] "GET /lock/getAll/?h=A3%nm*Wb HTTP/1.1" 200 181
+::1 - - [14/Jun/2021:04:07:27 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
