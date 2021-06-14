@@ -41,7 +41,7 @@ exports.register = async (req, res) => {
 
           const decryptedEmail = decrypt(encryptedEmail);
 
-          verification(decryptedEmail, emailToken);
+          await verification(decryptedEmail, emailToken);
         } else {
           message = "An unexpected error occured";
         }
