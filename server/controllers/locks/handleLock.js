@@ -23,7 +23,7 @@ exports.handleLock = async (req, res) => {
     // console.log("data id undefined or too short");
     // console.log("send error");
     const result =
-      "A3%nm*Wb&id=XXXXXXXXXXXXXXXXXXXXXXXX&i1=0&$i2=0&i3=0&i4=0&i5=0&i6=0&i7=0&i8=0&i9=0&n1=0&n2=0&n3=0&o1=0&o2=0&o3=0&t=0&e=0&a=0";
+      "A3%nm*Wb";
     return res.status(404).send(result);
   }
   let updatedLock;
