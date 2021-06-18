@@ -18,11 +18,6 @@ exports.verification = async (userEmail, token) => {
     },
     to: userEmail,
     subject: "Verify Your Email",
-    // html:
-    //   "<p>Hello, verify your account by clicking the link:</p>" +
-    //   eval(
-    //     `"<a href='${process.env.CLIENT_URL}/verify/${token}' target="_blank">${process.env.CLIENT_URL}/verify/${token}</a>"`
-    //   ),
     html:
       "<p>Hello, verify your account by clicking the link:</p>" +
       "<a href=" +
@@ -31,9 +26,6 @@ exports.verification = async (userEmail, token) => {
       token +
       " target='_blank'>" +
       "click on this link to verify your email" +
-      // process.env.CLIENT_URL +
-      // "/verify/" +
-      // token +
       "</a>",
   };
 

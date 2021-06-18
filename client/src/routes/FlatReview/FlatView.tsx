@@ -184,6 +184,8 @@ const FlatView = (props: PropsInterface) => {
     setIsScheduleOpened(true);
   };
   const handleBooking = async (residents: number) => {
+    console.log("user._id");
+    console.log(user._id);
     const body = {
       userId: user._id,
       propertyId: property._id,
