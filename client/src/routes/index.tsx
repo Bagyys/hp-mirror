@@ -12,7 +12,6 @@ import Reservations from "../routes/Reservations/Reservations";
 import History from "../routes/History/History";
 import Settings from "../routes/Settings/Settings";
 import Locks from "../routes/Locks/Locks";
-
 const Routes = () => {
   return (
     <div>

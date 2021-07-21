@@ -35,7 +35,6 @@ const BookingSchedule = ({ timeZone, handleBooking }: scheduleInterface) => {
   const handleError = () => {
     dispatch(clearErrorAction());
   };
-
   useEffect(() => {
     if (error) {
       Swal.fire({

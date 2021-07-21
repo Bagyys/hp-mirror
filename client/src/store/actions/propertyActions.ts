@@ -8,7 +8,6 @@ import { PropertyInterface } from "../types/propertyInterfaces";
 // -------------------- URLS --------------------
 
 const url = process.env.REACT_APP_SERVER_URL;
-
 // -------------------- END of URLS --------------------
 
 // -------------------- ACTION INTERFACES --------------------

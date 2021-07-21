@@ -1,25 +1,30 @@
 //Fonts
 
 //Colors
-$black: #060606;
-$black2: #343a40;
 $black3: #4c4c4c;
-$blackGrey: #535763;
-$grey: rgba(36, 46, 62, 0.1);
-$lightGrey2: #70757a;
-$lightGrey: #f6f7fb;
-$white: #fff;
-$lightBlue: #4886ff;
 $veryLightBlue: #189ed9;
-$lightGreen: #9ccc65;
-$red: #ff484c;
-$orange: #ffba57;
+
+//Color from Design
+$fontColor: #1D1A13;
+$black: #202124;
+$black2: #343638;
+$blackGrey: #717171;
+$grey: #909090;
+$lightGrey: #909090;
+$lightGrey2: #EBEDED;
+$lightBlue: #4D94E8;
+$orange: #ffc96c;
+$red: #ff4d4d;
+$lightGreen: #2da348;
+$lightRed: #fa6980;
+$white: #FFFFFF;
 
 //Font Sizes
 $titleSizeFont: 3.5rem;
 $smallTitleFont: 2.8rem;
 $largeFontSize2: 2.6rem;
 $largeFontSize: 2.5rem;
+$fontSize20px: 2rem;
 $mediumFontSize: 1.6rem;
 $smallerMediumFont: 1.5rem;
 $smallFontSize: 1.4rem;
@@ -29,11 +34,16 @@ $font-Weight-light: 300;
 $font-Weight-regular: 400;
 $font-Weight-medium: 500;
 $font-Weight-semiBold: 600;
-$font-Weight-bold: 700;
-$font-Weight-extraBold: 800;
 
+$font-Weight-bold: bold;
+$font-Weight-extraBold: 800;
 // Line-Heights
 $navLineHeight: 50px;
 $textLineHeight: 1.5;
+$lineHeight36px: 3.6rem;
+$lineHeight20px: 2rem;
+
+
 //Font Family
-$workSans: Work Sans, sans-serif;
+$workSans: Helvetica, Arial, sans-serif;
+$helvetica: Helvetica, Arial, sans-serif;

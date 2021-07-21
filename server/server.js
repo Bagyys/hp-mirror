@@ -1,6 +1,8 @@
 const express = require("express");
 const { socketConnection } = require("./utils/socket");
-const { updateReservations } = require("./controllers/reservation/updateReservations");
+const {
+  updateReservations,
+} = require("./controllers/reservation/updateReservations");
 const app = express();
 const fs = require("fs");
 const path = require("path");
@@ -14,31 +16,32 @@ const cron = require("node-cron");
 app.use(helmet());
 
 // setup static files and bodyparser
+
 app.use(express.static(__dirname + "/public"));
 app.use(cors());
 app.use(express.json());
 // extended false leidzia parse'inti non default features
 app.use(
-    express.urlencoded({
-        extended: false,
-    })
+  express.urlencoded({
+    extended: false,
+  })
 );
 
 app.use(
-    morgan("dev", {
-        skip: function(req, res) {
-            return res.statusCode < 400;
-        },
-    })
+  morgan("dev", {
+    skip: function (req, res) {
+      return res.statusCode < 400;
+    },
+  })
 );
 
 // log all requests to access.log
 app.use(
-    morgan("common", {
-        stream: fs.createWriteStream(path.join(__dirname, "access.log"), {
-            flags: "a",
-        }),
-    })
+  morgan("common", {
+    stream: fs.createWriteStream(path.join(__dirname, "access.log"), {
+      flags: "a",
+    }),
+  })
 );
 
 // Routes
@@ -56,7 +59,7 @@ app.use("/", allUsers);
 
 // cron jobs
 cron.schedule("59 23 * * *", () => {
-    updateReservations()
+  updateReservations();
 });
 
 const expressServer = app.listen(9000);
