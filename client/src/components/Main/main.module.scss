@@ -1,0 +1,166 @@
+@import "../../styles/global.scss";
+
+.Main {
+    display: flex;
+    height: 100vh;
+    .Left {
+        width: 50%;
+        background-image: url('../../assets/images/MainPic.svg');
+
+        img {
+            margin-top: 4.05rem;
+            margin-left: 6.4%;
+        }
+    }
+
+    .Right {
+        width: 50%;
+        background-color: $orange;
+        text-align: center;
+        h1 {
+            transition: all 0.4s ease-in-out;
+            font-size: $fontSize64px;
+            font-family: $helveticaNeue;
+            line-height: $lineHeight80px;
+            color: $black;
+            font-weight: $font-Weight-medium;
+            margin: 17.6rem 19.5rem 0 19.3rem;
+        }
+
+        p {
+         
+            margin: 3.6rem 22rem 6.3rem 22rem;
+            font-size: $largeFontSize;
+            font-family: $helvetica;
+            line-height: $lineHeight30px;
+            color: $black;  
+            font-weight: $font-Weight-bold;
+        }
+
+        .DataPicker {
+            margin: 0 auto ;
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+            font-size: $fontSize19px;
+            font-family: $helvetica;
+            line-height: $lineHeight36px;
+            color: $black;  
+            font-weight: $font-Weight-bold;
+            border: 0.1rem solid $white;
+            width: 33%;
+            border-radius: 3.9rem;
+            
+             .Anytime {
+                padding-left: 3.93rem;
+            }
+
+            div:first-child{
+                margin-right: 4rem;
+            }
+
+            
+
+            .active {
+                border-radius: 3.3rem;
+               
+                margin-right: 0.5rem;
+                margin-top: 0.5rem;
+                margin-bottom: 0.5rem;
+                padding: 0.5rem 3.24rem 0.5rem 3.84rem;
+                background-color: rgba(255, 255, 255, 0.29);
+                cursor: pointer;
+            }
+        }
+
+        .SearchBox {
+            position: relative;
+            display: flex;
+            margin: 6.7rem 19rem 0 15.7rem;
+            padding:1.3rem 5.1rem 1.3rem 4.41rem;
+            background-color: $white;
+            border-radius: 5.5rem;
+            box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
+            font-size: $fontSize23px;
+            font-family: $helvetica;
+            line-height: $lineHeight36px;
+            color: $black;  
+            font-weight: $font-Weight-bold;
+            transition: all 0.4s ease-in-out;
+            .inActive {
+                span {
+                    font-size: $fontSize18px;
+                    color: $blackGrey;
+                    font-weight: $font-Weight-regular;
+                 } 
+
+                &:first-child {
+                    padding-right: 4.86rem;
+                    border-right: 0.1rem solid #CBD0D3;
+                  
+                }
+                &:nth-child(2) {
+                    margin-left: 3rem;
+                    padding-right: 5.2rem;
+                    border-right: 0.1rem solid #CBD0D3;
+            
+                }
+                &:nth-child(3) {
+                    margin-left: 2.68rem;
+                }
+            }
+
+             .OnSearch {
+                font-size: $fontSize19px;
+                margin-left: 3rem;
+                padding-right: 5.2rem;
+                border-right: 0.1rem solid #CBD0D3;
+                line-height: 2rem;
+                text-align: left;
+                span {
+                    font-size: $fontSize18px;
+                    color: $blackGrey;
+                    font-weight: $font-Weight-regular;
+                   
+                 }
+             }
+             .OnSearchGuest {
+                font-size: $fontSize19px;
+                margin-left: 3rem;
+                padding-right: 5.2rem;
+              
+                line-height: 2rem;
+                text-align: left;
+                span {
+                    font-size: $fontSize18px;
+                    color: $blackGrey;
+                    font-weight: $font-Weight-regular;
+                 }
+             }
+            .SearchButton {
+              position: absolute;
+         
+              top: 0;
+              cursor: pointer;
+              display: flex;
+              padding: 1.8rem;
+              background-color: #4D94E8;
+              border-radius: 5rem;
+              transition: padding 0.4s ease-in-out;
+            }
+            .SearchText {
+                margin: 0;
+                font-size: $fontSize19px;
+                font-family: $helvetica;
+                color: $white;  
+                font-weight: $font-Weight-bold;
+                margin-right: 1.57rem;
+            }
+
+            .Active{
+                background-color: $white;
+            }
+           
+          }
+    }
+}

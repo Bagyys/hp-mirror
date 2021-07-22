@@ -1,7 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 
 import { UserRoute } from "../components/PrivateRoute/PrivateRoute";
-import Navigation from "../components/Navigation/navigation";
 import Home from "./Home/home";
 import Register from "../routes/Register/Register";
 import SendVerify from "../routes/SendVerify/SendVerify";
@@ -15,7 +14,6 @@ import Locks from "../routes/Locks/Locks";
 const Routes = () => {
   return (
     <div>
-      <Navigation />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/register" component={Register} />
