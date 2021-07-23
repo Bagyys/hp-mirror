@@ -77,7 +77,6 @@
             position: relative;
             display: flex;
             margin: 6.7rem 19rem 0 15.7rem;
-            padding:1.3rem 5.1rem 1.3rem 4.41rem;
             background-color: $white;
             border-radius: 5.5rem;
             box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
@@ -88,6 +87,8 @@
             font-weight: $font-Weight-bold;
             transition: all 0.4s ease-in-out;
             .inActive {
+                padding: 1rem 0rem;
+                cursor: pointer;
                 span {
                     font-size: $fontSize18px;
                     color: $blackGrey;
@@ -96,13 +97,14 @@
 
                 &:first-child {
                     padding-right: 4.86rem;
-                    border-right: 0.1rem solid #CBD0D3;
+                    // border-right: 0.1rem solid #CBD0D3;
+                    padding-left: 5.4rem;   
                   
                 }
                 &:nth-child(2) {
                     margin-left: 3rem;
                     padding-right: 5.2rem;
-                    border-right: 0.1rem solid #CBD0D3;
+                    // border-right: 0.1rem solid #CBD0D3;
             
                 }
                 &:nth-child(3) {
@@ -114,7 +116,7 @@
                 font-size: $fontSize19px;
                 margin-left: 3rem;
                 padding-right: 5.2rem;
-                border-right: 0.1rem solid #CBD0D3;
+                // border-right: 0.1rem solid #CBD0D3;
                 line-height: 2rem;
                 text-align: left;
                 span {
@@ -159,8 +161,40 @@
 
             .Active{
                 background-color: $white;
+                box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
+                border-radius: 5.5rem;
+                padding: 1rem 0rem;
+                &:first-child {
+                    padding-right: 4.86rem;
+                    padding-left: 5.4rem; 
+                    transition: all 0.4s ease-in-out; 
+                }
+                &:nth-child(2) {
+                    padding-right: 4.86rem;
+                    padding-left: 2.935rem;  
+                    border: none; 
+                    transition: all 0.4s ease-in-out;
+                }
+
+                &:nth-child(3) {
+                    
+                    padding-right: 7.86rem;
+                    padding-left: 3rem;  
+                    border: none; 
+                    transition: all 0.4s ease-in-out;
+                }
+                span {
+                    font-size: $fontSize18px;
+                    color: $blackGrey;
+                    font-weight: $font-Weight-regular;
+                 }
             }
            
+          }
+
+
+          .Calendar {
+              margin-top: 3.83rem;
           }
     }
 }

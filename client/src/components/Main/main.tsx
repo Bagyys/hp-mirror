@@ -1,27 +1,65 @@
 import classes from "./main.module.scss";
 import logo from "../../assets/images/Logo.svg";
 import searchImg from "../../assets/images/Search.svg";
-import { useState } from "react";
-function Home() {
+import { useEffect, useState } from "react";
+import { DateRange, OnChangeProps } from "react-date-range";
+import moment from "moment";
+
+interface CustomRange {
+  startDate: Date;
+  endDate: Date;
+  key: string;
+}
+
+function Main() {
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [range, setRange] = useState([
+    {
+      startDate: moment.utc().startOf("day").toDate(),
+      endDate: moment.utc().add(1, "day").startOf("day").toDate(),
+      key: "selection",
+    },
+  ]);
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
+  console.log(startDate, "startDate");
   const [appState, changeState] = useState({
     activeObject: {},
+
     objects: [
-      { id: 1, title: "Check in", text: "add dates" },
-      { id: 2, title: "Check out", text: "add dates" },
+      { id: 1, title: "Check in", text: moment(startDate).format("MMM Do") },
+      { id: 2, title: "Check out", text: moment(endDate).format("MMM Do") },
       { id: 3, title: "Guests", text: "add dates" },
     ],
   });
+
+  useEffect(() => {
+    changeState({
+      activeObject: {},
+
+      objects: [
+        { id: 1, title: "Check in", text: moment(startDate).format("MMM Do") },
+        { id: 2, title: "Check out", text: moment(endDate).format("MMM Do") },
+        { id: 3, title: "Guests", text: "add dates" },
+      ],
+    });
+  }, [startDate, endDate]);
+
+  const hourlyCheckArray: Array<Date> = [];
 
   const toggleActive = (index: number) => {
     changeState({ ...appState, activeObject: appState.objects[index] });
   };
 
   const toggleActiveStyles = (index: number) => {
-    if (appState.objects[index] === appState.activeObject) {
-      return "active";
+    if (isSearching) {
+      if (appState.objects[index] === appState.activeObject) {
+        return `${classes.Active}`;
+      } else {
+        return `${classes.inActive}`;
+      }
     } else {
-      return "inActive";
+      return `${classes.inActive}`;
     }
   };
 
@@ -31,6 +69,13 @@ function Home() {
     } else {
       setIsSearching(false);
     }
+  };
+
+  const handleRange = (item: any) => {
+    // TODO: solve typescript conflict
+    setStartDate(item.selection.startDate);
+    setEndDate(item.selection.endDate);
+    setRange([item.selection as CustomRange]);
   };
 
   return (
@@ -59,36 +104,28 @@ function Home() {
           style={
             isSearching
               ? {
-                  padding: `1rem 5.1rem 1rem 4.41rem`,
                   marginTop: "13.39rem",
                   backgroundColor: "rgba(255, 255, 255, 0.85)",
                 }
-              : { padding: `1.3rem 5.1rem 1.3rem 4.41rem` }
+              : { padding: `0rem 5.1rem 0rem 0` }
           }
         >
           {appState.objects.map((element, index) => {
             return (
               <div
-                className={classes.inActive}
+                className={toggleActiveStyles(index)}
                 onClick={() => toggleActive(index)}
+                style={
+                  isSearching
+                    ? { lineHeight: "2rem" }
+                    : { lineHeight: "3.6rem" }
+                }
               >
                 <h2>{element.title}</h2>
                 {isSearching ? <span>{element.text}</span> : null}
               </div>
             );
           })}
-          {/* <div className={isSearching ? classes.OnSearch : classes.CheckIn}>
-            <h2>Check in</h2>
-            {isSearching ? <span>add dates</span> : null}
-          </div>
-          <div className={isSearching ? classes.OnSearch : classes.CheckOut}>
-            <h2>Check out</h2>
-            {isSearching ? <span>add dates</span> : null}
-          </div>
-          <div className={isSearching ? classes.OnSearchGuest : classes.Guests}>
-            <h2>Guests</h2>
-            {isSearching ? <span>add guests</span> : null}
-          </div> */}
           <div
             className={classes.SearchButton}
             style={
@@ -102,9 +139,29 @@ function Home() {
             <img src={searchImg} alt="Search" />
           </div>
         </div>
+        {isSearching ? (
+          <div className={classes.Calendar}>
+            <DateRange
+              minDate={new Date()}
+              editableDateInputs={true}
+              onChange={(range: OnChangeProps) => {
+                handleRange(range);
+                // setRange([range.selection as CustomRange]) // Typescript conflict
+              }}
+              moveRangeOnFirstSelection={false}
+              ranges={range}
+              disabledDates={hourlyCheckArray}
+              weekStartsOn={1}
+              weekdayDisplayFormat="EEEEEE"
+              showMonthAndYearPickers={false}
+              months={2}
+              direction="horizontal"
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );
 }
 
-export default Home;
+export default Main;
