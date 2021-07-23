@@ -10,7 +10,8 @@ import FavoriteImg from "../../assets/images/Favorite.svg";
 import GuideImg from "../../assets/images/Guide.svg";
 import BurgerMenu from "../../assets/images/menu.png";
 import LogoImg from "../../assets/images/Logo.svg";
-import userImg from "../../assets/images/user.png";
+import userImg from "../../assets/images/Profile.svg";
+import UserPic from "../../assets/images/UserPicture.svg";
 import logout from "../../assets/images/logout.png";
 import register from "../../assets/images/register.png";
 import NavRoutes from "./NavRoutes/NavRoutes";
@@ -81,7 +82,12 @@ const Navigation = () => {
                   <img
                     className={classes.navBtn}
                     src={userImg}
-                    alt="ProfilePic"
+                    alt="Profile menu"
+                  />
+                  <img
+                    className={classes.ProfilePicture}
+                    src={UserPic}
+                    alt="Profile picture"
                   />
                 </Link>
               </div>
@@ -94,25 +100,20 @@ const Navigation = () => {
                   />
                 </Link>
               </div>
+              <div className={classes.Languages}>
+                <p>EN</p>
+              </div>
             </>
           ) : (
             <>
               <div className={classes.Register}>
                 <Link to="/register">
-                  <img
-                    className={classes.navBtn}
-                    src={register}
-                    alt="RegisterPic"
-                  />
+                  <p>Become host</p>
                 </Link>
               </div>
               <div className={classes.Login}>
                 <Link to="/login">
-                  <img
-                    className={classes.navBtn}
-                    src={userImg}
-                    alt="LoginPic"
-                  />
+                  <p>Sign in</p>
                 </Link>
               </div>
             </>
