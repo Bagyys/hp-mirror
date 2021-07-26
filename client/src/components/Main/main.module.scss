@@ -2,7 +2,7 @@
 
 .Main {
     display: flex;
-    height: 100vh;
+    min-height: 1080px;
     .Left {
         width: 50%;
         background-image: url('../../assets/images/MainPic.svg');
@@ -193,8 +193,8 @@
           }
 
 
-          .Calendar {
-              margin-top: 3.83rem;
+          .GuestBox {
+             
           }
     }
 }

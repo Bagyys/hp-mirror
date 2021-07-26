@@ -20,11 +20,11 @@ function Main() {
       key: "selection",
     },
   ]);
+  const [forwardToGuests, setForwardToGuests] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
-  console.log(startDate, "startDate");
-  const [appState, changeState] = useState({
-    activeObject: {},
+  const [appState, changeState] = useState<any>({
+    activeObject: null,
 
     objects: [
       { id: 1, title: "Check in", text: moment(startDate).format("MMM Do") },
@@ -33,13 +33,27 @@ function Main() {
     ],
   });
 
+  let checkInText: string;
+  let checkOUtText: string;
+  if (startDate) {
+    checkInText = moment(startDate).format("MMM Do");
+  } else {
+    checkInText = "add date";
+  }
+
+  if (endDate) {
+    checkOUtText = moment(endDate).format("MMM Do");
+  } else {
+    checkOUtText = "add date";
+  }
+
   useEffect(() => {
     changeState({
-      activeObject: {},
+      activeObject: null,
 
       objects: [
-        { id: 1, title: "Check in", text: moment(startDate).format("MMM Do") },
-        { id: 2, title: "Check out", text: moment(endDate).format("MMM Do") },
+        { id: 1, title: "Check in", text: checkInText },
+        { id: 2, title: "Check out", text: checkOUtText },
         { id: 3, title: "Guests", text: "add dates" },
       ],
     });
@@ -48,10 +62,21 @@ function Main() {
   const hourlyCheckArray: Array<Date> = [];
 
   const toggleActive = (index: number) => {
+    if (index === 0) {
+      changeSearchState();
+    }
     changeState({ ...appState, activeObject: appState.objects[index] });
   };
 
   const toggleActiveStyles = (index: number) => {
+    if (appState.activeObject === null) {
+      appState.activeObject = appState.objects[0];
+    } else if (endDate && !startDate) {
+      appState.activeObject = appState.objects[1];
+    } else if (endDate && startDate) {
+      appState.activeObject = appState.objects[2];
+    }
+
     if (isSearching) {
       if (appState.objects[index] === appState.activeObject) {
         return `${classes.Active}`;
@@ -73,9 +98,14 @@ function Main() {
 
   const handleRange = (item: any) => {
     // TODO: solve typescript conflict
+    console.log(item, "KAS ITEME");
     setStartDate(item.selection.startDate);
     setEndDate(item.selection.endDate);
     setRange([item.selection as CustomRange]);
+
+    if (startDate && endDate) {
+      setForwardToGuests(true);
+    }
   };
 
   return (
@@ -95,9 +125,7 @@ function Main() {
 
         <div className={classes.DataPicker}>
           <div className={classes.Anytime}>Anytime</div>
-          <div className={classes.active} onClick={() => changeSearchState()}>
-            Calendar
-          </div>
+          <div className={classes.active}>Calendar</div>
         </div>
         <div
           className={classes.SearchBox}
@@ -110,7 +138,7 @@ function Main() {
               : { padding: `0rem 5.1rem 0rem 0` }
           }
         >
-          {appState.objects.map((element, index) => {
+          {appState.objects.map((element: any, index: number) => {
             return (
               <div
                 className={toggleActiveStyles(index)}
@@ -141,22 +169,51 @@ function Main() {
         </div>
         {isSearching ? (
           <div className={classes.Calendar}>
-            <DateRange
-              minDate={new Date()}
-              editableDateInputs={true}
-              onChange={(range: OnChangeProps) => {
-                handleRange(range);
-                // setRange([range.selection as CustomRange]) // Typescript conflict
-              }}
-              moveRangeOnFirstSelection={false}
-              ranges={range}
-              disabledDates={hourlyCheckArray}
-              weekStartsOn={1}
-              weekdayDisplayFormat="EEEEEE"
-              showMonthAndYearPickers={false}
-              months={2}
-              direction="horizontal"
-            />
+            {forwardToGuests ? (
+              <div className={classes.GuestBox}>
+                <div className={classes.Adults}>
+                  <div>
+                    <h1>Adults</h1>
+                    <p>Age 13 and above</p>
+                  </div>
+                  <div>
+                    <span>+</span>
+                    <span>+</span>
+                    <span>-</span>
+                  </div>
+                </div>
+                <div className={classes.Children}>
+                  <div>
+                    <h1>Children</h1>
+                    <p>Age 12 and under</p>
+                  </div>
+                  <div>
+                    <span>+</span>
+                    <span>+</span>
+                    <span>-</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <DateRange
+                minDate={new Date()}
+                editableDateInputs={true}
+                onChange={(range: OnChangeProps) => {
+                  handleRange(range);
+                  //  setRange([range.selection as CustomRange]) // Typescript conflict
+                }}
+                moveRangeOnFirstSelection={false}
+                ranges={range}
+                disabledDates={hourlyCheckArray}
+                weekStartsOn={1}
+                weekdayDisplayFormat="EEEEEE"
+                showMonthAndYearPickers={false}
+                months={2}
+                direction="horizontal"
+                monthDisplayFormat="MMMM yyyy"
+              />
+            )}
+            )
           </div>
         ) : null}
       </div>
