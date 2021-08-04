@@ -1,10 +1,10 @@
 import classes from "./main.module.scss";
 import logo from "../../assets/images/Logo.svg";
 import searchImg from "../../assets/images/Search.svg";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DateRange, OnChangeProps } from "react-date-range";
 import moment from "moment";
-
+import GuestContainer from "./components/guestContainer";
 interface CustomRange {
   startDate: Date;
   endDate: Date;
@@ -32,6 +32,7 @@ function Main() {
       { id: 3, title: "Guests", text: "add dates" },
     ],
   });
+  const [isCalendar, setIsCalendar] = useState<boolean>(true);
 
   let checkInText: string;
   let checkOUtText: string;
@@ -98,7 +99,6 @@ function Main() {
 
   const handleRange = (item: any) => {
     // TODO: solve typescript conflict
-    console.log(item, "KAS ITEME");
     setStartDate(item.selection.startDate);
     setEndDate(item.selection.endDate);
     setRange([item.selection as CustomRange]);
@@ -106,6 +106,10 @@ function Main() {
     if (startDate && endDate) {
       setForwardToGuests(true);
     }
+  };
+
+  const chooseCalendarOrAnytime = () => {
+    isCalendar ? setIsCalendar(false) : setIsCalendar(true);
   };
 
   return (
@@ -124,98 +128,94 @@ function Main() {
         {isSearching ? null : <p>Select dates for your home experience</p>}
 
         <div className={classes.DataPicker}>
-          <div className={classes.Anytime}>Anytime</div>
-          <div className={classes.active}>Calendar</div>
+          <div
+            onClick={() => chooseCalendarOrAnytime()}
+            className={classes.Anytime}
+          >
+            Anytime
+          </div>
+          <div
+            onClick={() => chooseCalendarOrAnytime()}
+            className={classes.active}
+          >
+            Calendar
+          </div>
         </div>
-        <div
-          className={classes.SearchBox}
-          style={
-            isSearching
-              ? {
-                  marginTop: "13.39rem",
-                  backgroundColor: "rgba(255, 255, 255, 0.85)",
-                }
-              : { padding: `0rem 5.1rem 0rem 0` }
-          }
-        >
-          {appState.objects.map((element: any, index: number) => {
-            return (
+        {isCalendar ? (
+          <div>
+            <div
+              className={classes.SearchBox}
+              style={
+                isSearching
+                  ? {
+                      marginTop: "13.39rem",
+                      backgroundColor: "rgba(255, 255, 255, 0.85)",
+                    }
+                  : { padding: `0rem 5.1rem 0rem 0` }
+              }
+            >
+              {appState.objects.map((element: any, index: number) => {
+                return (
+                  <div
+                    className={toggleActiveStyles(index)}
+                    onClick={() => toggleActive(index)}
+                    style={
+                      isSearching
+                        ? { lineHeight: "2rem" }
+                        : { lineHeight: "3.6rem" }
+                    }
+                  >
+                    <h2>{element.title}</h2>
+                    {isSearching ? <span>{element.text}</span> : null}
+                  </div>
+                );
+              })}
               <div
-                className={toggleActiveStyles(index)}
-                onClick={() => toggleActive(index)}
+                className={classes.SearchButton}
                 style={
                   isSearching
-                    ? { lineHeight: "2rem" }
-                    : { lineHeight: "3.6rem" }
+                    ? { right: `-13.6%`, padding: `1.6rem 2.5rem` }
+                    : { right: `-1.6%` }
                 }
               >
-                <h2>{element.title}</h2>
-                {isSearching ? <span>{element.text}</span> : null}
-              </div>
-            );
-          })}
-          <div
-            className={classes.SearchButton}
-            style={
-              isSearching
-                ? { right: `-13.6%`, padding: `1.6rem 2.5rem` }
-                : { right: `-1.6%` }
-            }
-          >
-            {isSearching ? <p className={classes.SearchText}>Search</p> : null}
+                {isSearching ? (
+                  <p className={classes.SearchText}>Search</p>
+                ) : null}
 
-            <img src={searchImg} alt="Search" />
-          </div>
-        </div>
-        {isSearching ? (
-          <div className={classes.Calendar}>
-            {forwardToGuests ? (
-              <div className={classes.GuestBox}>
-                <div className={classes.Adults}>
-                  <div>
-                    <h1>Adults</h1>
-                    <p>Age 13 and above</p>
-                  </div>
-                  <div>
-                    <span>+</span>
-                    <span>+</span>
-                    <span>-</span>
-                  </div>
-                </div>
-                <div className={classes.Children}>
-                  <div>
-                    <h1>Children</h1>
-                    <p>Age 12 and under</p>
-                  </div>
-                  <div>
-                    <span>+</span>
-                    <span>+</span>
-                    <span>-</span>
-                  </div>
-                </div>
+                <img src={searchImg} alt="Search" />
               </div>
-            ) : (
-              <DateRange
-                minDate={new Date()}
-                editableDateInputs={true}
-                onChange={(range: OnChangeProps) => {
-                  handleRange(range);
-                  //  setRange([range.selection as CustomRange]) // Typescript conflict
-                }}
-                moveRangeOnFirstSelection={false}
-                ranges={range}
-                disabledDates={hourlyCheckArray}
-                weekStartsOn={1}
-                weekdayDisplayFormat="EEEEEE"
-                showMonthAndYearPickers={false}
-                months={2}
-                direction="horizontal"
-                monthDisplayFormat="MMMM yyyy"
-              />
-            )}
-            )
+            </div>
+            {isSearching ? (
+              <React.Fragment>
+                {forwardToGuests ? (
+                  <GuestContainer />
+                ) : (
+                  <div className={classes.Calendar}>
+                    <DateRange
+                      minDate={new Date()}
+                      editableDateInputs={true}
+                      onChange={(range: OnChangeProps) => {
+                        handleRange(range);
+                        //  setRange([range.selection as CustomRange]) // Typescript conflict
+                      }}
+                      moveRangeOnFirstSelection={false}
+                      ranges={range}
+                      disabledDates={hourlyCheckArray}
+                      weekStartsOn={1}
+                      weekdayDisplayFormat="EEEEEE"
+                      showMonthAndYearPickers={false}
+                      months={2}
+                      direction="horizontal"
+                      monthDisplayFormat="MMMM yyyy"
+                    />
+                  </div>
+                )}
+              </React.Fragment>
+            ) : null}
           </div>
-        ) : null}
+        ) : (
+          <div>AnyTime</div>
+        )}
       </div>
     </div>
   );

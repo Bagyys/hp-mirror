@@ -3,7 +3,7 @@ import Map from "../../components/Map/map";
 import Filter from "../../components/Filter/filter";
 import Main from "../../components/Main/main";
 import classes from "../../App.module.scss";
-
+import Navigation from "../../components/Navigation/navigation";
 const isChoosing = true;
 
 function Home() {
@@ -16,6 +16,7 @@ function Home() {
         <Main />
       ) : (
         <div className={classes.contentBox}>
+          {/* <Navigation /> */}
           <Flats />
           <Map />
         </div>

@@ -10053,3 +10053,9 @@
 ::1 - - [23/Jul/2021:06:24:55 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [23/Jul/2021:09:05:34 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [23/Jul/2021:09:21:15 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [02/Aug/2021:13:03:14 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10263
+::1 - - [02/Aug/2021:13:04:14 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [02/Aug/2021:13:04:22 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [02/Aug/2021:13:04:39 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [02/Aug/2021:13:05:11 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [04/Aug/2021:09:59:08 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10263

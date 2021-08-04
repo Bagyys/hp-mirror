@@ -6,7 +6,7 @@
     .Left {
         width: 50%;
         background-image: url('../../assets/images/MainPic.svg');
-
+        background-repeat: no-repeat;
         img {
             margin-top: 4.05rem;
             margin-left: 6.4%;
@@ -53,6 +53,7 @@
             
              .Anytime {
                 padding-left: 3.93rem;
+                cursor: pointer;
             }
 
             div:first-child{
@@ -192,9 +193,141 @@
            
           }
 
-
-          .GuestBox {
-             
-          }
+.GuestWrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 9.5rem;
+    .GuestBox {
+        background-color: $white;
+        border-radius: 3.3rem;
+        box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
+        margin-top: 3.6rem;
+        display: flex;
+        flex-direction: column;
+        width: 43%;
+        padding: 4rem 4rem 2.8rem 4rem;
+        .Upper {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            
+            .DescriptionSide {
+                text-align: left;
+                        h1 {
+                            font-size: $fontSize21px;
+                            font-family: $helveticaNeue;
+                            color: $black2;  
+                            font-weight: $lineHeight21px;
+                            margin: 0;
+                            line-height: $lineHeight21px;
+                        }
+    
+                        p{
+                            font-size: $mediumFontSize;
+                            font-family: $helvetica;
+                            color: #BABABA;  
+                            margin: 0;
+                            line-height: $lineHeight36px;
+                            font-weight: 400;
+                        }
+                    }
+                    .Counting {
+                       display: flex;
+                       align-items: center;
+                        .Number{
+                            font-size: $fontSize21px;
+                            font-family: $helveticaNeue;
+                            color: $black2;  
+                            font-weight: $lineHeight21px;
+                            margin: 0 1.9rem;
+                            line-height: $lineHeight21px;
+                          
+                        }
+                        .Increment {
+                            color: #9E9E9F;  
+                            margin: 0;
+                            padding:0.1rem 1rem;
+                            border: 0.1rem solid #9E9E9F;
+                            border-radius: 50%;
+                            font-size: $titleSizeFont;
+                            font-weight: $font-Weight-bold; 
+                            cursor: pointer;
+                        }
+                        .Decrement {
+                            color: #9E9E9F;  
+                            margin: 0;
+                            padding:0rem 1.3rem 0.4rem 1.3rem;
+                            border: 0.1rem solid #9E9E9F;
+                            border-radius: 50%;
+                            font-size: $titleSizeFont;
+                            font-weight: $font-Weight-bold;
+                            cursor: pointer;
+                        }
+                    }
+        }
+        .Down {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 3.1rem;
+           
+            .DescriptionSide {
+                text-align: left;
+                        h1 {
+                            font-size: $fontSize21px;
+                            font-family: $helveticaNeue;
+                            color: $black2;  
+                            font-weight: $lineHeight21px;
+                            margin: 0;
+                            line-height: $lineHeight21px;
+                        }
+    
+                        p{
+                            font-size: $mediumFontSize;
+                            font-family: $helvetica;
+                            color: #BABABA;  
+                            margin: 0;
+                            line-height: $lineHeight36px;
+                            font-weight: 400;
+                        }
+                    }
+                    .Counting {
+                       display: flex;
+                       align-items: center;
+                        .Number{
+                            font-size: $fontSize21px;
+                            font-family: $helveticaNeue;
+                            color: $black2;  
+                            font-weight: $lineHeight21px;
+                            margin: 0 1.9rem;
+                            line-height: $lineHeight21px;
+                          
+                        }
+                        .Increment {
+                            color: #9E9E9F;  
+                            margin: 0;
+                            padding:0.1rem 1rem;
+                            border: 0.1rem solid #9E9E9F;
+                            border-radius: 50%;
+                            font-size: $titleSizeFont;
+                            font-weight: $font-Weight-bold; 
+                            cursor: pointer;
+                        }
+                        .Decrement {
+                            color: #9E9E9F;  
+                            margin: 0;
+                            padding:0rem 1.3rem 0.4rem 1.3rem;
+                            border: 0.1rem solid #9E9E9F;
+                            border-radius: 50%;
+                            font-size: $titleSizeFont;
+                            font-weight: $font-Weight-bold;
+                            cursor: pointer;
+                        }
+                    }
+        }
+    
+      }
+}
+    
     }
 }
