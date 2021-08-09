@@ -31,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
   }
 
   return (
-    <ul className={classes.paginationContainer}>
+    <ul className={classes.PaginationContainer}>
       {paginationRange &&
         paginationRange.map((pageNumber: number, index: number) => {
           // If the pageItem is a DOT=-1, render the DOTS unicode character
@@ -39,7 +39,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
             return (
               <li
                 key={index}
-                className={cn(classes.paginationItem, classes.dots)}
+                className={cn(classes.PaginationItem, classes.Dots)}
               >
                 ....
               </li>
@@ -50,8 +50,8 @@ const Pagination: React.FC<PaginationProps> = (props) => {
           return (
             <li
               className={cn(
-                classes.paginationItem,
-                pageNumber === currentPage ? classes.selected : ''
+                classes.PaginationItem,
+                pageNumber === currentPage ? classes.Selected : ''
               )}
               key={index}
               onClick={() => onPageChange(pageNumber)}

@@ -101,7 +101,7 @@ export const fakeData = [
     discount:{
       more1Week:true,
       more1Month:false,
-      badgeColor:'white',
+      badgeColor:'White',
       inContent:false
     },
     createdAt: new Date(),
@@ -195,7 +195,7 @@ export const fakeData = [
     discount:{
       more1Week:true,
       more1Month:true,
-      badgeColor:'orange',
+      badgeColor:'Orange',
       inContent:true
     },
     createdAt: new Date(),
@@ -289,7 +289,7 @@ export const fakeData = [
     discount:{
       more1Week:true,
       more1Month:false,
-      badgeColor:'blue',
+      badgeColor:'Blue',
       inContent:true
     },
     createdAt: new Date(),
@@ -383,7 +383,7 @@ export const fakeData = [
     discount:{
       more1Week:false,
       more1Month:true,
-      badgeColor:'orange',
+      badgeColor:'Orange',
       inContent:false
     },
     createdAt: new Date(),
@@ -477,7 +477,7 @@ export const fakeData = [
     discount:{
       more1Week:true,
       more1Month:true,
-      badgeColor:'red',
+      badgeColor:'Red',
       inContent:false
     },
     createdAt: new Date(),
@@ -571,7 +571,7 @@ export const fakeData = [
     discount:{
       more1Week:true,
       more1Month:false,
-      badgeColor:'green',
+      badgeColor:'Green',
       inContent:true
     },
     createdAt: new Date(),
@@ -665,7 +665,7 @@ export const fakeData = [
     discount:{
       more1Week:true,
       more1Month:false,
-      badgeColor:'green',
+      badgeColor:'Green',
       inContent:true
     },
     createdAt: new Date(),

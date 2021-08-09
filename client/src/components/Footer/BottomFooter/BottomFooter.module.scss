@@ -1,6 +1,7 @@
 @import "../../../styles/global.scss";
-.bottomFooter{
+.BottomFooter{
     display: flex;
+    align-items: center;
     border-top: 1px solid #CBD0D3;
     justify-content: space-between;
     font-size: $fontSize19px;
@@ -8,7 +9,7 @@
     padding: 1.55rem 15.3rem 1.55rem 10.7rem;
     line-height: $lineHeight36px;
     font-family: $helveticaNeue;
-    .leftSide{
+    .LeftSide{
         span {
             margin: 0 2rem;
             vertical-align: middle;
@@ -19,11 +20,11 @@
             vertical-align: middle;
         }
     }
-    .rightSide{
+    .RightSide{
         display: flex;
         align-items: center;
         font-size: $largeFontSize;
-        .euro {
+        .Euro {
             span {
                 font-size: $fontSize13px;
                 text-decoration: underline;
@@ -32,7 +33,7 @@
                 vertical-align: text-top;
             }
         }
-        .symbols {
+        .Symbols {
             margin-left: 8.6rem;
             line-height: $lineHeight47px;
             span {

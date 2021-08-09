@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-.badge {
+.Badge {
   font-size: 2.1rem;
   font-weight: bold;
   line-height: 3.5rem;
@@ -12,7 +12,7 @@
   cursor: context-menu;
 }
 
-.badge5:hover:after {
+.Badge5:hover:after {
   content: attr(data-title);
   font-size: 1.9rem;
   font-family: Helvetica, Arial, sans-serif;
@@ -29,7 +29,7 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 }
 
-.badge5:hover:before {
+.Badge5:hover:before {
   content: '';
   width: 1.7rem;
   height: 1.7rem;
@@ -41,7 +41,7 @@
   z-index: 1;
 }
 
-.badge20:hover:after {
+.Badge20:hover:after {
   content: attr(data-title);
   font-size: 1.9rem;
   font-family: Helvetica, Arial, sans-serif;
@@ -58,7 +58,7 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 }
 
-.badge20:hover:before {
+.Badge20:hover:before {
   content: '';
   width: 1.7rem;
   height: 1.7rem;
@@ -70,27 +70,27 @@
   z-index: 1;
 }
 
-.white {
+.White {
   background-color: white;
   color: #343638;
 }
 
-.orange {
+.Orange {
   background-color: #ffc96c;
   color: #343638;
 }
 
-.blue {
+.Blue {
   border: 1px solid #4D94E8;
   color: #4D94E8;
 }
 
-.red {
+.Red {
   background-color: #ff4d4d;
   color: #FFFFFF;
 }
 
-.green {
+.Green {
   color: #FFFFFF;
   background-color: #2da348;
 }

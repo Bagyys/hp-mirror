@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-ul .flat {
+ul .Flat {
   flex: 0 0 48%;
   background-color: #FFFFFF;
   margin-bottom: 2rem;
@@ -11,51 +11,51 @@ ul .flat {
   margin: 0 2.8rem 2.4rem 0;
 }
 
-ul .flat:nth-child(2n+2) {
+ul .Flat:nth-child(2n+2) {
   margin-right: 0;
 }
 
-ul .flat .flatContent .infoContainer {
+ul .Flat .FlatContent .InfoContainer {
   padding: 0 1.57rem 1.6rem 1.76rem;
   position: relative;
 }
 
-ul .flat .flatContent .infoContainer .info .ratingsContainer {
+ul .Flat .FlatContent .InfoContainer .Info .RatingsContainer {
   display: flex;
   align-items: center;
   font-size: 1.9rem;
 }
 
-ul .flat .flatContent .infoContainer .info .ratingsContainer .ratings {
+ul .Flat .FlatContent .InfoContainer .Info .RatingsContainer .Ratings {
   display: flex;
   align-items: center;
   margin-right: 0.99rem;
 }
 
-ul .flat .flatContent .infoContainer .info .ratingsContainer .ratings img {
+ul .Flat .FlatContent .InfoContainer .Info .RatingsContainer .Ratings img {
   width: 2.1rem;
   height: 2.2rem;
   margin-right: 0.58rem;
 }
 
-ul .flat .flatContent .infoContainer .info .ratingsContainer .ratings span {
+ul .Flat .FlatContent .InfoContainer .Info .RatingsContainer .Ratings span {
   line-height: 4.9rem;
   font-weight: bold;
 }
 
-ul .flat .flatContent .infoContainer .info .ratingsContainer .reviews {
+ul .Flat .FlatContent .InfoContainer .Info .RatingsContainer .Reviews {
   color: #92979D;
   line-height: 2.7rem;
 }
 
-ul .flat .flatContent .infoContainer .info .apartamentType {
+ul .Flat .FlatContent .InfoContainer .Info .ApartamentType {
   font-size: 2rem;
   line-height: 2.6rem;
   font-family: Helvetica Neue, Arial, sans-serif;
   margin-bottom: 0.75rem;
 }
 
-ul .flat .flatContent .infoContainer .info .AdditionalInfo {
+ul .Flat .FlatContent .InfoContainer .Info .AdditionalInfo {
   color: #909090;
   font-size: 2rem;
   line-height: 2.6rem;
@@ -64,38 +64,38 @@ ul .flat .flatContent .infoContainer .info .AdditionalInfo {
   margin-top: 1.5rem;
 }
 
-ul .flat .flatContent .infoContainer .info .priceBtnContainer {
+ul .Flat .FlatContent .InfoContainer .Info .PriceBtnContainer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
 
-ul .flat .flatContent .infoContainer .info .priceBtnContainer .priceContainer {
+ul .Flat .FlatContent .InfoContainer .Info .PriceBtnContainer .PriceContainer {
   display: flex;
   font-size: 1.9rem;
   margin-left: 0.14rem;
 }
 
-ul .flat .flatContent .infoContainer .info .priceBtnContainer .priceContainer .price {
+ul .Flat .FlatContent .InfoContainer .Info .PriceBtnContainer .PriceContainer .Price {
   margin-right: 1.93rem;
 }
 
-ul .flat .flatContent .infoContainer .info .priceBtnContainer .priceContainer .price span {
+ul .Flat .FlatContent .InfoContainer .Info .PriceBtnContainer .PriceContainer .Price span {
   font-size: 2.7rem;
   font-weight: bold;
 }
 
-ul .flat .flatContent .infoContainer .info .priceBtnContainer .priceContainer .totalPrice {
+ul .Flat .FlatContent .InfoContainer .Info .PriceBtnContainer .PriceContainer .TotalPrice {
   line-height: 2.7rem;
   color: #92979D;
 }
 
-ul .flat .flatContent .flatImg {
+ul .Flat .FlatContent .FlatImg {
   width: 100%;
   position: relative;
 }
 
-ul .flat .flatContent .flatImg .likeContainer {
+ul .Flat .FlatContent .FlatImg .LikeContainer {
   position: absolute;
   right: 2.5rem;
   top: 2.5rem;
@@ -103,35 +103,35 @@ ul .flat .flatContent .flatImg .likeContainer {
   cursor: pointer;
 }
 
-ul .flat .flatContent .flatImg .likeContainer .likeHover {
+ul .Flat .FlatContent .FlatImg .LikeContainer .LikeHover {
   display: none;
   width: 2.7rem;
   height: 2.1rem;
   padding: 0.3rem;
 }
 
-ul .flat .flatContent .flatImg .likeContainer .like {
+ul .Flat .FlatContent .FlatImg .LikeContainer .Like {
   width: 2.7rem;
   height: 2.1rem;
   padding: 0.3rem;
 }
 
-ul .flat .flatContent .flatImg .likeContainer:hover .like {
+ul .Flat .FlatContent .FlatImg .LikeContainer:hover .Like {
   display: none;
 }
 
-ul .flat .flatContent .flatImg .likeContainer:hover .likeHover {
+ul .Flat .FlatContent .FlatImg .LikeContainer:hover .LikeHover {
   display: block;
 }
 
-ul .flat .flatContent .flatImg .badgeInImage {
+ul .Flat .FlatContent .FlatImg .BadgeInImage {
   position: absolute;
   bottom: 1.21rem;
   right: 1.57rem;
   z-index: 1;
 }
 
-ul .flat .flatContent .flatImg .badgeInContent {
+ul .Flat .FlatContent .FlatImg .BadgeInContent {
   position: absolute;
   margin-top: 1.35rem;
   right: 1.57rem;

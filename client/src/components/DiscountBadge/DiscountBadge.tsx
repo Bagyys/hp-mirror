@@ -11,7 +11,7 @@ const DiscountBadge: React.FC<BadgeProps> = (props) => {
     <div
       data-title={props.title}
       className={cn(
-        classes.badge,
+        classes.Badge,
         classes[props.inContent ? props.badgeHover : ''],
         classes[props.badge]
       )}

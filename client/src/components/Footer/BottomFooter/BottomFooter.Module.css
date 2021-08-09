@@ -1,5 +1,7 @@
-.bottomFooter {
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+.BottomFooter {
   display: flex;
+  align-items: center;
   border-top: 1px solid #CBD0D3;
   justify-content: space-between;
   font-size: 1.9rem;
@@ -9,24 +11,24 @@
   font-family: Helvetica Neue, Arial, sans-serif;
 }
 
-.bottomFooter .leftSide span {
+.BottomFooter .LeftSide span {
   margin: 0 2rem;
   vertical-align: middle;
 }
 
-.bottomFooter .leftSide a {
+.BottomFooter .LeftSide a {
   color: #343638;
   text-decoration: none;
   vertical-align: middle;
 }
 
-.bottomFooter .rightSide {
+.BottomFooter .RightSide {
   display: flex;
   align-items: center;
   font-size: 2.5rem;
 }
 
-.bottomFooter .rightSide .euro span {
+.BottomFooter .RightSide .Euro span {
   font-size: 1.3rem;
   text-decoration: underline;
   font-weight: bold;
@@ -34,16 +36,16 @@
   vertical-align: text-top;
 }
 
-.bottomFooter .rightSide .symbols {
+.BottomFooter .RightSide .Symbols {
   margin-left: 8.6rem;
   line-height: 4.7rem;
 }
 
-.bottomFooter .rightSide .symbols span {
+.BottomFooter .RightSide .Symbols span {
   margin-right: 2.6rem;
 }
 
-.bottomFooter .rightSide .symbols span:last-child {
+.BottomFooter .RightSide .Symbols span:last-child {
   margin-right: 0;
 }
 /*# sourceMappingURL=BottomFooter.module.css.map */

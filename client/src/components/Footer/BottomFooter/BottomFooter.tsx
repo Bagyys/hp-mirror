@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const BottomFooter = () => {
   return (
-    <div className={classes.bottomFooter}>
-      <div className={classes.leftSide}>
+    <div className={classes.BottomFooter}>
+      <div className={classes.LeftSide}>
         <Link to="/">2021 HappyStay</Link>
         <span>•</span>
         <Link to="#">Privacy</Link>
@@ -15,11 +15,11 @@ const BottomFooter = () => {
         <span>•</span>
         <Link to="#">Company details</Link>
       </div>
-      <div className={classes.rightSide}>
-        <p className={classes.euro}>
+      <div className={classes.RightSide}>
+        <p className={classes.Euro}>
           €<span>EUR</span>
         </p>
-        <p className={classes.symbols}>
+        <p className={classes.Symbols}>
           <span>t</span>
           <span>f</span>
           <span>c</span>

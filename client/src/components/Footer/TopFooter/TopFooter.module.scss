@@ -1,10 +1,10 @@
 @import "../../../styles/global.scss";
-.topFooterContainer {
+.TopFooterContainer {
     display: flex;
     padding: 7.62rem 10.9rem 21.3rem 10.9rem;
     border-top: 1px solid #CBD0D3;
     font-size: $fontSize21px;
-    .linkBoxes{
+    .LinkBoxes{
         display: flex;
         flex-direction: column;
         max-width: 19.1rem;

@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-.paginationContainer {
+.PaginationContainer {
   display: flex;
   list-style-type: none;
   justify-content: center;
@@ -7,10 +7,10 @@
   margin-bottom: 9.1rem;
 }
 
-.paginationContainer .paginationItem {
+.PaginationContainer .PaginationItem {
   padding: .25rem .9rem;
   text-align: center;
-  margin-right: 3.1rem;
+  margin-right: 2.2rem;
   color: #343638;
   display: flex;
   box-sizing: border-box;
@@ -21,17 +21,18 @@
   border-radius: 50%;
 }
 
-.paginationContainer .paginationItem.dots:hover {
+.PaginationContainer .PaginationItem.Dots:hover {
   background-color: transparent;
   cursor: default;
 }
 
-.paginationContainer .paginationItem:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+.PaginationContainer .PaginationItem:hover {
+  background-color: #202124;
+  color: #FFFFFF;
   cursor: pointer;
 }
 
-.paginationContainer .paginationItem.selected {
+.PaginationContainer .PaginationItem.Selected {
   background-color: #202124;
   color: #FFFFFF;
 }

@@ -8,7 +8,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     <button
       className={
         props.show
-          ? [classes[props.btnType], classes.show].join(' ')
+          ? [classes[props.btnType], classes.Show].join(' ')
           : classes[props.btnType]
       }
     >

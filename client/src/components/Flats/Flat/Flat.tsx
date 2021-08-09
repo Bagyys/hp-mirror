@@ -3,7 +3,6 @@ import Slider from '../../Slider/imageSlider';
 import Button from '../../Button/button';
 import DiscountBadge from '../../DiscountBadge/DiscountBadge';
 
-import newImg from '../../../assets/images/flash.png';
 import likeHeart from '../../../assets/images/like_heart.png';
 import likeHeartHover from '../../../assets/images/like_heart_hover.png';
 import ratingStar from '../../../assets/images/rating_star.png';
@@ -15,12 +14,7 @@ import { useState } from 'react';
 
 const Flat = ({ property }: { property: PropertyInterface }) => {
   const [showBtn, setShowBtn] = useState<boolean>(false);
-  const boxNew = (
-    <div className={classes.NEW}>
-      <img src={newImg} alt="New!" />
-      <p>New</p>
-    </div>
-  );
+
   const like = () => {
     alert('Successfully added to favorites');
   };
@@ -29,26 +23,26 @@ const Flat = ({ property }: { property: PropertyInterface }) => {
     <li
       onMouseOver={() => setShowBtn(true)}
       onMouseLeave={() => setShowBtn(false)}
-      className={classes.flat}
+      className={classes.Flat}
     >
-      <div className={classes.flatContent}>
-        <div className={classes.flatImg}>
+      <div className={classes.FlatContent}>
+        <div className={classes.FlatImg}>
           <Slider slides={property.images} />
-          <div onClick={like} className={classes.likeContainer}>
-            <img className={classes.like} src={likeHeart} />
-            <img className={classes.likeHover} src={likeHeartHover} />
+          <div onClick={like} className={classes.LikeContainer}>
+            <img className={classes.Like} src={likeHeart} />
+            <img className={classes.LikeHover} src={likeHeartHover} />
           </div>
           <div
             className={
               property.discount.inContent
-                ? classes.badgeInContent
-                : classes.badgeInImage
+                ? classes.BadgeInContent
+                : classes.BadgeInImage
             }
           >
             {property.discount.more1Week && (
               <DiscountBadge
                 badge={property.discount.badgeColor}
-                badgeHover="badge5"
+                badgeHover="Badge5"
                 inContent={property.discount.inContent}
                 title="When book one week"
               >
@@ -59,7 +53,7 @@ const Flat = ({ property }: { property: PropertyInterface }) => {
               <DiscountBadge
                 badge={property.discount.badgeColor}
                 inContent={property.discount.inContent}
-                badgeHover="badge20"
+                badgeHover="Badge20"
                 title="When book one month or more"
               >
                 20
@@ -67,19 +61,19 @@ const Flat = ({ property }: { property: PropertyInterface }) => {
             )}
           </div>
         </div>
-        <div className={classes.infoContainer}>
-          <div className={classes.info}>
-            <div className={classes.ratingsContainer}>
-              <div className={classes.ratings}>
+        <div className={classes.InfoContainer}>
+          <div className={classes.Info}>
+            <div className={classes.RatingsContainer}>
+              <div className={classes.Ratings}>
                 <img src={ratingStar} />
                 <span>{property.overallRating}</span>
               </div>
-              <div className={classes.reviews}>
+              <div className={classes.Reviews}>
                 ( <span>{property.ratingsCount} </span>
                 reviews )
               </div>
             </div>
-            <p className={classes.apartamentType}>{property.type}</p>
+            <p className={classes.ApartamentType}>{property.type}</p>
             <p className={classes.AdditionalInfo}>
               {property.facilities.beds
                 ? `${property.facilities.beds} beds`
@@ -89,14 +83,14 @@ const Flat = ({ property }: { property: PropertyInterface }) => {
               {property.facilities.wifi ? ' • WIFI' : null}
               {property.facilities.parking ? ' • parking' : null}
             </p>
-            <div className={classes.priceBtnContainer}>
-              <div className={classes.priceContainer}>
-                <p className={classes.price}>
+            <div className={classes.PriceBtnContainer}>
+              <div className={classes.PriceContainer}>
+                <p className={classes.Price}>
                   <span>{property.price.daily}€</span>/night
                 </p>
-                <p className={classes.totalPrice}>244€ total</p>
+                <p className={classes.TotalPrice}>244€ total</p>
               </div>
-              <Button btnType={'flatInfo'} show={showBtn}>
+              <Button btnType={'FlatInfo'} show={showBtn}>
                 {/* <Link
                   to={{
                     pathname: `/flat/${property._id}`,

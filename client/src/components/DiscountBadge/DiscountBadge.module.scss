@@ -1,6 +1,6 @@
 @import "../../styles/global.scss";
 
-.badge {
+.Badge {
     font-size: $fontSize21px;
     font-weight: $font-Weight-bold;
     line-height: $lineHeight35px;
@@ -12,7 +12,7 @@
     position: relative;
     cursor: context-menu;
 }
-.badge5 {
+.Badge5 {
      &:hover:after{
         content: attr(data-title);
         font-size: $fontSize19px;
@@ -41,7 +41,7 @@
         z-index: 1;
     }
 }
-.badge20 {
+.Badge20 {
      &:hover:after{
         content: attr(data-title);
         font-size: $fontSize19px;
@@ -70,23 +70,23 @@
         z-index: 1;
     }
 }
-.white {
+.White {
     background-color: white;
     color: $black2;
 }
-.orange {
+.Orange {
     background-color: $orange;
     color: $black2;
 }
-.blue {
+.Blue {
     border: 1px solid $lightBlue;
     color: $lightBlue;
 }
-.red {
+.Red {
     background-color: $red;
     color: $white;
 }
-.green {
+.Green {
     color: $white;
     background-color: $lightGreen;
 }
