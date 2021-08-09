@@ -1,0 +1,167 @@
+.Navigation {
+  background-color: #FFFFFF;
+  max-width: 192rem;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
+}
+
+.Navigation .NavigationWrapper {
+  max-width: 175.428rem;
+  align-items: center;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Navigation .NavigationWrapper .Left {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.Navigation .NavigationWrapper .Middle {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1D1A13;
+  line-height: 3.6rem;
+  padding: 2.3rem 0 2.3rem 0;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.Navigation .NavigationWrapper .Middle .SearchBox {
+  position: relative;
+  display: flex;
+  margin-left: 3.52rem;
+  background-color: rgba(235, 237, 237, 0.8);
+  padding: 2rem 5.1rem 1.5rem 4.41rem;
+  border-radius: 5.5rem;
+}
+
+.Navigation .NavigationWrapper .Middle .SearchBox .Date {
+  padding-right: 3.52rem;
+  border-right: 0.1rem solid #CBD0D3;
+}
+
+.Navigation .NavigationWrapper .Middle .SearchBox .Guests {
+  margin-left: 3.52rem;
+  margin-right: 3rem;
+}
+
+.Navigation .NavigationWrapper .Middle .SearchBox .SearchButton {
+  position: absolute;
+  right: -2%;
+  top: 0;
+  cursor: pointer;
+}
+
+.Navigation .NavigationWrapper .Middle .SearchBox img {
+  background-color: #4D94E8;
+  padding: 2.2rem;
+  border-radius: 50%;
+}
+
+.Navigation .NavigationWrapper .Right {
+  display: flex;
+  align-items: center;
+}
+
+.Navigation .NavigationWrapper .Right .Favorites {
+  margin-right: 5.64rem;
+  cursor: pointer;
+}
+
+.Navigation .NavigationWrapper .Right .Guide {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1D1A13;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 2rem;
+  margin-right: 4.4rem;
+  cursor: pointer;
+}
+
+.Navigation .NavigationWrapper .Right .Guide img {
+  transform: rotate(-14deg);
+}
+
+.Navigation .NavigationWrapper .Right .Menu {
+  display: none;
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .Navigation .NavigationWrapper .Right .Menu {
+    display: block;
+  }
+  .Navigation .NavigationWrapper .Right .Menu .Close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    text-align: right;
+    color: #909090;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  .Navigation .NavigationWrapper .Right .Menu .MobileLink {
+    display: block;
+    margin: 35px 30px 0px;
+    color: #909090;
+    font-size: 2rem;
+    text-decoration: none;
+  }
+  .Navigation .NavigationWrapper .Right .Menu .MobileLink:first-child {
+    margin-top: 50px;
+  }
+}
+
+.Navigation .NavigationWrapper .Right .Register,
+.Navigation .NavigationWrapper .Right .Login {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 2rem;
+}
+
+.Navigation .NavigationWrapper .Right .Register a,
+.Navigation .NavigationWrapper .Right .Login a {
+  color: #1D1A13;
+  text-decoration: none;
+  position: relative;
+}
+
+.Navigation .NavigationWrapper .Right .Register a .ProfilePicture,
+.Navigation .NavigationWrapper .Right .Login a .ProfilePicture {
+  position: absolute;
+  top: -260%;
+  right: 5%;
+  width: 5.1rem;
+  height: 5.1rem;
+  border-radius: 50%;
+}
+
+.Navigation .NavigationWrapper .Right .Register {
+  background-color: #F6F8F9;
+  padding: 1.3rem 2.25rem 1.48rem 2.55rem;
+  border-radius: 2.2rem;
+  margin-right: 2.7rem;
+}
+
+.Navigation .NavigationWrapper .Right .Languages {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 2rem;
+  margin-left: 2.86rem;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .Navigation .NavigationWrapper {
+    width: 95%;
+  }
+}
+/*# sourceMappingURL=navigation.module.css.map */

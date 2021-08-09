@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+ul .flat {
+  flex: 0 0 48%;
+  background-color: #FFFFFF;
+  margin-bottom: 2rem;
+  background-clip: border-box;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
+  margin: 0 2.8rem 2.4rem 0;
+}
+
+ul .flat:nth-child(2n+2) {
+  margin-right: 0;
+}
+
+ul .flat .flatContent .infoContainer {
+  padding: 0 1.57rem 1.6rem 1.76rem;
+  position: relative;
+}
+
+ul .flat .flatContent .infoContainer .info .ratingsContainer {
+  display: flex;
+  align-items: center;
+  font-size: 1.9rem;
+}
+
+ul .flat .flatContent .infoContainer .info .ratingsContainer .ratings {
+  display: flex;
+  align-items: center;
+  margin-right: 0.99rem;
+}
+
+ul .flat .flatContent .infoContainer .info .ratingsContainer .ratings img {
+  width: 2.1rem;
+  height: 2.2rem;
+  margin-right: 0.58rem;
+}
+
+ul .flat .flatContent .infoContainer .info .ratingsContainer .ratings span {
+  line-height: 4.9rem;
+  font-weight: bold;
+}
+
+ul .flat .flatContent .infoContainer .info .ratingsContainer .reviews {
+  color: #92979D;
+  line-height: 2.7rem;
+}
+
+ul .flat .flatContent .infoContainer .info .apartamentType {
+  font-size: 2rem;
+  line-height: 2.6rem;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  margin-bottom: 0.75rem;
+}
+
+ul .flat .flatContent .infoContainer .info .AdditionalInfo {
+  color: #909090;
+  font-size: 2rem;
+  line-height: 2.6rem;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  margin-bottom: 1.14rem;
+  margin-top: 1.5rem;
+}
+
+ul .flat .flatContent .infoContainer .info .priceBtnContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+ul .flat .flatContent .infoContainer .info .priceBtnContainer .priceContainer {
+  display: flex;
+  font-size: 1.9rem;
+  margin-left: 0.14rem;
+}
+
+ul .flat .flatContent .infoContainer .info .priceBtnContainer .priceContainer .price {
+  margin-right: 1.93rem;
+}
+
+ul .flat .flatContent .infoContainer .info .priceBtnContainer .priceContainer .price span {
+  font-size: 2.7rem;
+  font-weight: bold;
+}
+
+ul .flat .flatContent .infoContainer .info .priceBtnContainer .priceContainer .totalPrice {
+  line-height: 2.7rem;
+  color: #92979D;
+}
+
+ul .flat .flatContent .flatImg {
+  width: 100%;
+  position: relative;
+}
+
+ul .flat .flatContent .flatImg .likeContainer {
+  position: absolute;
+  right: 2.5rem;
+  top: 2.5rem;
+  z-index: 1;
+  cursor: pointer;
+}
+
+ul .flat .flatContent .flatImg .likeContainer .likeHover {
+  display: none;
+  width: 2.7rem;
+  height: 2.1rem;
+  padding: 0.3rem;
+}
+
+ul .flat .flatContent .flatImg .likeContainer .like {
+  width: 2.7rem;
+  height: 2.1rem;
+  padding: 0.3rem;
+}
+
+ul .flat .flatContent .flatImg .likeContainer:hover .like {
+  display: none;
+}
+
+ul .flat .flatContent .flatImg .likeContainer:hover .likeHover {
+  display: block;
+}
+
+ul .flat .flatContent .flatImg .badgeInImage {
+  position: absolute;
+  bottom: 1.21rem;
+  right: 1.57rem;
+  z-index: 1;
+}
+
+ul .flat .flatContent .flatImg .badgeInContent {
+  position: absolute;
+  margin-top: 1.35rem;
+  right: 1.57rem;
+  z-index: 1;
+}
+/*# sourceMappingURL=Flat.module.css.map */

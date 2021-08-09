@@ -1,0 +1,41 @@
+.Routes {
+  display: block;
+  width: 60%;
+  flex-grow: 2;
+}
+
+.Routes ul {
+  display: flex;
+}
+
+.Routes ul li {
+  margin-right: 3rem;
+}
+
+.Routes ul li a {
+  font-family: Work Sans, sans-serif;
+  text-decoration: none;
+  color: #717171;
+  font-size: 1.6rem;
+  line-height: 5rem;
+}
+
+.Routes ul li a:hover {
+  color: #4D94E8;
+}
+
+@media (max-width: 800px) {
+  .Routes ul li {
+    margin-right: 2rem;
+  }
+  .Routes ul li a {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .Routes {
+    display: none;
+  }
+}
+/*# sourceMappingURL=NavRoutes.module.css.map */

@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AACA,AACE,MADI,CACJ,EAAE,CAAC;EACD,KAAK,ECaG,OAAO;EDZf,SAAS,ECqBG,MAAM;EDpBlB,UAAU,EAAE,MAAM;EAClB,MAAM,EAAE,SAAS;EACjB,WAAW,ECuCI,IAAI;CDtCpB",
+    "sources": [
+        "Locks.module.scss",
+        "../../styles/global.scss"
+    ],
+    "names": [],
+    "file": "Locks.module.css"
+}

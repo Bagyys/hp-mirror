@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,YAAY,CAAC;EACX,aAAa,EAAE,MAAM;EACrB,SAAS,ECyBK,MAAM;CDnBrB;;AARD,AAGE,YAHU,CAGV,CAAC,CAAC;EACA,KAAK,ECUG,OAAO;EDTf,eAAe,EAAE,IAAI;EACrB,WAAW,ECyDJ,SAAS,EAAE,KAAK,EAAE,UAAU;CDxDpC",
+    "sources": [
+        "BreadCrums.module.scss",
+        "../../styles/global.scss"
+    ],
+    "names": [],
+    "file": "BreadCrums.module.css"
+}

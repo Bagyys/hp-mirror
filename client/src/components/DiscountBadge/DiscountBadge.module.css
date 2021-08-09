@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+.badge {
+  font-size: 2.1rem;
+  font-weight: bold;
+  line-height: 3.5rem;
+  border-radius: 2.2rem;
+  width: 6.4rem;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 0.69rem;
+  position: relative;
+  cursor: context-menu;
+}
+
+.badge5:hover:after {
+  content: attr(data-title);
+  font-size: 1.9rem;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #717171;
+  line-height: 2.7rem;
+  font-weight: 400;
+  position: absolute;
+  background-color: White;
+  border-radius: 1.9rem;
+  top: -5.2rem;
+  right: -6.4rem;
+  width: max-content;
+  padding: 0.78rem 1.4rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.badge5:hover:before {
+  content: '';
+  width: 1.7rem;
+  height: 1.7rem;
+  background-color: #FFFFFF;
+  position: absolute;
+  top: -1.9rem;
+  right: 2.7rem;
+  transform: rotate(45deg);
+  z-index: 1;
+}
+
+.badge20:hover:after {
+  content: attr(data-title);
+  font-size: 1.9rem;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #717171;
+  line-height: 2.7rem;
+  font-weight: 400;
+  position: absolute;
+  background-color: White;
+  border-radius: 1.9rem;
+  top: -5.2rem;
+  right: -10.4rem;
+  width: max-content;
+  padding: 0.78rem 1.4rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.badge20:hover:before {
+  content: '';
+  width: 1.7rem;
+  height: 1.7rem;
+  background-color: #FFFFFF;
+  position: absolute;
+  top: -1.9rem;
+  right: 2.7rem;
+  transform: rotate(45deg);
+  z-index: 1;
+}
+
+.white {
+  background-color: white;
+  color: #343638;
+}
+
+.orange {
+  background-color: #ffc96c;
+  color: #343638;
+}
+
+.blue {
+  border: 1px solid #4D94E8;
+  color: #4D94E8;
+}
+
+.red {
+  background-color: #ff4d4d;
+  color: #FFFFFF;
+}
+
+.green {
+  color: #FFFFFF;
+  background-color: #2da348;
+}
+/*# sourceMappingURL=DiscountBadge.module.css.map */

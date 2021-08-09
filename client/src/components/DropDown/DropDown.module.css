@@ -1,0 +1,95 @@
+.ddWrapper {
+  background-color: #FFFFFF;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  position: relative;
+  border-radius: 4px;
+  font-family: Helvetica, Arial, sans-serif;
+  margin-right: 1rem;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.ddWrapper .ddList {
+  position: absolute;
+  top: 142%;
+  left: 0;
+  background-color: #FFFFFF;
+  border: 1px solid #ccc;
+  z-index: 99;
+  box-shadow: 0 6px 6px rgba(10, 16, 20, 0.15), 0 0 52px rgba(10, 16, 20, 0.12);
+  border: 0;
+}
+
+.ddWrapper .ddList .inputs {
+  padding: 1.5rem;
+}
+
+.ddWrapper .ddList .inputs input {
+  padding: 1rem;
+  font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  margin-bottom: 0.2rem;
+}
+
+.ddWrapper .ddList .inputs input::-webkit-outer-spin-button, .ddWrapper .ddList .inputs input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ddWrapper .ddList .inputs span {
+  margin: 0 1rem;
+}
+
+.ddWrapper .ddList .list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ddWrapper .ddList .list .Active {
+  background-color: #4D94E8;
+  color: #FFFFFF;
+}
+
+.ddWrapper .ddList .list .ddItem {
+  margin: 1rem;
+}
+
+.ddWrapper .ddList .list li {
+  white-space: nowrap;
+  width: 100%;
+  font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #717171;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.ddWrapper .ddList .list li:hover {
+  background-color: #189ed9;
+  color: #FFFFFF;
+}
+
+.ddWrapper .ddList .list li label {
+  margin-left: 0.5rem;
+}
+
+.ddWrapper .ddHeader {
+  cursor: pointer;
+}
+
+.ddWrapper .ddHeader:focus {
+  outline: none;
+}
+
+.ddWrapper .ddHeader .ddHeaderTitle p {
+  font-size: 1.6rem;
+  margin-right: 0.5rem;
+}
+
+.ddWrapper .ddHeader .ddHeaderAction .ArrowClose {
+  transform: rotate(180deg);
+}
+/*# sourceMappingURL=DropDown.module.css.map */

@@ -1,0 +1,37 @@
+.PastReservation {
+  font-size: 25px;
+}
+
+.PastReservation .Preview h3 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin: 1rem;
+}
+
+.PastReservation .Preview p {
+  font-size: 2.5rem;
+  margin: 0.5rem 1rem;
+  line-height: 1.5;
+}
+
+.PastReservation .Preview:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+.PastReservation .FullView button {
+  background-color: blue;
+  color: white;
+  margin: 10px;
+  padding: 5px 10px;
+}
+
+.PastReservation .FullView button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.PastReservation .FullView button.delete {
+  background-color: #421616;
+}
+/*# sourceMappingURL=PastReservation.module.css.map */

@@ -1,0 +1,26 @@
+.Login button {
+  margin: 0 1rem;
+  top: 1.2rem;
+  right: 5.5rem;
+  text-align: center;
+  color: white;
+  max-width: 22rem;
+  background-color: #4D94E8;
+  border-radius: 1rem;
+  min-width: 11.5rem;
+  min-height: 3.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-style: Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  font-size: 1.4rem;
+  padding: 0.8em 2em;
+  margin: 1rem 0;
+}
+
+.Login button:hover {
+  background-color: #4D94E8;
+}
+/*# sourceMappingURL=Login.module.css.map */

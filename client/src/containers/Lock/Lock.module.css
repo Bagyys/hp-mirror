@@ -1,0 +1,29 @@
+.Lock {
+  font-size: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 30px;
+}
+
+.Lock .LockInfo,
+.Lock .Buttons {
+  margin: 3px 30px;
+}
+
+.Lock .Buttons button {
+  background-color: blue;
+  color: white;
+  margin: 10px;
+  padding: 5px 10px;
+}
+
+.Lock .Buttons button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.Lock .Buttons button.delete {
+  background-color: #421616;
+}
+/*# sourceMappingURL=Lock.module.css.map */

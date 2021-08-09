@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+.paginationContainer {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  margin-top: 6.22rem;
+  margin-bottom: 9.1rem;
+}
+
+.paginationContainer .paginationItem {
+  padding: .25rem .9rem;
+  text-align: center;
+  margin-right: 3.1rem;
+  color: #343638;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  line-height: 2.4rem;
+  font-size: 2rem;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  border-radius: 50%;
+}
+
+.paginationContainer .paginationItem.dots:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+.paginationContainer .paginationItem:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+
+.paginationContainer .paginationItem.selected {
+  background-color: #202124;
+  color: #FFFFFF;
+}
+/*# sourceMappingURL=Pagination.module.css.map */

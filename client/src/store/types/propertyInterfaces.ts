@@ -14,8 +14,16 @@ export interface PropertyInterface {
   occupiedTime: Array<OccupiedDayInterface>;
   ratings: Array<RatingInterface>;
   overallRating: number;
+  discount:DiscountInterface; //Dizainui del discount badge
   ratingsCount: number;
   createdAt: Date;
+}
+
+export interface DiscountInterface {
+    more1Week:boolean;
+    more1Month:boolean;
+    badgeColor:string;
+    inContent:boolean;
 }
 
 export interface RatingInterface {

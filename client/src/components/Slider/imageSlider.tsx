@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
-import "./imageSlider.scss";
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
+
+import './imageSlider.scss';
 
 interface sliderInterface {
   slides: any;
@@ -28,19 +29,20 @@ const ImageSlider = ({ slides }: sliderInterface) => {
       <MdKeyboardArrowLeft
         className="left-arrow"
         onClick={prevSlide}
-        color="white"
+        color="#202124"
         size="4em"
       />
       <MdKeyboardArrowRight
         className="right-arrow"
         onClick={nextSlide}
-        color="white"
+        color="#202124"
         size="4em"
       />
+
       {slides.map((slide, index) => {
         return (
           <div
-            className={index === current ? "slide active" : "slide"}
+            className={index === current ? `slide active` : `slide`}
             key={index}
           >
             {index === current && (

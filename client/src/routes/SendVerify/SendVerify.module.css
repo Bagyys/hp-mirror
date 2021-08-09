@@ -1,0 +1,50 @@
+.sendVerifyContainer {
+  margin: 27vh auto;
+  width: 50%;
+}
+
+.sendVerifyContainer .sendVerifyWrapper {
+  border: 0.2rem solid #eaeaea;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sendVerifyContainer .sendVerifyWrapper h1 {
+  font-size: 2rem;
+  padding: 1.5rem;
+}
+
+.sendVerifyContainer .sendVerifyWrapper p {
+  font-size: 1.5rem;
+  padding: 1.5rem;
+}
+
+.sendVerifyContainer .sendVerifyWrapper button {
+  margin: 0 1rem;
+  top: 1.2rem;
+  right: 5.5rem;
+  text-align: center;
+  color: white;
+  max-width: 22rem;
+  background-color: #4D94E8;
+  border-radius: 1rem;
+  min-width: 11.5rem;
+  min-height: 3.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-style: Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  font-size: 1.4rem;
+  padding: 0.8em 2em;
+  margin: 1rem 0;
+}
+
+.sendVerifyContainer .sendVerifyWrapper button:hover {
+  background-color: #4D94E8;
+}
+/*# sourceMappingURL=SendVerify.module.css.map */

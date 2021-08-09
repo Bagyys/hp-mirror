@@ -1,0 +1,74 @@
+.Filter {
+  padding: 1.5rem;
+  border-bottom: 1px solid #cacaca;
+}
+
+.Filter .FilterWrapper {
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.Filter .FilterWrapper .SearchInputs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Filter .FilterWrapper .SearchInputs .input {
+  position: relative;
+  margin-right: 3%;
+}
+
+.Filter .FilterWrapper .SearchInputs .input input {
+  color: #4c4c4c;
+  border: 1px solid #ccc;
+  padding: 1.4rem 20rem 1rem 1rem;
+  border-radius: 5px;
+}
+
+.Filter .FilterWrapper .SearchInputs .input input::placeholder {
+  text-align: left;
+}
+
+.Filter .FilterWrapper .SearchInputs .input img {
+  position: absolute;
+  top: 25%;
+  right: 5%;
+}
+
+.Filter .FilterWrapper .SearchInputs .optionButtons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Filter .FilterWrapper .SearchInputs .optionButtons div {
+  display: flex;
+}
+
+.Filter .FilterWrapper .Sorting {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.Filter .FilterWrapper .Sorting .Sort {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.Filter .FilterWrapper .Sorting .Save {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.Filter .FilterWrapper .Sorting .Save p {
+  margin-right: 0.5rem;
+  color: #4D94E8;
+  font-size: 1.6rem;
+}
+/*# sourceMappingURL=filter.module.css.map */

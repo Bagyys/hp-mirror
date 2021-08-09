@@ -1,0 +1,37 @@
+.MainImage {
+  width: 50%;
+  margin-right: 4px;
+}
+
+.MainImage img {
+  width: 100%;
+  height: 604px;
+}
+
+.OtherImages {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.OtherImages .firstColumn {
+  width: 50%;
+  margin-right: 4px;
+}
+
+.OtherImages .firstColumn img {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 2px;
+}
+
+.OtherImages .secondColumn {
+  width: 50%;
+}
+
+.OtherImages .secondColumn img {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 2px;
+}
+/*# sourceMappingURL=defaultSlide.module.css.map */

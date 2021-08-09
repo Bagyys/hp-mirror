@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { StoreState } from "../../store/configureStore";
-import { userState } from "../../store/reducers/userReducer";
+import { StoreState } from '../../store/configureStore';
+import { userState } from '../../store/reducers/userReducer';
 // import { errorState } from "../../store/reducers/errorReducer";
-import { loadUser, logoutAction } from "../../store/actions/userActions";
-import FavoriteImg from "../../assets/images/Favorite.svg";
-import GuideImg from "../../assets/images/Guide.svg";
-import BurgerMenu from "../../assets/images/menu.png";
-import LogoImg from "../../assets/images/Logo.svg";
-import userImg from "../../assets/images/Profile.svg";
-import UserPic from "../../assets/images/UserPicture.svg";
-import logout from "../../assets/images/logout.png";
-import register from "../../assets/images/register.png";
-import NavRoutes from "./NavRoutes/NavRoutes";
-import Backdrop from "../Backdrop/Backdrop";
-import searchImg from "../../assets/images/Search.svg";
-import classes from "./navigation.module.scss";
+import { loadUser, logoutAction } from '../../store/actions/userActions';
+import FavoriteImg from '../../assets/images/Favorite.svg';
+import GuideImg from '../../assets/images/Guide.svg';
+import BurgerMenu from '../../assets/images/menu.png';
+import LogoImg from '../../assets/images/Logo.svg';
+import userImg from '../../assets/images/Profile.svg';
+import UserPic from '../../assets/images/UserPicture.svg';
+import logout from '../../assets/images/logout.png';
+import register from '../../assets/images/register.png';
+import NavRoutes from './NavRoutes/NavRoutes';
+import Backdrop from '../Backdrop/Backdrop';
+import searchImg from '../../assets/images/Search.svg';
+import classes from './navigation.module.scss';
 
 const Navigation = () => {
   const dispatch = useDispatch();
