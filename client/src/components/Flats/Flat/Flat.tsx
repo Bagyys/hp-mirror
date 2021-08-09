@@ -1,5 +1,5 @@
 import classes from './Flat.module.scss';
-import Slider from '../../Slider/imageSlider';
+import ImageSlider from '../../Slider/ImageSlider';
 import Button from '../../Button/button';
 import DiscountBadge from '../../DiscountBadge/DiscountBadge';
 
@@ -27,7 +27,7 @@ const Flat = ({ property }: { property: PropertyInterface }) => {
     >
       <div className={classes.FlatContent}>
         <div className={classes.FlatImg}>
-          <Slider slides={property.images} />
+          <ImageSlider slides={property.images} />
           <div onClick={like} className={classes.LikeContainer}>
             <img className={classes.Like} src={likeHeart} />
             <img className={classes.LikeHover} src={likeHeartHover} />

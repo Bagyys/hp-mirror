@@ -48,4 +48,12 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.FlatsContainer h2 {
+  font-size: 3.3rem;
+  font-weight: bold;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  line-height: 2.6rem;
+  margin-bottom: 2.23rem;
+}
 /*# sourceMappingURL=Flats.module.css.map */

@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.Slider .slider .slider-control-bottomcenter .paging-item {
+  font-size: 1000px !important;
+}
+
 .Slider img {
   border-radius: 1rem 1rem 0 0;
   width: 100%;
@@ -37,4 +41,4 @@
   visibility: visible;
   opacity: 1;
 }
-/*# sourceMappingURL=imageSlider.css.map */
+/*# sourceMappingURL=ImageSlider.module.css.map */

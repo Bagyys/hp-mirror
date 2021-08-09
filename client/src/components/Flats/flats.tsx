@@ -101,6 +101,7 @@ const Flats: React.FC = () => {
         pageSize={PageSize}
         onPageChange={(page) => setCurrentPage(page)}
       />
+      <h2>Recently viewed</h2>
       {recentlyViewPropertiesRender}
     </div>
   );

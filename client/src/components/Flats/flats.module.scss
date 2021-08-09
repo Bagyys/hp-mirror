@@ -40,4 +40,11 @@
         display:flex;
         flex-wrap: wrap;
     }
+    h2{
+        font-size: $fontSize33px;
+        font-weight: $font-Weight-bold;
+        font-family: $helveticaNeue;
+        line-height: $lineHeight26px;
+        margin-bottom: 2.23rem;
+    }
 }

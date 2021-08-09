@@ -185,6 +185,17 @@ table {
 /* Calendar overwrite css */
 @import url('./styles/calendar-overwrite-style.css');
 
+/*slider css*/
+.active .paging-dot {
+  width: 15px;
+  height: 15px;
+}
+
+.active .paging-dot > circle {
+  r: 4px;
+  cx: 8px;
+  cy: 9px;
+}
 /* * {
   background: #000 !important;
   color: #0f0 !important;
