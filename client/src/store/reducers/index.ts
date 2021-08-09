@@ -7,7 +7,7 @@ import bookingReducer from "./bookingReducer";
 import errorReducer from "./errorReducer";
 import reservationReducer from "./reservationReducer";
 import propertyReducer from "./propertyReducer";
-
+import mainPageReducer from "./mainPageReducer";
 export default combineReducers({
   booking: bookingReducer,
   error: errorReducer,
@@ -16,4 +16,5 @@ export default combineReducers({
   router: routerReducer,
   property: propertyReducer,
   user: userReducer,
+  mainPage: mainPageReducer,
 });
