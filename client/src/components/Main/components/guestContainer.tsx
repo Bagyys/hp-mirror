@@ -1,7 +1,10 @@
 import classes from "../main.module.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setNumberOfAdultsAndChildren } from "../../../store/actions/mainPageActions";
 
 function GuestContainer() {
+  const dispatch = useDispatch();
   const [numberOfChildren, setNumberOfChildren] = useState<number>(0);
   const [numberOfAdults, setNumberOfAdults] = useState<number>(0);
 
@@ -12,6 +15,10 @@ function GuestContainer() {
       setNumberOfAdults(numberOfAdults + 1);
     }
   };
+
+  useEffect(() => {
+    dispatch(setNumberOfAdultsAndChildren(numberOfAdults, numberOfChildren));
+  }, [numberOfChildren, numberOfAdults]);
 
   const decrement = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === "children") {

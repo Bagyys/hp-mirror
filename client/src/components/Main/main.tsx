@@ -1,8 +1,6 @@
 import classes from "./main.module.scss";
 import logo from "../../assets/images/Logo.svg";
-import React, { useEffect, useState } from "react";
-import { DateRange, OnChangeProps } from "react-date-range";
-import moment from "moment";
+import React, { useState } from "react";
 import GuestContainer from "./components/guestContainer";
 import Title from "./components/titleContainer";
 import SearchProgress from "./components/searchProgression";
@@ -10,7 +8,7 @@ import SearchType from "./components/searchType";
 import Calendar from "./components/calendar";
 import { useSelector } from "react-redux";
 import { StoreState } from "../../store/configureStore";
-
+import Anytime from "./components/anytime";
 interface CustomRange {
   startDate: Date;
   endDate: Date;
@@ -55,7 +53,7 @@ function Main() {
             ) : null}
           </React.Fragment>
         ) : (
-          <div>AnyTime</div>
+          <Anytime />
         )}
       </div>
     </div>

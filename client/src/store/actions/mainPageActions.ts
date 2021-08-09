@@ -14,6 +14,10 @@ export interface MainPageInterface {
     startDate: Date;
     endDate: Date;
     proceedToGuests: boolean;
+    guests: {
+      adults: number;
+      children: number;
+    };
   };
 }
 
@@ -45,6 +49,20 @@ export const setProceedToGuests =
       type: mainPageTypes.PROCEED_TO_GUESTS,
       payload: {
         proceedToGuests,
+      },
+    });
+  };
+
+export const setNumberOfAdultsAndChildren =
+  (adults: number, children: number) => (dispatch: Dispatch) => {
+    const guests = {
+      adults,
+      children,
+    };
+    dispatch({
+      type: mainPageTypes.NUMBER_OF_GUESTS,
+      payload: {
+        guests,
       },
     });
   };

@@ -4,12 +4,20 @@ export interface InitialState {
   startDate?: Date;
   endDate?: Date;
   proceedToGuests: boolean;
+  guests: {
+    adults: number;
+    children: number;
+  };
 }
 
 const initialState: InitialState = {
   startDate: undefined,
   endDate: undefined,
   proceedToGuests: false,
+  guests: {
+    adults: 0,
+    children: 0,
+  },
 };
 
 const mainPageReducer = (state = initialState, action: MainPageInterface) => {
@@ -24,11 +32,16 @@ const mainPageReducer = (state = initialState, action: MainPageInterface) => {
         ...state,
         endDate: action.payload.endDate,
       };
-      case mainPageTypes.PROCEED_TO_GUESTS:
-        return {
-          ...state,
-          proceedToGuests: action.payload.proceedToGuests,
-        };
+    case mainPageTypes.PROCEED_TO_GUESTS:
+      return {
+        ...state,
+        proceedToGuests: action.payload.proceedToGuests,
+      };
+    case mainPageTypes.NUMBER_OF_GUESTS:
+      return {
+        ...state,
+        guests: action.payload.guests,
+      };
     default:
       return state;
   }

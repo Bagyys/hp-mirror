@@ -26,11 +26,8 @@ function Calendar() {
     }
   }, [mainPage.startDate, mainPage.endDate]);
 
-  const hourlyCheckArray: Array<Date> = [];
-
   const handleRange = (item: any) => {
     // TODO: solve typescript conflict
-
     dispatch(setStartDateAction(item.selection.startDate));
     if (item.selection.startDate !== item.selection.endDate) {
       dispatch(setEndDateAction(item.selection.endDate));
@@ -50,7 +47,6 @@ function Calendar() {
         }}
         moveRangeOnFirstSelection={false}
         ranges={range}
-        disabledDates={hourlyCheckArray}
         weekStartsOn={1}
         weekdayDisplayFormat="EEEEEE"
         showMonthAndYearPickers={false}

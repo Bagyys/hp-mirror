@@ -7,13 +7,13 @@ import { useSelector } from "react-redux";
 
 interface searchProgressionProps {
   isSearching: boolean;
-  startDate?: Date;
-  endDate?: Date;
   changeSearch: () => void;
 }
 
 function SearchProgress(props: searchProgressionProps) {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
+  const adults = mainPage.guests.adults;
+  const children = mainPage.guests.children;
   const [appState, changeState] = useState<any>({
     activeObject: null,
 
@@ -21,7 +21,7 @@ function SearchProgress(props: searchProgressionProps) {
       {
         id: 1,
         title: "Check in",
-        text: mainPage.startDate,
+        text: moment(mainPage.startDate).format("MMM Do"),
       },
       {
         id: 2,
@@ -34,7 +34,7 @@ function SearchProgress(props: searchProgressionProps) {
 
   let checkInText: string;
   let checkOUtText: string;
-
+  let guests: string;
   if (mainPage.startDate) {
     checkInText = moment(mainPage.startDate).format("MMM Do");
   } else {
@@ -47,6 +47,12 @@ function SearchProgress(props: searchProgressionProps) {
     checkOUtText = "add date";
   }
 
+  if (adults > 0 || children > 0) {
+    guests = `${adults} A ${children} C`;
+  } else {
+    guests = "add guests";
+  }
+
   useEffect(() => {
     changeState({
       activeObject: null,
@@ -54,10 +60,10 @@ function SearchProgress(props: searchProgressionProps) {
       objects: [
         { id: 1, title: "Check in", text: checkInText },
         { id: 2, title: "Check out", text: checkOUtText },
-        { id: 3, title: "Guests", text: "add dates" },
+        { id: 3, title: "Guests", text: guests },
       ],
     });
-  }, [mainPage.startDate, mainPage.endDate]);
+  }, [mainPage.startDate, mainPage.endDate, adults, children]);
 
   const toggleActive = (index: number) => {
     if (index === 0) {
@@ -99,6 +105,7 @@ function SearchProgress(props: searchProgressionProps) {
       }
     >
       {appState.objects.map((element: any, index: number) => {
+        console.log(element.text, "KAS PER TEXT?");
         return (
           <div
             key={index}
