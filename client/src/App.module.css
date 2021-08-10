@@ -1,0 +1,20 @@
+.App {
+  max-width: 192rem;
+  margin: 0 auto;
+}
+
+.App .contentBox {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.App .Locks {
+  display: block;
+}
+
+.App .Locks h1 {
+  font-size: 35px;
+}
+/*# sourceMappingURL=App.module.css.map */

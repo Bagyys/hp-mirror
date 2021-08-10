@@ -1,23 +1,36 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+import { useEffect, useState, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
-import { StoreState } from "../../store/configureStore";
-import { PropertyState } from "../../store/reducers/propertyReducer";
-import { ErrorState } from "../../store/reducers/errorReducer";
-import { PropertyInterface } from "../../store/types/propertyInterfaces";
-import { getAllPropertiesAction } from "../../store/actions/propertyActions";
-import { clearErrorAction } from "../../store/actions/errorActions";
+import { StoreState } from '../../store/configureStore';
+import { PropertyState } from '../../store/reducers/propertyReducer';
+import { ErrorState } from '../../store/reducers/errorReducer';
+import { PropertyInterface } from '../../store/types/propertyInterfaces';
+import { getAllPropertiesAction } from '../../store/actions/propertyActions';
+import { clearErrorAction } from '../../store/actions/errorActions';
 
-import Slider from "../Slider/imageSlider";
-import newImg from "../../assets/images/flash.png";
-import phoneImg from "../../assets/images/phone.png";
-import LikeImg from "../../assets/images/like.png";
+import classes from './Flats.module.scss';
 
-import classes from "./flats.module.scss";
+import filterImg from '../../assets/images/filter.png';
+import Flat from './Flat/Flat';
+import Pagination from '../Pagination/Pagination';
+
+import { fakeData } from '../../fakeData/data';
+
+const PageSize = 6;
 
 const Flats: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const currentTableData = useMemo(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return fakeData.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
   const dispatch = useDispatch();
 
   const propertyStore: PropertyState = useSelector(
@@ -42,111 +55,56 @@ const Flats: React.FC = () => {
     if (error) {
       Swal.fire({
         title: error,
-        text: "Please try again",
-        icon: "warning",
+        text: 'Please try again',
+        icon: 'warning',
         showCancelButton: false,
-        confirmButtonText: "OK",
+        confirmButtonText: 'OK',
       }).then(() => {
         handleError();
       });
     }
   }, [error]);
 
-  const boxNew = (
-    <div className={classes.NEW}>
-      <img src={newImg} alt="New!" />
-      <p>New</p>
-    </div>
-  );
-
-  const like = () => {
-    alert("Successfully added to favorites");
-  };
-
   let propertiesRender = <></>;
   if (properties) {
     propertiesRender = (
-      <ul>
-        {properties.map((property: PropertyInterface, index: number) => {
-          return (
-            <li className={classes.flat} key={index}>
-              <div className={classes.aboutFlat}>
-                <div className={classes.TitleAndAddress}>
-                  <h1>{property.title}</h1>
-                  <p>
-                    {property.location.addressString1}, {property.location.city}
-                    , {property.location.zipcode} {property.location.country}
-                  </p>
-                </div>
-
-                <div className={classes.LogoSide}>
-                  <a
-                    href="https://booking.com"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <img src="" alt="Flat-Logo" />
-                  </a>
-                  <div className={classes.toFavorites}>
-                    <img src={LikeImg} alt="Favorites" onClick={() => like()} />
-                  </div>
-                </div>
-              </div>
-              <div className={classes.flatContent}>
-                <div className={classes.flatImg}>
-                  <Slider slides={property.images} />
-                </div>
-                <div className={classes.rightSide}>
-                  <div className={classes.top}>
-                    {boxNew}
-                    <p>1 Month Free Rent</p>
-                  </div>
-                  <div className={classes.SpecInfo}>
-                    <h2 className={classes.price}>{property.price.daily}€</h2>
-                    <h2 className={classes.beds}>
-                      {property.type} - {property.facilities.beds} Beds
-                    </h2>
-                    <h2>Avail. Now</h2>
-                    <p className={classes.AdditionalInfo}>
-                      {property.facilities.airConditioning
-                        ? "Air Conditioning, "
-                        : null}
-                      {property.facilities.washingMachine
-                        ? "Washer/Dryer - In Unit, "
-                        : null}
-                      {property.facilities.disabilityAccess
-                        ? "Wheelchair Access, "
-                        : null}
-                      {property.facilities.parking ? "Parking, " : null}
-                      {property.facilities.petFriendly
-                        ? "Pet Friendly, "
-                        : null}
-                    </p>
-                    <a className={classes.Phone} href="tel:847-440-3110">
-                      <img src={phoneImg} alt="Flat-Phone-Number" />
-                      {/* {property.phone} */}
-                      +370 655 12345
-                    </a>
-                    <button>
-                      <Link
-                        to={{
-                          pathname: `/flat/${property._id}`,
-                          state: { property: property },
-                        }}
-                      >
-                        Check Availability
-                      </Link>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-          );
-        })}
+      <ul className={classes.FlatsListConatiner}>
+        {currentTableData.map((property: PropertyInterface, index: number) => (
+          <Flat key={index} property={property} />
+        ))}
       </ul>
     );
   }
-  return <div className={classes.Flats}>{propertiesRender}</div>;
+  let recentlyViewPropertiesRender = <></>;
+  const recentlyView = fakeData.slice(-2); //tiesiog isvedu paskutinius apartamentus
+  if (recentlyView) {
+    recentlyViewPropertiesRender = (
+      <ul className={classes.FlatsListConatiner}>
+        {recentlyView.map((property: PropertyInterface, index: number) => (
+          <Flat key={index} property={property} />
+        ))}
+      </ul>
+    );
+  }
+  return (
+    <div className={classes.FlatsContainer}>
+      <div className={classes.FlatsContainerNav}>
+        <div className={classes.FilterContainer}>
+          <img src={filterImg} />
+        </div>
+        <p>{fakeData.length} results</p>
+      </div>
+      {propertiesRender}
+      <Pagination
+        currentPage={currentPage}
+        totalCount={fakeData.length}
+        pageSize={PageSize}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
+      <h2>Recently viewed</h2>
+      {recentlyViewPropertiesRender}
+    </div>
+  );
 };
 
 export default Flats;

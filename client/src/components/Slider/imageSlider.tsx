@@ -1,54 +1,46 @@
-import { useState } from "react";
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
+import Carousel from 'nuka-carousel';
+import { cn } from '../../utilities/joinClasses';
+import classes from './ImageSlider.module.scss';
 
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
-import "./imageSlider.scss";
-
-interface sliderInterface {
-  slides: any;
+interface SliderProps {
+  slides: Array<string>;
 }
 
-const ImageSlider = ({ slides }: sliderInterface) => {
-  const [current, setCurrent] = useState(0);
-  const length = slides.length;
-
-  const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
-  };
-
-  const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
-
-  if (!Array.isArray(slides) || slides.length <= 0) {
-    return null;
-  }
-
+const ImageSlider: React.FC<SliderProps> = ({ slides }) => {
   return (
-    <section className="slider">
-      <MdKeyboardArrowLeft
-        className="left-arrow"
-        onClick={prevSlide}
-        color="white"
-        size="4em"
-      />
-      <MdKeyboardArrowRight
-        className="right-arrow"
-        onClick={nextSlide}
-        color="white"
-        size="4em"
-      />
-      {slides.map((slide, index) => {
-        return (
-          <div
-            className={index === current ? "slide active" : "slide"}
-            key={index}
-          >
-            {index === current && (
-              <img src={slide} alt="Images" className="image" />
-            )}
-          </div>
-        );
-      })}
+    <section className={classes.Slider}>
+      <Carousel
+        slideWidth={1.005}
+        dragging={true}
+        renderCenterRightControls={({ nextSlide }) => (
+          <MdKeyboardArrowRight
+            onClick={nextSlide}
+            color="#202124"
+            size="4em"
+            className={cn(classes.Arrow, classes.Right)}
+          />
+        )}
+        renderCenterLeftControls={({ previousSlide }) => (
+          <MdKeyboardArrowLeft
+            onClick={previousSlide}
+            color="#202124"
+            size="4em"
+            className={cn(classes.Arrow, classes.Left)}
+          />
+        )}
+        defaultControlsConfig={{
+          pagingDotsStyle: {
+            fill: 'white',
+            opacity: 1,
+          },
+        }}
+        wrapAround={true}
+      >
+        {slides.map((slide, index) => (
+          <img key={index} src={slide} />
+        ))}
+      </Carousel>
     </section>
   );
 };

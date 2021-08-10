@@ -1,0 +1,222 @@
+.CustomDropDown {
+  width: 600px;
+  background-color: #f6f7fb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.CustomDropDown .Baths {
+  display: flex;
+  flex-direction: column;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
+
+.CustomDropDown .Baths .bathsTitle {
+  padding: 1rem 2rem;
+}
+
+.CustomDropDown .Baths .Bathrooms {
+  background-color: #FFFFFF;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.CustomDropDown .Baths .Bathrooms div {
+  align-items: center;
+  width: 45%;
+  padding: 1rem;
+}
+
+.CustomDropDown .Baths .Bathrooms div label {
+  margin-left: 0.5rem;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  color: #4c4c4c;
+}
+
+.CustomDropDown .Amenities {
+  display: flex;
+  flex-direction: column;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
+
+.CustomDropDown .Amenities .amenitiesTitle {
+  padding: 1rem 2rem;
+}
+
+.CustomDropDown .Amenities .amenitiesBox {
+  display: flex;
+  background-color: #FFFFFF;
+  flex-wrap: wrap;
+}
+
+.CustomDropDown .Amenities .amenitiesBox div {
+  align-items: center;
+  padding: 1rem;
+  width: 45%;
+}
+
+.CustomDropDown .Amenities .amenitiesBox div label {
+  margin-left: 0.5rem;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  color: #4c4c4c;
+}
+
+.CustomDropDown .Affordability {
+  display: flex;
+  flex-direction: column;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
+
+.CustomDropDown .Affordability .AffordabilityTitle {
+  padding: 1rem 2rem;
+}
+
+.CustomDropDown .Affordability .affordabilityBox {
+  display: flex;
+  background-color: #FFFFFF;
+  flex-wrap: wrap;
+}
+
+.CustomDropDown .Affordability .affordabilityBox div {
+  align-items: center;
+  padding: 1rem;
+  width: 45%;
+}
+
+.CustomDropDown .Affordability .affordabilityBox div label {
+  margin-left: 0.5rem;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  color: #4c4c4c;
+}
+
+.CustomDropDown .Keywords {
+  display: flex;
+  flex-direction: column;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
+
+.CustomDropDown .Keywords .keywordsTitle {
+  padding: 1rem 2rem;
+}
+
+.CustomDropDown .Keywords .keywordsBox {
+  background-color: #FFFFFF;
+  padding: 2rem;
+}
+
+.CustomDropDown .Keywords .keywordsBox input {
+  padding: .6em 5em .6em .6em;
+  width: 100%;
+  border: 1px solid #b2b2b2;
+}
+
+.CustomDropDown .Square {
+  display: flex;
+  flex-direction: column;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
+
+.CustomDropDown .Square .squareTitle {
+  padding: 1rem 2rem;
+}
+
+.CustomDropDown .Square .squareBox {
+  background-color: #FFFFFF;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.CustomDropDown .Square .squareBox select {
+  font-size: 1.4rem;
+  color: #4c4c4c;
+  width: 48%;
+  border: 1px solid #b2b2b2;
+  padding: .6em 5em .6em .6em;
+}
+
+.CustomDropDown .Square .squareBox select option {
+  font-size: 1.4rem;
+  color: #4c4c4c;
+}
+
+.CustomDropDown .Rating {
+  display: flex;
+  flex-direction: column;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
+
+.CustomDropDown .Rating .ratingTitle {
+  padding: 1rem 2rem;
+}
+
+.CustomDropDown .Rating .ratingBox {
+  background-color: #FFFFFF;
+  padding: 2rem;
+  justify-content: space-between;
+}
+
+.CustomDropDown .Rating .ratingBox div {
+  width: 48%;
+  align-items: center;
+}
+
+.CustomDropDown .Rating .ratingBox div label {
+  margin-left: 0.5rem;
+  font-size: 1.4rem;
+  color: #4c4c4c;
+}
+
+.CustomDropDown .Closure {
+  display: flex;
+  flex-direction: column;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
+
+.CustomDropDown .Closure .topClosure {
+  padding: 3rem;
+}
+
+.CustomDropDown .Closure .buttons {
+  background-color: #FFFFFF;
+  padding: 1.5rem;
+  justify-content: flex-end;
+  text-transform: uppercase;
+}
+
+.CustomDropDown .Closure .buttons .clear {
+  background-color: #FFFFFF;
+  color: #999;
+  border: 1px solid #999;
+}
+
+.CustomDropDown .Closure .done {
+  background-color: #2da348;
+  color: #FFFFFF;
+  border: 1px solid #2da348;
+  cursor: pointer;
+}
+
+.CustomDropDown .Closure .done:hover {
+  border-color: #4c4c4c;
+  background-color: #555;
+}
+
+.CustomDropDown .Closure button {
+  padding: 1rem;
+  margin-right: 2%;
+  border-radius: 4px;
+  font-size: 1.4rem;
+}
+/*# sourceMappingURL=CustomDropDown.module.css.map */

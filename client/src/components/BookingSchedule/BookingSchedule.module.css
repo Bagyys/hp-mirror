@@ -1,0 +1,71 @@
+.BookingSchedule {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 5rem;
+}
+
+.BookingSchedule .HourlyTable {
+  display: block;
+}
+
+.BookingSchedule .HourlyTable .dayColumn {
+  display: inline-block;
+  font-size: 1.4rem;
+  font-family: Helvetica, Arial, sans-serif;
+  height: 1rem;
+  margin: 0.5rem;
+}
+
+.BookingSchedule .HourlyTable .dayColumn .hourRow {
+  border: 1px solid #EBEDED;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.BookingSchedule .HourlyTable .dayColumn .hourRow:last-child {
+  border-bottom: 1px solid #EBEDED;
+}
+
+.BookingSchedule .HourlyTable .dayColumn .hourRow.available {
+  background-color: #2da348;
+}
+
+.BookingSchedule .HourlyTable .dayColumn .hourRow.selected {
+  background-color: #4D94E8;
+}
+
+.BookingSchedule .HourlyTable .dayColumn .hourRow.unavailable {
+  background-color: #EBEDED;
+  cursor: not-allowed;
+}
+
+.BookingSchedule .ResidentsInput {
+  margin: 2rem;
+  font-size: 1.4rem;
+}
+
+.BookingSchedule .bookButton button {
+  margin: 2rem;
+  text-align: center;
+  color: white;
+  max-width: 22rem;
+  background-color: #4D94E8;
+  border-radius: 1rem;
+  min-width: 11.5rem;
+  min-height: 3.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-style: Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  font-size: 1.4rem;
+  padding: 0.8em 2em;
+}
+
+.BookingSchedule .bookButton button:hover {
+  background-color: #4D94E8;
+}
+/*# sourceMappingURL=BookingSchedule.module.css.map */

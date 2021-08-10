@@ -1,0 +1,48 @@
+@import "../../../styles/global.scss";
+.BottomFooter{
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #CBD0D3;
+    justify-content: space-between;
+    font-size: $fontSize19px;
+    color: $black2;
+    padding: 1.55rem 15.3rem 1.55rem 10.7rem;
+    line-height: $lineHeight36px;
+    font-family: $helveticaNeue;
+    .LeftSide{
+        span {
+            margin: 0 2rem;
+            vertical-align: middle;
+        }
+        a{
+            color: $black2;
+            text-decoration: none;
+            vertical-align: middle;
+        }
+    }
+    .RightSide{
+        display: flex;
+        align-items: center;
+        font-size: $largeFontSize;
+        .Euro {
+            span {
+                font-size: $fontSize13px;
+                text-decoration: underline;
+                font-weight: $font-Weight-bold;
+                margin-left:1.2rem ;
+                vertical-align: text-top;
+            }
+        }
+        .Symbols {
+            margin-left: 8.6rem;
+            line-height: $lineHeight47px;
+            span {
+                margin-right: 2.6rem;
+                &:last-child{
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+   
+}

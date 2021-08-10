@@ -1,0 +1,29 @@
+@import "../../../styles/global.scss";
+.TopFooterContainer {
+    display: flex;
+    padding: 7.62rem 10.9rem 21.3rem 10.9rem;
+    border-top: 1px solid #CBD0D3;
+    font-size: $fontSize21px;
+    .LinkBoxes{
+        display: flex;
+        flex-direction: column;
+        max-width: 19.1rem;
+        margin-left: 23.5rem;
+        &:first-child {
+            margin-left: 0;
+        }
+        p{
+            font-weight: $font-Weight-bold;
+            font-family: $helveticaNeue;
+            line-height:$lineHeight25px ;
+            margin-bottom: 3.3rem;
+            text-transform: uppercase;
+        }
+        a{
+            color: $black2;
+            font-family: $helvetica;
+            text-decoration: none;
+            line-height: $lineHeight36px;
+        }
+    }
+}

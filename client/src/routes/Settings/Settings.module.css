@@ -1,0 +1,56 @@
+.Settings h1 {
+  color: #4D94E8;
+  font-size: 3.5rem;
+  text-align: center;
+  margin: 2rem 1rem;
+  font-weight: bold;
+}
+
+.Settings .Assign,
+.Settings .Unassign {
+  display: inline-block;
+  width: 50%;
+  font-size: 0px;
+}
+
+.Settings .Assign .Properties,
+.Settings .Assign .Locks,
+.Settings .Unassign .Properties,
+.Settings .Unassign .Locks {
+  margin: 2rem;
+  font-size: 1.4rem;
+}
+
+.Settings .Assign .Properties h4,
+.Settings .Assign .Locks h4,
+.Settings .Unassign .Properties h4,
+.Settings .Unassign .Locks h4 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin: 1rem;
+}
+
+.Settings .Assign button,
+.Settings .Unassign button {
+  margin: 2rem;
+  text-align: center;
+  color: white;
+  max-width: 22rem;
+  background-color: #4D94E8;
+  border-radius: 1rem;
+  min-width: 11.5rem;
+  min-height: 3.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-style: Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  padding: 0.8em 2em;
+}
+
+.Settings .Assign button:hover,
+.Settings .Unassign button:hover {
+  background-color: #4D94E8;
+}
+/*# sourceMappingURL=Settings.module.css.map */

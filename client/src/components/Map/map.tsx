@@ -1,9 +1,9 @@
-import classes from "./map.module.scss";
-
+import classes from './map.module.scss';
+import map from '../../assets/images/map.png';
 function Map() {
   return (
     <div className={classes.Map}>
-      <h1>Here will be MAP</h1>
+      <img className={classes.MapImg} src={map} />
     </div>
   );
 }

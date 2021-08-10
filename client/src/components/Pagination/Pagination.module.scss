@@ -1,0 +1,37 @@
+@import "../../styles/global.scss";
+
+.PaginationContainer {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  margin-top: 6.22rem;
+  margin-bottom: 9.1rem;
+  .PaginationItem {
+    padding: .25rem .9rem;
+    text-align: center;
+    margin-right: 2.2rem;
+    color: $black2;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    line-height: $lineHeight24px;
+    font-size: $fontSize20px;
+    font-family: $helveticaNeue;
+    border-radius: 50%;
+    &.Dots:hover {
+      background-color: transparent;
+      cursor: default;
+    }
+    &:hover {
+       background-color: $black;
+      color: $white;
+      cursor: pointer;
+    }
+
+    &.Selected {
+      background-color: $black;
+      color: $white;
+    }
+
+  }
+}

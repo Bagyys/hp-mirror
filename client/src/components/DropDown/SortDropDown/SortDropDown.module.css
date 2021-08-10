@@ -1,0 +1,44 @@
+.ddWrapper {
+  position: relative;
+  font-family: Helvetica, Arial, sans-serif;
+  margin-right: 1rem;
+  align-items: center;
+  white-space: nowrap;
+  color: #4D94E8;
+  font-size: 1.6rem;
+  margin-right: 0.5rem;
+  border: 0;
+}
+
+.ddWrapper .ddList {
+  position: absolute;
+  top: 270%;
+  left: 0;
+  background-color: #FFFFFF;
+  border: 1px solid #ccc;
+  z-index: 99;
+  box-shadow: 0 6px 6px rgba(10, 16, 20, 0.15), 0 0 52px rgba(10, 16, 20, 0.12);
+  border: 0;
+}
+
+.ddWrapper .ddList .Default {
+  background-color: #4D94E8;
+  color: #FFFFFF;
+}
+
+.ddWrapper .ddList li {
+  white-space: nowrap;
+  font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #717171;
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.ddWrapper .ddList li:hover {
+  background-color: #189ed9;
+  color: #FFFFFF;
+}
+/*# sourceMappingURL=SortDropDown.module.css.map */

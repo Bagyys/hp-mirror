@@ -20,6 +20,7 @@
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "node-sass": "^5.0.0",
+    "nuka-carousel": "^4.7.9",
     "react": "^17.0.2",
     "react-addons-update": "^15.6.3",
     "react-burger-menu": "^3.0.6",

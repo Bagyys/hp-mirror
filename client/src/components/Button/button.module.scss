@@ -1,0 +1,21 @@
+@import "../../styles/global.scss";
+
+.FlatInfo {
+    font-family: $roboto;
+    background-color: $lightBlue;
+    color: $white;
+    border-radius: 2.2rem;
+    border:none;
+    cursor: pointer;
+    font-weight: $font-Weight-bold;
+    font-size: $fontSize21px;
+    line-height: $lineHeight35px;
+    padding: .2rem 1.92rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in;
+}
+.Show {
+   visibility: visible;
+    opacity: 1; 
+}

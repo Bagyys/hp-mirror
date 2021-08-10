@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 //Fonts
 
 //Colors
@@ -12,6 +13,8 @@ $blackGrey: #717171;
 $grey: #909090;
 $lightGrey: #909090;
 $lightGrey2: #EBEDED;
+$lightGrey3:#EFEFEF;
+$lightGrey4:#92979D;
 $lightBlue: #4D94E8;
 $orange: #ffc96c;
 $red: #ff4d4d;
@@ -23,8 +26,10 @@ $white: #FFFFFF;
 $fontSize64px: 6.4rem;
 $titleSizeFont: 3.5rem;
 $smallTitleFont: 2.8rem;
+$fontSize27px: 2.7rem;
 $largeFontSize2: 2.6rem;
 $largeFontSize: 2.5rem;
+$fontSize33px: 3.3rem;
 $fontSize23px: 2.3rem;
 $fontSize22px: 2.2rem;
 $fontSize21px: 2.1rem;
@@ -34,6 +39,7 @@ $fontSize18px: 1.8rem;
 $mediumFontSize: 1.6rem;
 $smallerMediumFont: 1.5rem;
 $smallFontSize: 1.4rem;
+$fontSize13px: 1.3rem;
 
 // Font weights
 $font-Weight-light: 300;
@@ -47,13 +53,21 @@ $font-Weight-extraBold: 800;
 $navLineHeight: 5rem;
 $textLineHeight: 1.5;
 $lineHeight80px: 8rem;
+$lineHeight49px: 4.9rem;
+$lineHeight47px: 4.7rem;
 $lineHeight36px: 3.6rem;
+$lineHeight35px: 3.5rem;
 $lineHeight30px: 3rem;
 $lineHeight21px: 2.1rem;
 $lineHeight20px: 2rem;
+$lineHeight27px: 2.7rem;
+$lineHeight26px: 2.6rem;
+$lineHeight25px: 2.5rem;
+$lineHeight24px: 2.4rem;
 
 
 //Font Family
 $workSans: Helvetica, Arial, sans-serif;
 $helvetica: Helvetica, Arial, sans-serif;
 $helveticaNeue: Helvetica Neue, Arial, sans-serif;
+$roboto: 'Roboto', sans-serif;
