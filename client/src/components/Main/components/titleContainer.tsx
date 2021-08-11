@@ -14,7 +14,7 @@ function Title({ isSearching }: TitleProps) {
       ) : (
         <h1> Your happy stay in Hamburg</h1>
       )}
-      {isSearching ? null : <p>Select dates for your home experience</p>}
+      {isSearching ? null : <p>When are you planning to stay?</p>}
     </React.Fragment>
   );
 }

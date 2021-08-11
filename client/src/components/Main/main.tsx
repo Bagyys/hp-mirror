@@ -9,11 +9,6 @@ import Calendar from "./components/calendar";
 import { useSelector } from "react-redux";
 import { StoreState } from "../../store/configureStore";
 import Anytime from "./components/anytime";
-interface CustomRange {
-  startDate: Date;
-  endDate: Date;
-  key: string;
-}
 
 function Main() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
@@ -27,11 +22,10 @@ function Main() {
     }
   };
 
-  const chooseCalendarOrAnytime = () => {
-    isCalendar ? setIsCalendar(false) : setIsCalendar(true);
-  };
+  // const chooseCalendarOrAnytime = () => {
+  //   isCalendar ? setIsCalendar(false) : setIsCalendar(true);
+  // };
 
-  console.log(forwardToGuests, "forwardToGuests");
   return (
     <div className={classes.Main}>
       <div className={classes.Left}>
@@ -39,7 +33,7 @@ function Main() {
       </div>
       <div className={classes.Right}>
         <Title isSearching={isSearching} />
-        <SearchType choose={chooseCalendarOrAnytime} />
+        {/* <SearchType /> */}
         {isCalendar ? (
           <React.Fragment>
             <SearchProgress

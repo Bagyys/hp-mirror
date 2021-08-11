@@ -1,18 +1,21 @@
+import { useState } from "react";
 import classes from "../main.module.scss";
 
-interface SearchTypeProps {
-  choose: () => void;
-}
+function SearchType() {
+  const [numberToMove, setNumberToMove] = useState<number>(10);
+  const switcher = (number: number) => {
+    setNumberToMove(number);
+  };
 
-function SearchType(props: SearchTypeProps) {
   return (
     <div className={classes.DataPicker}>
-      <div onClick={() => props.choose()} className={classes.Anytime}>
+      <div onClick={() => switcher(61)} className={classes.Anytime}>
         Anytime
       </div>
-      <div onClick={() => props.choose()} className={classes.active}>
+      <div onClick={() => switcher(10)} className={classes.active}>
         Calendar
       </div>
+      <span style={{ right: `${numberToMove}%`, top: "80%" }}></span>
     </div>
   );
 }

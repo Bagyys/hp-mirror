@@ -12,7 +12,7 @@ function Home() {
   return (
     <div className={classes.App}>
       {/* If not used delete later with all component */}
-      <Filter />
+      {/* <Filter /> */}
       {isChoosing ? (
         <Main />
       ) : (
