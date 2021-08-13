@@ -28,7 +28,7 @@ const Navigation = () => {
   // const { error } = errorState;
   const { token, isAuthenticated, user } = auth;
   useEffect(() => {
-    if (!user._id) {
+    if (user && !user._id) {
       dispatch(loadUser());
     }
   }, []);

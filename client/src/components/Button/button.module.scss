@@ -1,5 +1,4 @@
 @import "../../styles/global.scss";
-
 .FlatInfo {
     font-family: $roboto;
     background-color: $lightBlue;
@@ -14,6 +13,29 @@
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-in;
+}
+.ClearFilter {
+    font-size: $fontSize22px;
+    font-weight: $font-Weight-bold;
+    line-height: $lineHeight34px;
+    font-family: $helvetica;
+    color: $lightGrey4;
+    border:none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: .6rem 2.38rem;
+}
+.SaveFilter {
+    font-size: $fontSize22px;
+    font-weight: $font-Weight-bold;
+    line-height: $lineHeight34px;
+    font-family: $helvetica;
+    border:none;
+    background-color: $black;
+    color: $white;
+    cursor: pointer;
+    border-radius: 1.1rem;
+    padding: .6rem 2.38rem;
 }
 .Show {
    visibility: visible;

@@ -2,7 +2,11 @@
 
 .Navigation {
   background-color: $white;
-  max-width: 192rem;
+  width: 100%;
+  z-index: 102;
+  position: absolute;
+  top: 0;
+  left: 0;
   box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
   .NavigationWrapper {
     max-width:  175.428rem;

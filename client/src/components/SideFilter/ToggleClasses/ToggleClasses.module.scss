@@ -1,0 +1,12 @@
+ .ToggleBtnContainer {
+     cursor: pointer;
+     text-decoration: underline;
+     display: inline-block;
+     margin-top: 2.3rem;
+    .Show {
+        display: block;
+    }
+    .Hide {
+        display: none;
+    }
+}
