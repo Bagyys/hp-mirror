@@ -29,12 +29,12 @@
 
         p {
          
-            margin: 3.6rem 22rem 6.3rem 22rem;
+            margin: 14.3rem 0 7.3rem 0;
             font-size: $largeFontSize;
-            font-family: $helvetica;
+            font-family: $helveticaNeue;
             line-height: $lineHeight30px;
             color: $black;  
-            font-weight: $font-Weight-bold;
+            font-weight: $font-Weight-medium;
         }
 
         .DataPicker {
@@ -47,10 +47,9 @@
             line-height: $lineHeight36px;
             color: $black;  
             font-weight: $font-Weight-bold;
-            border: 0.1rem solid $white;
             width: 33%;
             border-radius: 3.9rem;
-            
+            position: relative;
              .Anytime {
                 padding-left: 3.93rem;
                 cursor: pointer;
@@ -68,9 +67,15 @@
                 margin-right: 0.5rem;
                 margin-top: 0.5rem;
                 margin-bottom: 0.5rem;
-                padding: 0.5rem 3.24rem 0.5rem 3.84rem;
-                background-color: rgba(255, 255, 255, 0.29);
+                padding: 0.6rem 3.24rem 0.5rem 3.84rem;
                 cursor: pointer;
+            }
+
+            span {
+                position: absolute;
+                border-top: 0.3rem solid black;
+                width:9rem;
+              
             }
         }
 
@@ -329,14 +334,14 @@
       }
 }
         .AnytimeContainer {
-            width: 90%;
+            width: 75%;
             margin: 12rem auto 0 auto;
             display: flex;
-            overflow: hidden;
+            flex-wrap: wrap;
             justify-content: space-between;
             .month{
                 flex: 0 0 auto;
-                background-color: $white;
+                background-color: rgba(255, 255, 255, 0.4);
                 width: 15.7rem;
                 display: flex;
                 flex-direction: column;
@@ -344,9 +349,16 @@
                 align-items: center;
                 padding: 3rem 0;
                 margin-right: 1.5rem;
-                img {
-                    width: 4.7rem;
+                cursor: pointer;
+                margin-bottom: 1.5rem;
+             
+
+               
+                
+                .SelectedImg {
+                    display: none;
                 }
+
                 span {
                     font-size: $fontSize22px;
                     font-family: $helveticaNeue;
@@ -355,6 +367,37 @@
                     line-height: $navLineHeight;
                 }
             }
+
+            .active {
+                    
+                    flex: 0 0 auto;
+                    background-color: rgba(255, 255, 255, 1);
+                    width: 15.7rem;
+                    display: flex;
+                    flex-direction: column;
+                    border-radius: 3.3rem;
+                    align-items: center;
+                    padding: 3rem 0;
+                    margin-right: 1.5rem;
+                    cursor: pointer;
+                    margin-bottom: 1.5rem;
+                  
+
+                    
+                    .SelectedImg {
+                        display: block;
+                    }
+                   
+                   
+                    span {
+                        font-size: $fontSize22px;
+                        font-family: $helveticaNeue;
+                        color: $black2;  
+                        font-weight: $font-Weight-medium;
+                        line-height: $navLineHeight;
+                    }
+                }
+            
         }
     
     }

@@ -95,27 +95,19 @@ function SearchProgress(props: searchProgressionProps) {
   return (
     <div
       className={classes.SearchBox}
-      style={
-        props.isSearching
-          ? {
-              marginTop: "13.39rem",
-              backgroundColor: "rgba(255, 255, 255, 0.85)",
-            }
-          : { padding: `0rem 5.1rem 0rem 0` }
-      }
+      style={{
+        marginTop: "13.39rem",
+        backgroundColor: "rgba(255, 255, 255, 0.85)",
+        padding: "1.1rem",
+      }}
     >
       {appState.objects.map((element: any, index: number) => {
-        console.log(element.text, "KAS PER TEXT?");
         return (
           <div
             key={index}
             className={toggleActiveStyles(index)}
             onClick={() => toggleActive(index)}
-            style={
-              props.isSearching
-                ? { lineHeight: "2rem" }
-                : { lineHeight: "3.6rem" }
-            }
+            style={{ lineHeight: "2rem" }}
           >
             <h2>{element.title}</h2>
             {props.isSearching ? <span>{element.text}</span> : null}
@@ -124,16 +116,9 @@ function SearchProgress(props: searchProgressionProps) {
       })}
       <div
         className={classes.SearchButton}
-        style={
-          props.isSearching
-            ? { right: `-13.6%`, padding: `1.6rem 2.5rem` }
-            : { right: `-1.6%` }
-        }
+        style={{ right: `-13.6%`, padding: `1.6rem 2.5rem` }}
       >
-        {props.isSearching ? (
-          <p className={classes.SearchText}>Search</p>
-        ) : null}
-
+        <p className={classes.SearchText}>Search</p>
         <img src={searchImg} alt="Search" />
       </div>
     </div>
