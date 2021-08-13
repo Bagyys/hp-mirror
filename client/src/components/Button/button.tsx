@@ -1,16 +1,15 @@
 import classes from './button.module.scss';
+import { cn } from '../../utilities/joinClasses';
 interface ButtonProps {
   btnType: string;
-  show: boolean;
+  show?: boolean;
+  clicked?: () => void;
 }
 const Button: React.FC<ButtonProps> = (props) => {
   return (
     <button
-      className={
-        props.show
-          ? [classes[props.btnType], classes.Show].join(' ')
-          : classes[props.btnType]
-      }
+      onClick={props.clicked}
+      className={cn(classes[props.btnType], props.show ? classes.Show : '')}
     >
       {props.children}
     </button>

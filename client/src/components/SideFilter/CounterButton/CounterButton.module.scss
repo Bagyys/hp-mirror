@@ -1,0 +1,19 @@
+@import "../../../styles/global.scss";
+.Button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 1.5px solid $lightGrey4;
+    cursor: pointer;
+    &:disabled{
+        border-color: $disableBtn;
+        cursor: default;
+    }
+    &:disabled img{
+        opacity: 0.4;
+    }
+}

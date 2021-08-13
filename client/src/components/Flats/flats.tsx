@@ -1,26 +1,28 @@
-import { useEffect, useState, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import { StoreState } from "../../store/configureStore";
-import { PropertyState } from "../../store/reducers/propertyReducer";
-import { ErrorState } from "../../store/reducers/errorReducer";
-import { PropertyInterface } from "../../store/types/propertyInterfaces";
-import { getAllPropertiesAction } from "../../store/actions/propertyActions";
-import { clearErrorAction } from "../../store/actions/errorActions";
-import classes from "./flats.module.scss";
-import filterImg from "../../assets/images/filter.png";
-import Flat from "./Flat/Flat";
-import Pagination from "../Pagination/Pagination";
-import { fakeData } from "../../fakeData/data";
+import { useEffect, useState, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { StoreState } from '../../store/configureStore';
+import { PropertyState } from '../../store/reducers/propertyReducer';
+import { ErrorState } from '../../store/reducers/errorReducer';
+import { PropertyInterface } from '../../store/types/propertyInterfaces';
+import { getAllPropertiesAction } from '../../store/actions/propertyActions';
+import { clearErrorAction } from '../../store/actions/errorActions';
+import classes from './flats.module.scss';
+import filterImg from '../../assets/images/filter.png';
+import Flat from './Flat/Flat';
+import Pagination from '../Pagination/Pagination';
+import { fakeData } from '../../fakeData/data';
 const PageSize = 6;
-
-const Flats: React.FC = () => {
+interface FlatsProps {
+  toggleHandler: () => void;
+}
+const Flats: React.FC<FlatsProps> = (props) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const currentTableData = useMemo(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
@@ -50,10 +52,10 @@ const Flats: React.FC = () => {
     if (error) {
       Swal.fire({
         title: error,
-        text: "Please try again",
-        icon: "warning",
+        text: 'Please try again',
+        icon: 'warning',
         showCancelButton: false,
-        confirmButtonText: "OK",
+        confirmButtonText: 'OK',
       }).then(() => {
         handleError();
       });
@@ -84,7 +86,7 @@ const Flats: React.FC = () => {
   return (
     <div className={classes.FlatsContainer}>
       <div className={classes.FlatsContainerNav}>
-        <div className={classes.FilterContainer}>
+        <div onClick={props.toggleHandler} className={classes.FilterContainer}>
           <img src={filterImg} />
         </div>
         <p>{fakeData.length} results</p>

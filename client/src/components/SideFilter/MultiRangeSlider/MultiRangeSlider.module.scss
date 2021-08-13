@@ -1,0 +1,154 @@
+@import "../../../styles//global.scss";
+.Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #CBD0D3;
+  padding-bottom: 6.6rem;
+  margin: 0 6.8rem;
+  .Slider {
+    position: relative;
+    width: 62.2rem;
+    .SliderTrack,
+    .SliderRange {
+        position: absolute;
+    }
+
+    .SliderTrack,
+    .SliderRange {
+        border-radius: 3px;
+        height: 0.3rem;
+        
+    }
+    .SliderTrack {
+        background-color: $lightGrey4;
+        height: 0.2rem;
+        width: 100%;
+        z-index: 1;
+        &:after{
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            top: -0.7rem;
+            background-color: $lightGrey4;
+        }
+        &:before{
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            top: -0.7rem;
+            background-color: $lightGrey4;
+        }
+    }
+
+    .SliderRange {
+        background-color: $lightBlue;
+        z-index: 2;
+        width: 50rem;
+        right: 0;
+        left: 0;
+        margin-right: auto;
+        &:after{
+            content: attr(data-price-right);
+            position: absolute;
+            right: -5rem;
+            top:-5.2rem;
+            color: $black2;
+            font-size: $fontSize22px;
+            font-weight: $font-Weight-bold;
+            font-family: $helveticaNeue;
+            line-height: $largeFontSize2;
+            width: 6.5rem;
+            text-align: center;
+        }
+        &:before{
+            content: attr(data-price-left);
+            position: absolute;
+            top:-5.2rem;
+            color: $black2;
+            font-size: $fontSize22px;
+            font-weight: $font-Weight-bold;
+            font-family: $helveticaNeue;
+            line-height: $largeFontSize2;
+            left: -1.4rem;
+            width: 6.5rem;
+            text-align: center;
+        }
+    }
+    }
+       .RightValue {
+            color: $grey;
+            font-size: $fontSize22px;
+            margin-top: -5.2rem;
+            font-family: $helveticaNeue;
+            line-height: $largeFontSize2;
+            right: -3rem;
+            position: absolute;
+            width: 8rem;
+            text-align: center;
+        }
+
+
+/* Removing the default appearance */
+.Label {
+    position: absolute;
+    left: 0;
+}
+.Thumb,
+.Thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.Thumb {
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  width: 62.2rem;
+  outline: none;
+  
+}
+
+.ThumbLeft {
+  z-index: 3;
+}
+
+.ThumbRight {
+  z-index: 4;
+}
+
+/* For Chrome browsers */
+.Thumb::-webkit-slider-thumb {
+  border : 3px solid $lightBlue;
+  background-color: $white;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+  
+}
+
+/* For Firefox browsers */
+.Thumb::-moz-range-thumb {
+    background-color: $white;
+  border : 3px solid $lightBlue;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+  
+}
+}
+

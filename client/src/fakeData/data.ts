@@ -1,5 +1,5 @@
 import { isWhiteSpaceLike } from 'typescript';
-import FlatImg from '../assets/images/flat_img.png'; //testine flat foto
+import FlatImg from '../assets/images/flat_img.png'; 
 
 export const fakeData = [
   {

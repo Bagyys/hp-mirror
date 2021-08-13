@@ -1,0 +1,72 @@
+@import "../../styles/global.scss";
+.SideFilterContainer {
+    width: 80rem;
+    background-color: $white;
+    position: absolute;
+    z-index: 101;
+    .SideFilterNav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin:2.87rem 4.8rem 2.22rem 6.6rem;
+        .CloseContainer {
+            background-color: $lightGrey3;
+            border-radius: 50%;
+            cursor: pointer;
+            img {
+                padding: 2.2rem;
+            }
+        }
+        .ButtonsContainer {
+            align-self: flex-end;
+        }
+    }
+    .FilterSliderContainer {
+        margin-top: 11.95rem;
+    }
+    .FilterBtnAndCheckboxContainer {
+        margin: 0 6.8rem;
+        font-size: $fontSize21px;
+        font-family: $helveticaNeue;
+        color: $black2;
+        h2 {
+            font-size: $fontSize27px;
+            font-family: $helvetica;
+            color: #000;
+            line-height: $lineHeight36px;
+            font-weight: $font-Weight-bold;
+            margin-bottom: 3.5rem;
+        }
+        p{
+            line-height:$lineHeight21px;
+            text-transform: capitalize;
+        }
+        .FilterBoxes {
+            padding: 3.73rem 4rem 3.5rem 1.87rem;
+            border-bottom: 1px solid #CBD0D3;
+            &:last-child{
+                border-bottom: none;
+            }
+            .RoomsBedsContainerRow{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 1.7rem;
+                &:first-child{
+                    margin-top: 3.48rem;
+                }
+                .CounterBtnsCounter{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 17.2rem;
+                }
+            }
+            .CheckboxList{
+                display: flex;
+                flex-wrap: wrap;
+
+            }
+        }
+    }
+}
