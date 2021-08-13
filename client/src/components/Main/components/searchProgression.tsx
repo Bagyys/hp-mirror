@@ -15,7 +15,7 @@ function SearchProgress(props: searchProgressionProps) {
   const adults = mainPage.guests.adults;
   const children = mainPage.guests.children;
   const [appState, changeState] = useState<any>({
-    activeObject: null,
+    activeObject: { id: 1, title: "Check in", text: "" },
 
     objects: [
       {
@@ -70,6 +70,7 @@ function SearchProgress(props: searchProgressionProps) {
       props.changeSearch();
     }
     changeState({ ...appState, activeObject: appState.objects[index] });
+    console.log(appState, "active Object");
   };
 
   const toggleActiveStyles = (index: number) => {
@@ -80,13 +81,12 @@ function SearchProgress(props: searchProgressionProps) {
     } else if (mainPage.endDate && mainPage.startDate) {
       appState.activeObject = appState.objects[2];
     }
+    console.log(appState.activeObject, "appState.activeObject");
 
-    if (props.isSearching) {
-      if (appState.objects[index] === appState.activeObject) {
-        return `${classes.Active}`;
-      } else {
-        return `${classes.inActive}`;
-      }
+    if (appState.objects[index] === appState.activeObject) {
+      return `${classes.Active}`;
+    } else if (appState.objects[index] === 0) {
+      return `${classes.Active}`;
     } else {
       return `${classes.inActive}`;
     }
@@ -95,11 +95,14 @@ function SearchProgress(props: searchProgressionProps) {
   return (
     <div
       className={classes.SearchBox}
-      style={{
-        marginTop: "13.39rem",
-        backgroundColor: "rgba(255, 255, 255, 0.85)",
-        padding: "1.1rem",
-      }}
+      style={
+        props.isSearching
+          ? {
+              marginTop: "13.39rem",
+              backgroundColor: "rgba(255, 255, 255, 0.85)",
+            }
+          : { padding: `0.1rem 5.1rem 0.1rem 0` }
+      }
     >
       {appState.objects.map((element: any, index: number) => {
         return (
@@ -107,7 +110,10 @@ function SearchProgress(props: searchProgressionProps) {
             key={index}
             className={toggleActiveStyles(index)}
             onClick={() => toggleActive(index)}
-            style={{ lineHeight: "2rem" }}
+            style={{
+              lineHeight: "2rem",
+              padding: props.isSearching ? "1rem 3rem" : "",
+            }}
           >
             <h2>{element.title}</h2>
             {props.isSearching ? <span>{element.text}</span> : null}
