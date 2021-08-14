@@ -1,22 +1,22 @@
-import classes from "./Flat.module.scss";
-import ImageSlider from "../../Slider/imageSlider";
-import Button from "../../Button/button";
-import DiscountBadge from "../../DiscountBadge/DiscountBadge";
+import classes from './Flat.module.scss';
+import ImageSlider from '../../Slider/imageSlider';
+import Button from '../../Button/button';
+import DiscountBadge from './DiscountBadge/DiscountBadge';
 
-import likeHeart from "../../../assets/images/like_heart.png";
-import likeHeartHover from "../../../assets/images/like_heart_hover.png";
-import ratingStar from "../../../assets/images/rating_star.png";
+import likeHeart from '../../../assets/images/like_heart.png';
+import likeHeartHover from '../../../assets/images/like_heart_hover.png';
+import ratingStar from '../../../assets/images/rating_star.png';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { PropertyInterface } from "../../../store/types/propertyInterfaces";
-import { useState } from "react";
+import { PropertyInterface } from '../../../store/types/propertyInterfaces';
+import { useState } from 'react';
 
 const Flat = ({ property }: { property: PropertyInterface }) => {
   const [showBtn, setShowBtn] = useState<boolean>(false);
 
   const like = () => {
-    alert("Successfully added to favorites");
+    alert('Successfully added to favorites');
   };
 
   let propertiesRender = (
@@ -32,27 +32,14 @@ const Flat = ({ property }: { property: PropertyInterface }) => {
             <img className={classes.Like} src={likeHeart} />
             <img className={classes.LikeHover} src={likeHeartHover} />
           </div>
-          <div
-            className={
-              property.discount.inContent
-                ? classes.BadgeInContent
-                : classes.BadgeInImage
-            }
-          >
+          <div className={classes.BadgeInContent}>
             {property.discount.more1Week && (
-              <DiscountBadge
-                badge={property.discount.badgeColor}
-                badgeHover="Badge5"
-                inContent={property.discount.inContent}
-                title="When book one week"
-              >
+              <DiscountBadge badgeHover="Badge5" title="When book one week">
                 5
               </DiscountBadge>
             )}
             {property.discount.more1Month && (
               <DiscountBadge
-                badge={property.discount.badgeColor}
-                inContent={property.discount.inContent}
                 badgeHover="Badge20"
                 title="When book one month or more"
               >
@@ -78,10 +65,10 @@ const Flat = ({ property }: { property: PropertyInterface }) => {
               {property.facilities.beds
                 ? `${property.facilities.beds} beds`
                 : null}
-              {property.facilities.kitchen ? " • kitchen" : null}
+              {property.facilities.kitchen ? ' • kitchen' : null}
               {` • ${property.facilities.bathroomType} bath`}
-              {property.facilities.wifi ? " • WIFI" : null}
-              {property.facilities.parking ? " • parking" : null}
+              {property.facilities.wifi ? ' • WIFI' : null}
+              {property.facilities.parking ? ' • parking' : null}
             </p>
             <div className={classes.PriceBtnContainer}>
               <div className={classes.PriceContainer}>
@@ -90,7 +77,7 @@ const Flat = ({ property }: { property: PropertyInterface }) => {
                 </p>
                 <p className={classes.TotalPrice}>244€ total</p>
               </div>
-              <Button btnType={"FlatInfo"} show={showBtn}>
+              <Button btnType={'FlatInfo'} show={showBtn}>
                 {/* <Link
                   to={{
                     pathname: `/flat/${property._id}`,

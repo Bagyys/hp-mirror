@@ -22,8 +22,6 @@ export interface PropertyInterface {
 export interface DiscountInterface {
     more1Week:boolean;
     more1Month:boolean;
-    badgeColor:string;
-    inContent:boolean;
 }
 
 export interface RatingInterface {

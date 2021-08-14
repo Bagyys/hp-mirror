@@ -101,8 +101,6 @@ export const fakeData = [
     discount:{
       more1Week:true,
       more1Month:false,
-      badgeColor:'White',
-      inContent:false
     },
     createdAt: new Date(),
   },
@@ -194,9 +192,7 @@ export const fakeData = [
     ratingsCount: 5,
     discount:{
       more1Week:true,
-      more1Month:true,
-      badgeColor:'Orange',
-      inContent:true
+      more1Month:true
     },
     createdAt: new Date(),
   },
@@ -289,8 +285,6 @@ export const fakeData = [
     discount:{
       more1Week:true,
       more1Month:false,
-      badgeColor:'Blue',
-      inContent:true
     },
     createdAt: new Date(),
   },
@@ -382,9 +376,7 @@ export const fakeData = [
     ratingsCount: 5,
     discount:{
       more1Week:false,
-      more1Month:true,
-      badgeColor:'Orange',
-      inContent:false
+      more1Month:true
     },
     createdAt: new Date(),
   },
@@ -476,9 +468,7 @@ export const fakeData = [
     ratingsCount: 5,
     discount:{
       more1Week:true,
-      more1Month:true,
-      badgeColor:'Red',
-      inContent:false
+      more1Month:true
     },
     createdAt: new Date(),
   },
@@ -570,9 +560,7 @@ export const fakeData = [
     ratingsCount: 5,
     discount:{
       more1Week:true,
-      more1Month:false,
-      badgeColor:'Green',
-      inContent:true
+      more1Month:false
     },
     createdAt: new Date(),
   },
@@ -664,9 +652,7 @@ export const fakeData = [
     ratingsCount: 5,
     discount:{
       more1Week:true,
-      more1Month:false,
-      badgeColor:'Green',
-      inContent:true
+      more1Month:false
     },
     createdAt: new Date(),
   },

@@ -1,14 +1,14 @@
-import classes from "./main.module.scss";
-import logo from "../../assets/images/Logo.svg";
-import React, { useState } from "react";
-import GuestContainer from "./components/guestContainer";
-import Title from "./components/titleContainer";
-import SearchProgress from "./components/searchProgression";
-import SearchType from "./components/searchType";
-import Calendar from "./components/calendar";
-import { useSelector } from "react-redux";
-import { StoreState } from "../../store/configureStore";
-import Anytime from "./components/anytime";
+import classes from './main.module.scss';
+import logo from '../../assets/images/Logo.svg';
+import React, { useState } from 'react';
+import GuestContainer from './components/guestContainer';
+import Title from './components/titleContainer';
+import SearchProgress from './components/searchProgression';
+import SearchType from './components/searchType';
+import Calendar from './components/calendar';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../store/configureStore';
+import Anytime from './components/anytime';
 
 function Main() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
