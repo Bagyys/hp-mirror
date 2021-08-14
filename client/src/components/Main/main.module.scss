@@ -83,7 +83,7 @@
             position: relative;
             display: flex;
             margin: 6.7rem 19rem 0 15.7rem;
-            background-color: $white;
+            background-color: rgba(255, 255, 255, 0.85);
             border-radius: 5.5rem;
             box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
             font-size: $fontSize23px;
@@ -93,7 +93,7 @@
             font-weight: $font-Weight-bold;
             transition: all 0.4s ease-in-out;
             .inActive {
-                padding: 1rem 0rem;
+                padding: 2rem 0rem;
                 cursor: pointer;
                 span {
                     font-size: $fontSize18px;
@@ -169,7 +169,7 @@
                 background-color: $white;
                 box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
                 border-radius: 5.5rem;
-                padding: 1rem 0rem;
+                padding: 2rem 0rem;
                 &:first-child {
                     padding-right: 4.86rem;
                     padding-left: 5.4rem; 
