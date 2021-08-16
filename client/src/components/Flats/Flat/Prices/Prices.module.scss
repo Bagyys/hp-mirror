@@ -1,0 +1,18 @@
+@import "../../../../styles/global.scss";
+
+.PriceContainer {
+    display: flex;
+    align-items: baseline;
+    font-size: $fontSize19px;
+    margin-left: 0.14rem;
+    .Price{
+        margin-right: 1.93rem;
+        span{
+            font-size: $fontSize27px;
+            font-weight: $font-Weight-bold;
+        }     
+    }
+    .TotalPrice { 
+        color: $lightGrey4;        
+    }
+}

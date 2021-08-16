@@ -1,0 +1,17 @@
+@import "../../../../styles/global.scss";
+.Badge {
+    font-size: $fontSize20px;
+    line-height: $lineHeight26px;
+    border-radius: 1rem;
+    font-family: $helveticaNeue;
+    color: $black2;
+    padding:0.85rem 0 0.85rem 1.65rem;
+}
+.BadgeDiscount {
+    background-color: $orange;
+    margin-bottom: 1.52rem;
+}
+.BadgeCancelation{
+    background-color: $lightGrey2;
+    margin-bottom: 1.52rem;
+}

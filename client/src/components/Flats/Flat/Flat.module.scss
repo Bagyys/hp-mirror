@@ -2,7 +2,7 @@
 
     ul {
         .Flat {
-            flex: 0 0 48%;
+            flex: 0 0 48.2%;
             background-color: $white;
             margin-bottom: 2rem;
             background-clip: border-box;
@@ -10,78 +10,25 @@
             background-color: $white;
             border-radius: 1rem;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
-            margin: 0 2.8rem 2.4rem 0;
+            margin: 0 2.8rem 2.38rem 0;
             &:nth-child(2n+2){
-                margin-right: 0;
+                margin-right: 0 ;
             }
             .FlatContent {
                 .InfoContainer {
                     padding: 0 1.57rem 1.6rem 1.76rem;
                     position: relative;
                     .Info {
-                        .RatingsContainer{
-                            display:flex;
-                            align-items: center;
-                            font-size: $fontSize19px;
-                            .Ratings {
-                                display: flex;
-                                align-items: center;                               
-                                margin-right: 0.99rem;
-                                img {
-                                    width: 2.1rem;
-                                    height: 2.2rem;
-                                    margin-right: 0.58rem;
-                                }
-                                span {
-                                    line-height: $lineHeight49px;
-                                    font-weight: $font-Weight-bold;
-                                }
-                            }
-                            .Reviews {
-                                color:$lightGrey4;
-                                line-height: $lineHeight27px;
-                            }
-                        }
-                        .ApartamentType {
-                            font-size: $fontSize20px;
-                            line-height: $lineHeight26px;
-                            font-family: $helveticaNeue;
-                            margin-bottom: 0.75rem;
-                        }
-                        .AdditionalInfo {
-                            color: $lightGrey;
-                            font-size: $fontSize20px;
-                            line-height: $largeFontSize2;
-                            font-family: $helveticaNeue;
-                            margin-bottom: 1.14rem;
-                            margin-top:1.5rem;
-                        }
                         .PriceBtnContainer {
                             display: flex;
                             justify-content: space-between;
                             align-items: flex-end;
-                            .PriceContainer {
-                                display: flex;
-                                font-size: $fontSize19px;
-                                margin-left: 0.14rem;
-                                .Price{
-                                    margin-right: 1.93rem;
-                                   span{
-                                       font-size: $fontSize27px;
-                                       font-weight: $font-Weight-bold;
-                                   }     
-                                }
-                                .TotalPrice {
-                                   line-height: $lineHeight27px; 
-                                   color: $lightGrey4;        
-                                }
-                            }
                         }
                     }
                 }
                 .FlatImg {
-                    width: 100%;
                     position: relative;
+                    
                     .LikeContainer {
                         position: absolute;
                         right: 2.5rem;

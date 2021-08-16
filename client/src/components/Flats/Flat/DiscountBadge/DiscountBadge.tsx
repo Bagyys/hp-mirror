@@ -1,7 +1,7 @@
 import classes from './DiscountBadge.module.scss';
 import { cn } from '../../../../utilities/joinClasses';
 interface BadgeProps {
-  title: string;
+  title?: string;
   badgeHover: string;
 }
 const DiscountBadge: React.FC<BadgeProps> = (props) => {
@@ -10,7 +10,7 @@ const DiscountBadge: React.FC<BadgeProps> = (props) => {
       data-title={props.title}
       className={cn(classes.Badge, classes[props.badgeHover])}
     >
-      -{props.children}%
+      {props.children}
     </div>
   );
 };

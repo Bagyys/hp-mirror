@@ -1,0 +1,28 @@
+@import "../../../../styles/global.scss";
+.Container {
+    font-size: $fontSize22px;
+    font-family: $helveticaNeue;
+    line-height: $lineHeight26px;
+    color: $black;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 5.2rem;
+    .Items {
+        margin-bottom: 3.45rem;
+        flex: 0 0 50%;
+        display: flex;
+        align-items: center;
+        .Beds {
+            text-transform: capitalize;
+            margin-right: .8rem;
+        }
+        .ImgContainer {
+            margin-right: 1.36rem;
+            width: 3.2rem;
+            img{
+                vertical-align: middle;
+            }
+        }
+    }
+}

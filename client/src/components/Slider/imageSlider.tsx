@@ -5,9 +5,10 @@ import classes from './ImageSlider.module.scss';
 
 interface SliderProps {
   slides: Array<string>;
+  borders: string;
 }
 
-const ImageSlider: React.FC<SliderProps> = ({ slides }) => {
+const ImageSlider: React.FC<SliderProps> = ({ slides, borders }) => {
   return (
     <section className={classes.Slider}>
       <Carousel
@@ -38,7 +39,7 @@ const ImageSlider: React.FC<SliderProps> = ({ slides }) => {
         wrapAround={true}
       >
         {slides.map((slide, index) => (
-          <img key={index} src={slide} />
+          <img className={classes[borders]} key={index} src={slide} />
         ))}
       </Carousel>
     </section>

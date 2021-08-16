@@ -1,0 +1,35 @@
+@import "../../../styles/global.scss";
+.QuickViewFlatContainer {
+    flex: 0 0 100%;
+    background-color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
+    margin-bottom: 7.28rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    .SliderWithInfoContainer {
+        flex: 0 0 48.2%;
+        margin-bottom: 1rem;
+        .InfoContainer {
+            margin-left: 3rem;
+        }
+    }
+    .ExtraInformationContainer{
+        flex:0 0 45.6%;
+        margin:2.21rem 2.5rem 0 2.8rem;
+    }
+    .AboutPlaceContainer{
+        border-top: 1px solid $disableBtn;
+        border-bottom:  1px solid $disableBtn;
+        margin:0 2rem;
+        padding: 2rem 1rem;
+        font-family: $helveticaNeue;
+    }
+    .PriceBtnContainer {
+        margin: 2rem 2.5rem 2.5rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 0 0 93.6%;
+    }
+}
