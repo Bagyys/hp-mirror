@@ -1,5 +1,7 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useMediaPredicate } from 'react-media-hook';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import Swal from 'sweetalert2';
 import { StoreState } from '../../store/configureStore';
 import { PropertyState } from '../../store/reducers/propertyReducer';
@@ -24,8 +26,10 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const [quickViewFlat, setQuickViewFlat] = useState<PropertyInterface | null>(
     null
   );
-
-  const currentTableData = useMemo(() => {
+  const [favorites, setFavorites] = useState<Array<PropertyInterface>>([]);
+  const isMobile = useMediaPredicate('(max-width: 675px)');
+  const history = useHistory();
+  const currentPaginationData = useMemo(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -69,9 +73,32 @@ const Flats: React.FC<FlatsProps> = (props) => {
     }
   }, [error]);
 
+  let isInFavorites = (id: string, arr: Array<PropertyInterface>) => {
+    return arr.some((item) => item._id === id);
+  };
+
+  const favoritesHandler = (id: string) => {
+    let newArr = [...favorites];
+    let isFavorites = isInFavorites(id, newArr);
+    let property = fakeData.find((item) => item._id === id);
+    if (property) {
+      isFavorites
+        ? (newArr = newArr.filter((item) => item._id !== id))
+        : newArr.push(property);
+    }
+    setFavorites(newArr);
+  };
+  const mobileClickHandler = (id: string) => {
+    if (isMobile) {
+      history.push({
+        pathname: `/flat/${id}`,
+        state: { property: fakeData.find((item) => item._id === id) },
+      });
+    }
+  };
   const QuickViewHandler = useCallback(
     (id: string) => {
-      let newData = currentTableData.find((item) => item._id === id);
+      let newData = currentPaginationData.find((item) => item._id === id);
       newData ? setQuickViewFlat(newData) : setQuickViewFlat(null);
       window.scrollTo({
         top: 0,
@@ -84,15 +111,18 @@ const Flats: React.FC<FlatsProps> = (props) => {
   if (properties) {
     propertiesRender = (
       <ul className={classes.FlatsListConatiner}>
-        {currentTableData
+        {currentPaginationData
           .filter((item) => item._id !== quickViewFlat?._id)
           .map((property: PropertyInterface, index: number) => {
             return (
               <Flat
+                mobileClickHandler={() => mobileClickHandler(property._id)}
                 hide={quickViewFlat && index > 3}
                 clicked={() => QuickViewHandler(property._id)}
                 key={property._id}
                 property={property}
+                clickedLike={() => favoritesHandler(property._id)}
+                liked={isInFavorites(property._id, favorites)}
               />
             );
           })}
@@ -100,16 +130,25 @@ const Flats: React.FC<FlatsProps> = (props) => {
     );
   }
   let recentlyViewPropertiesRender = <></>;
-  const recentlyView = fakeData.slice(-2); //tiesiog isvedu paskutinius apartamentus
-  if (recentlyView) {
-    recentlyViewPropertiesRender = (
-      <ul className={classes.FlatsListConatiner}>
-        {recentlyView.map((property: PropertyInterface, index: number) => (
-          <Flat recentlyView={true} key={property._id} property={property} />
-        ))}
-      </ul>
-    );
+  if (!isMobile) {
+    const recentlyView = fakeData.slice(-2); //tiesiog isvedu paskutinius apartamentus
+    if (recentlyView) {
+      recentlyViewPropertiesRender = (
+        <ul className={classes.FlatsListConatiner}>
+          {recentlyView.map((property: PropertyInterface, index: number) => (
+            <Flat
+              clickedLike={() => favoritesHandler(property._id)}
+              liked={isInFavorites(property._id, favorites)}
+              recentlyView={true}
+              key={property._id}
+              property={property}
+            />
+          ))}
+        </ul>
+      );
+    }
   }
+
   return (
     <div className={classes.FlatsContainer}>
       <div className={classes.FlatsContainerNav}>
@@ -123,18 +162,21 @@ const Flats: React.FC<FlatsProps> = (props) => {
       </div>
       {quickViewFlat && <QuickViewFlat property={quickViewFlat} />}
       {propertiesRender}
+      {!isMobile && (
+        <>
+          <Pagination
+            currentPage={currentPage}
+            totalCount={fakeData.length}
+            pageSize={PageSize}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
 
-      <Pagination
-        currentPage={currentPage}
-        totalCount={fakeData.length}
-        pageSize={PageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
-
-      <div className={classes.RecentlyViewContainer}>
-        <h2>Recently viewed</h2>
-        {recentlyViewPropertiesRender}
-      </div>
+          <div className={classes.RecentlyViewContainer}>
+            <h2>Recently viewed</h2>
+            {recentlyViewPropertiesRender}
+          </div>
+        </>
+      )}
     </div>
   );
 };

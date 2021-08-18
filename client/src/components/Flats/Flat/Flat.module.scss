@@ -26,6 +26,7 @@
                     position: relative;
                     @include respond(mobile){
                         padding: 0 1.57rem 0 1.17rem;
+                        cursor: pointer;
                     }
                     .Info {
                         .PriceBtnContainer {
@@ -36,72 +37,33 @@
                                 align-items: center;
                             }
                             .BadgeContainer {
-                                display: none;
-                                @include respond(mobile){
-                                    display: flex;
-                                    flex-direction: column;
-                                    font-size: $smallFontSize;
-                                    color: $blackGrey;
-                                    p {
-                                        line-height: $fontSize32px;;
-                                    }
+                                display: flex;
+                                flex-direction: column;
+                                font-size: $smallFontSize;
+                                color: $blackGrey;
+                                p {
+                                    line-height: $fontSize32px;;
                                 }
                             }
                         }
-                        .MainInformationContainer {
-                            @include respond(mobile) {
-                                display: none;
-                            }
-                        }
-                        .AreaContainer {
-                            display: none;
-                            @include respond(mobile) {
-                                display: block;
-                                font-size: $mediumFontSize;
-                                color: $black2;
-                                font-weight: $font-Weight-bold;
-                                line-height: $lineHeight28px;
-                                margin-bottom: .5rem;
-                                font-family: $helveticaNeue;
-                            }
+                        .Area {
+                            display: block;
+                            font-size: $mediumFontSize;
+                            color: $black2;
+                            font-weight: $font-Weight-bold;
+                            line-height: $lineHeight28px;
+                            margin-bottom: .5rem;
+                            font-family: $helveticaNeue;
                         }
                     }
                 }
                 .FlatImg {
                     position: relative;
-                    
-                    .LikeContainer {
-                        position: absolute;
-                        right: 2.5rem;
-                        top:2.5rem;
-                        z-index: 1;
-                        cursor: pointer;
-                        .LikeHover {
-                        display: none;
-                        width: 2.7rem;
-                        height: 2.1rem;
-                        padding: 0.3rem;
-                        }
-                        .Like {
-                        width: 2.7rem;
-                        height: 2.1rem;
-                        padding: 0.3rem;
-                        }
-                        &:hover .Like{
-                        display: none;
-                        }
-                        &:hover .LikeHover{
-                        display: block;
-                        }
-                    }
                     .BadgeInContent {
                         position: absolute;
                          margin-top: 1.35rem;
                          right:1.57rem ;
                          z-index: 1;
-                         @include respond(mobile){
-                             display: none;
-                         }
                     }
                 }
             }

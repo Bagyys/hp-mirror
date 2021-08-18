@@ -43,42 +43,11 @@
       @include respond(mobile){
         display: none;
       }
-      .SearchBox {
-        position: relative;
-        display: flex;
-        margin-left: 3.52rem;
-        background-color: rgba(235, 237, 237, 0.8);
-        padding:2rem 5.1rem 1.5rem 4.41rem;
-        border-radius: 5.5rem;
-        .Date {
-         padding-right: 3.52rem;
-         border-right: 0.1rem solid #CBD0D3;
-        }
-        .Guests {
-          margin-left: 3.52rem;
-          margin-right: 3rem;
-         }
-        .SearchButton {
-          position: absolute;
-          right: -2%;
-          top: 0;
-          cursor: pointer;
-        }
-
-        img {
-          background-color: #4D94E8;
-          padding: 2.2rem;
-          border-radius: 50%;
-        }
-      }
     }
 
     .Right {
         display: flex;
         align-items: center;
-        .Favorites {
-          margin-right: 5.64rem;
-          cursor: pointer;
           .MobileFavorite {
             display: none;
             padding: 1rem .8rem;
@@ -91,13 +60,6 @@
               align-items: center;
             }
           }
-          .PcFavorite {
-            @include respond(mobile){
-              display: none;
-            }
-          }
-          
-        }
         .Guide {
           display: flex;
           align-items: center;
@@ -142,7 +104,8 @@
         //     }
         //   }
         // }
-       .NavMenu {
+       .NavMenuBtn {
+         position: relative;
          .Slider{
             width: 13rem;
             height: 6.4rem;
@@ -218,6 +181,46 @@
                 transform: translateX(-3.7rem);
               }
           }
+         }
+         .MenuContainer {
+           width: 25.1rem;
+           background-color: $white;
+           position: absolute;
+           box-shadow: 0 0 1rem rgba(0, 0, 0, 0.29);
+           top: 8rem;
+           right: 0;
+           border-radius: 1rem;
+           padding: 2.8rem 5.3rem 2.8rem 1.2rem;
+           @include respond(mobile){
+              top:5rem;
+              width: 15rem;
+              padding: 1.8rem 3.3rem 1.8rem 1rem;
+
+            }
+           .HostHome{
+             font-weight: $font-Weight-bold;
+             border-top: 1px solid $disableBtn;
+             border-bottom: 1px solid $disableBtn;
+             padding: 1.8rem 0;
+             margin: 1.8rem 0;
+             @include respond(mobile){
+              padding: 1rem 0;
+              margin: 1rem 0;
+            }
+           }
+           a{
+             text-decoration: none;
+             font-size: $fontSize22px;
+             line-height: $lineHeight43px;
+             color: $black2;
+             display: block;
+             font-family: $helvetica;
+             @include respond(mobile){
+              font-size: $mediumFontSize;
+              line-height: $lineHeight34px;
+              margin-left: 1rem;
+             }
+           }
          }
        }
         // .Register,

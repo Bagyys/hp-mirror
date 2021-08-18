@@ -80,9 +80,6 @@
             line-height: $lineHeight26px;
             margin-bottom: 2.23rem;
         }
-        @include respond(mobile){
-            display: none;
-        }
     }
     
 }

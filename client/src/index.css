@@ -190,7 +190,9 @@ table {
   width: 15px;
   height: 15px;
 }
-
+.slider-slide {
+  outline: none;
+}
 .active .paging-dot > circle {
   r: 4px;
   cx: 8px;

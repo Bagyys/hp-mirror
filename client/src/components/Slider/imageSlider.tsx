@@ -14,6 +14,7 @@ const ImageSlider: React.FC<SliderProps> = ({ slides, borders }) => {
       <Carousel
         slideWidth={1.005}
         dragging={true}
+        swiping={true}
         renderCenterRightControls={({ nextSlide }) => (
           <MdKeyboardArrowRight
             onClick={nextSlide}
