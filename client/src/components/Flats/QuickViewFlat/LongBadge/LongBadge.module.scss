@@ -1,4 +1,5 @@
 @import "../../../../styles/global.scss";
+@import "../../../../styles/mixins";
 .Badge {
     font-size: $fontSize20px;
     line-height: $lineHeight26px;
@@ -6,10 +7,16 @@
     font-family: $helveticaNeue;
     color: $black2;
     padding:0.85rem 0 0.85rem 1.65rem;
+    @include respond(mobile){
+        padding: .48rem 1.23rem .48rem 1.23rem;
+    }
 }
 .BadgeDiscount {
     background-color: $orange;
     margin-bottom: 1.52rem;
+    @include respond(mobile){
+        margin-bottom: 0;
+    }
 }
 .BadgeCancelation{
     background-color: $lightGrey2;

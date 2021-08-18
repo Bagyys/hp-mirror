@@ -11,7 +11,7 @@ export const fakeData:PropertyInterface[] = [
     location: {
       country: 'Country',
       city: 'City',
-      district: 'District',
+      district: 'Rothenburg',
       zipcode: 'Zip code',
       addressString1: 'Address 1',
       addressString2: 'Address 2',
@@ -194,8 +194,8 @@ export const fakeData:PropertyInterface[] = [
         givenRating: 5,
       },
     ],
-    overallRating: 5,
-    ratingsCount: 5,
+    overallRating: 4.75,
+    ratingsCount: 55,
     discount:{
       more1Week:true,
       more1Month:true

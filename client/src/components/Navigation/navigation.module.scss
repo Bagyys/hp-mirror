@@ -1,4 +1,5 @@
 @import "../../styles/global.scss";
+@import "../../styles/mixins";
 
 .Navigation {
   background-color: $white;
@@ -14,12 +15,20 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-
+    padding:0 3%;
+    @include respond(mobile){
+      padding: 1.35rem 2.2rem;
+    }
     .Left {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+      @include respond(mobile){
+        img{
+          width: 15rem;
+        }
+      }
     }
 
     .Middle {
@@ -31,7 +40,9 @@
       line-height: $lineHeight36px;
       padding: 2.3rem 0 2.3rem 0;
       font-family: $helvetica;
-
+      @include respond(mobile){
+        display: none;
+      }
       .SearchBox {
         position: relative;
         display: flex;
@@ -68,77 +79,176 @@
         .Favorites {
           margin-right: 5.64rem;
           cursor: pointer;
+          .MobileFavorite {
+            display: none;
+            padding: 1rem .8rem;
+            background: black;
+            border-radius: 50%;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+            background-color: $white;
+            @include respond(mobile){
+              display: flex;
+              align-items: center;
+            }
+          }
+          .PcFavorite {
+            @include respond(mobile){
+              display: none;
+            }
+          }
+          
         }
         .Guide {
           display: flex;
           align-items: center;
           font-size: $fontSize20px;
-      font-weight: $font-Weight-bold;
-      color: $fontColor;
-      font-family: $helvetica;
-      line-height: $lineHeight20px;
-      margin-right: 4.4rem;
-      cursor: pointer;
-      img {
-        transform: rotate(-14deg);
-      }
-        }
-        .Menu {
-          display: none;
-          position: relative;
-          @media (max-width: 640px) {
-            display: block;
-            .Close {
-              position: absolute;
-              right: 15px;
-              top: 15px;
-              text-align: right;
-              color: $lightGrey;
-              font-size: 2rem;
-              cursor: pointer;
-            }
-            .MobileLink {
-              display: block;
-              margin: 35px 30px 0px;
-              color: $lightGrey;
-              font-size: 2rem;
-              text-decoration: none;
-              &:first-child {
-                margin-top: 50px;
-              }
-            }
-          }
-        }
-       
-        .Register,
-        .Login{
-          font-size: $smallerMediumFont;
           font-weight: $font-Weight-bold;
+          color: $fontColor;
           font-family: $helvetica;
           line-height: $lineHeight20px;
-    
-          a {
-            color: $fontColor;
-            text-decoration: none;
-            position: relative;
-
-            .ProfilePicture {
-              position: absolute;
-              top: -260%;
-              right: 5%;
-              width: 5.1rem;
-              height: 5.1rem;
-              border-radius: 50%;
-            }
+          margin-right: 4.4rem;
+          cursor: pointer;
+          @include respond(mobile){
+            display: none;
           }
+          img {
+            transform: rotate(-14deg);
+            width: 2.8rem;
+          }
+        }
+        // .Menu {
+        //   display: none;
+        //   position: relative;
+        //   @media (max-width: 640px) {
+        //     display: block;
+        //     .Close {
+        //       position: absolute;
+        //       right: 15px;
+        //       top: 15px;
+        //       text-align: right;
+        //       color: $lightGrey;
+        //       font-size: 2rem;
+        //       cursor: pointer;
+        //     }
+        //     .MobileLink {
+        //       display: block;
+        //       margin: 35px 30px 0px;
+        //       color: $lightGrey;
+        //       font-size: 2rem;
+        //       text-decoration: none;
+        //       &:first-child {
+        //         margin-top: 50px;
+        //       }
+        //     }
+        //   }
+        // }
+       .NavMenu {
+         .Slider{
+            width: 13rem;
+            height: 6.4rem;
+            background-color: $lightGrey2;
+            position: relative;
+            border-radius: 4rem;
+            cursor: pointer;
+            @include respond(mobile ){
+              width: 8.5rem;
+              height: 4.3rem;
+            }
+            .Burger {
+              height: .3rem;
+              position: absolute;
+              background-color: $disableBtn;
+              width: 2.5rem;
+              left: 2.9rem;
+              top: 3rem;
+              @include respond(mobile ){
+                width:1.8rem;
+                height: .25rem;
+                left: 1.5rem;
+                top: 2.6rem;
+              }
+              &:before {
+                content: '';
+                height: .3rem;
+                position: absolute;
+                background-color: $disableBtn;
+                width: 2.5rem;
+                top: -.9rem;
+                @include respond(mobile ){
+                  width:1.8rem;
+                  height: .25rem;
+                  top: -.9rem;
+                }
+              }
+              &:after {
+                content: '';
+                height: .3rem;
+                position: absolute;
+                background-color: $disableBtn;
+                width: 2.5rem;
+                top: .9rem;
+                @include respond(mobile ){
+                  display: none;
+                }
+              }
+            }
+            .SliderItem {
+              position: absolute;
+              width: 5rem;
+              height: 5rem;
+              border-radius: 50%;
+              background-color: #C4C4C4;
+              top: 0.7rem;
+              right: 0.78rem;
+              transform: translateX(0);
+              transition: all 0.3s ease;
+              @include respond(mobile ){
+                width: 3.7rem;
+                height: 3.7rem;
+                top: 0.3rem;
+                right: 0.5rem;
+              }
+              img{
+                width: 100%;
+              }
+          }
+          .SlideOpen{
+            transform: translateX(-6.5rem); 
+            @include respond(mobile ){
+                transform: translateX(-3.7rem);
+              }
+          }
+         }
+       }
+        // .Register,
+        // .Login{
+        //   font-size: $smallerMediumFont;
+        //   font-weight: $font-Weight-bold;
+        //   font-family: $helvetica;
+        //   line-height: $lineHeight20px;
+    
+        //   a {
+        //     color: $fontColor;
+        //     text-decoration: none;
+        //     position: relative;
+
+        //     .ProfilePicture {
+        //       position: absolute;
+        //       top: -4.4rem;
+        //       right: 5%;
+        //       width: 5.1rem;
+        //       height: 5.1rem;
+        //       border-radius: 50%;
+        //     }
+        //   }
           
-        }
-        .Register {
-          background-color: #F6F8F9;
-          padding: 1.3rem 2.25rem 1.48rem 2.55rem;
-          border-radius: 2.2rem;
-          margin-right: 2.7rem;
-        }
+        // }
+        // .Register {
+        //   background-color: #F6F8F9;
+        //   padding: 1.3rem 2.25rem 1.48rem 2.55rem;
+        //   border-radius: 2.2rem;
+        //   margin-right: 2.7rem;
+        // }
 
         .Languages {
           font-size: $fontSize20px;
@@ -147,11 +257,12 @@
           line-height: $lineHeight20px;
           margin-left: 2.86rem;
           cursor: pointer;
+          @include respond(mobile){
+            display: none;
+          }
         }
       
     }
-    @media (max-width: 900px) {
-      width: 95%;
-    }
   }
+  
 }

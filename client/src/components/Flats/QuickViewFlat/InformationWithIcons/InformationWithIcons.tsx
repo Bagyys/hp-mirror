@@ -19,12 +19,14 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
           <div className={classes.ImgContainer}>
             <img src={double} />
           </div>
-          <span className={classes.Beds}>
+          <p className={classes.Beds}>
             {`${props.facilities.bedsTest.double} ${
               Object.keys(props.facilities.bedsTest)[1]
             }`}
-          </span>
-          <span>{props.facilities.bedsTest.double > 1 ? ' beds' : ' bed'}</span>
+            <span>
+              {props.facilities.bedsTest.double > 1 ? ' beds' : ' bed'}
+            </span>
+          </p>
         </div>
       )}
       {props.facilities.wifi && (
@@ -32,7 +34,7 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
           <div className={classes.ImgContainer}>
             <img src={wifi} />
           </div>
-          <span>Wifi</span>
+          <p>Wifi</p>
         </div>
       )}
       {props.facilities.bedsTest.single > 0 && (
@@ -40,12 +42,14 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
           <div className={classes.ImgContainer}>
             <img src={single} />
           </div>
-          <span className={classes.Beds}>
+          <p className={classes.Beds}>
             {`${props.facilities.bedsTest.single} ${
               Object.keys(props.facilities.bedsTest)[0]
             }`}
-          </span>
-          <span>{props.facilities.bedsTest.single > 1 ? ' beds' : ' bed'}</span>
+            <span>
+              {props.facilities.bedsTest.single > 1 ? ' beds' : ' bed'}
+            </span>
+          </p>
         </div>
       )}
       {props.facilities.workspace && (
@@ -53,7 +57,7 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
           <div className={classes.ImgContainer}>
             <img src={workspace} />
           </div>
-          <span>Workspace</span>
+          <p>Workspace</p>
         </div>
       )}
       {props.facilities.parking && (
@@ -61,7 +65,7 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
           <div className={classes.ImgContainer}>
             <img src={parking} />
           </div>
-          <span>Parking</span>
+          <p>Parking</p>
         </div>
       )}
       {props.facilities.bathrooms > 0 && (
@@ -69,11 +73,11 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
           <div className={classes.ImgContainer}>
             <img src={bath} />
           </div>
-          <span>
+          <p>
             {`${props.facilities.bathrooms} ${
               props.facilities.bathrooms > 1 ? ' Bathrooms' : ' Bathroom'
             }`}
-          </span>
+          </p>
         </div>
       )}
     </React.Fragment>

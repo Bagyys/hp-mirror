@@ -1,3 +1,7 @@
+@import "../../styles/mixins";
 .Footer {
     margin-top: 17rem;
+    @include respond(mobile){
+        display: none;
+    }
 }

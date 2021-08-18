@@ -25,7 +25,7 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
             overallRating={props.property.overallRating}
             ratingsCount={props.property.ratingsCount}
           />
-          <PropertiesType type={props.property.type} />
+          <PropertiesType>{props.property.type}</PropertiesType>
           <MainInformation facilities={props.property.facilities} />
         </div>
       </div>
@@ -39,7 +39,7 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
         <InformationWithIcons facilities={props.property.facilities} />
       </div>
       <div className={classes.AboutPlaceContainer}>
-        <AboutPlace description={props.property.description} />
+        <AboutPlace>{props.property.description}</AboutPlace>
       </div>
       <div className={classes.PriceBtnContainer}>
         <Prices price={props.property.price.daily} />

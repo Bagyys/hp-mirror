@@ -16,6 +16,9 @@
         .Beds {
             text-transform: capitalize;
             margin-right: .8rem;
+            span {
+                text-transform: lowercase;
+            }
         }
         .ImgContainer {
             margin-right: 1.36rem;

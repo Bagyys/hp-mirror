@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import { cn } from '../../utilities/joinClasses';
 import { StoreState } from '../../store/configureStore';
 import { userState } from '../../store/reducers/userReducer';
 // import { errorState } from "../../store/reducers/errorReducer";
@@ -10,8 +10,8 @@ import FavoriteImg from '../../assets/images/Favorite.svg';
 import GuideImg from '../../assets/images/Guide.svg';
 import BurgerMenu from '../../assets/images/menu.png';
 import LogoImg from '../../assets/images/Logo.svg';
-import userImg from '../../assets/images/Profile.svg';
 import UserPic from '../../assets/images/UserPicture.svg';
+import favorites from '../../assets/images/favorite2.png';
 import logout from '../../assets/images/logout.png';
 import register from '../../assets/images/register.png';
 import NavRoutes from './NavRoutes/NavRoutes';
@@ -20,6 +20,7 @@ import searchImg from '../../assets/images/Search.svg';
 import classes from './navigation.module.scss';
 
 const Navigation = () => {
+  const [sliderToggle, setSliderToggle] = useState<boolean>(false);
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
   // const errorState: errorState = useSelector(
@@ -69,7 +70,12 @@ const Navigation = () => {
         </div>
         <div className={classes.Right}>
           <div className={classes.Favorites}>
-            <img src={FavoriteImg} alt="Favorites" />
+            <div className={classes.PcFavorite}>
+              <img src={FavoriteImg} alt="Favorites" />
+            </div>
+            <div className={classes.MobileFavorite}>
+              <img src={favorites} alt="Favorites2" />
+            </div>
           </div>
           <div className={classes.Guide}>
             <img src={GuideImg} alt="Favorites" />
@@ -77,10 +83,25 @@ const Navigation = () => {
           </div>
           {isAuthenticated && token ? (
             <>
-              <div className={classes.Login}>
-                <Link to="/settings">
+              <div className={classes.NavMenu}>
+                <div
+                  onClick={() => setSliderToggle(!sliderToggle)}
+                  className={classes.Slider}
+                >
+                  <div className={classes.Burger}></div>
+                  <div
+                    className={cn(
+                      classes.SliderItem,
+                      sliderToggle ? classes.SlideOpen : ''
+                    )}
+                  >
+                    <img src={UserPic} alt="Profile picture" />
+                  </div>
+                </div>
+
+                {/* <Link to="/settings">
                   <img
-                    className={classes.navBtn}
+                    className={classes.NavBtn}
                     src={userImg}
                     alt="Profile menu"
                   />
@@ -89,9 +110,9 @@ const Navigation = () => {
                     src={UserPic}
                     alt="Profile picture"
                   />
-                </Link>
+                </Link> */}
               </div>
-              <div className={classes.Logout} onClick={handleSignOut}>
+              {/* <div className={classes.Logout} onClick={handleSignOut}>
                 <Link to="/">
                   <img
                     className={classes.navBtn}
@@ -99,7 +120,7 @@ const Navigation = () => {
                     alt="LogoutPic"
                   />
                 </Link>
-              </div>
+              </div> */}
               <div className={classes.Languages}>
                 <p>EN</p>
               </div>
@@ -118,7 +139,7 @@ const Navigation = () => {
               </div>
             </>
           )}
-          <div className={classes.Menu}>
+          {/* <div className={classes.Menu}>
             <img src={BurgerMenu} alt="Menu" onClick={openMobileMenu} />
 
             <Backdrop isVisible={isOpen} toggleHandler={closeMobileMenu}>
@@ -161,7 +182,7 @@ const Navigation = () => {
                 Locks
               </Link>
             </Backdrop>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

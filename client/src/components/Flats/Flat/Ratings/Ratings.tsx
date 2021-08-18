@@ -11,8 +11,8 @@ const Ratings: React.FC<RatingsProps> = (props) => (
       <span>{props.overallRating}</span>
     </div>
     <div className={classes.Reviews}>
-      ( <span>{props.ratingsCount} </span>
-      reviews )
+      ( {props.ratingsCount}
+      <span> reviews</span> )
     </div>
   </div>
 );

@@ -31,6 +31,7 @@ const ImageSlider: React.FC<SliderProps> = ({ slides, borders }) => {
           />
         )}
         defaultControlsConfig={{
+          pagingDotsContainerClassName: classes['Dots'],
           pagingDotsStyle: {
             fill: 'white',
             opacity: 1,

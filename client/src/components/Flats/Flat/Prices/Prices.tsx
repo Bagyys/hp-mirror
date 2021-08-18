@@ -6,7 +6,8 @@ interface PriceProps {
 const Prices: React.FC<PriceProps> = (props) => (
   <div className={classes.PriceContainer}>
     <p className={classes.Price}>
-      <span>{props.price}€</span>/night
+      <span>{props.price}€</span>
+      <span className={classes.Separator}>/</span>night
     </p>
     <p className={classes.TotalPrice}>244€ total</p>
   </div>

@@ -12,8 +12,10 @@ import filterImg from '../../assets/images/filter.png';
 import Flat from './Flat/Flat';
 import Pagination from '../Pagination/Pagination';
 import QuickViewFlat from './QuickViewFlat/QuickViewFlat';
+import arrow from '../../assets/images/arrow2.png';
 import { fakeData } from '../../fakeData/data';
 const PageSize = 6;
+
 interface FlatsProps {
   toggleHandler: () => void;
 }
@@ -103,7 +105,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
     recentlyViewPropertiesRender = (
       <ul className={classes.FlatsListConatiner}>
         {recentlyView.map((property: PropertyInterface, index: number) => (
-          <Flat key={property._id} property={property} />
+          <Flat recentlyView={true} key={property._id} property={property} />
         ))}
       </ul>
     );
@@ -114,18 +116,25 @@ const Flats: React.FC<FlatsProps> = (props) => {
         <div onClick={props.toggleHandler} className={classes.FilterContainer}>
           <img src={filterImg} />
         </div>
-        <p>{fakeData.length} results</p>
+        <p className={classes.PcResults}>{fakeData.length} results</p>
+        <p className={classes.MobileResults}>
+          {fakeData.length} places to stay <img src={arrow} alt="Arrow2" />
+        </p>
       </div>
       {quickViewFlat && <QuickViewFlat property={quickViewFlat} />}
       {propertiesRender}
+
       <Pagination
         currentPage={currentPage}
         totalCount={fakeData.length}
         pageSize={PageSize}
         onPageChange={(page) => setCurrentPage(page)}
       />
-      <h2>Recently viewed</h2>
-      {recentlyViewPropertiesRender}
+
+      <div className={classes.RecentlyViewContainer}>
+        <h2>Recently viewed</h2>
+        {recentlyViewPropertiesRender}
+      </div>
     </div>
   );
 };

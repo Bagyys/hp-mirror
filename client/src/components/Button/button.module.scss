@@ -1,4 +1,5 @@
 @import "../../styles/global.scss";
+@import "../../styles/mixins";
 .FlatInfo {
     font-family: $roboto;
     background-color: $lightBlue;
@@ -13,6 +14,9 @@
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-in;
+    @include respond(mobile) {
+        display: none;
+    }
     a{
         text-decoration: none;
         color: $white;

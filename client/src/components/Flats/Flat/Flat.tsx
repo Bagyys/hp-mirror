@@ -8,12 +8,13 @@ import MainInformation from './MainInformation/MainInformation';
 import Prices from './Prices/Prices';
 import likeHeart from '../../../assets/images/like_heart.png';
 import likeHeartHover from '../../../assets/images/like_heart_hover.png';
+import LongBadge from '../QuickViewFlat/LongBadge/LongBadge';
 import { Link } from 'react-router-dom';
-
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
 import { useState } from 'react';
 interface FlatProps {
   property: PropertyInterface;
+  recentlyView?: boolean;
   hide?: boolean | null;
   clicked?: () => void;
 }
@@ -58,17 +59,39 @@ const Flat: React.FC<FlatProps> = (props) => {
               overallRating={props.property.overallRating}
               ratingsCount={props.property.ratingsCount}
             />
-            <PropertyType type={props.property.type} />
-            <MainInformation facilities={props.property.facilities} />
+            <PropertyType>{props.property.type}</PropertyType>
+            <div className={classes.MainInformationContainer}>
+              <MainInformation facilities={props.property.facilities} />
+            </div>
+            <div className={classes.AreaContainer}>
+              <p>{props.property.location.district} area</p>
+            </div>
             <div className={classes.PriceBtnContainer}>
+              <div className={classes.BadgeContainer}>
+                <LongBadge badge="BadgeDiscount">-5%</LongBadge>
+                <p>long term</p>
+              </div>
               <Prices price={props.property.price.daily} />
-              <Button
-                clicked={props.clicked}
-                btnType={'FlatInfo'}
-                show={showBtn}
-              >
-                Quick View
-              </Button>
+              {props.recentlyView ? (
+                <Button btnType={'FlatInfo'} show={showBtn}>
+                  <Link
+                    to={{
+                      pathname: `/flat/${props.property._id}`,
+                      state: { property: props.property },
+                    }}
+                  >
+                    View
+                  </Link>
+                </Button>
+              ) : (
+                <Button
+                  clicked={props.clicked}
+                  btnType={'FlatInfo'}
+                  show={showBtn}
+                >
+                  Quick View
+                </Button>
+              )}
             </div>
           </div>
         </div>
