@@ -16,6 +16,7 @@ import Pagination from '../Pagination/Pagination';
 import QuickViewFlat from './QuickViewFlat/QuickViewFlat';
 import arrow from '../../assets/images/arrow2.png';
 import { fakeData } from '../../fakeData/data';
+import Button from '../Button/button';
 const PageSize = 6;
 
 interface FlatsProps {
@@ -152,9 +153,9 @@ const Flats: React.FC<FlatsProps> = (props) => {
   return (
     <div className={classes.FlatsContainer}>
       <div className={classes.FlatsContainerNav}>
-        <div onClick={props.toggleHandler} className={classes.FilterContainer}>
+        <Button clicked={props.toggleHandler} btnType="Filter">
           <img src={filterImg} />
-        </div>
+        </Button>
         <p className={classes.PcResults}>{fakeData.length} results</p>
         <p className={classes.MobileResults}>
           {fakeData.length} places to stay <img src={arrow} alt="Arrow2" />
