@@ -18,6 +18,7 @@ export interface MainPageInterface {
       adults: number;
       children: number;
     };
+    isCalendar: boolean;
   };
 }
 
@@ -63,6 +64,16 @@ export const setNumberOfAdultsAndChildren =
       type: mainPageTypes.NUMBER_OF_GUESTS,
       payload: {
         guests,
+      },
+    });
+  };
+
+export const toggleIsCalendar =
+  (isCalendar: boolean) => (dispatch: Dispatch) => {
+    dispatch({
+      type: mainPageTypes.TOGGLE_CALENDAR,
+      payload: {
+        isCalendar,
       },
     });
   };

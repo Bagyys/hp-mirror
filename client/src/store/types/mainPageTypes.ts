@@ -3,6 +3,7 @@ enum mainPageTypes {
   ADD_END_DATE = "ADD_END_DATE",
   PROCEED_TO_GUESTS = "PROCEED_TO_GUESTS",
   NUMBER_OF_GUESTS = "NUMBER_OF_GUESTS",
+  TOGGLE_CALENDAR = "TOGGLE_CALENDAR",
 }
 
 export default mainPageTypes;

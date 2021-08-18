@@ -14,17 +14,11 @@ function Main() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
   const forwardToGuests = mainPage.proceedToGuests;
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [isCalendar, setIsCalendar] = useState<boolean>(true);
-
   const changeSearchState = () => {
     if (!isSearching) {
       setIsSearching(true);
     }
   };
-
-  // const chooseCalendarOrAnytime = () => {
-  //   isCalendar ? setIsCalendar(false) : setIsCalendar(true);
-  // };
 
   return (
     <div className={classes.Main}>
@@ -33,8 +27,8 @@ function Main() {
       </div>
       <div className={classes.Right}>
         <Title isSearching={isSearching} />
-        {isSearching ? <SearchType setCalendar={setIsCalendar}/> : null}
-        {isCalendar ? (
+        {isSearching ? <SearchType /> : null}
+        {mainPage.isCalendar ? (
           <React.Fragment>
             <SearchProgress
               isSearching={isSearching}
@@ -45,7 +39,7 @@ function Main() {
                 {forwardToGuests ? <GuestContainer /> : <Calendar />}
               </React.Fragment>
             ) : (
-              <AnyTimeIsGood setCalendar={setIsCalendar} />
+              <AnyTimeIsGood />
             )}
           </React.Fragment>
         ) : (
