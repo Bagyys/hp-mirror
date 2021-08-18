@@ -1,0 +1,14 @@
+@import "../../../../styles/global.scss";
+@import "../../../../styles/mixins";
+.ApartamentType {
+    font-size: $fontSize20px;
+    line-height: $lineHeight26px;
+    font-family: $helveticaNeue;
+    margin-bottom: 0.75rem;
+    max-width: 31.5rem;
+    @include respond(mobile){
+        font-size: $mediumFontSize;
+        line-height: $lineHeight15px;
+        margin-bottom: 0.41rem;
+    }
+    }

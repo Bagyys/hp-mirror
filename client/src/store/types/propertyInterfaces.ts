@@ -22,8 +22,6 @@ export interface PropertyInterface {
 export interface DiscountInterface {
     more1Week:boolean;
     more1Month:boolean;
-    badgeColor:string;
-    inContent:boolean;
 }
 
 export interface RatingInterface {
@@ -44,6 +42,7 @@ export interface OccupiedDayInterface {
 export interface FacilitiesInterface {
   size: number;
   wifi: boolean;
+  workspace:boolean;
   parking: boolean;
   petFriendly: boolean;
   disabilityAccess: boolean;
@@ -52,14 +51,16 @@ export interface FacilitiesInterface {
   bathtub: boolean;
   washingMachine: boolean;
   balcony: boolean;
+  terrace:boolean; //dadejau
   breakfast: boolean;
   crib: boolean;
   nonSmoking: boolean;
   bathroomType: string;
   bathrooms: number;
-  bedType: string;
+  // bedType: string;
   beds: number;
   bedrooms: number;
+  bedsTest:{[key:string]:number}
 }
 
 export interface PriceInterface {

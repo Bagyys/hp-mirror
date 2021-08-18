@@ -1,8 +1,7 @@
 @import "./styles/global.scss";
-
+@import "./styles/mixins";
 .App {
   // background-color: $lightGrey;
-
  max-width: 192rem;
  margin: 0 auto;
   .contentBox {
@@ -11,6 +10,10 @@
     margin: 0 auto;
     justify-content: space-between;
     margin-top: 11.7rem;
+    @include respond(mobile){
+      flex-direction: column;
+      margin-top: 7rem;
+    }
   }
   .Locks {
     display: block;

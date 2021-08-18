@@ -15,6 +15,8 @@ interface MultiRangeSliderProps {
   initialMin: number;
   initialMax: number;
   onChange: Function;
+  clear: boolean;
+  clearHandler: () => void;
 }
 
 const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
@@ -23,6 +25,8 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
   initialMin,
   initialMax,
   onChange,
+  clear,
+  clearHandler,
 }) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
@@ -56,10 +60,20 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
     }
   }, [maxVal, getPercent]);
 
+  const clearRangeSlider = useCallback(() => {
+    if (clear) {
+      setMinVal(initialMin);
+      setMaxVal(initialMax);
+      minValRef.current = initialMin;
+      maxValRef.current = initialMax;
+    }
+  }, [clear, initialMin, initialMax]);
   // Get min and max values when their state changes
   useEffect(() => {
     onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal]);
+    clearHandler();
+    clearRangeSlider();
+  }, [minVal, maxVal, clear]);
 
   return (
     <div className={classes.Container}>
@@ -67,7 +81,7 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
         type="range"
         min={initialMin}
         max={initialMax}
-        value={minVal}
+        value={clear ? initialMin : minVal}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           const value = Math.min(Number(event.target.value), maxVal - 1);
           setMinVal(value);
@@ -80,7 +94,7 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
         type="range"
         min={initialMin}
         max={initialMax}
-        value={maxVal}
+        value={clear ? initialMax : maxVal}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           const value = Math.max(Number(event.target.value), minVal + 1);
           setMaxVal(value);

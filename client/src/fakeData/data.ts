@@ -1,17 +1,17 @@
-import { isWhiteSpaceLike } from 'typescript';
-import FlatImg from '../assets/images/flat_img.png'; 
 
-export const fakeData = [
+import FlatImg from '../assets/images/flat_img.png'; 
+import { PropertyInterface } from '../store/types/propertyInterfaces';
+export const fakeData:PropertyInterface[] = [
   {
-    _id: 'abcdehdgf',
+    _id: 'abcdedhdgf',
     title: 'Testinis',
-    description: 'Testinis aprasymas',
+    description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'Studio appartament',
     maxOccupants: 3,
     location: {
       country: 'Country',
       city: 'City',
-      district: 'District',
+      district: 'Rothenburg',
       zipcode: 'Zip code',
       addressString1: 'Address 1',
       addressString2: 'Address 2',
@@ -27,12 +27,14 @@ export const fakeData = [
     facilities: {
       size: 50,
       wifi: true,
-      parking: false,
+      workspace:true,
+      parking: true,
       petFriendly: false,
       disabilityAccess: true,
       kitchen: true,
       airConditioning: true,
       bathtub: true,
+      terrace:false,
       washingMachine: true,
       balcony: true,
       breakfast: true,
@@ -40,9 +42,10 @@ export const fakeData = [
       nonSmoking: true,
       bathroomType: '',
       bathrooms: 1,
-      bedType: 'Single',
+      // bedType: 'Single',
       beds: 2,
       bedrooms: 1,
+      bedsTest:{single:1,double:1} //pakeiciau, kad gauti kieki ir kokios lovos yra
     },
     lock: 'Lock',
     services: {},
@@ -101,15 +104,13 @@ export const fakeData = [
     discount:{
       more1Week:true,
       more1Month:false,
-      badgeColor:'White',
-      inContent:false
     },
     createdAt: new Date(),
   },
   {
-    _id: 'abcdeaasfg',
+    _id: 'abcdeaaasfg',
     title: 'Testinis',
-    description: 'Testinis aprasymas',
+    description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'One bedroom appartament',
     maxOccupants: 3,
     location: {
@@ -131,12 +132,14 @@ export const fakeData = [
     facilities: {
       size: 50,
       wifi: true,
+      workspace:true,
       parking: false,
       petFriendly: false,
       disabilityAccess: true,
       kitchen: false,
       airConditioning: true,
       bathtub: true,
+      terrace:false,
       washingMachine: true,
       balcony: true,
       breakfast: true,
@@ -144,9 +147,10 @@ export const fakeData = [
       nonSmoking: true,
       bathroomType: '',
       bathrooms: 1,
-      bedType: 'Bad type',
+      // bedType: 'Double',
       beds: 1,
       bedrooms: 1,
+      bedsTest:{single:1,double:0}
     },
     lock: 'Lock',
     services: {},
@@ -190,20 +194,18 @@ export const fakeData = [
         givenRating: 5,
       },
     ],
-    overallRating: 5,
-    ratingsCount: 5,
+    overallRating: 4.75,
+    ratingsCount: 55,
     discount:{
       more1Week:true,
-      more1Month:true,
-      badgeColor:'Orange',
-      inContent:true
+      more1Month:true
     },
     createdAt: new Date(),
   },
   {
-    _id: 'abcdeadfghd',
+    _id: 'abfcdeadfghd',
     title: 'Testinis',
-    description: 'Testinis aprasymas',
+    description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'Loft appartment in city center',
     maxOccupants: 3,
     location: {
@@ -225,12 +227,14 @@ export const fakeData = [
     facilities: {
       size: 50,
       wifi: true,
+      workspace:true,
       parking: false,
       petFriendly: false,
       disabilityAccess: true,
       kitchen: true,
       airConditioning: true,
       bathtub: true,
+      terrace:true,
       washingMachine: true,
       balcony: true,
       breakfast: true,
@@ -238,9 +242,10 @@ export const fakeData = [
       nonSmoking: true,
       bathroomType: 'shared',
       bathrooms: 1,
-      bedType: 'Bad type',
+      // bedType: 'Bad type',
       beds: 3,
       bedrooms: 1,
+      bedsTest:{single:2,double:1}
     },
     lock: 'Lock',
     services: {},
@@ -289,15 +294,13 @@ export const fakeData = [
     discount:{
       more1Week:true,
       more1Month:false,
-      badgeColor:'Blue',
-      inContent:true
     },
     createdAt: new Date(),
   },
   {
-    _id: 'abcdeasdfgsg',
+    _id: 'abcdeasdfgsgg',
     title: 'Testinis',
-    description: 'Testinis aprasymas',
+    description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'Small appartment close to park',
     maxOccupants: 3,
     location: {
@@ -319,12 +322,14 @@ export const fakeData = [
     facilities: {
       size: 50,
       wifi: true,
+      workspace:true,
       parking: true,
       petFriendly: true,
       disabilityAccess: true,
       kitchen: true,
       airConditioning: true,
       bathtub: true,
+      terrace:false,
       washingMachine: true,
       balcony: true,
       breakfast: true,
@@ -332,9 +337,10 @@ export const fakeData = [
       nonSmoking: true,
       bathroomType: 'private',
       bathrooms: 1,
-      bedType: 'Bad type',
+      // bedType: 'Bad type',
       beds: 2,
       bedrooms: 1,
+      bedsTest:{single:1,double:1}
     },
     lock: 'Lock',
     services: {},
@@ -382,16 +388,14 @@ export const fakeData = [
     ratingsCount: 5,
     discount:{
       more1Week:false,
-      more1Month:true,
-      badgeColor:'Orange',
-      inContent:false
+      more1Month:true
     },
     createdAt: new Date(),
   },
   {
-    _id: 'abcdeadgfg',
+    _id: 'abcdeasdgfg',
     title: 'Testinis',
-    description: 'Testinis aprasymas',
+    description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'Studio appartment',
     maxOccupants: 3,
     location: {
@@ -413,12 +417,14 @@ export const fakeData = [
     facilities: {
       size: 50,
       wifi: true,
+      workspace:true,
       parking: true,
       petFriendly: true,
       disabilityAccess: true,
       kitchen: true,
       airConditioning: true,
       bathtub: true,
+      terrace:false,
       washingMachine: true,
       balcony: true,
       breakfast: true,
@@ -426,9 +432,10 @@ export const fakeData = [
       nonSmoking: true,
       bathroomType: 'private',
       bathrooms: 1,
-      bedType: 'Bad type',
+      // bedType: 'Bad type',
       beds: 2,
       bedrooms: 1,
+      bedsTest:{single:2,double:0}
     },
     lock: 'Lock',
     services: {},
@@ -476,16 +483,14 @@ export const fakeData = [
     ratingsCount: 5,
     discount:{
       more1Week:true,
-      more1Month:true,
-      badgeColor:'Red',
-      inContent:false
+      more1Month:true
     },
     createdAt: new Date(),
   },
   {
-    _id: 'abcdeaasd',
+    _id: 'abcdejaasd',
     title: 'Testinis',
-    description: 'Testinis aprasymas',
+    description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'Studio appartment',
     maxOccupants: 3,
     location: {
@@ -507,22 +512,25 @@ export const fakeData = [
     facilities: {
       size: 50,
       wifi: true,
+      workspace:true,
       parking: true,
       petFriendly: true,
       disabilityAccess: true,
       kitchen: true,
       airConditioning: true,
       bathtub: true,
+      terrace:false,
       washingMachine: true,
       balcony: true,
       breakfast: true,
       crib: true,
       nonSmoking: true,
-      bathroomType: 'Bathroom type',
+      bathroomType: '',
       bathrooms: 1,
-      bedType: 'Bad type',
+      // bedType: 'Bad type',
       beds: 2,
       bedrooms: 1,
+      bedsTest:{single:1,double:1}
     },
     lock: 'Lock',
     services: {},
@@ -570,16 +578,14 @@ export const fakeData = [
     ratingsCount: 5,
     discount:{
       more1Week:true,
-      more1Month:false,
-      badgeColor:'Green',
-      inContent:true
+      more1Month:false
     },
     createdAt: new Date(),
   },
   {
-    _id: 'abcdesaaasd',
+    _id: 'abcdersaaasd',
     title: 'Testinis',
-    description: 'Testinis aprasymas',
+    description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'Studio appartment',
     maxOccupants: 3,
     location: {
@@ -601,22 +607,25 @@ export const fakeData = [
     facilities: {
       size: 50,
       wifi: true,
+      workspace:true,
       parking: true,
       petFriendly: true,
       disabilityAccess: true,
       kitchen: true,
       airConditioning: true,
       bathtub: true,
+      terrace:false,
       washingMachine: true,
       balcony: true,
       breakfast: true,
       crib: true,
       nonSmoking: true,
-      bathroomType: 'Bathroom type',
+      bathroomType: '',
       bathrooms: 1,
-      bedType: 'Bad type',
-      beds: 2,
+      // bedType: 'Bad type',
+      beds: 3,
       bedrooms: 1,
+      bedsTest:{single:3,double:0}
     },
     lock: 'Lock',
     services: {},
@@ -664,9 +673,7 @@ export const fakeData = [
     ratingsCount: 5,
     discount:{
       more1Week:true,
-      more1Month:false,
-      badgeColor:'Green',
-      inContent:true
+      more1Month:false
     },
     createdAt: new Date(),
   },

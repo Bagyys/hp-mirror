@@ -1,4 +1,4 @@
-@import "../../styles/global.scss";
+@import "../../../../styles/global.scss";
 
 .Badge {
     font-size: $fontSize21px;
@@ -11,6 +11,8 @@
     margin-bottom: 0.69rem;
     position: relative;
     cursor: context-menu;
+    background-color: $orange;
+    color: $black2;
 }
 .Badge5 {
      &:hover:after{
@@ -69,24 +71,4 @@
         transform: rotate(45deg);
         z-index: 1;
     }
-}
-.White {
-    background-color: white;
-    color: $black2;
-}
-.Orange {
-    background-color: $orange;
-    color: $black2;
-}
-.Blue {
-    border: 1px solid $lightBlue;
-    color: $lightBlue;
-}
-.Red {
-    background-color: $red;
-    color: $white;
-}
-.Green {
-    color: $white;
-    background-color: $lightGreen;
 }

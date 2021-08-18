@@ -1,14 +1,20 @@
 @import "../../../styles/global.scss";
+@import "../../../styles/mixins";
 .TopFooterContainer {
     display: flex;
-    padding: 7.62rem 10.9rem 21.3rem 10.9rem;
+    padding: 7.62rem 28rem 21.3rem 10.9rem;
     border-top: 1px solid #CBD0D3;
     font-size: $fontSize21px;
+    justify-content: space-between;
+    @include respond(pc) {
+        padding: 5.62rem 9% 8.3rem 9%;
+        
+    }
     .LinkBoxes{
         display: flex;
         flex-direction: column;
         max-width: 19.1rem;
-        margin-left: 23.5rem;
+        flex: 0 0 19%;
         &:first-child {
             margin-left: 0;
         }

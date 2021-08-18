@@ -94,15 +94,15 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   const [showAmenities, setShowAmenities] = useState<boolean>(false);
   const [showFacilities, setShowFacilities] = useState<boolean>(false);
   const [showAreas, setShowAreas] = useState<boolean>(false);
+  const [clearFilter, setClearFilter] = useState<boolean>(false);
   const priceHandler = useCallback(
     ({ min, max }: { min: number; max: number }) => {
-      const newArr = { ...filter };
-      newArr['priceSlider'] = { ...newArr.priceSlider, min: min, max: max };
+      const newArr = cloneDeep(filter);
+      newArr['priceSlider'] = { min, max };
       setFilter(newArr);
     },
-    [filter.priceSlider.min, filter.priceSlider.max]
+    [filter]
   );
-
   const counterHandler = (key: string, diff: number) => {
     const newArr = cloneDeep(filter);
     const newArrRoomsAndBeds = { ...newArr.roomsAndBeds[key] };
@@ -142,9 +142,10 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
         })}
     </React.Fragment>
   );
-
   const Clear = () => {
     alert('Clear');
+    setFilter(filterData);
+    setClearFilter(true);
   };
   const Save = () => {
     alert('Save');
@@ -331,7 +332,9 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
           max={filter.priceSlider.max}
           initialMin={filterData.priceSlider.min}
           initialMax={filterData.priceSlider.max}
+          clear={clearFilter}
           onChange={priceHandler}
+          clearHandler={() => setClearFilter(false)}
         />
       </div>
       <div className={classes.FilterBtnAndCheckboxContainer}>
@@ -394,6 +397,3 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   );
 };
 export default SideFilter;
-function useWindowSize() {
-  throw new Error('Function not implemented.');
-}

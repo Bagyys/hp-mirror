@@ -1,4 +1,6 @@
 @import "../../../styles/global.scss";
+@import "../../../styles/mixins";
+
 .BottomFooter{
     display: flex;
     align-items: center;
@@ -9,6 +11,9 @@
     padding: 1.55rem 15.3rem 1.55rem 10.7rem;
     line-height: $lineHeight36px;
     font-family: $helveticaNeue;
+    @include respond(pc) {
+        padding: 1.55rem 9% 1.55rem 9%;
+    }
     .LeftSide{
         span {
             margin: 0 2rem;

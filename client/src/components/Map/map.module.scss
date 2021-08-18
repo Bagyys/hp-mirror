@@ -1,10 +1,20 @@
+@import '../../styles/mixins';
 .Map {
     background-color: lightgray;
-    width: 51.7%;
+    flex:0 0 51.7%;
     height: 96.4rem;
     text-align: center;
+    margin-left: 1%;
+    @include respond(mobile) {
+        order: -1;
+        flex: 0 0 100%;
+        height: 39rem;
+        margin-left: 0;
+    }
+    .MapImg {
+        width: 100%;
+        height: 100%;
+    }
 }
-.MapImg {
-    width: 100%;
-    height: 100%;
-}
+
+

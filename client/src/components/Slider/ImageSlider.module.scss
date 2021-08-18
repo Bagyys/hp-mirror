@@ -1,15 +1,23 @@
 @import "../../styles/global.scss";
-
+@import "../../styles/mixins";
 .Slider {
   overflow: hidden;
   position: relative;
   .slider .slider-control-bottomcenter .paging-item {
     font-size: 1000px !important;
-}
-  img {
+  }
+  .QuickView{
+    border-radius: 1rem 0 0 0;
+  }
+  .FlatCard{
     border-radius: 1rem 1rem 0 0;
+  }
+  img {
     width: 100%;
     height: 24.6rem;
+    @include respond(mobile){
+      height: 40vw;
+    }
   }
   .Right{
     right: 1.5rem;
@@ -33,6 +41,12 @@
   }  
   &:hover .Arrow {
     visibility: visible;
+    opacity: 1;
+  }
+  .Dots {
+    opacity: 0;
+  }
+  &:hover .Dots {
     opacity: 1;
   }
 }

@@ -1,11 +1,14 @@
 @import "../../styles/global.scss";
-
+@import "../../styles/mixins";
 .PaginationContainer {
   display: flex;
   list-style-type: none;
   justify-content: center;
   margin-top: 6.22rem;
   margin-bottom: 9.1rem;
+  @include respond(mobile){
+        display: none;
+    }
   .PaginationItem {
     padding: .25rem .9rem;
     text-align: center;
