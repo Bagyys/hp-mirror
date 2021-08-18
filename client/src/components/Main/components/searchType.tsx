@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import classes from "../main.module.scss";
 
-function SearchType() {
+interface searchType {
+  setCalendar: Dispatch<SetStateAction<boolean>>;
+}
+
+function SearchType(props: searchType) {
   const [numberToMove, setNumberToMove] = useState<number>(10);
   const switcher = (number: number) => {
     setNumberToMove(number);

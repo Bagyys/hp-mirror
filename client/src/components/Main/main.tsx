@@ -9,7 +9,7 @@ import Calendar from "./components/calendar";
 import { useSelector } from "react-redux";
 import { StoreState } from "../../store/configureStore";
 import Anytime from "./components/anytime";
-
+import AnyTimeIsGood from "./components/anytimeIsGood";
 function Main() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
   const forwardToGuests = mainPage.proceedToGuests;
@@ -33,7 +33,7 @@ function Main() {
       </div>
       <div className={classes.Right}>
         <Title isSearching={isSearching} />
-        {/* <SearchType /> */}
+        {isSearching ? <SearchType setCalendar={setIsCalendar}/> : null}
         {isCalendar ? (
           <React.Fragment>
             <SearchProgress
@@ -44,7 +44,9 @@ function Main() {
               <React.Fragment>
                 {forwardToGuests ? <GuestContainer /> : <Calendar />}
               </React.Fragment>
-            ) : null}
+            ) : (
+              <AnyTimeIsGood setCalendar={setIsCalendar} />
+            )}
           </React.Fragment>
         ) : (
           <Anytime />
