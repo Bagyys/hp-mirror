@@ -314,9 +314,9 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   return (
     <div className={classes.SideFilterContainer}>
       <div className={classes.SideFilterNav}>
-        <div onClick={toggleHandler} className={classes.CloseContainer}>
+        <Button clicked={toggleHandler} btnType="CloseFilter">
           <img src={close} />
-        </div>
+        </Button>
         <div className={classes.ButtonsContainer}>
           <Button clicked={Clear} btnType="ClearFilter">
             Clear

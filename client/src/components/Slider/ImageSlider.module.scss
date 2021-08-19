@@ -1,5 +1,7 @@
 @import "../../styles/global.scss";
 @import "../../styles/mixins";
+
+//keli carousel pakeitimai ikelti i index.css
 .Slider {
   overflow: hidden;
   position: relative;
@@ -38,16 +40,21 @@
     visibility: hidden;
     transition: 0.3s ease-in;
     opacity: 0;
+    width: 3.7rem;
+    height: 3.7rem;
   }  
-  &:hover .Arrow {
-    visibility: visible;
-    opacity: 1;
-  }
   .Dots {
     opacity: 0;
   }
-  &:hover .Dots {
-    opacity: 1;
+  @media (hover: hover) {
+    &:hover .Arrow {
+      visibility: visible;
+      opacity: 1;
+    }
+  
+    &:hover .Dots {
+      opacity: 1;
+    }
   }
 }
 

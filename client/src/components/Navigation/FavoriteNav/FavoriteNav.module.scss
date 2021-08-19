@@ -1,0 +1,9 @@
+@import "../../../styles/mixins";
+
+.FavoritePc{
+    margin-right: 5.64rem;
+    cursor: pointer;
+    @include respond(mobile){
+        display: none;
+    }
+}

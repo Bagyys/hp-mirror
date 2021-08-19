@@ -1,0 +1,30 @@
+@import "../../../styles/global.scss";
+@import "../../../styles/mixins";
+.SearchBox {
+        position: relative;
+        display: flex;
+        margin-left: 3.52rem;
+        background-color: rgba(235, 237, 237, 0.8);
+        padding:2rem 5.1rem 1.5rem 4.41rem;
+        border-radius: 5.5rem;
+        .Date {
+         padding-right: 3.52rem;
+         border-right: 0.1rem solid #CBD0D3;
+        }
+        .Guests {
+          margin-left: 3.52rem;
+          margin-right: 3rem;
+         }
+        .SearchButton {
+          position: absolute;
+          right: -2%;
+          top: 0;
+          cursor: pointer;
+        }
+
+        img {
+          background-color: #4D94E8;
+          padding: 2.2rem;
+          border-radius: 50%;
+        }
+      }

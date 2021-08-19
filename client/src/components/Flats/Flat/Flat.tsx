@@ -1,28 +1,31 @@
+import { useState } from 'react';
+import { useMediaPredicate } from 'react-media-hook';
 import classes from './Flat.module.scss';
 import ImageSlider from '../../Slider/imageSlider';
 import Button from '../../Button/button';
 import DiscountBadge from './DiscountBadge/DiscountBadge';
 import Ratings from './Ratings/Ratings';
+import Favorites from './Favorites/Favorites';
 import PropertyType from './PropertyType/PropertiesType';
 import MainInformation from './MainInformation/MainInformation';
 import Prices from './Prices/Prices';
-import likeHeart from '../../../assets/images/like_heart.png';
-import likeHeartHover from '../../../assets/images/like_heart_hover.png';
 import LongBadge from '../QuickViewFlat/LongBadge/LongBadge';
 import { Link } from 'react-router-dom';
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
-import { useState } from 'react';
+
 interface FlatProps {
   property: PropertyInterface;
   recentlyView?: boolean;
   hide?: boolean | null;
+  liked: boolean;
   clicked?: () => void;
+  clickedLike: () => void;
+  mobileClickHandler?: () => void;
 }
 const Flat: React.FC<FlatProps> = (props) => {
   const [showBtn, setShowBtn] = useState<boolean>(false);
-  const like = () => {
-    alert('Successfully added to favorites');
-  };
+  const isMobile = useMediaPredicate('(max-width: 675px)');
+
   let propertiesRender = (
     <li
       onMouseOver={() => setShowBtn(true)}
@@ -33,44 +36,52 @@ const Flat: React.FC<FlatProps> = (props) => {
       <div className={classes.FlatContent}>
         <div className={classes.FlatImg}>
           <ImageSlider borders="FlatCard" slides={props.property.images} />
-          <div onClick={like} className={classes.LikeContainer}>
-            <img className={classes.Like} src={likeHeart} />
-            <img className={classes.LikeHover} src={likeHeartHover} />
-          </div>
-          <div className={classes.BadgeInContent}>
-            {props.property.discount.more1Week && (
-              <DiscountBadge badgeHover="Badge5" title="When book one week">
-                -5%
-              </DiscountBadge>
-            )}
-            {props.property.discount.more1Month && (
-              <DiscountBadge
-                badgeHover="Badge20"
-                title="When book one month or more"
-              >
-                -20%
-              </DiscountBadge>
-            )}
-          </div>
+          <Favorites liked={props.liked} clickedLike={props.clickedLike} />
+          {!isMobile && (
+            <div className={classes.BadgeInContent}>
+              {props.property.discount.more1Week && (
+                <DiscountBadge badgeHover="Badge5" title="When book one week">
+                  -5%
+                </DiscountBadge>
+              )}
+              {props.property.discount.more1Month && (
+                <DiscountBadge
+                  badgeHover="Badge20"
+                  title="When book one month or more"
+                >
+                  -20%
+                </DiscountBadge>
+              )}
+            </div>
+          )}
         </div>
-        <div className={classes.InfoContainer}>
+        <div
+          onClick={props.mobileClickHandler}
+          className={classes.InfoContainer}
+        >
           <div className={classes.Info}>
             <Ratings
               overallRating={props.property.overallRating}
               ratingsCount={props.property.ratingsCount}
             />
             <PropertyType>{props.property.type}</PropertyType>
-            <div className={classes.MainInformationContainer}>
+            {!isMobile && (
               <MainInformation facilities={props.property.facilities} />
-            </div>
-            <div className={classes.AreaContainer}>
-              <p>{props.property.location.district} area</p>
-            </div>
+            )}
+
+            {isMobile && (
+              <p className={classes.Area}>
+                {props.property.location.district} area
+              </p>
+            )}
+
             <div className={classes.PriceBtnContainer}>
-              <div className={classes.BadgeContainer}>
-                <LongBadge badge="BadgeDiscount">-5%</LongBadge>
-                <p>long term</p>
-              </div>
+              {isMobile && (
+                <div className={classes.BadgeContainer}>
+                  <LongBadge badge="BadgeDiscount">-5%</LongBadge>
+                  <p>long term</p>
+                </div>
+              )}
               <Prices price={props.property.price.daily} />
               {props.recentlyView ? (
                 <Button btnType={'FlatInfo'} show={showBtn}>

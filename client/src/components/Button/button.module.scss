@@ -49,3 +49,20 @@
    visibility: visible;
     opacity: 1; 
 }
+%shared-round-style {
+    background-color: $lightGrey3;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+.Filter {
+    @extend %shared-round-style;
+    padding: 1.7rem 1.86rem;
+    @include respond(mobile){
+        display: none;
+    }
+}
+.CloseFilter {
+    @extend %shared-round-style;
+    padding: 2.05rem 2.21rem;
+}

@@ -4,23 +4,25 @@ import { Link } from 'react-router-dom';
 import { cn } from '../../utilities/joinClasses';
 import { StoreState } from '../../store/configureStore';
 import { userState } from '../../store/reducers/userReducer';
+import SearchBox from './SearchBox/SearchBox';
+import FavoriteNav from './FavoriteNav/FavoriteNav';
 // import { errorState } from "../../store/reducers/errorReducer";
 import { loadUser, logoutAction } from '../../store/actions/userActions';
-import FavoriteImg from '../../assets/images/Favorite.svg';
+import favoritePc from '../../assets/images/Favorite.svg';
 import GuideImg from '../../assets/images/Guide.svg';
 import BurgerMenu from '../../assets/images/menu.png';
 import LogoImg from '../../assets/images/Logo.svg';
 import UserPic from '../../assets/images/UserPicture.svg';
-import favorites from '../../assets/images/favorite2.png';
+import favoriteMobile from '../../assets/images/favorite2.png';
 import logout from '../../assets/images/logout.png';
 import register from '../../assets/images/register.png';
 import NavRoutes from './NavRoutes/NavRoutes';
 import Backdrop from '../Backdrop/Backdrop';
-import searchImg from '../../assets/images/Search.svg';
 import classes from './navigation.module.scss';
 
 const Navigation = () => {
   const [sliderToggle, setSliderToggle] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
   // const errorState: errorState = useSelector(
@@ -35,17 +37,15 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {}, [token, isAuthenticated]);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleSignOut = () => {
+    setIsOpen(false);
+    setSliderToggle(false);
     dispatch(logoutAction());
   };
-
-  const openMobileMenu = () => {
-    setIsOpen(true);
-  };
-  const closeMobileMenu = () => {
-    setIsOpen(false);
+  const menuHandler = () => {
+    setSliderToggle(!sliderToggle);
+    setIsOpen(!isOpen);
   };
   return (
     <div className={classes.Navigation}>
@@ -60,46 +60,53 @@ const Navigation = () => {
         </div>
         <div className={classes.Middle}>
           <div>Anytime</div>
-          <div className={classes.SearchBox}>
-            <div className={classes.Date}>July 1 - July 7</div>
-            <div className={classes.Guests}>2 guests</div>
-            <div className={classes.SearchButton}>
-              <img src={searchImg} alt="Search" />
-            </div>
-          </div>
+          <SearchBox />
         </div>
         <div className={classes.Right}>
-          <div className={classes.Favorites}>
-            <div className={classes.PcFavorite}>
-              <img src={FavoriteImg} alt="Favorites" />
-            </div>
-            <div className={classes.MobileFavorite}>
-              <img src={favorites} alt="Favorites2" />
-            </div>
-          </div>
+          <FavoriteNav img={favoritePc} classN="FavoritePc" />
+
           <div className={classes.Guide}>
             <img src={GuideImg} alt="Favorites" />
             <p>City Guide</p>
           </div>
-          {isAuthenticated && token ? (
-            <>
-              <div className={classes.NavMenu}>
-                <div
-                  onClick={() => setSliderToggle(!sliderToggle)}
-                  className={classes.Slider}
-                >
-                  <div className={classes.Burger}></div>
-                  <div
-                    className={cn(
-                      classes.SliderItem,
-                      sliderToggle ? classes.SlideOpen : ''
-                    )}
-                  >
-                    <img src={UserPic} alt="Profile picture" />
+          {/* {isAuthenticated && token ? (
+            <> */}
+          <div className={classes.NavMenuBtn}>
+            <div onClick={menuHandler} className={classes.Slider}>
+              <div className={classes.Burger}></div>
+              <div
+                className={cn(
+                  classes.SliderItem,
+                  sliderToggle ? classes.SlideOpen : ''
+                )}
+              >
+                {isAuthenticated && token && (
+                  <img src={UserPic} alt="Profile picture" />
+                )}
+              </div>
+            </div>
+            {isOpen && (
+              <div className={classes.MenuContainer}>
+                {isAuthenticated && token ? (
+                  <div onClick={handleSignOut}>
+                    <Link to="/">Logout</Link>
                   </div>
+                ) : (
+                  <div>
+                    <Link to="/login">Login</Link>
+                    <Link to="/register">Sign Up</Link>
+                  </div>
+                )}
+                <div className={classes.HostHome}>
+                  <Link to="#">Host your home</Link>
                 </div>
-
-                {/* <Link to="/settings">
+                <div>
+                  <Link to="#">About us</Link>
+                  <Link to="#">Contacts</Link>
+                </div>
+              </div>
+            )}
+            {/* <Link to="/settings">
                   <img
                     className={classes.NavBtn}
                     src={userImg}
@@ -111,8 +118,8 @@ const Navigation = () => {
                     alt="Profile picture"
                   />
                 </Link> */}
-              </div>
-              {/* <div className={classes.Logout} onClick={handleSignOut}>
+          </div>
+          {/* <div className={classes.Logout} onClick={handleSignOut}>
                 <Link to="/">
                   <img
                     className={classes.navBtn}
@@ -121,10 +128,10 @@ const Navigation = () => {
                   />
                 </Link>
               </div> */}
-              <div className={classes.Languages}>
-                <p>EN</p>
-              </div>
-            </>
+          <div className={classes.Languages}>
+            <p>EN</p>
+          </div>
+          {/* </>
           ) : (
             <>
               <div className={classes.Register}>
@@ -138,7 +145,7 @@ const Navigation = () => {
                 </Link>
               </div>
             </>
-          )}
+          )} */}
           {/* <div className={classes.Menu}>
             <img src={BurgerMenu} alt="Menu" onClick={openMobileMenu} />
 

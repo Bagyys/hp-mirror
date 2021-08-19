@@ -29,17 +29,6 @@
             margin:.5rem 0 .5rem 2.15rem;
             
         }
-        .FilterContainer {
-            background-color: $lightGrey3;
-            border-radius: 50%;
-            cursor: pointer;
-            img {
-                padding: 1.84rem 1.86rem;
-            }
-            @include respond(mobile){
-                display: none;
-            }
-        }
         .PcResults{
             line-height: $lineHeight36px;
             font-size: $fontSize19px;
@@ -79,9 +68,6 @@
             font-family: $helveticaNeue;
             line-height: $lineHeight26px;
             margin-bottom: 2.23rem;
-        }
-        @include respond(mobile){
-            display: none;
         }
     }
     
