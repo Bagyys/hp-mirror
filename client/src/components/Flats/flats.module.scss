@@ -33,7 +33,6 @@
             line-height: $lineHeight36px;
             font-size: $fontSize19px;
             color:$blackGrey;
-            text-decoration: underline;
             @include respond(mobile){
                 display: none;
             }

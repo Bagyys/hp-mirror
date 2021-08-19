@@ -6,26 +6,23 @@ import { StoreState } from '../../store/configureStore';
 import { userState } from '../../store/reducers/userReducer';
 import SearchBox from './SearchBox/SearchBox';
 import FavoriteNav from './FavoriteNav/FavoriteNav';
-// import { errorState } from "../../store/reducers/errorReducer";
+// import { ErrorState } from '../../store/reducers/errorReducer';
 import { loadUser, logoutAction } from '../../store/actions/userActions';
 import favoritePc from '../../assets/images/Favorite.svg';
 import GuideImg from '../../assets/images/Guide.svg';
-import BurgerMenu from '../../assets/images/menu.png';
 import LogoImg from '../../assets/images/Logo.svg';
 import UserPic from '../../assets/images/UserPicture.svg';
-import favoriteMobile from '../../assets/images/favorite2.png';
-import logout from '../../assets/images/logout.png';
-import register from '../../assets/images/register.png';
 import NavRoutes from './NavRoutes/NavRoutes';
 import Backdrop from '../Backdrop/Backdrop';
 import classes from './navigation.module.scss';
 
 const Navigation = () => {
   const [sliderToggle, setSliderToggle] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [language, setLanguage] = useState<string>('EN');
+  const [showLangBox, setShowLangBox] = useState<boolean>(false);
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
-  // const errorState: errorState = useSelector(
+  // const errorState: ErrorState = useSelector(
   //   (state: StoreState) => state.error
   // );
   // const { error } = errorState;
@@ -39,14 +36,17 @@ const Navigation = () => {
   useEffect(() => {}, [token, isAuthenticated]);
 
   const handleSignOut = () => {
-    setIsOpen(false);
     setSliderToggle(false);
     dispatch(logoutAction());
   };
   const menuHandler = () => {
     setSliderToggle(!sliderToggle);
-    setIsOpen(!isOpen);
   };
+  const handleSetLanguage = (e: any) => {
+    const lang = e.target.dataset.value;
+    setLanguage(lang);
+  };
+
   return (
     <div className={classes.Navigation}>
       <div className={classes.NavigationWrapper}>
@@ -85,7 +85,7 @@ const Navigation = () => {
                 )}
               </div>
             </div>
-            {isOpen && (
+            {sliderToggle && (
               <div className={classes.MenuContainer}>
                 {isAuthenticated && token ? (
                   <div onClick={handleSignOut}>
@@ -106,90 +106,38 @@ const Navigation = () => {
                 </div>
               </div>
             )}
-            {/* <Link to="/settings">
-                  <img
-                    className={classes.NavBtn}
-                    src={userImg}
-                    alt="Profile menu"
-                  />
-                  <img
-                    className={classes.ProfilePicture}
-                    src={UserPic}
-                    alt="Profile picture"
-                  />
-                </Link> */}
           </div>
-          {/* <div className={classes.Logout} onClick={handleSignOut}>
-                <Link to="/">
-                  <img
-                    className={classes.navBtn}
-                    src={logout}
-                    alt="LogoutPic"
-                  />
-                </Link>
-              </div> */}
-          <div className={classes.Languages}>
-            <p>EN</p>
+          <div
+            onClick={() => setShowLangBox(!showLangBox)}
+            className={classes.Languages}
+          >
+            <p>{language}</p>
+            <div
+              style={showLangBox ? { display: 'block' } : { display: 'none' }}
+              className={classes.SelectLanguage}
+            >
+              <p
+                onClick={handleSetLanguage}
+                className={cn(
+                  classes.CustomOption,
+                  language == 'EN' ? classes.Selected : ''
+                )}
+                data-value="EN"
+              >
+                EN
+              </p>
+              <p
+                onClick={handleSetLanguage}
+                className={cn(
+                  classes.CustomOption,
+                  language == 'LT' ? classes.Selected : ''
+                )}
+                data-value="LT"
+              >
+                LT
+              </p>
+            </div>
           </div>
-          {/* </>
-          ) : (
-            <>
-              <div className={classes.Register}>
-                <Link to="/register">
-                  <p>Become host</p>
-                </Link>
-              </div>
-              <div className={classes.Login}>
-                <Link to="/login">
-                  <p>Sign in</p>
-                </Link>
-              </div>
-            </>
-          )} */}
-          {/* <div className={classes.Menu}>
-            <img src={BurgerMenu} alt="Menu" onClick={openMobileMenu} />
-
-            <Backdrop isVisible={isOpen} toggleHandler={closeMobileMenu}>
-              <div className={classes.Close} onClick={closeMobileMenu}>
-                X
-              </div>
-              <Link
-                className={classes.MobileLink}
-                onClick={closeMobileMenu}
-                to="/reservations"
-              >
-                Reservations
-              </Link>
-              <Link
-                className={classes.MobileLink}
-                onClick={closeMobileMenu}
-                to="/favorites"
-              >
-                Favorites
-              </Link>
-              <Link
-                className={classes.MobileLink}
-                onClick={closeMobileMenu}
-                to="/history"
-              >
-                History
-              </Link>
-              <Link
-                className={classes.MobileLink}
-                onClick={closeMobileMenu}
-                to="/settings"
-              >
-                Settings
-              </Link>
-              <Link
-                className={classes.MobileLink}
-                onClick={closeMobileMenu}
-                to="/locks"
-              >
-                Locks
-              </Link>
-            </Backdrop>
-          </div> */}
         </div>
       </div>
     </div>

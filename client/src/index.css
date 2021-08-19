@@ -191,7 +191,10 @@ table {
   height: 15px;
 }
 .slider-slide {
-  outline: none;
+  outline: none ;
+}
+.slider-list {
+  margin: 0 !important;
 }
 .active .paging-dot > circle {
   r: 4px;

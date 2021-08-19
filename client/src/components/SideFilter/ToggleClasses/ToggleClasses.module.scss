@@ -9,4 +9,11 @@
     .Hide {
         display: none;
     }
+    .ArrowDown {
+        margin-left: .5rem;
+    }
+    .ArrowUp{
+        transform: rotate(180deg);
+        margin-left: .5rem;
+    }
 }
