@@ -10241,3 +10241,22 @@
 >>>>>>> origin/Simonas
 ::1 - - [16/Aug/2021:12:16:28 +0000] "POST / HTTP/1.1" 200 43
 ::1 - - [16/Aug/2021:12:16:28 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10263
+::1 - - [19/Aug/2021:06:07:14 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [19/Aug/2021:06:07:14 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10263
+::1 - - [19/Aug/2021:06:08:27 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [19/Aug/2021:06:08:27 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [19/Aug/2021:06:09:36 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [19/Aug/2021:06:09:39 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [19/Aug/2021:06:09:43 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [19/Aug/2021:06:09:43 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [19/Aug/2021:06:09:51 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [19/Aug/2021:06:09:51 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [19/Aug/2021:06:13:12 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [19/Aug/2021:06:13:16 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [19/Aug/2021:06:15:59 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [19/Aug/2021:06:15:59 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [19/Aug/2021:06:17:00 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [19/Aug/2021:06:18:45 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [19/Aug/2021:06:18:45 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [19/Aug/2021:06:36:20 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [19/Aug/2021:06:36:20 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -

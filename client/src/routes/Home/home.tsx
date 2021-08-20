@@ -8,8 +8,7 @@ import Footer from "../../components/Footer/Footer";
 import { Fragment, useState } from "react";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import SideFilter from "../../components/SideFilter/SideFilter";
-const isChoosing = true;
-
+const isChoosing = false;
 function Home() {
   const [show, setShow] = useState<boolean>(false);
   const toggleHandler = () => {
