@@ -147,11 +147,11 @@
              }
             .SearchButton {
               position: absolute;
-         
               top: 0;
+              right: 0;
               cursor: pointer;
               display: flex;
-              padding: 1.8rem;
+              padding: 1.9rem 1.7rem 1.9rem 0.6rem;
               background-color: #4D94E8;
               border-radius: 5rem;
               transition: padding 0.4s ease-in-out;
@@ -196,6 +196,16 @@
                  }
             }
            
+          }
+
+          .AnyTimeIsGood {
+              margin-top:  8.7rem;
+              font-size: $fontSize21px;
+                font-family: $helveticaNeue;
+                color:$fontColor;  
+                font-weight: $font-Weight-bold;
+                line-height: $lineHeight36px;
+                cursor: pointer;
           }
 
 .GuestWrapper {

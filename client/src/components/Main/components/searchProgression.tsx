@@ -98,7 +98,7 @@ function SearchProgress(props: searchProgressionProps) {
       style={
         props.isSearching
           ? {
-              marginTop: "13.39rem",
+              marginTop: "6.7rem",
               backgroundColor: "rgba(255, 255, 255, 0.85)",
             }
           : { padding: `0.1rem 5.1rem 0.1rem 0` }
@@ -120,13 +120,20 @@ function SearchProgress(props: searchProgressionProps) {
           </div>
         );
       })}
-      <div
-        className={classes.SearchButton}
-        style={{ right: `-13.6%`, padding: `1.6rem 2.5rem` }}
-      >
-        <p className={classes.SearchText}>Search</p>
-        <img src={searchImg} alt="Search" />
-      </div>
+      {props.isSearching ? (
+        <div
+          className={classes.SearchButton}
+          style={{ right: "-13%", padding: "1.6rem 1.7rem 1.6rem 1.5rem" }}
+        >
+          <p className={classes.SearchText}>Search</p>
+          <img src={searchImg} alt="Search" />
+        </div>
+      ) : (
+        <div className={classes.SearchButton}>
+          <p className={classes.SearchText}></p>
+          <img src={searchImg} alt="Search" />
+        </div>
+      )}
     </div>
   );
 }

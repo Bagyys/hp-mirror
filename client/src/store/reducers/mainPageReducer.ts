@@ -8,6 +8,7 @@ export interface InitialState {
     adults: number;
     children: number;
   };
+  isCalendar: boolean;
 }
 
 const initialState: InitialState = {
@@ -18,6 +19,7 @@ const initialState: InitialState = {
     adults: 0,
     children: 0,
   },
+  isCalendar: true,
 };
 
 const mainPageReducer = (state = initialState, action: MainPageInterface) => {
@@ -41,6 +43,11 @@ const mainPageReducer = (state = initialState, action: MainPageInterface) => {
       return {
         ...state,
         guests: action.payload.guests,
+      };
+    case mainPageTypes.TOGGLE_CALENDAR:
+      return {
+        ...state,
+        isCalendar: action.payload.isCalendar,
       };
     default:
       return state;
