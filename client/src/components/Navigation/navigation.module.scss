@@ -254,28 +254,7 @@
         //   margin-right: 2.7rem;
         // }
 
-        .Languages {
-          font-size: $fontSize20px;
-          font-weight: $font-Weight-bold;
-          font-family: $helvetica;
-          line-height: $lineHeight20px;
-          margin-left: 2.86rem;
-          cursor: pointer;
-          position: relative;
-          width: 3rem;
-          @include respond(mobile){
-            display: none;
-          }
-          .SelectLanguage {
-            position: absolute;
-            top:20px;
-            background-color: red;
-            .Selected {
-              display: none;
-            }
-          }
-          
-        }
+        
     }
   }
   

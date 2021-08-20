@@ -6,6 +6,7 @@ import { StoreState } from '../../store/configureStore';
 import { userState } from '../../store/reducers/userReducer';
 import SearchBox from './SearchBox/SearchBox';
 import FavoriteNav from './FavoriteNav/FavoriteNav';
+import Language from './Language/Language';
 // import { ErrorState } from '../../store/reducers/errorReducer';
 import { loadUser, logoutAction } from '../../store/actions/userActions';
 import favoritePc from '../../assets/images/Favorite.svg';
@@ -18,8 +19,7 @@ import classes from './navigation.module.scss';
 
 const Navigation = () => {
   const [sliderToggle, setSliderToggle] = useState<boolean>(false);
-  const [language, setLanguage] = useState<string>('EN');
-  const [showLangBox, setShowLangBox] = useState<boolean>(false);
+
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
   // const errorState: ErrorState = useSelector(
@@ -41,10 +41,6 @@ const Navigation = () => {
   };
   const menuHandler = () => {
     setSliderToggle(!sliderToggle);
-  };
-  const handleSetLanguage = (e: any) => {
-    const lang = e.target.dataset.value;
-    setLanguage(lang);
   };
 
   return (
@@ -107,37 +103,7 @@ const Navigation = () => {
               </div>
             )}
           </div>
-          <div
-            onClick={() => setShowLangBox(!showLangBox)}
-            className={classes.Languages}
-          >
-            <p>{language}</p>
-            <div
-              style={showLangBox ? { display: 'block' } : { display: 'none' }}
-              className={classes.SelectLanguage}
-            >
-              <p
-                onClick={handleSetLanguage}
-                className={cn(
-                  classes.CustomOption,
-                  language == 'EN' ? classes.Selected : ''
-                )}
-                data-value="EN"
-              >
-                EN
-              </p>
-              <p
-                onClick={handleSetLanguage}
-                className={cn(
-                  classes.CustomOption,
-                  language == 'LT' ? classes.Selected : ''
-                )}
-                data-value="LT"
-              >
-                LT
-              </p>
-            </div>
-          </div>
+          <Language />
         </div>
       </div>
     </div>
