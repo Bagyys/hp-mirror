@@ -215,6 +215,7 @@
              color: $black2;
              display: block;
              font-family: $helvetica;
+             margin-left: 2rem;
              @include respond(mobile){
               font-size: $mediumFontSize;
               line-height: $lineHeight34px;
@@ -260,11 +261,21 @@
           line-height: $lineHeight20px;
           margin-left: 2.86rem;
           cursor: pointer;
+          position: relative;
+          width: 3rem;
           @include respond(mobile){
             display: none;
           }
+          .SelectLanguage {
+            position: absolute;
+            top:20px;
+            background-color: red;
+            .Selected {
+              display: none;
+            }
+          }
+          
         }
-      
     }
   }
   

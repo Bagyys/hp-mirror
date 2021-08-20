@@ -15,6 +15,7 @@ const ImageSlider: React.FC<SliderProps> = ({ slides, borders }) => {
         slideWidth={1.005}
         dragging={true}
         swiping={true}
+        transitionMode={'scroll3d'}
         renderCenterRightControls={({ nextSlide }) => (
           <MdKeyboardArrowRight
             onClick={nextSlide}

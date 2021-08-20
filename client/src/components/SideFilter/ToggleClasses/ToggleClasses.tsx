@@ -17,14 +17,14 @@ const ToggleClass: React.FC<ToggleClassProps> = (props) => {
             className={props.show ? classes.Hide : classes.Show}
           >
             Show all {props.text}
-            <img src={arrow} className={classes.arrow} />
+            <img src={arrow} className={classes.ArrowDown} />
           </div>
           <div
             onClick={props.toggle}
             className={props.show ? classes.Show : classes.Hide}
           >
             Show less
-            <img src={arrow} className={classes.arrow} />
+            <img src={arrow} className={classes.ArrowUp} />
           </div>
         </div>
       )}

@@ -109,7 +109,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
     [quickViewFlat]
   );
   let propertiesRender = <></>;
-  if (properties) {
+  if (fakeData) {
     propertiesRender = (
       <ul className={classes.FlatsListConatiner}>
         {currentPaginationData
