@@ -1,12 +1,19 @@
 @import "../../styles/global.scss";
 @import "../../styles/mixins";
+.Btn {
+    background-color: transparent;
+    border:none;
+    cursor: pointer;
+    padding: 0;
+    img {
+        vertical-align: middle;
+    }
+}
 .FlatInfo {
     font-family: $roboto;
     background-color: $lightBlue;
     color: $white;
     border-radius: 2.2rem;
-    border:none;
-    cursor: pointer;
     font-weight: $font-Weight-bold;
     font-size: $fontSize21px;
     line-height: $lineHeight35px;
@@ -14,36 +21,37 @@
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-in;
-    @include respond(mobile) {
-        display: none;
+    @include respond(mobile){
+        font-size: $smallerMediumFont;
+        line-height: $lineHeight25px;
+        padding: .75rem 1.69rem;
     }
     a{
         text-decoration: none;
         color: $white;
     }
 }
-.ClearFilter {
+%shared-filterBtn-inside{
     font-size: $fontSize22px;
     font-weight: $font-Weight-bold;
     line-height: $lineHeight34px;
     font-family: $helvetica;
-    color: $lightGrey4;
-    border:none;
-    background-color: transparent;
-    cursor: pointer;
     padding: .6rem 2.38rem;
+    @include respond(mobile){
+        line-height: $lineHeight36px;
+        font-size: $smallerMediumFont;
+        padding: .05rem 3.25rem;
+    }
+}
+.ClearFilter {
+    @extend %shared-filterBtn-inside;
+    color: $lightGrey4;   
 }
 .SaveFilter {
-    font-size: $fontSize22px;
-    font-weight: $font-Weight-bold;
-    line-height: $lineHeight34px;
-    font-family: $helvetica;
-    border:none;
+    @extend %shared-filterBtn-inside;
     background-color: $black;
     color: $white;
-    cursor: pointer;
     border-radius: 1.1rem;
-    padding: .6rem 2.38rem;
 }
 .Show {
    visibility: visible;
@@ -52,17 +60,66 @@
 %shared-round-style {
     background-color: $lightGrey3;
     border-radius: 50%;
-    cursor: pointer;
-    border: none;
 }
-.Filter {
+.OpenFilter {
     @extend %shared-round-style;
-    padding: 1.7rem 1.86rem;
+    padding: 1.85rem 1.86rem;
     @include respond(mobile){
-        display: none;
+        background-color: $white;
+        padding: 1.23rem;
+        img {
+            width: 1.85rem;
+            height: 1.85rem;
+        }
     }
 }
 .CloseFilter {
     @extend %shared-round-style;
-    padding: 2.05rem 2.21rem;
+    padding: 2.2rem 2.21rem;
+    @include respond(mobile){
+        background: transparent;
+        padding: 0;
+        img {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+    }
+    span{
+        display: none;
+        @include respond(mobile){
+            font-size: $smallerMediumFont;
+            font-weight: $font-Weight-bold;
+            vertical-align: middle;
+            margin-left: .9rem;
+            line-height: $lineHeight36px;
+            display: inline-block;
+        }
+    }
+    
+}
+.MobileFavorite {
+    padding: 1.28rem .8rem .9rem .8rem;
+    background: black;
+    border-radius: 50%;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    background-color: $white;
+    img {
+        width: 2.7rem;
+        height: 2.13rem;
+    }
+}
+.FavoriteNav {
+    img {
+        width: 3.6rem;
+        height: 2.8rem;
+    }
+    p {
+        position:absolute;
+        font-size: $fontSize20px;
+        font-weight: $font-Weight-bold;
+        line-height: $lineHeight36px;
+        font-family: $helvetica;
+        top: -1.7rem;
+        right: .4rem;
+    }
 }

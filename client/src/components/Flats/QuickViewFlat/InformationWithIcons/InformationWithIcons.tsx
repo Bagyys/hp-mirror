@@ -40,7 +40,7 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
       {props.facilities.bedsTest.single > 0 && (
         <div className={classes.Items}>
           <div className={classes.ImgContainer}>
-            <img src={single} />
+            <img className={classes.Single} src={single} />
           </div>
           <p className={classes.Beds}>
             {`${props.facilities.bedsTest.single} ${

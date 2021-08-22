@@ -195,6 +195,7 @@ table {
 }
 .slider-list {
   margin: 0 !important;
+  cursor: default !important;
 }
 .active .paging-dot > circle {
   r: 4px;

@@ -3,23 +3,23 @@ import { useMediaPredicate } from 'react-media-hook';
 import classes from './Flat.module.scss';
 import ImageSlider from '../../Slider/imageSlider';
 import Button from '../../Button/button';
-import DiscountBadge from './DiscountBadge/DiscountBadge';
+import Area from './Area/Area';
+import Badge from '../../Badge/Badge';
 import Ratings from './Ratings/Ratings';
 import Favorites from './Favorites/Favorites';
 import PropertyType from './PropertyType/PropertiesType';
 import MainInformation from './MainInformation/MainInformation';
-import Prices from './Prices/Prices';
-import LongBadge from '../QuickViewFlat/LongBadge/LongBadge';
 import { Link } from 'react-router-dom';
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
+import DailyPrice from './DailyPrices/DailyPrice';
 
 interface FlatProps {
   property: PropertyInterface;
+  favoritePage?: boolean;
   recentlyView?: boolean;
-  hide?: boolean | null;
-  liked: boolean;
-  clicked?: () => void;
-  clickedLike: () => void;
+  liked?: boolean;
+  quickViewClicked?: () => void;
+  clickedLike?: () => void;
   mobileClickHandler?: () => void;
 }
 const Flat: React.FC<FlatProps> = (props) => {
@@ -31,7 +31,6 @@ const Flat: React.FC<FlatProps> = (props) => {
       onMouseOver={() => setShowBtn(true)}
       onMouseLeave={() => setShowBtn(false)}
       className={classes.Flat}
-      style={props.hide ? { display: 'none' } : { display: 'block' }}
     >
       <div className={classes.FlatContent}>
         <div className={classes.FlatImg}>
@@ -40,23 +39,20 @@ const Flat: React.FC<FlatProps> = (props) => {
           {!isMobile && (
             <div className={classes.BadgeInContent}>
               {props.property.discount.more1Week && (
-                <DiscountBadge badgeHover="Badge5" title="When book one week">
+                <Badge badge="Badge5" title="When book one week">
                   -5%
-                </DiscountBadge>
+                </Badge>
               )}
               {props.property.discount.more1Month && (
-                <DiscountBadge
-                  badgeHover="Badge20"
-                  title="When book one month or more"
-                >
+                <Badge badge="Badge20" title="When book one month or more">
                   -20%
-                </DiscountBadge>
+                </Badge>
               )}
             </div>
           )}
         </div>
         <div
-          onClick={props.mobileClickHandler}
+          onClick={isMobile ? props.quickViewClicked : undefined}
           className={classes.InfoContainer}
         >
           <div className={classes.Info}>
@@ -65,44 +61,53 @@ const Flat: React.FC<FlatProps> = (props) => {
               ratingsCount={props.property.ratingsCount}
             />
             <PropertyType>{props.property.type}</PropertyType>
-            {!isMobile && (
+
+            {isMobile ? (
+              <Area district={props.property.location.district} />
+            ) : (
               <MainInformation facilities={props.property.facilities} />
             )}
 
-            {isMobile && (
-              <p className={classes.Area}>
-                {props.property.location.district} area
-              </p>
-            )}
-
             <div className={classes.PriceBtnContainer}>
-              {isMobile && (
-                <div className={classes.BadgeContainer}>
-                  <LongBadge badge="BadgeDiscount">-5%</LongBadge>
-                  <p>long term</p>
-                </div>
-              )}
-              <Prices price={props.property.price.daily} />
-              {props.recentlyView ? (
-                <Button btnType={'FlatInfo'} show={showBtn}>
+              {isMobile &&
+                (props.favoritePage ? (
+                  <div className={classes.BadgeContainer}>
+                    <Badge badge="BadgeCancelationOrDate">Oct 3-31</Badge>
+                  </div>
+                ) : (
+                  <div className={classes.BadgeContainer}>
+                    <Badge badge="BadgeDiscountLongOrShort">-5%</Badge>
+                    <p>long term</p>
+                  </div>
+                ))}
+              <div className={classes.PriceContainer}>
+                <DailyPrice
+                  priceClass="Price"
+                  price={props.property.price.daily}
+                />
+                <p className={classes.TotalPrice}>244€ total</p>
+              </div>
+              {!isMobile &&
+                (props.recentlyView ? (
                   <Link
                     to={{
                       pathname: `/flat/${props.property._id}`,
                       state: { property: props.property },
                     }}
                   >
-                    View
+                    <Button btnType={'FlatInfo'} show={showBtn}>
+                      View
+                    </Button>
                   </Link>
-                </Button>
-              ) : (
-                <Button
-                  clicked={props.clicked}
-                  btnType={'FlatInfo'}
-                  show={showBtn}
-                >
-                  Quick View
-                </Button>
-              )}
+                ) : (
+                  <Button
+                    clicked={props.quickViewClicked}
+                    btnType={'FlatInfo'}
+                    show={showBtn}
+                  >
+                    Quick View
+                  </Button>
+                ))}
             </div>
           </div>
         </div>

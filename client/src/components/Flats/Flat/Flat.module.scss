@@ -13,11 +13,14 @@
             margin: 0 3.3% 2.5% 0;
             @include respond(mobile){
                 flex: 0 0 73%;
+                margin-right: 0.64rem;
+                margin-left: 0.64rem;
             }
             &:nth-child(2n+2){
                 margin-right: 0;
                 @include respond(mobile){
-                    margin-right: 3.3%;
+                    margin-right: 0.64rem;
+                    margin-left: 0.64rem;
                 }
             }
             .FlatContent {
@@ -25,7 +28,7 @@
                     padding: 0 1.57rem 1.6rem 1.76rem;
                     position: relative;
                     @include respond(mobile){
-                        padding: 0 1.57rem 0 1.17rem;
+                        padding: 0 1.57rem 1.4rem 1.17rem;
                         cursor: pointer;
                     }
                     .Info {
@@ -36,25 +39,35 @@
                             @include respond(mobile){
                                 align-items: center;
                             }
+                            .PriceContainer {
+                                display: flex;
+                                align-items: baseline;
+                                font-size: $fontSize19px;
+                                margin-left: 0.14rem;
+                                @include respond(mobile){
+                                    flex-direction: column;
+                                    align-items: flex-end;
+                                    font-size: $fontSize18px;
+                                }
+                                .TotalPrice { 
+                                    color: $lightGrey4;   
+                                    @include respond(mobile){
+                                        font-size: $mediumFontSize;
+                                        margin-top: 0.3rem;
+                                    }    
+                                }
+                            }
                             .BadgeContainer {
                                 display: flex;
                                 flex-direction: column;
                                 font-size: $smallFontSize;
                                 color: $blackGrey;
                                 p {
-                                    line-height: $fontSize32px;;
+                                    line-height: $fontSize32px;
                                 }
                             }
                         }
-                        .Area {
-                            display: block;
-                            font-size: $mediumFontSize;
-                            color: $black2;
-                            font-weight: $font-Weight-bold;
-                            line-height: $lineHeight28px;
-                            margin-bottom: .5rem;
-                            font-family: $helveticaNeue;
-                        }
+                        
                     }
                 }
                 .FlatImg {

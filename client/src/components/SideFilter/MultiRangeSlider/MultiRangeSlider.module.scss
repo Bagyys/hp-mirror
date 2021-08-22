@@ -1,14 +1,23 @@
-@import "../../../styles//global.scss";
+@import "../../../styles/global.scss";
+@import "../../../styles/mixins";
 .Container {
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #CBD0D3;
   padding-bottom: 6.6rem;
-  margin: 0 6.8rem;
+  margin-top: 9.5rem;
+  @include respond(mobile){
+      border: none;
+      padding-bottom: 3rem;
+      margin-top: 7rem;
+  }
   .Slider {
     position: relative;
     width: 62.2rem;
+    @include respond(mobile){
+      width: 85%;
+    }
     .SliderTrack,
     .SliderRange {
         position: absolute;
@@ -34,6 +43,10 @@
             border-radius: 50%;
             top: -0.7rem;
             background-color: $lightGrey4;
+            @include respond(mobile){
+              width: 1.4rem;
+              height: 1.4rem;
+            }
         }
         &:before{
             content: '';
@@ -44,9 +57,29 @@
             border-radius: 50%;
             top: -0.7rem;
             background-color: $lightGrey4;
+            @include respond(mobile){
+              width: 1.4rem;
+              height: 1.4rem;
+            }
         }
     }
-
+    %shared-slider-range-pseudo{
+      position: absolute;
+      top:-5.2rem;
+      color: $black2;
+      font-size: $fontSize22px;
+      font-weight: $font-Weight-bold;
+      font-family: $helveticaNeue;
+      line-height: $largeFontSize2;
+      width: 6.5rem;
+      text-align: center;
+       @include respond(mobile){
+          font-size: $fontSize18px;
+          line-height: $lineHeight21px;
+          top: -4rem;
+          width: 6rem;
+        }
+    }
     .SliderRange {
         background-color: $lightBlue;
         z-index: 2;
@@ -55,30 +88,20 @@
         left: 0;
         margin-right: auto;
         &:after{
-            content: attr(data-price-right);
-            position: absolute;
-            right: -5rem;
-            top:-5.2rem;
-            color: $black2;
-            font-size: $fontSize22px;
-            font-weight: $font-Weight-bold;
-            font-family: $helveticaNeue;
-            line-height: $largeFontSize2;
-            width: 6.5rem;
-            text-align: center;
+            content: attr(data-price-right);            
+            right: -5rem;        
+            @extend %shared-slider-range-pseudo;    
+            @include respond(mobile){
+              right: -3rem;
+            }
         }
         &:before{
             content: attr(data-price-left);
-            position: absolute;
-            top:-5.2rem;
-            color: $black2;
-            font-size: $fontSize22px;
-            font-weight: $font-Weight-bold;
-            font-family: $helveticaNeue;
-            line-height: $largeFontSize2;
             left: -1.4rem;
-            width: 6.5rem;
-            text-align: center;
+            @extend %shared-slider-range-pseudo;
+            @include respond(mobile){
+              left: -2.8rem;
+            }
         }
     }
     }
@@ -92,6 +115,11 @@
             position: absolute;
             width: 8rem;
             text-align: center;
+            @include respond(mobile){
+              font-size: $fontSize19px;
+              line-height: $lineHeight22px;
+              margin-top: -4.1rem;
+            }
         }
 
 
@@ -112,7 +140,9 @@
   height: 0;
   width: 62.2rem;
   outline: none;
-  
+  @include respond(mobile){
+      width: 85%;
+  }
 }
 
 .ThumbLeft {
@@ -129,12 +159,15 @@
   background-color: $white;
   border-radius: 50%;
   cursor: pointer;
-  height: 40px;
-  width: 40px;
+  height: 4rem;
+  width: 4rem;
   margin-top: 4px;
   pointer-events: all;
   position: relative;
-  
+  @include respond(mobile){
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 }
 
 /* For Firefox browsers */
@@ -148,7 +181,10 @@
   margin-top: 4px;
   pointer-events: all;
   position: relative;
-  
+  @include respond(mobile){
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 }
 }
 

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import classes from './Language.module.scss';
 import { cn } from '../../../utilities/joinClasses';
+
 const Language: React.FC = () => {
   const [language, setLanguage] = useState<string>('EN');
   const [showLangBox, setShowLangBox] = useState<boolean>(false);
-  const handleSetLanguage = (e: any) => {
-    const lang = e.target.dataset.value;
-    setLanguage(lang);
+  const handleSetLanguage = (e: React.MouseEvent<HTMLElement>) => {
+    const lang = e.currentTarget.getAttribute('data-value');
+    lang && setLanguage(lang);
   };
   return (
     <div
@@ -19,7 +20,7 @@ const Language: React.FC = () => {
           onClick={handleSetLanguage}
           className={cn(
             classes.CustomBtn,
-            language == 'EN' ? classes.Selected : ''
+            language === 'EN' ? classes.Selected : ''
           )}
           data-value="EN"
         >
@@ -29,7 +30,7 @@ const Language: React.FC = () => {
           onClick={handleSetLanguage}
           className={cn(
             classes.CustomBtn,
-            language == 'LT' ? classes.Selected : ''
+            language === 'LT' ? classes.Selected : ''
           )}
           data-value="LT"
         >

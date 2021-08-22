@@ -6,6 +6,7 @@ import React, {
   useState,
   useRef,
 } from 'react';
+import { useMediaPredicate } from 'react-media-hook';
 import classes from './MultiRangeSlider.module.scss';
 import { cn } from '../../../utilities/joinClasses';
 
@@ -33,11 +34,13 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
   const range = useRef<HTMLDivElement>(null);
+  const isMobile = useMediaPredicate('(max-width: 675px)');
 
   // Convert to percentage
   const getPercent = useCallback(
     (value: number) =>
-      ((value - initialMin) / (initialMax - initialMin)) * 94.25,
+      ((value - initialMin) / (initialMax - initialMin)) *
+      (isMobile ? 100 : 94.25),
     [initialMin, initialMax]
   );
 
@@ -111,7 +114,7 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
           data-price-right={maxVal + '€'}
           data-price-left={minVal + '€'}
         ></div>
-        {maxVal < 180 && (
+        {maxVal < initialMax - 30 && (
           <div className={classes.RightValue}>+{initialMax}€</div>
         )}
       </div>

@@ -24,6 +24,8 @@ enum userTypes {
   VERIFY_FAIL = "VERIFY_FAIL",
 
   CLEAR_ERROR = "CLEAR_ERROR",
+
+  ADD_TO_FAVORITE="ADD_TO_FAVORITE" // favorites
 }
 
 export default userTypes;

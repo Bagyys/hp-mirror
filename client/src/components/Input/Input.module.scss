@@ -1,12 +1,25 @@
 @import "../../styles/global.scss";
-
+@import "../../styles/mixins";
 .Input {
     flex: 0 0 19.6rem;
     margin-bottom: 2.7rem;
     display: flex;
     align-items: center;
+    @include respond(mobile){
+        margin-bottom: 1.31rem;
+        flex: 0 0 20rem;
+        &:nth-child(2n+1){
+            margin-right: .5rem;
+        }
+    }
+    @include respond(mobileFilter){
+        flex: 0 0 17rem;
+    }
     &:nth-child(2n){
-        margin-left: 21.3rem;
+        margin-left: 23.3rem;
+        @include respond(mobile){
+            margin-left: 0;
+        }
     }
     .InputCheck {
         position: absolute; // take it out of document flow
@@ -16,6 +29,10 @@
         height: 3.2rem;
         cursor: pointer;
         margin: 0;
+        @include respond(mobile){
+            width: 2.8rem;
+            height: 2.8rem;
+        }
         & + label {
             position: relative;
             padding: 0;
@@ -31,6 +48,11 @@
             height: 2.9rem;
             border-radius: 4px;
             border:1.5px solid $lightGrey4;
+            @include respond(mobile){
+                margin-right: 1.7rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
         }
          &:checked + label:before {
             background: $lightGrey2;
@@ -59,6 +81,20 @@
             4px -14px 0 $black2,
             4px -16px 0 $black2;
             transform: rotate(45deg);
+            @include respond(mobile){
+                left: 9px;
+                top: 14px;
+                box-shadow: 
+                0 0 0 $black2,
+                2px 0 0 $black2,
+                4px 0 0 $black2,
+                4px -2px 0 $black2,
+                4px -4px 0 $black2,
+                4px -6px 0 $black2,
+                4px -8px 0 $black2,
+                4px -10px 0 $black2,
+                
+            }
         }
     }
    
