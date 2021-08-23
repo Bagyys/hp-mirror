@@ -112,7 +112,7 @@ const userReducer = (state = initialState, action: UserActions) => {
         isAuthenticated: false,
         isLoading: false,
         currentUser: null,
-        user: null,
+        user: initialState.user,
         token: "",
       };
     case userTypes.LOAD_USER_FAIL:
@@ -125,7 +125,7 @@ const userReducer = (state = initialState, action: UserActions) => {
         ...state,
         isLoading: false,
         currentUser: null,
-        user: null,
+        user: initialState.user,
         isAuthenticated: false,
       };
     case userTypes.ADD_TO_FAVORITE:

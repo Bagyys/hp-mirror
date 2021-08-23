@@ -11161,6 +11161,7 @@
 ::1 - - [19/Aug/2021:06:36:20 +0000] "POST / HTTP/1.1" 200 43
 ::1 - - [19/Aug/2021:06:36:20 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 >>>>>>> 097a3207978481b89dd252a1e2fdcd432b0d3497
+<<<<<<< HEAD
 ::1 - - [23/Aug/2021:06:10:53 +0000] "POST / HTTP/1.1" 200 43
 ::1 - - [23/Aug/2021:06:10:53 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10263
 ::1 - - [23/Aug/2021:06:12:00 +0000] "POST / HTTP/1.1" 200 43
@@ -11168,3 +11169,49 @@
 ::1 - - [23/Aug/2021:06:12:50 +0000] "POST / HTTP/1.1" 200 43
 ::1 - - [23/Aug/2021:06:14:34 +0000] "POST / HTTP/1.1" 200 43
 ::1 - - [23/Aug/2021:06:14:34 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+=======
+::1 - - [23/Aug/2021:07:25:34 +0000] "POST / HTTP/1.1" 200 521
+::1 - - [23/Aug/2021:07:25:34 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:26:20 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:26:27 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:27:00 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:27:24 +0000] "POST /register HTTP/1.1" 200 702
+::1 - - [23/Aug/2021:07:27:26 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:27:32 +0000] "POST / HTTP/1.1" 200 519
+::1 - - [23/Aug/2021:07:27:33 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:27:42 +0000] "POST / HTTP/1.1" 200 519
+::1 - - [23/Aug/2021:07:27:43 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:30:25 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:31:47 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:32:13 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:32:27 +0000] "POST /register HTTP/1.1" 200 701
+::1 - - [23/Aug/2021:07:32:28 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:35:05 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:35:13 +0000] "POST /register HTTP/1.1" 200 703
+::1 - - [23/Aug/2021:07:35:15 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:40:15 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:40:36 +0000] "POST /register HTTP/1.1" 200 705
+::1 - - [23/Aug/2021:07:40:38 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:42:39 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:43:02 +0000] "POST /register HTTP/1.1" 200 702
+::1 - - [23/Aug/2021:07:43:03 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:43:40 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:51:06 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:07:51:35 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:00:34 +0000] "POST /register HTTP/1.1" 200 702
+::1 - - [23/Aug/2021:08:00:35 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:00:52 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:07:29 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:07:43 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:08:03 +0000] "POST /register HTTP/1.1" 200 701
+::1 - - [23/Aug/2021:08:08:05 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:08:57 +0000] "POST /register HTTP/1.1" 200 702
+::1 - - [23/Aug/2021:08:08:58 +0000] "POST / HTTP/1.1" 200 519
+::1 - - [23/Aug/2021:08:08:58 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:09:47 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:11:49 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:12:02 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:13:55 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:14:02 +0000] "POST /register HTTP/1.1" 200 700
+::1 - - [23/Aug/2021:08:14:04 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+>>>>>>> origin/Simonas

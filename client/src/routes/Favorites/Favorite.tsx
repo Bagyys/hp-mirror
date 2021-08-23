@@ -16,9 +16,7 @@ const Favorite = () => {
   const history = useHistory();
 
   const favoritesHandler = (id: string) => {
-    isAuthenticated &&
-      token &&
-      dispatch(addToFavoriteAction(id, user.favorites));
+    dispatch(addToFavoriteAction(id, user.favorites));
   };
   let propertiesRender = <></>;
   if (user.favorites) {

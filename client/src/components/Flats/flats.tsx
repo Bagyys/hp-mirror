@@ -79,11 +79,8 @@ const Flats: React.FC<FlatsProps> = (props) => {
     setPageSize(Number(e.target.value));
     setCurrentPage(1);
   };
-  console.log(pageSize);
   const favoritesHandler = (id: string) => {
-    isAuthenticated &&
-      token &&
-      dispatch(addToFavoriteAction(id, user.favorites));
+    dispatch(addToFavoriteAction(id, user.favorites));
   };
 
   const QuickViewHandler = (id: string) => {
@@ -94,6 +91,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
       behavior: 'smooth',
     });
   };
+  // console.log(user);
   let propertiesRender = <></>;
   if (fakeData) {
     propertiesRender = (
@@ -107,7 +105,10 @@ const Flats: React.FC<FlatsProps> = (props) => {
                 key={property._id}
                 property={property}
                 clickedLike={() => favoritesHandler(property._id)}
-                liked={isStringInArray(property._id, user.favorites)}
+                liked={isStringInArray(
+                  property._id,
+                  user !== null ? user.favorites : []
+                )}
               />
             );
           })}
