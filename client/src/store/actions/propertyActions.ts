@@ -1,9 +1,9 @@
 import { Action, Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
-
 import propertyTypes from "../types/propertyTypes";
 import errorTypes from "../types/errorTypes";
 import { PropertyInterface } from "../types/propertyInterfaces";
+import { fakeData } from '../../fakeData/data'; //Fake data demo
 
 // -------------------- URLS --------------------
 
@@ -52,6 +52,19 @@ export interface SelectProperty
 export interface ClearSelectedProperty
   extends Action<typeof propertyTypes.CLEAR_SELECTED_PROPERTY> {}
 
+export interface QuickViewProperty
+  extends Action<typeof propertyTypes.QUICK_VIEW_PROPERTY> {
+  payload: string;
+}
+export interface PaginationPageSize
+  extends Action<typeof propertyTypes.PAGINATION_PAGE_SIZE> {
+  payload: number;
+}
+export interface PaginationCurrentPage
+  extends Action<typeof propertyTypes.PAGINATION_CURRENT_PAGE> {
+  payload: number;
+}
+
 export type PropertyActions =
   | GetAllPropertiesStart
   | GetAllPropertiesSuccess
@@ -63,7 +76,10 @@ export type PropertyActions =
   | GetPropertySuccess
   | GetPropertyFail
   | SelectProperty
-  | ClearSelectedProperty;
+  | ClearSelectedProperty
+  | QuickViewProperty
+  | PaginationPageSize
+  | PaginationCurrentPage;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -83,7 +99,8 @@ export const getAllPropertiesAction = () => async (dispatch: Dispatch) => {
     ) {
       dispatch({
         type: propertyTypes.GET_ALL_PROPERTIES_SUCCESS,
-        payload: response.data.properties,
+        payload: fakeData //fake data demo
+        // payload: response.data.properties,
       });
     } else {
       dispatch({
@@ -175,5 +192,29 @@ export const clearSelectedPropertyAction = () => async (dispatch: Dispatch) => {
     type: propertyTypes.CLEAR_SELECTED_PROPERTY,
   });
 };
+
+export const quickViewAction =
+  (id: string) => (dispatch: Dispatch) => {
+    dispatch({
+      type: propertyTypes.QUICK_VIEW_PROPERTY,
+      payload: id,
+    });
+  };
+
+  export const pageSizeAction =
+  (size: number) => (dispatch: Dispatch) => {
+    dispatch({
+      type: propertyTypes.PAGINATION_PAGE_SIZE,
+      payload: size,
+    });
+  };
+
+  export const currentPageAction =
+  (page:number) => (dispatch: Dispatch) => {
+    dispatch({
+      type: propertyTypes.PAGINATION_CURRENT_PAGE,
+      payload: page,
+    });
+  };
 
 // -------------------- END of ACTIONS --------------------

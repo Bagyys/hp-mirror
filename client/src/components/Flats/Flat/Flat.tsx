@@ -52,7 +52,7 @@ const Flat: React.FC<FlatProps> = (props) => {
           )}
         </div>
         <div
-          onClick={isMobile ? props.quickViewClicked : undefined}
+          onClick={isMobile ? props.mobileClickHandler : undefined}
           className={classes.InfoContainer}
         >
           <div className={classes.Info}>
