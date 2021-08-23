@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { cn } from '../../utilities/joinClasses';
-import { StoreState } from '../../store/configureStore';
-import { userState } from '../../store/reducers/userReducer';
-import SearchBox from './SearchBox/SearchBox';
-import Language from './Language/Language';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { cn } from "../../utilities/joinClasses";
+import { StoreState } from "../../store/configureStore";
+import { userState } from "../../store/reducers/userReducer";
+import SearchBox from "./SearchBox/SearchBox";
+import Language from "./Language/Language";
 // import { ErrorState } from '../../store/reducers/errorReducer';
-import { loadUser, logoutAction } from '../../store/actions/userActions';
-import favoritePc from '../../assets/images/Favorite.svg';
-import favoritePcActive from '../../assets/images/favorite_yellow.png';
-import GuideImg from '../../assets/images/Guide.svg';
-import LogoImg from '../../assets/images/Logo.svg';
-import UserPic from '../../assets/images/UserPicture.svg';
-import NavRoutes from './NavRoutes/NavRoutes';
-import Backdrop from '../Backdrop/Backdrop';
-import classes from './navigation.module.scss';
-import Button from '../Button/button';
+import { loadUser, logoutAction } from "../../store/actions/userActions";
+import favoritePc from "../../assets/images/Favorite.svg";
+import favoritePcActive from "../../assets/images/favorite_yellow.png";
+import GuideImg from "../../assets/images/Guide.svg";
+import LogoImg from "../../assets/images/Logo.svg";
+import UserPic from "../../assets/images/UserPicture.svg";
+import NavRoutes from "./NavRoutes/NavRoutes";
+import Backdrop from "../Backdrop/Backdrop";
+import classes from "./navigation.module.scss";
+import Button from "../Button/button";
 
 const Navigation = () => {
   const [sliderToggle, setSliderToggle] = useState<boolean>(false);
@@ -63,7 +63,7 @@ const Navigation = () => {
         <div className={classes.Right}>
           <div className={classes.Favorite}>
             <Button btnType="FavoriteNav">
-              {user.favorites.length > 0 ? (
+              {user?.favorites.length > 0 ? (
                 <React.Fragment>
                   <img src={favoritePcActive} alt="favorite" />
                   <p>{user.favorites.length}</p>
@@ -85,7 +85,7 @@ const Navigation = () => {
               <div
                 className={cn(
                   classes.SliderItem,
-                  sliderToggle ? classes.SlideOpen : ''
+                  sliderToggle ? classes.SlideOpen : ""
                 )}
               >
                 {isAuthenticated && token && (

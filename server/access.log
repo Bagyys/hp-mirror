@@ -11161,3 +11161,10 @@
 ::1 - - [19/Aug/2021:06:36:20 +0000] "POST / HTTP/1.1" 200 43
 ::1 - - [19/Aug/2021:06:36:20 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 >>>>>>> 097a3207978481b89dd252a1e2fdcd432b0d3497
+::1 - - [23/Aug/2021:06:10:53 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [23/Aug/2021:06:10:53 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10263
+::1 - - [23/Aug/2021:06:12:00 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [23/Aug/2021:06:12:00 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:06:12:50 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [23/Aug/2021:06:14:34 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [23/Aug/2021:06:14:34 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
