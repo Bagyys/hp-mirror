@@ -11215,3 +11215,10 @@
 ::1 - - [23/Aug/2021:08:14:02 +0000] "POST /register HTTP/1.1" 200 700
 ::1 - - [23/Aug/2021:08:14:04 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 >>>>>>> origin/Simonas
+::1 - - [23/Aug/2021:08:44:12 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [23/Aug/2021:08:44:12 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10263
+::1 - - [23/Aug/2021:08:44:16 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [23/Aug/2021:08:44:16 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:44:49 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [23/Aug/2021:08:44:49 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [23/Aug/2021:08:45:00 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
