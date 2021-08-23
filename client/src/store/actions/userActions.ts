@@ -6,6 +6,8 @@ import userTypes from "../types/userTypes";
 import errorTypes from "../types/errorTypes";
 import { userState } from "../reducers/userReducer";
 import { UserInterface } from "../types/userInterfaces";
+import {PropertyInterface} from "../types/propertyInterfaces";
+import { isStringInArray } from "../../utilities/isStringInArray";
 
 // -------------------- URLS --------------------
 
@@ -68,6 +70,10 @@ export interface VerifyRequest
 export interface VerifySuccess extends Action<typeof userTypes.VERIFY_SUCCESS> {
   payload: UserInterface;
 }
+//Favorites?
+export interface AddToFavorite extends Action<typeof userTypes.ADD_TO_FAVORITE> {
+  payload: PropertyInterface;
+}
 
 export interface VerifyFail extends Action<typeof userTypes.VERIFY_FAIL> {}
 
@@ -89,7 +95,8 @@ export type UserActions =
   | SendVerificationFail
   | VerifyRequest
   | VerifySuccess
-  | VerifyFail;
+  | VerifyFail
+  | AddToFavorite;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -362,3 +369,19 @@ export const tokenConfig = (getState: () => StoreState) => {
   }
   return config;
 };
+
+export const addToFavoriteAction = (id:string,favorites:Array<string>) =>  (dispatch: Dispatch) => {
+    let newArr = [...favorites];
+    let isFavorites = isStringInArray(id, newArr);
+    if (id) {
+      isFavorites
+        ? (newArr = newArr.filter((item) => item !== id))
+        : newArr.push(id);
+    }
+  dispatch({
+    type: userTypes.ADD_TO_FAVORITE,
+    payload: [
+      ...newArr
+    ],
+  });
+}; 

@@ -32,16 +32,19 @@ $largeFontSize: 2.5rem;
 $fontSize33px: 3.3rem;
 $fontSize32px: 3.2rem;
 $fontSize30px: 3rem;
+$fontSize25px: 2.5rem;
 $fontSize23px: 2.3rem;
 $fontSize22px: 2.2rem;
 $fontSize21px: 2.1rem;
 $fontSize20px: 2rem;
 $fontSize19px: 1.9rem;
 $fontSize18px: 1.8rem;
+$fontSize17px: 1.7rem;
 $mediumFontSize: 1.6rem;
 $smallerMediumFont: 1.5rem;
 $smallFontSize: 1.4rem;
 $fontSize13px: 1.3rem;
+$fontSize12px: 1.2rem;
 
 // Font weights
 $font-Weight-light: 300;
@@ -63,15 +66,19 @@ $lineHeight41px: 4.1rem;
 $lineHeight36px: 3.6rem;
 $lineHeight35px: 3.5rem;
 $lineHeight34px: 3.4rem;
+$lineHeight31px: 3.1rem;
 $lineHeight30px: 3rem;
-$lineHeight21px: 2.1rem;
-$lineHeight20px: 2rem;
-$lineHeight15px: 1.5rem;
 $lineHeight28px: 2.8rem;
 $lineHeight27px: 2.7rem;
 $lineHeight26px: 2.6rem;
 $lineHeight25px: 2.5rem;
 $lineHeight24px: 2.4rem;
+$lineHeight22px: 2.2rem;
+$lineHeight21px: 2.1rem;
+$lineHeight20px: 2rem;
+$lineHeight19px: 1.9rem;
+$lineHeight17px: 1.7rem;
+$lineHeight15px: 1.5rem;
 
 
 //Font Family
@@ -81,4 +88,5 @@ $helveticaNeue: Helvetica Neue, Arial, sans-serif;
 $roboto: 'Roboto', sans-serif;
 
 // Small tablets and large smartphones (landscape view)
+$mobileFilter: 485px;
 $mobile: 675px;

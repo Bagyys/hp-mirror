@@ -12,9 +12,10 @@ type Props = {
 const Input: React.FC<Props> = (props) => {
   let inputElement: null | JSX.Element = null;
   switch (props.type) {
-    case 'input':
+    case 'checkbox':
       inputElement = (
         <input
+          className={classes.InputCheck}
           checked={props.value}
           type={props.type}
           onChange={props.changed}

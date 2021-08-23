@@ -128,6 +128,11 @@ const userReducer = (state = initialState, action: UserActions) => {
         user: null,
         isAuthenticated: false,
       };
+    case userTypes.ADD_TO_FAVORITE:
+      return {
+        ...state,
+        user:{...state.user,favorites:action.payload}
+      }  
     default:
       return state;
   }

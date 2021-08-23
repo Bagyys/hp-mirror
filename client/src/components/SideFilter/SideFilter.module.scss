@@ -1,49 +1,76 @@
 @import "../../styles/global.scss";
+@import "../../styles/mixins";
 .SideFilterContainer {
     width: 80rem;
     background-color: $white;
     position: absolute;
     z-index: 101;
+    display: flex;
+    flex-direction: column;
+    @include respond(mobile){
+        width: 100%;
+    }
+    h2 {
+        font-size: $fontSize27px;
+        font-family: $helvetica;
+        color: #000;
+        line-height: $lineHeight36px;
+        font-weight: $font-Weight-bold;
+        margin-bottom: 3.5rem;
+        @include respond(mobile){
+            font-size: $fontSize23px;
+            line-height: $lineHeight31px;
+            margin-bottom: 3.27rem;
+        }
+    }
     .SideFilterNav{
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin:2.87rem 4.8rem 2.22rem 6.6rem;
-        .CloseContainer {
-            background-color: $lightGrey3;
-            border-radius: 50%;
-            cursor: pointer;
-            img {
-                padding: 2.2rem;
-            }
+        @include respond(mobile){
+            order: 3;
+            margin:2.2rem;
         }
         .ButtonsContainer {
             align-self: flex-end;
         }
     }
     .FilterSliderContainer {
-        margin-top: 11.95rem;
+        margin: 0 7.9rem 0 5.8rem;
+        @include respond(mobile){
+            margin:3.35rem 1.4rem 0 2.3rem
+        }
+        h2{
+            display: none;
+            @include respond(mobile){
+                display: block;
+            }
+        }
     }
     .FilterBtnAndCheckboxContainer {
-        margin: 0 6.8rem;
+        margin: 0 7.9rem 0 5.8rem;
         font-size: $fontSize21px;
         font-family: $helveticaNeue;
         color: $black2;
-        h2 {
-            font-size: $fontSize27px;
-            font-family: $helvetica;
-            color: #000;
-            line-height: $lineHeight36px;
-            font-weight: $font-Weight-bold;
-            margin-bottom: 3.5rem;
+        @include respond(mobile){
+            margin: 0 1.4rem 0 2.3rem ;
+            font-size: $fontSize17px;
         }
         p{
             line-height:$lineHeight21px;
             text-transform: capitalize;
+            @include respond(mobile){
+                line-height: $lineHeight17px;
+            }
         }
         .FilterBoxes {
-            padding: 3.73rem 4rem 3.5rem 1.87rem;
+            padding: 3.73rem 1.87rem 3.5rem 1.87rem;
             border-bottom: 1px solid #CBD0D3;
+            @include respond(mobile){
+                border: none;
+                padding:2.3rem 1.9rem 2.3rem .5rem  ;
+            }
             &:last-child{
                 border-bottom: none;
             }
@@ -60,12 +87,19 @@
                     align-items: center;
                     justify-content: space-between;
                     width: 17.2rem;
+                    @include respond(mobile){
+                        width: 11.5rem;
+                        p{
+                            width: 4rem;
+                            text-align: center;
+                        }
+                    }
                 }
             }
             .CheckboxList{
                 display: flex;
                 flex-wrap: wrap;
-
+                justify-content: space-between;    
             }
         }
     }

@@ -316,6 +316,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
       <div className={classes.SideFilterNav}>
         <Button clicked={toggleHandler} btnType="CloseFilter">
           <img src={close} />
+          <span>Close</span>
         </Button>
         <div className={classes.ButtonsContainer}>
           <Button clicked={Clear} btnType="ClearFilter">
@@ -327,6 +328,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
         </div>
       </div>
       <div className={classes.FilterSliderContainer}>
+        <h2>Price</h2>
         <MultiRangeSlider
           min={filter.priceSlider.min}
           max={filter.priceSlider.max}

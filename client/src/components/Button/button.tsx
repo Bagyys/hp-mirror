@@ -9,7 +9,11 @@ const Button: React.FC<ButtonProps> = (props) => {
   return (
     <button
       onClick={props.clicked}
-      className={cn(classes[props.btnType], props.show ? classes.Show : '')}
+      className={cn(
+        classes.Btn,
+        classes[props?.btnType],
+        props.show ? classes.Show : ''
+      )}
     >
       {props.children}
     </button>

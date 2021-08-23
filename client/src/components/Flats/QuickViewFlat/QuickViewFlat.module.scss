@@ -1,22 +1,61 @@
 @import "../../../styles/global.scss";
+@import "../../../styles/mixins";
 .QuickViewFlatContainer {
-    flex: 0 0 100%;
     background-color: white;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
     margin-bottom: 7.28rem;
     border-radius: 1rem;
     display: flex;
     flex-wrap: wrap;
+    @include respond(mobile){
+        margin: 0 1.6rem;
+        order: -1;
+        margin-top: -53vw;
+    }
     .SliderWithInfoContainer {
         flex: 0 0 48.2%;
         margin-bottom: 1rem;
+        position: relative;
+        @include respond(mobile){
+            flex: 1 0 100%;
+            margin-bottom: 0;
+        }
+        .Close{
+            position: absolute;
+            top: 1.5rem;
+            left: 1.8rem;
+            cursor: pointer;
+        }
         .InfoContainer {
             margin-left: 3rem;
+            position: relative;
+            @include respond(mobile){
+                margin-left: 1.4rem;
+            }
+            .BadgesContainer{
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                font-size: $fontSize12px;
+                color: $blackGrey;
+                right: 1.47rem;
+                top: 0.97rem;
+                P{
+                   line-height: $lineHeight27px;
+                }
+                
+            }
         }
     }
     .ExtraInformationContainer{
         flex:0 0 45.4%;
         margin:2.21rem 2.5rem 0 2.8rem;
+        position: relative;
+        @include respond(mobile){
+            flex: 1 0 87%;
+            margin: 1.43rem 2.2rem 0 2.2rem;
+        }
+        
     }
     .AboutPlaceContainer{
         border-top: 1px solid $disableBtn;
@@ -24,6 +63,9 @@
         margin:0 2rem;
         padding: 2rem 1rem;
         font-family: $helveticaNeue;
+        @include respond(mobile){
+            display: none;
+        }
     }
     .PriceBtnContainer {
         margin: 2rem 2.5rem 2.5rem 3rem;
@@ -31,5 +73,28 @@
         align-items: center;
         justify-content: space-between;
         flex: 0 0 93.6%;
+        @include respond(mobile){
+            margin: 2rem 0.63rem 1.38rem 1.8rem;
+            flex: 0 0 92.8%;
+        }
+        .PriceContainer {
+            display: flex;
+            align-items: baseline;
+            font-size: $fontSize19px;
+            margin-left: 0.14rem;
+            @include respond(mobile){
+                flex-direction: column;
+                font-size: $mediumFontSize;
+                
+            }
+            .TotalPrice { 
+                color: $lightGrey4;   
+                @include respond(mobile){
+                    font-size: $smallFontSize;
+                    margin-top: 0.3rem;
+                    margin-left: .3rem;
+                }    
+            }
+        }
     }
 }

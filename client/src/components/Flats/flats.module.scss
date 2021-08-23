@@ -5,6 +5,8 @@
     margin-left: 4.7rem;
     margin-top: 2.87rem;
     font-family: $workSans;
+    display: flex;
+    flex-direction: column;
     // overflow-y: auto;
     // &::-webkit-scrollbar {
     //     background: #f1f1f1;
@@ -29,38 +31,52 @@
             margin:.5rem 0 .5rem 2.15rem;
             
         }
-        .PcResults{
-            line-height: $lineHeight36px;
-            font-size: $fontSize19px;
-            color:$blackGrey;
-            @include respond(mobile){
+        .RightSide {
+            display: flex;
+            align-items: center;
+            .CustomSelect {
+                margin-right: 2rem;
+            }
+            .PcResults{
+                line-height: $lineHeight36px;
+                font-size: $fontSize19px;
+                color:$blackGrey;
+                @include respond(mobile){
+                    display: none;
+                }
+            }
+            .MobileResults{
+                line-height: $lineHeight41px;
+                font-size: $smallFontSize;
+                color:$black2;
                 display: none;
+                img{
+                    margin-left: 1.4rem;
+                }
+                @include respond(mobile){
+                    display: block;
+                }
             }
         }
-        .MobileResults{
-            line-height: $lineHeight41px;
-            font-size: $smallFontSize;
-            color:$black2;
-            display: none;
-            img{
-                margin-left: 1.4rem;
-            }
+        .FilterBtnContainer {
             @include respond(mobile){
-                display: block;
+                display: none;
             }
         }
     }
     .FlatsListConatiner {
         display:flex;
         flex-wrap: wrap;
+        margin-bottom: 6.22rem;
         @include respond(mobile){
             flex-wrap: nowrap;
             overflow-y: auto;
-            padding-left: 1.8rem;
+            padding-left: 1.16rem;
             margin-bottom: 2.58rem;
         }
     }
     .RecentlyViewContainer {
+        margin-top: 9.1rem;
         h2{
             font-size: $fontSize33px;
             font-weight: $font-Weight-bold;
