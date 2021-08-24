@@ -4,7 +4,8 @@ import { FilterDataInterface } from "../types/filterInterface";
 
 export interface FilterState {
   filterData:FilterDataInterface;
-  isOpen:boolean;
+  isFilterOpen:boolean;
+  toggleFilterBoxes:{[key:string]:boolean};
 }
 
 const initialState:FilterState= {
@@ -12,6 +13,9 @@ const initialState:FilterState= {
     priceSlider: {
       min: 0,
       max: 200,
+      initialMin:0,
+      initialMax:200,
+      clear:false
     },
     roomsAndBeds: {
       beds: { value: 0, text: 'Beds' },
@@ -59,7 +63,14 @@ const initialState:FilterState= {
       test: { value: false, type: 'checkbox', text: 'Test' },
     }
   },
-  isOpen:false
+  isFilterOpen:false,
+  toggleFilterBoxes:{
+    propertyType:false,
+    houseRules:false,
+    amenities:false,
+    facilities:false,
+    areas:false
+  }
 };
 
 const filterReducer = (
@@ -68,20 +79,75 @@ const filterReducer = (
 ) => {
   switch (action.type) {
     case filterTypes.CHANGE_FILTER_BEDS_ROOMS:
-    return {
-      ...state,
-      filterData:{...state.filterData, roomsAndBeds:action.payload}
-    };
+      return {
+        ...state,
+        filterData:{...state.filterData, roomsAndBeds:action.payload}
+      };
     case filterTypes.CHANGE_FILTER_PRICE:
-    return {
-      ...state,
-      filterData:{...state.filterData,priceSlider:action.payload}
-    };
+      return {
+        ...state,
+        filterData:{...state.filterData,priceSlider:action.payload}
+      };
+    case filterTypes.CHANGE_FILTER_PROPERTY_TYPE:
+      return {
+        ...state,
+        filterData:{...state.filterData,propertType:action.payload}
+      };
+    case filterTypes.CHANGE_FILTER_HOUSE_RULES:
+      return {
+        ...state,
+        filterData:{...state.filterData,houseRules:action.payload}
+      };
+    case filterTypes.CHANGE_FILTER_AMENITIES:
+      return {
+        ...state,
+        filterData:{...state.filterData,amenities:action.payload}
+      };
+    case filterTypes.CHANGE_FILTER_FACILITIES:
+      return {
+        ...state,
+        filterData:{...state.filterData,facilities:action.payload}
+      };
+    case filterTypes.CHANGE_FILTER_AREAS:
+      return {
+        ...state,
+        filterData:{...state.filterData,areas:action.payload}
+      };
     case filterTypes.TOGGLE_FILTER_BUTTON:
       return {
         ...state,
-        isOpen: action.payload,
+        isFilterOpen: action.payload,
       };
+    case filterTypes.CLEAR_FILTER:
+      return {
+        ...state,
+        filterData:{...initialState.filterData,priceSlider:{...initialState.filterData.priceSlider,clear:true}},
+      };
+    case filterTypes.TOGGLE_PROPERT_TYPE_INPUTS:
+      return {
+        ...state,
+        toggleFilterBoxes:{...state.toggleFilterBoxes,propertyType:action.payload},
+      };
+    case filterTypes.TOGGLE_HOUSE_RULES_INPUTS:
+      return {
+        ...state,
+        toggleFilterBoxes:{...state.toggleFilterBoxes,houseRules:action.payload},
+      };  
+    case filterTypes.TOGGLE_AMENITIES_INPUTS:
+      return {
+        ...state,
+        toggleFilterBoxes:{...state.toggleFilterBoxes,amenities:action.payload},
+      };
+    case filterTypes.TOGGLE_FACILITIES_INPUTS:
+      return {
+        ...state,
+        toggleFilterBoxes:{...state.toggleFilterBoxes,facilities:action.payload},
+      };    
+    case filterTypes.TOGGLE_AREAS_INPUTS:
+      return {
+        ...state,
+        toggleFilterBoxes:{...state.toggleFilterBoxes,areas:action.payload},
+      };  
     default:
       return state;
   }

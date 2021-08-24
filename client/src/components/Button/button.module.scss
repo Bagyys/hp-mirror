@@ -18,9 +18,7 @@
     font-size: $fontSize21px;
     line-height: $lineHeight35px;
     padding: .2rem 1.92rem;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.3s ease-in;
+    
     @include respond(mobile){
         font-size: $smallerMediumFont;
         line-height: $lineHeight25px;

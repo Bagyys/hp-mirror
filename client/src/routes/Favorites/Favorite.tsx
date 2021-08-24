@@ -9,7 +9,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userState } from '../../store/reducers/userReducer';
 import { StoreState } from '../../store/configureStore';
 import { addToFavoriteAction } from '../../store/actions/userActions';
+import { PropertyState } from '../../store/reducers/propertyReducer';
 const Favorite = () => {
+  const propertyStore: PropertyState = useSelector(
+    (state: StoreState) => state.property
+  );
+  const { properties } = propertyStore;
   const auth: userState = useSelector((state: StoreState) => state.user);
   const dispatch = useDispatch();
   const { user } = auth;
@@ -50,7 +55,10 @@ const Favorite = () => {
     <>
       <Navigation />
       <div className={classes.FavoriteContainer}>
-        <div onClick={() => history.goBack()} className={classes.Return}>
+        <div
+          onClick={() => history.push({ pathname: '/' })}
+          className={classes.Return}
+        >
           <img src={arrow} />
           Return to list
         </div>

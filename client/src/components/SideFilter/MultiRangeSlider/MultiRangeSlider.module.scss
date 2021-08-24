@@ -89,7 +89,7 @@
         margin-right: auto;
         &:after{
             content: attr(data-price-right);            
-            right: -5rem;        
+            right: -5.4rem;        
             @extend %shared-slider-range-pseudo;    
             @include respond(mobile){
               right: -3rem;

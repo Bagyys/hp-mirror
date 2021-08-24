@@ -23,6 +23,10 @@
                     margin-left: 0.64rem;
                 }
             }
+            &:hover .FlatContent .InfoContainer .Info .PriceBtnContainer .FlatBtnsContainer {
+                visibility: visible;
+                opacity: 1;
+            }
             .FlatContent {
                 .InfoContainer {
                     padding: 0 1.57rem 1.6rem 1.76rem;
@@ -38,6 +42,11 @@
                             align-items: flex-end;
                             @include respond(mobile){
                                 align-items: center;
+                            }
+                            .FlatBtnsContainer {
+                                visibility: hidden;
+                                opacity: 0;
+                                transition: all 0.3s ease-in;
                             }
                             .PriceContainer {
                                 display: flex;

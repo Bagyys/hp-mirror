@@ -18,11 +18,11 @@ const isChoosing = false;
 function Home() {
   const dispatch = useDispatch();
   const filter: FilterState = useSelector((state: StoreState) => state.filter);
-  const { isOpen } = filter;
+  const { isFilterOpen } = filter;
   const isMobile = useMediaPredicate('(max-width: 675px)');
 
   const toggleHandler = () => {
-    dispatch(toggleFilterButtonAction(!isOpen));
+    dispatch(toggleFilterButtonAction(!isFilterOpen));
   };
   return (
     <div className={classes.App}>
@@ -34,10 +34,10 @@ function Home() {
         <Fragment>
           <Navigation />
           {isMobile && <SecondaryNavMobile toggleHandler={toggleHandler} />}
-          {isOpen && <SideFilter toggleHandler={toggleHandler} />}
+          {isFilterOpen && <SideFilter toggleHandler={toggleHandler} />}
           {!isMobile && (
             <Backdrop
-              isVisible={isOpen}
+              isVisible={isFilterOpen}
               toggleHandler={toggleHandler}
             ></Backdrop>
           )}

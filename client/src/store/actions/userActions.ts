@@ -371,17 +371,17 @@ export const tokenConfig = (getState: () => StoreState) => {
 };
 
 export const addToFavoriteAction = (id:string,favorites:Array<string>) =>  (dispatch: Dispatch) => {
-    let newArr = [...favorites];
-    let isFavorites = isStringInArray(id, newArr);
+    let newData = [...favorites];
+    let isFavorites = isStringInArray(id, newData);
     if (id) {
       isFavorites
-        ? (newArr = newArr.filter((item) => item !== id))
-        : newArr.push(id);
+        ? (newData = newData.filter((item) => item !== id))
+        : newData.push(id);
     }
   dispatch({
     type: userTypes.ADD_TO_FAVORITE,
     payload: [
-      ...newArr
+      ...newData
     ],
   });
 }; 

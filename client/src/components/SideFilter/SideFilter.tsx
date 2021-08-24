@@ -5,16 +5,27 @@ import MultiRangeSlider from './MultiRangeSlider/MultiRangeSlider';
 import CounterButton from './CounterButton/CounterButton';
 import minus from '../../assets/images/minus.png';
 import plus from '../../assets/images/plus.png';
-import React, { useCallback, useState, ChangeEvent } from 'react';
+import React, { useCallback, ChangeEvent } from 'react';
 import Input from '../Input/Input';
 import ToggleClass from './ToggleClasses/ToggleClasses';
 import { toArray } from '../../utilities/objectToArr';
-import { cloneDeep, debounce } from 'lodash';
+import { cloneDeep, debounce, filter } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/configureStore';
 import {
   changeFilterBedsRoomsAction,
   changeFilterPriceAction,
+  changeFilterHouseRulesAction,
+  changeFilterAreasAction,
+  changeFilterFacilitiesAction,
+  changeFilterAmenitiesAction,
+  changeFilterPropertyTypeAction,
+  clearFilterAction,
+  toggleAreasAction,
+  toggleFacilitiesAction,
+  toggleAmenitiesAction,
+  toggleHouseRulesAction,
+  togglePropertyTypeAction,
 } from '../../store/actions/filterActions';
 import { FilterState } from '../../store/reducers/filterReducer';
 
@@ -23,33 +34,28 @@ interface SideFilterProps {
 }
 
 const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
-  // const [filter, setFilter] = useState<FilterDataProps>(filterDatas);
-  const [showPropertyType, setShowPropertyType] = useState<boolean>(false);
-  const [showHouseRules, setShowHouseRules] = useState<boolean>(false);
-  const [showAmenities, setShowAmenities] = useState<boolean>(false);
-  const [showFacilities, setShowFacilities] = useState<boolean>(false);
-  const [showAreas, setShowAreas] = useState<boolean>(false);
-  const [clearFilter, setClearFilter] = useState<boolean>(false);
+  // const [clearFilter, setClearFilter] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const filterSide: FilterState = useSelector(
     (state: StoreState) => state.filter
   );
-  const { filterData } = filterSide;
-  const priceHandler = debounce(
-    useCallback(
-      ({ min, max }: { min: number; max: number }) => {
-        const newData = { min, max };
-        dispatch(changeFilterPriceAction(newData));
-      },
-      [filterData]
-    ),
-    300
+  const { filterData, toggleFilterBoxes } = filterSide;
+
+  const priceHandler = useCallback(
+    debounce(({ min, max }: { min: number; max: number }) => {
+      const newData = cloneDeep(filterData.priceSlider);
+      newData.min = min;
+      newData.max = max;
+      newData.clear = false;
+      dispatch(changeFilterPriceAction(newData));
+    }, 300),
+    [filterData]
   );
-  console.log(filterData.priceSlider);
-  const counterHandler = (key: string, diff: number) => {
+
+  const counterHandler = (id: string, diff: number) => {
     const newData = cloneDeep(filterData.roomsAndBeds);
-    newData[key].value = newData[key].value + diff;
+    newData[id].value = newData[id].value + diff;
     dispatch(changeFilterBedsRoomsAction(newData));
   };
 
@@ -84,23 +90,14 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
         })}
     </React.Fragment>
   );
-  const Clear = () => {
-    alert('Clear');
-    setClearFilter(true);
-  };
-  const Save = () => {
-    alert('Save');
-  };
 
   const changePropertyTypeHandler = (
     ev: ChangeEvent<HTMLInputElement>,
     id: string
   ) => {
-    const newData = cloneDeep(filterData);
-    const newDataProperties = { ...newData.propertType[id] };
-    newDataProperties.value = ev.target.checked;
-    newData.propertType[id] = newDataProperties;
-    // dispatch(changeFilterDataAction(newData));
+    const newData = cloneDeep(filterData.propertType);
+    newData[id].value = ev.target.checked;
+    dispatch(changeFilterPropertyTypeAction(newData));
   };
   const propertTypeArray: {
     id: string;
@@ -112,7 +109,9 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
         propertTypeArray.map(({ id, config }, index) => {
           return (
             <Input
-              class={!showPropertyType && index >= 6 ? 'Hide' : ''}
+              class={
+                !toggleFilterBoxes.propertyType && index >= 6 ? 'Hide' : ''
+              }
               key={id}
               type={config.type}
               value={config.value}
@@ -128,11 +127,9 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
     ev: ChangeEvent<HTMLInputElement>,
     id: string
   ) => {
-    const newData = cloneDeep(filterData);
-    const newDataProperties = { ...newData.houseRules[id] };
-    newDataProperties.value = ev.target.checked;
-    newData.houseRules[id] = newDataProperties;
-    // dispatch(changeFilterDataAction(newData));
+    const newData = cloneDeep(filterData.houseRules);
+    newData[id].value = ev.target.checked;
+    dispatch(changeFilterHouseRulesAction(newData));
   };
   const houseRulesArray: {
     id: string;
@@ -144,7 +141,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
         houseRulesArray.map(({ id, config }, index) => {
           return (
             <Input
-              class={!showHouseRules && index >= 6 ? 'Hide' : ''}
+              class={!toggleFilterBoxes.houseRules && index >= 6 ? 'Hide' : ''}
               key={id}
               type={config.type}
               value={config.value}
@@ -160,11 +157,9 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
     ev: ChangeEvent<HTMLInputElement>,
     id: string
   ) => {
-    const newData = cloneDeep(filterData);
-    const newDataProperties = { ...newData.amenities[id] };
-    newDataProperties.value = ev.target.checked;
-    newData.amenities[id] = newDataProperties;
-    // dispatch(changeFilterDataAction(newData));
+    const newData = cloneDeep(filterData.amenities);
+    newData[id].value = ev.target.checked;
+    dispatch(changeFilterAmenitiesAction(newData));
   };
   const amenitiesArray: {
     id: string;
@@ -176,7 +171,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
         amenitiesArray.map(({ id, config }, index) => {
           return (
             <Input
-              class={!showAmenities && index >= 6 ? 'Hide' : ''}
+              class={!toggleFilterBoxes.amenities && index >= 6 ? 'Hide' : ''}
               key={id}
               type={config.type}
               value={config.value}
@@ -192,11 +187,9 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
     ev: ChangeEvent<HTMLInputElement>,
     id: string
   ) => {
-    const newData = cloneDeep(filterData);
-    const newDataProperties = { ...newData.facilities[id] };
-    newDataProperties.value = ev.target.checked;
-    newData.facilities[id] = newDataProperties;
-    // dispatch(changeFilterDataAction(newData));
+    const newData = cloneDeep(filterData.facilities);
+    newData[id].value = ev.target.checked;
+    dispatch(changeFilterFacilitiesAction(newData));
   };
   const facilitiesArray: {
     id: string;
@@ -208,7 +201,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
         facilitiesArray.map(({ id, config }, index) => {
           return (
             <Input
-              class={!showFacilities && index >= 6 ? 'Hide' : ''}
+              class={!toggleFilterBoxes.facilities && index >= 6 ? 'Hide' : ''}
               key={id}
               type={config.type}
               value={config.value}
@@ -224,11 +217,9 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
     ev: ChangeEvent<HTMLInputElement>,
     id: string
   ) => {
-    const newData = cloneDeep(filterData);
-    const newDataProperties = { ...newData.areas[id] };
-    newDataProperties.value = ev.target.checked;
-    newData.areas[id] = newDataProperties;
-    // dispatch(changeFilterDataAction(newData));
+    const newData = cloneDeep(filterData.areas);
+    newData[id].value = ev.target.checked;
+    dispatch(changeFilterAreasAction(newData));
   };
   const areasArray: {
     id: string;
@@ -240,7 +231,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
         areasArray.map(({ id, config }, index) => {
           return (
             <Input
-              class={!showAreas && index >= 6 ? 'Hide' : ''}
+              class={!toggleFilterBoxes.areas && index >= 6 ? 'Hide' : ''}
               key={id}
               type={config.type}
               value={config.value}
@@ -251,7 +242,12 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
         })}
     </div>
   );
-
+  const Clear = () => {
+    dispatch(clearFilterAction());
+  };
+  const Save = () => {
+    alert('Save');
+  };
   return (
     <div className={classes.SideFilterContainer}>
       <div className={classes.SideFilterNav}>
@@ -273,11 +269,10 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
         <MultiRangeSlider
           min={filterData.priceSlider.min}
           max={filterData.priceSlider.max}
-          initialMin={0}
-          initialMax={200}
-          clear={clearFilter}
+          initialMin={filterData.priceSlider.initialMin}
+          initialMax={filterData.priceSlider.initialMax}
+          clear={filterData.priceSlider.clear}
           onChange={priceHandler}
-          clearHandler={() => setClearFilter(false)}
         />
       </div>
       <div className={classes.FilterBtnAndCheckboxContainer}>
@@ -290,9 +285,13 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
           {propertyType}
           <ToggleClass
             inputCount={propertTypeArray.length}
-            show={showPropertyType}
+            show={toggleFilterBoxes.propertyType}
             text={'property types'}
-            toggle={() => setShowPropertyType(!showPropertyType)}
+            toggle={() =>
+              dispatch(
+                togglePropertyTypeAction(!toggleFilterBoxes.propertyType)
+              )
+            }
           />
         </div>
         <div className={classes.FilterBoxes}>
@@ -300,9 +299,11 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
           {houseRules}
           <ToggleClass
             inputCount={houseRulesArray.length}
-            show={showHouseRules}
+            show={toggleFilterBoxes.houseRules}
             text={'house rules'}
-            toggle={() => setShowHouseRules(!showHouseRules)}
+            toggle={() =>
+              dispatch(toggleHouseRulesAction(!toggleFilterBoxes.houseRules))
+            }
           />
         </div>
         <div className={classes.FilterBoxes}>
@@ -310,9 +311,11 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
           {amenities}
           <ToggleClass
             inputCount={amenitiesArray.length}
-            show={showAmenities}
+            show={toggleFilterBoxes.amenities}
             text={'amenities'}
-            toggle={() => setShowAmenities(!showAmenities)}
+            toggle={() =>
+              dispatch(toggleAmenitiesAction(!toggleFilterBoxes.amenities))
+            }
           />
         </div>
         <div className={classes.FilterBoxes}>
@@ -320,9 +323,11 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
           {facilities}
           <ToggleClass
             inputCount={facilitiesArray.length}
-            show={showFacilities}
+            show={toggleFilterBoxes.facilities}
             text={'facilities'}
-            toggle={() => setShowFacilities(!showFacilities)}
+            toggle={() =>
+              dispatch(toggleFacilitiesAction(!toggleFilterBoxes.facilities))
+            }
           />
         </div>
         <div className={classes.FilterBoxes}>
@@ -330,9 +335,9 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
           {areas}
           <ToggleClass
             inputCount={areasArray.length}
-            show={showAreas}
+            show={toggleFilterBoxes.areas}
             text={'areas'}
-            toggle={() => setShowAreas(!showAreas)}
+            toggle={() => dispatch(toggleAreasAction(!toggleFilterBoxes.areas))}
           />
         </div>
       </div>

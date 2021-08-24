@@ -17,7 +17,6 @@ interface MultiRangeSliderProps {
   initialMax: number;
   onChange: Function;
   clear: boolean;
-  clearHandler: () => void;
 }
 
 const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
@@ -27,7 +26,6 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
   initialMax,
   onChange,
   clear,
-  clearHandler,
 }) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
@@ -52,7 +50,7 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
       range.current.style.left = `${minPercent}%`;
       range.current.style.width = `${maxPercent - minPercent}%`;
     }
-  }, [maxVal, minVal, getPercent]);
+  }, [minVal, getPercent]);
 
   // Set width of the range to decrease from the right side
   useEffect(() => {
@@ -70,11 +68,10 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
       minValRef.current = initialMin;
       maxValRef.current = initialMax;
     }
-  }, [clear, initialMin, initialMax]);
+  }, [clear]);
   // Get min and max values when their state changes
   useEffect(() => {
     onChange({ min: minVal, max: maxVal });
-    clearHandler();
     clearRangeSlider();
   }, [minVal, maxVal, clear]);
 
