@@ -3,18 +3,28 @@ import searchImg from "../../../assets/images/Search.svg";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { StoreState } from "../../../store/configureStore";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setProceedToGuests,
+  toggleIsSearching,
+} from "../../../store/actions/mainPageActions";
 
-interface searchProgressionProps {
-  isSearching: boolean;
-  changeSearch: () => void;
+interface activeObjectInterface {
+  activeObject: null | {
+    id: number;
+    title: string;
+    text: string;
+  };
+
+  objects: { id: number; title: string; text: string }[];
 }
 
-function SearchProgress(props: searchProgressionProps) {
+function SearchProgress() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
+  const dispatch = useDispatch();
   const adults = mainPage.guests.adults;
   const children = mainPage.guests.children;
-  const [appState, changeState] = useState<any>({
+  const [appState, changeState] = useState<activeObjectInterface>({
     activeObject: { id: 1, title: "Check in", text: "" },
 
     objects: [
@@ -65,27 +75,37 @@ function SearchProgress(props: searchProgressionProps) {
     });
   }, [mainPage.startDate, mainPage.endDate, adults, children]);
 
+  const changeSearchState = () => {
+    if (!mainPage.isSearching) {
+      dispatch(toggleIsSearching(true));
+    } else {
+      dispatch(toggleIsSearching(false));
+    }
+  };
+
   const toggleActive = (index: number) => {
     if (index === 0) {
-      props.changeSearch();
+      changeSearchState();
+    } else if (index !== 2) {
+      dispatch(setProceedToGuests(false));
+    } else if (index === 2) {
+      dispatch(setProceedToGuests(true));
     }
     changeState({ ...appState, activeObject: appState.objects[index] });
     console.log(appState, "active Object");
   };
 
   const toggleActiveStyles = (index: number) => {
-    if (!mainPage.startDate) {
-      appState.activeObject = appState.objects[0];
-    } else if (!mainPage.endDate && mainPage.startDate) {
-      appState.activeObject = appState.objects[1];
-    } else if (mainPage.endDate && mainPage.startDate) {
-      appState.activeObject = appState.objects[2];
-    }
+    // if (!mainPage.startDate) {
+    //   appState.activeObject = appState.objects[0];
+    // } else if (!mainPage.endDate && mainPage.startDate) {
+    //   appState.activeObject = appState.objects[1];
+    // } else if (mainPage.endDate && mainPage.startDate) {
+    //   appState.activeObject = appState.objects[2];
+    // }
     console.log(appState.activeObject, "appState.activeObject");
 
     if (appState.objects[index] === appState.activeObject) {
-      return `${classes.Active}`;
-    } else if (appState.objects[index] === 0) {
       return `${classes.Active}`;
     } else {
       return `${classes.inActive}`;
@@ -96,7 +116,7 @@ function SearchProgress(props: searchProgressionProps) {
     <div
       className={classes.SearchBox}
       style={
-        props.isSearching
+        mainPage.isSearching
           ? {
               marginTop: "6.7rem",
               backgroundColor: "rgba(255, 255, 255, 0.85)",
@@ -104,23 +124,25 @@ function SearchProgress(props: searchProgressionProps) {
           : { padding: `0.1rem 5.1rem 0.1rem 0` }
       }
     >
-      {appState.objects.map((element: any, index: number) => {
-        return (
-          <div
-            key={index}
-            className={toggleActiveStyles(index)}
-            onClick={() => toggleActive(index)}
-            style={{
-              lineHeight: "2rem",
-              padding: props.isSearching ? "1rem 3rem" : "",
-            }}
-          >
-            <h2>{element.title}</h2>
-            {props.isSearching ? <span>{element.text}</span> : null}
-          </div>
-        );
-      })}
-      {props.isSearching ? (
+      {appState.objects.map(
+        (element: { title: string; text: string }, index: number) => {
+          return (
+            <div
+              key={index}
+              className={toggleActiveStyles(index)}
+              onClick={() => toggleActive(index)}
+              style={{
+                lineHeight: "2rem",
+                padding: mainPage.isSearching ? "1rem 3rem" : "",
+              }}
+            >
+              <h2>{element.title}</h2>
+              {mainPage.isSearching ? <span>{element.text}</span> : null}
+            </div>
+          );
+        }
+      )}
+      {mainPage.isSearching ? (
         <div
           className={classes.SearchButton}
           style={{ right: "-13%", padding: "1.6rem 1.7rem 1.6rem 1.5rem" }}

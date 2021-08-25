@@ -19,6 +19,7 @@ export interface MainPageInterface {
       children: number;
     };
     isCalendar: boolean;
+    isSearching: boolean;
   };
 }
 
@@ -74,6 +75,16 @@ export const toggleIsCalendar =
       type: mainPageTypes.TOGGLE_CALENDAR,
       payload: {
         isCalendar,
+      },
+    });
+  };
+
+export const toggleIsSearching =
+  (isSearching: boolean) => (dispatch: Dispatch) => {
+    dispatch({
+      type: mainPageTypes.TOGGLE_SEARCHING,
+      payload: {
+        isSearching,
       },
     });
   };

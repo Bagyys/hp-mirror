@@ -1,17 +1,18 @@
-import classes from '../main.module.scss';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setNumberOfAdultsAndChildren } from '../../../store/actions/mainPageActions';
+import classes from "../main.module.scss";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setNumberOfAdultsAndChildren } from "../../../store/actions/mainPageActions";
 
 function GuestContainer() {
   const dispatch = useDispatch();
   const [numberOfChildren, setNumberOfChildren] = useState<number>(0);
   const [numberOfAdults, setNumberOfAdults] = useState<number>(0);
 
-  const increment = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === 'children') {
+  const increment = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    const target = e.target as HTMLInputElement;
+    if (target.id === "children") {
       setNumberOfChildren(numberOfChildren + 1);
-    } else if (e.target.id === 'adults') {
+    } else if (target.id === "adults") {
       setNumberOfAdults(numberOfAdults + 1);
     }
   };
@@ -20,13 +21,14 @@ function GuestContainer() {
     dispatch(setNumberOfAdultsAndChildren(numberOfAdults, numberOfChildren));
   }, [numberOfChildren, numberOfAdults]);
 
-  const decrement = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === 'children') {
+  const decrement = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    const target = e.target as HTMLInputElement;
+    if (target.id === "children") {
       setNumberOfChildren(numberOfChildren - 1);
       if (numberOfChildren <= 0) {
         setNumberOfChildren(0);
       }
-    } else if (e.target.id === 'adults') {
+    } else if (target.id === "adults") {
       setNumberOfAdults(numberOfAdults - 1);
       if (numberOfAdults <= 0) {
         setNumberOfAdults(0);
@@ -45,7 +47,7 @@ function GuestContainer() {
           <div className={classes.Counting}>
             <span
               id="adults"
-              onClick={(e: any) => decrement(e)}
+              onClick={(e) => decrement(e)}
               className={classes.Decrement}
             >
               -
@@ -53,7 +55,7 @@ function GuestContainer() {
             <span className={classes.Number}>{numberOfAdults}</span>
             <span
               id="adults"
-              onClick={(e: any) => increment(e)}
+              onClick={(e) => increment(e)}
               className={classes.Increment}
             >
               +
@@ -68,7 +70,7 @@ function GuestContainer() {
           <div className={classes.Counting}>
             <span
               id="children"
-              onClick={(e: any) => decrement(e)}
+              onClick={(e) => decrement(e)}
               className={classes.Decrement}
             >
               -
@@ -76,7 +78,7 @@ function GuestContainer() {
             <span className={classes.Number}>{numberOfChildren}</span>
             <span
               id="children"
-              onClick={(e: any) => increment(e)}
+              onClick={(e) => increment(e)}
               className={classes.Increment}
             >
               +

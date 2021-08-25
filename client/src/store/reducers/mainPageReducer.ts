@@ -9,6 +9,7 @@ export interface InitialState {
     children: number;
   };
   isCalendar: boolean;
+  isSearching: boolean;
 }
 
 const initialState: InitialState = {
@@ -20,6 +21,7 @@ const initialState: InitialState = {
     children: 0,
   },
   isCalendar: true,
+  isSearching: false,
 };
 
 const mainPageReducer = (state = initialState, action: MainPageInterface) => {
@@ -48,6 +50,11 @@ const mainPageReducer = (state = initialState, action: MainPageInterface) => {
       return {
         ...state,
         isCalendar: action.payload.isCalendar,
+      };
+    case mainPageTypes.TOGGLE_SEARCHING:
+      return {
+        ...state,
+        isSearching: action.payload.isSearching,
       };
     default:
       return state;

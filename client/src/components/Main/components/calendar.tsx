@@ -1,14 +1,14 @@
-import classes from '../main.module.scss';
-import { useEffect, useState } from 'react';
-import { DateRange, OnChangeProps } from 'react-date-range';
+import classes from "../main.module.scss";
+import { useEffect, useState } from "react";
+import { DateRange, OnChangeProps } from "react-date-range";
 import {
   setStartDateAction,
   setEndDateAction,
   setProceedToGuests,
-} from '../../../store/actions/mainPageActions';
-import moment from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../../store/configureStore';
+} from "../../../store/actions/mainPageActions";
+import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import { StoreState } from "../../../store/configureStore";
 
 function Calendar() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
@@ -17,14 +17,14 @@ function Calendar() {
     {
       // startDate: moment.utc().startOf("day").toDate(),
       // endDate: moment.utc().add(1, "day").startOf("day").toDate(),
-      key: 'selection',
+      key: "selection",
     },
   ]);
-  useEffect(() => {
-    if (mainPage.startDate && mainPage.endDate) {
-      dispatch(setProceedToGuests(true));
-    }
-  }, [mainPage.startDate, mainPage.endDate]);
+  // useEffect(() => {
+  //   if (mainPage.startDate && mainPage.endDate) {
+  //     dispatch(setProceedToGuests(true));
+  //   }
+  // }, [mainPage.startDate, mainPage.endDate]);
 
   const handleRange = (item: any) => {
     // TODO: solve typescript conflict
