@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
-
+import filterReducer from "./filterReducer";
 import lockReducer from "./lockReducer";
 import userReducer from "./userReducer";
 import bookingReducer from "./bookingReducer";
@@ -17,4 +17,5 @@ export default combineReducers({
   property: propertyReducer,
   user: userReducer,
   mainPage: mainPageReducer,
+  filter:filterReducer
 });

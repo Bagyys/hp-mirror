@@ -7,16 +7,22 @@ import Main from '../../components/Main/main';
 import classes from '../../App.module.scss';
 import Navigation from '../../components/Navigation/navigation';
 import Footer from '../../components/Footer/Footer';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import SideFilter from '../../components/SideFilter/SideFilter';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreState } from '../../store/configureStore';
+import { toggleFilterButtonAction } from '../../store/actions/filterActions';
+import { FilterState } from '../../store/reducers/filterReducer';
 const isChoosing = false;
 function Home() {
-  const [show, setShow] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const filter: FilterState = useSelector((state: StoreState) => state.filter);
+  const { isFilterOpen } = filter;
   const isMobile = useMediaPredicate('(max-width: 675px)');
 
   const toggleHandler = () => {
-    setShow(!show);
+    dispatch(toggleFilterButtonAction(!isFilterOpen));
   };
   return (
     <div className={classes.App}>
@@ -28,9 +34,12 @@ function Home() {
         <Fragment>
           <Navigation />
           {isMobile && <SecondaryNavMobile toggleHandler={toggleHandler} />}
-          {show && <SideFilter toggleHandler={toggleHandler} />}
+          {isFilterOpen && <SideFilter toggleHandler={toggleHandler} />}
           {!isMobile && (
-            <Backdrop isVisible={show} toggleHandler={toggleHandler}></Backdrop>
+            <Backdrop
+              isVisible={isFilterOpen}
+              toggleHandler={toggleHandler}
+            ></Backdrop>
           )}
           <div className={classes.contentBox}>
             <Flats toggleHandler={toggleHandler} />

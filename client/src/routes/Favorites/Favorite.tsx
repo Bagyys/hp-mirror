@@ -9,10 +9,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userState } from '../../store/reducers/userReducer';
 import { StoreState } from '../../store/configureStore';
 import { addToFavoriteAction } from '../../store/actions/userActions';
+import { PropertyState } from '../../store/reducers/propertyReducer';
 const Favorite = () => {
+  const propertyStore: PropertyState = useSelector(
+    (state: StoreState) => state.property
+  );
+  const { properties } = propertyStore;
   const auth: userState = useSelector((state: StoreState) => state.user);
   const dispatch = useDispatch();
-  const { token, isAuthenticated, user } = auth;
+  const { user } = auth;
   const history = useHistory();
 
   const favoritesHandler = (id: string) => {
@@ -28,7 +33,7 @@ const Favorite = () => {
         {favoriteList.map((property) => {
           return (
             <Flat
-              mobileClickHandler={() => mobileClickHandler(property._id)}
+              mobileClickHandler={() => favoriteClickHandler(property._id)}
               key={property._id}
               property={property}
               favoritePage={true}
@@ -39,7 +44,7 @@ const Favorite = () => {
         })}
       </ul>
     );
-    const mobileClickHandler = (id: string) => {
+    const favoriteClickHandler = (id: string) => {
       history.push({
         pathname: `/flat/${id}`,
         state: { property: favoriteList.find((item) => item._id === id) },
@@ -50,7 +55,10 @@ const Favorite = () => {
     <>
       <Navigation />
       <div className={classes.FavoriteContainer}>
-        <div onClick={() => history.goBack()} className={classes.Return}>
+        <div
+          onClick={() => history.push({ pathname: '/' })}
+          className={classes.Return}
+        >
           <img src={arrow} />
           Return to list
         </div>

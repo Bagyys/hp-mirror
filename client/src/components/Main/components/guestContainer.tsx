@@ -1,7 +1,7 @@
-import classes from "../main.module.scss";
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setNumberOfAdultsAndChildren } from "../../../store/actions/mainPageActions";
+import classes from '../main.module.scss';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setNumberOfAdultsAndChildren } from '../../../store/actions/mainPageActions';
 
 function GuestContainer() {
   const dispatch = useDispatch();
@@ -9,9 +9,9 @@ function GuestContainer() {
   const [numberOfAdults, setNumberOfAdults] = useState<number>(0);
 
   const increment = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === "children") {
+    if (e.target.id === 'children') {
       setNumberOfChildren(numberOfChildren + 1);
-    } else if (e.target.id === "adults") {
+    } else if (e.target.id === 'adults') {
       setNumberOfAdults(numberOfAdults + 1);
     }
   };
@@ -21,12 +21,12 @@ function GuestContainer() {
   }, [numberOfChildren, numberOfAdults]);
 
   const decrement = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === "children") {
+    if (e.target.id === 'children') {
       setNumberOfChildren(numberOfChildren - 1);
       if (numberOfChildren <= 0) {
         setNumberOfChildren(0);
       }
-    } else if (e.target.id === "adults") {
+    } else if (e.target.id === 'adults') {
       setNumberOfAdults(numberOfAdults - 1);
       if (numberOfAdults <= 0) {
         setNumberOfAdults(0);

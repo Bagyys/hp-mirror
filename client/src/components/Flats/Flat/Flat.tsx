@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useMediaPredicate } from 'react-media-hook';
 import classes from './Flat.module.scss';
 import ImageSlider from '../../Slider/imageSlider';
@@ -17,21 +16,16 @@ interface FlatProps {
   property: PropertyInterface;
   favoritePage?: boolean;
   recentlyView?: boolean;
-  liked?: boolean;
+  liked: boolean;
   quickViewClicked?: () => void;
-  clickedLike?: () => void;
+  clickedLike: () => void;
   mobileClickHandler?: () => void;
 }
 const Flat: React.FC<FlatProps> = (props) => {
-  const [showBtn, setShowBtn] = useState<boolean>(false);
   const isMobile = useMediaPredicate('(max-width: 675px)');
 
   let propertiesRender = (
-    <li
-      onMouseOver={() => setShowBtn(true)}
-      onMouseLeave={() => setShowBtn(false)}
-      className={classes.Flat}
-    >
+    <li className={classes.Flat}>
       <div className={classes.FlatContent}>
         <div className={classes.FlatImg}>
           <ImageSlider borders="FlatCard" slides={props.property.images} />
@@ -52,7 +46,7 @@ const Flat: React.FC<FlatProps> = (props) => {
           )}
         </div>
         <div
-          onClick={isMobile ? props.quickViewClicked : undefined}
+          onClick={isMobile ? props.mobileClickHandler : undefined}
           className={classes.InfoContainer}
         >
           <div className={classes.Info}>
@@ -87,27 +81,26 @@ const Flat: React.FC<FlatProps> = (props) => {
                 />
                 <p className={classes.TotalPrice}>244€ total</p>
               </div>
-              {!isMobile &&
-                (props.recentlyView ? (
-                  <Link
-                    to={{
-                      pathname: `/flat/${props.property._id}`,
-                      state: { property: props.property },
-                    }}
-                  >
-                    <Button btnType={'FlatInfo'} show={showBtn}>
-                      View
+              <div className={classes.FlatBtnsContainer}>
+                {!isMobile &&
+                  (props.recentlyView ? (
+                    <Link
+                      to={{
+                        pathname: `/flat/${props.property._id}`,
+                        state: { property: props.property },
+                      }}
+                    >
+                      <Button btnType={'FlatInfo'}>View</Button>
+                    </Link>
+                  ) : (
+                    <Button
+                      clicked={props.quickViewClicked}
+                      btnType={'FlatInfo'}
+                    >
+                      Quick View
                     </Button>
-                  </Link>
-                ) : (
-                  <Button
-                    clicked={props.quickViewClicked}
-                    btnType={'FlatInfo'}
-                    show={showBtn}
-                  >
-                    Quick View
-                  </Button>
-                ))}
+                  ))}
+              </div>
             </div>
           </div>
         </div>
