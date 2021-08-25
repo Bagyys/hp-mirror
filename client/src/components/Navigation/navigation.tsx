@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { cn } from '../../utilities/joinClasses';
@@ -7,7 +7,11 @@ import { userState } from '../../store/reducers/userReducer';
 import SearchBox from './SearchBox/SearchBox';
 import Language from './Language/Language';
 // import { ErrorState } from '../../store/reducers/errorReducer';
-import { loadUser, logoutAction } from '../../store/actions/userActions';
+import {
+  loadUser,
+  logoutAction,
+  toggleMenuButtonAction,
+} from '../../store/actions/userActions';
 import favoritePc from '../../assets/images/Favorite.svg';
 import favoritePcActive from '../../assets/images/favorite_yellow.png';
 import GuideImg from '../../assets/images/Guide.svg';
@@ -19,8 +23,7 @@ import classes from './navigation.module.scss';
 import Button from '../Button/button';
 
 const Navigation = () => {
-  const [sliderToggle, setSliderToggle] = useState<boolean>(false);
-
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
 
@@ -28,21 +31,38 @@ const Navigation = () => {
   //   (state: StoreState) => state.error
   // );
   // const { error } = errorState;
-  const { token, isAuthenticated, user } = auth;
+  const { token, isAuthenticated, user, isNavMenuOpened } = auth;
   useEffect(() => {
     if (user && !user._id) {
       dispatch(loadUser());
     }
+    dispatch(toggleMenuButtonAction(false));
   }, []);
 
   useEffect(() => {}, [token, isAuthenticated]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target) &&
+        isNavMenuOpened
+      ) {
+        dispatch(toggleMenuButtonAction(false));
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [wrapperRef, isNavMenuOpened]);
+
   const handleSignOut = () => {
-    setSliderToggle(false);
+    dispatch(toggleMenuButtonAction(false));
     dispatch(logoutAction());
   };
   const menuHandler = () => {
-    setSliderToggle(!sliderToggle);
+    dispatch(toggleMenuButtonAction(!isNavMenuOpened));
   };
 
   return (
@@ -79,13 +99,13 @@ const Navigation = () => {
           </div>
           {/* {isAuthenticated && token ? (
             <> */}
-          <div className={classes.NavMenuBtn}>
+          <div ref={wrapperRef} className={classes.NavMenuBtn}>
             <div onClick={menuHandler} className={classes.Slider}>
               <div className={classes.Burger}></div>
               <div
                 className={cn(
                   classes.SliderItem,
-                  sliderToggle ? classes.SlideOpen : ''
+                  isNavMenuOpened ? classes.SlideOpen : ''
                 )}
               >
                 {isAuthenticated && token && (
@@ -93,7 +113,7 @@ const Navigation = () => {
                 )}
               </div>
             </div>
-            {sliderToggle && (
+            {isNavMenuOpened && (
               <div className={classes.MenuContainer}>
                 {isAuthenticated && token ? (
                   <div onClick={handleSignOut}>

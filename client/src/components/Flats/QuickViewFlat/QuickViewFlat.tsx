@@ -75,20 +75,20 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
           />
           <p className={classes.TotalPrice}>244€ total</p>
         </div>
-        <Button btnType={'FlatInfo'}>
-          <Link
-            to={{
-              pathname: `/flat/${props.property._id}`,
-              state: { property: props.property },
-            }}
-          >
+        <Link
+          to={{
+            pathname: `/flat/${props.property._id}`,
+            state: { property: props.property },
+          }}
+        >
+          <Button btnType={'FlatInfo'}>
             {isMobile ? (
               <span>More details and Reserve</span>
             ) : (
               <span>Read all details and Reserve</span>
             )}
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
     </div>
   );

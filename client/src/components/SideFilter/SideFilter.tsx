@@ -8,7 +8,7 @@ import plus from '../../assets/images/plus.png';
 import React, { useCallback, ChangeEvent } from 'react';
 import Input from '../Input/Input';
 import ToggleClass from './ToggleClasses/ToggleClasses';
-import { toArray } from '../../utilities/objectToArr';
+import { objecToArray } from '../../utilities/objectToArr';
 import { cloneDeep, debounce, filter } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/configureStore';
@@ -62,7 +62,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   const bedAndRoomsArray: {
     id: string;
     config: { value: number; text: string };
-  }[] = toArray(filterData.roomsAndBeds);
+  }[] = objecToArray(filterData.roomsAndBeds);
   let bedsAndRooms = (
     <React.Fragment>
       {bedAndRoomsArray &&
@@ -102,7 +102,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   const propertTypeArray: {
     id: string;
     config: { value: boolean; type: string; text: string };
-  }[] = toArray(filterData.propertType);
+  }[] = objecToArray(filterData.propertType);
   let propertyType = (
     <div className={classes.CheckboxList}>
       {propertTypeArray &&
@@ -134,7 +134,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   const houseRulesArray: {
     id: string;
     config: { value: boolean; type: string; text: string };
-  }[] = toArray(filterData.houseRules);
+  }[] = objecToArray(filterData.houseRules);
   let houseRules = (
     <div className={classes.CheckboxList}>
       {houseRulesArray &&
@@ -164,7 +164,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   const amenitiesArray: {
     id: string;
     config: { value: boolean; type: string; text: string };
-  }[] = toArray(filterData.amenities);
+  }[] = objecToArray(filterData.amenities);
   let amenities = (
     <div className={classes.CheckboxList}>
       {amenitiesArray &&
@@ -194,7 +194,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   const facilitiesArray: {
     id: string;
     config: { value: boolean; type: string; text: string };
-  }[] = toArray(filterData.facilities);
+  }[] = objecToArray(filterData.facilities);
   let facilities = (
     <div className={classes.CheckboxList}>
       {facilitiesArray &&
@@ -224,7 +224,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   const areasArray: {
     id: string;
     config: { value: boolean; type: string; text: string };
-  }[] = toArray(filterData.areas);
+  }[] = objecToArray(filterData.areas);
   let areas = (
     <div className={classes.CheckboxList}>
       {areasArray &&

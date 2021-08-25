@@ -25,7 +25,8 @@ enum userTypes {
 
   CLEAR_ERROR = "CLEAR_ERROR",
 
-  ADD_TO_FAVORITE="ADD_TO_FAVORITE" // favorites
+  ADD_TO_FAVORITE="ADD_TO_FAVORITE", // favorites
+  TOGGLE_MENU_BUTTON="TOGGLE_MENU_BUTTON"
 }
 
 export default userTypes;
