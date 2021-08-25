@@ -1,4 +1,4 @@
-export const toArray = (object: object) => {
+export const objecToArray = (object: object) => {
   let newArr = [];
   for (let [key, value] of Object.entries(object)) {
     newArr.push({

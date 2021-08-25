@@ -75,6 +75,10 @@ export interface AddToFavorite extends Action<typeof userTypes.ADD_TO_FAVORITE> 
   payload: PropertyInterface;
 }
 
+export interface ToggleMenuButton extends Action<typeof userTypes.TOGGLE_MENU_BUTTON> {
+  payload: PropertyInterface;
+}
+
 export interface VerifyFail extends Action<typeof userTypes.VERIFY_FAIL> {}
 
 export type UserActions =
@@ -96,7 +100,8 @@ export type UserActions =
   | VerifyRequest
   | VerifySuccess
   | VerifyFail
-  | AddToFavorite;
+  | AddToFavorite
+  | ToggleMenuButton;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -383,5 +388,12 @@ export const addToFavoriteAction = (id:string,favorites:Array<string>) =>  (disp
     payload: [
       ...newData
     ],
+  });
+}; 
+
+export const toggleMenuButtonAction = (isOpen:boolean) =>  (dispatch: Dispatch) => {
+  dispatch({
+    type: userTypes.TOGGLE_MENU_BUTTON,
+    payload: isOpen,
   });
 }; 

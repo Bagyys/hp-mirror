@@ -53,6 +53,10 @@ const Flats: React.FC<FlatsProps> = (props) => {
     dispatch(getAllPropertiesAction());
   }, []);
 
+  useEffect(() => {
+    dispatch(quickViewAction(''));
+  }, [currentPage, pageSize]);
+
   const handleError = () => {
     dispatch(clearErrorAction());
   };
@@ -74,12 +78,11 @@ const Flats: React.FC<FlatsProps> = (props) => {
       top: 0,
       behavior: 'smooth',
     });
-    dispatch(quickViewAction(''));
     const firstPageIndex = (currentPage - 1) * pageSize;
     const lastPageIndex = firstPageIndex + pageSize;
     return properties.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, pageSize, properties]);
-  console.log(currentPaginationData);
+
   const pageSizeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(pageSizeAction(Number(e.target.value)));
     dispatch(currentPageAction(1));

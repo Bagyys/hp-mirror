@@ -27,7 +27,7 @@
         margin: auto;
         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.29);
         background-color: $white;
-        padding: 1rem 1.5rem;
+        padding: .5rem 1.5rem;
         border-radius: 1rem;
         display: none;
         min-width: 3.5rem;
@@ -44,6 +44,7 @@
             font-family: inherit;
             font-weight: inherit;
             line-height: inherit;
+            padding: .5rem 0;
         }
     }
     

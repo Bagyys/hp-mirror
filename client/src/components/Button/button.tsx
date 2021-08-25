@@ -8,7 +8,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   return (
     <button
       onClick={props.clicked}
-      className={cn(classes.Btn, classes[props?.btnType])}
+      className={cn(classes.Btn, classes[props.btnType])}
     >
       {props.children}
     </button>
