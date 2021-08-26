@@ -9,6 +9,8 @@ export interface InitialState {
     children: number;
   };
   isCalendar: boolean;
+  isSearching: boolean;
+  anytimeOrCalendar: null | string;
 }
 
 const initialState: InitialState = {
@@ -20,6 +22,8 @@ const initialState: InitialState = {
     children: 0,
   },
   isCalendar: true,
+  isSearching: false,
+  anytimeOrCalendar: null,
 };
 
 const mainPageReducer = (state = initialState, action: MainPageInterface) => {
@@ -48,6 +52,16 @@ const mainPageReducer = (state = initialState, action: MainPageInterface) => {
       return {
         ...state,
         isCalendar: action.payload.isCalendar,
+      };
+    case mainPageTypes.TOGGLE_SEARCHING:
+      return {
+        ...state,
+        isSearching: action.payload.isSearching,
+      };
+    case mainPageTypes.TOGGLE_ANYTIME_OR_CALENDAR:
+      return {
+        ...state,
+        anytimeOrCalendar: action.payload.anytimeOrCalendar,
       };
     default:
       return state;
