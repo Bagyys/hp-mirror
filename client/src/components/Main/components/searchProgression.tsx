@@ -58,7 +58,8 @@ function SearchProgress() {
   }
 
   if (adults > 0 || children > 0) {
-    guests = `${adults} A ${children} C`;
+    const totalGuests = adults + children;
+    guests = `Guests: ${totalGuests}`;
   } else {
     guests = "add guests";
   }
@@ -78,8 +79,6 @@ function SearchProgress() {
   const changeSearchState = () => {
     if (!mainPage.isSearching) {
       dispatch(toggleIsSearching(true));
-    } else {
-      dispatch(toggleIsSearching(false));
     }
   };
 
@@ -96,19 +95,19 @@ function SearchProgress() {
   };
 
   const toggleActiveStyles = (index: number) => {
-    // if (!mainPage.startDate) {
-    //   appState.activeObject = appState.objects[0];
-    // } else if (!mainPage.endDate && mainPage.startDate) {
-    //   appState.activeObject = appState.objects[1];
-    // } else if (mainPage.endDate && mainPage.startDate) {
-    //   appState.activeObject = appState.objects[2];
-    // }
-    console.log(appState.activeObject, "appState.activeObject");
-
-    if (appState.objects[index] === appState.activeObject) {
-      return `${classes.Active}`;
-    } else {
-      return `${classes.inActive}`;
+    if (mainPage.isSearching) {
+      if (appState.objects[index] === appState.activeObject) {
+        return `${classes.Active}`;
+      } else {
+        return `${classes.inActive}`;
+      }
+    } else if (!mainPage.isSearching) {
+      appState.activeObject = appState.objects[0];
+      if (appState.objects[index] === appState.activeObject) {
+        return `${classes.Active}`;
+      } else {
+        return `${classes.inActive}`;
+      }
     }
   };
 

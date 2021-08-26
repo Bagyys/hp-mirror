@@ -3,6 +3,7 @@ import SelectedMonthImg from "../../../assets/images/SelectedMonth.svg";
 import NonSelectedImg from "../../../assets/images/NonSelected.svg";
 import { useState } from "react";
 import moment from "moment";
+import searchImg from "../../../assets/images/Search.svg";
 
 function Anytime() {
   const months: Array<string> = [];
@@ -46,6 +47,10 @@ function Anytime() {
           </div>
         );
       })}
+      <div className={classes.SearchButton}>
+        <p className={classes.SearchText}>Search</p>
+        <img src={searchImg} alt="Search" />
+      </div>
     </div>
   );
 }

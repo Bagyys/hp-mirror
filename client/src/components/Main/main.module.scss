@@ -170,6 +170,7 @@
                 box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
                 border-radius: 5.5rem;
                 padding: 2rem 0rem;
+                cursor: pointer;
                 &:first-child {
                     padding-right: 4.86rem;
                     padding-left: 5.4rem; 
@@ -262,22 +263,24 @@
                             color: #9E9E9F;  
                             margin: 0;
                             padding:0.1rem 1rem;
-                            border: 0.1rem solid #9E9E9F;
+                            background-color: #EBEDED;
                             border-radius: 50%;
                             font-size: $titleSizeFont;
                             font-weight: $font-Weight-bold; 
                             cursor: pointer;
                         }
                         .Decrement {
-                            color: #9E9E9F;  
+                            background-color: #EBEDED;
+                            color: #EBEDED;
+                            border: 0.1rem solid #EBEDED;   
                             margin: 0;
                             padding:0rem 1.3rem 0.4rem 1.3rem;
-                            border: 0.1rem solid #9E9E9F;
                             border-radius: 50%;
                             font-size: $titleSizeFont;
                             font-weight: $font-Weight-bold;
                             cursor: pointer;
                         }
+                      
                     }
         }
         .Down {
@@ -319,20 +322,21 @@
                           
                         }
                         .Increment {
-                            color: #9E9E9F;  
+                            color: #9E9E9F;   
                             margin: 0;
                             padding:0.1rem 1rem;
-                            border: 0.1rem solid #9E9E9F;
+                            border: 0.1rem solid #EBEDED;
+                            background-color: #EBEDED;
                             border-radius: 50%;
                             font-size: $titleSizeFont;
                             font-weight: $font-Weight-bold; 
                             cursor: pointer;
                         }
                         .Decrement {
-                            color: #9E9E9F;  
+                            color: #EBEDED;  
                             margin: 0;
                             padding:0rem 1.3rem 0.4rem 1.3rem;
-                            border: 0.1rem solid #9E9E9F;
+                            border: 0.1rem solid #EBEDED;
                             border-radius: 50%;
                             font-size: $titleSizeFont;
                             font-weight: $font-Weight-bold;
@@ -349,6 +353,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+            position: relative;
             .month{
                 flex: 0 0 auto;
                 background-color: rgba(255, 255, 255, 0.4);
@@ -377,6 +382,26 @@
                     line-height: $navLineHeight;
                 }
             }
+
+            .SearchButton {
+                position: absolute;
+                right: 2%;
+                bottom: -25%;
+                cursor: pointer;
+                display: flex;
+                padding: 1.7rem 1.7rem 1.7rem 1.6rem;
+                background-color: #4D94E8;
+                border-radius: 5rem;
+                transition: padding 0.4s ease-in-out;
+              }
+              .SearchText {
+                  margin: 0;
+                  font-size: $fontSize19px;
+                  font-family: $helvetica;
+                  color: $white;  
+                  font-weight: $font-Weight-bold;
+                  margin-right: 0.5rem
+              }
 
             .active {
                     

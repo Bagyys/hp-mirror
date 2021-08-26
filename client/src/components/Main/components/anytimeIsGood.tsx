@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  toggleAnytimeOrCalendar,
   toggleIsCalendar,
   toggleIsSearching,
 } from "../../../store/actions/mainPageActions";
@@ -11,6 +12,7 @@ function AnytimeIsGood() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
   const dispatch = useDispatch();
   const isCalendarShowed = () => {
+    dispatch(toggleAnytimeOrCalendar("anytime"));
     if (mainPage.isCalendar) {
       dispatch(toggleIsCalendar(false));
     } else if (!mainPage.isSearching) {

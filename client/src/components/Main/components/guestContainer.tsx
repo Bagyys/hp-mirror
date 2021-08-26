@@ -49,6 +49,15 @@ function GuestContainer() {
               id="adults"
               onClick={(e) => decrement(e)}
               className={classes.Decrement}
+              style={
+                numberOfAdults <= 0
+                  ? { backgroundColor: "transparent" }
+                  : {
+                      backgroundColor: "#EBEDED",
+                      border: "none",
+                      color: "#9E9E9F",
+                    }
+              }
             >
               -
             </span>
@@ -72,6 +81,15 @@ function GuestContainer() {
               id="children"
               onClick={(e) => decrement(e)}
               className={classes.Decrement}
+              style={
+                numberOfChildren <= 0
+                  ? { backgroundColor: "transparent" }
+                  : {
+                      backgroundColor: "#EBEDED",
+                      border: "none",
+                      color: "#9E9E9F",
+                    }
+              }
             >
               -
             </span>

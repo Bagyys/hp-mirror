@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleIsCalendar } from "../../../store/actions/mainPageActions";
 import { StoreState } from "../../../store/configureStore";
@@ -16,6 +16,11 @@ function SearchType() {
       dispatch(toggleIsCalendar(true));
     }
   };
+  useEffect(() => {
+    if (mainPage.anytimeOrCalendar === "anytime") {
+      setNumberToMove(61);
+    }
+  }, [mainPage.anytimeOrCalendar]);
 
   return (
     <div className={classes.DataPicker}>

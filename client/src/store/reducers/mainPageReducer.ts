@@ -10,6 +10,7 @@ export interface InitialState {
   };
   isCalendar: boolean;
   isSearching: boolean;
+  anytimeOrCalendar: null | string;
 }
 
 const initialState: InitialState = {
@@ -22,6 +23,7 @@ const initialState: InitialState = {
   },
   isCalendar: true,
   isSearching: false,
+  anytimeOrCalendar: null,
 };
 
 const mainPageReducer = (state = initialState, action: MainPageInterface) => {
@@ -55,6 +57,11 @@ const mainPageReducer = (state = initialState, action: MainPageInterface) => {
       return {
         ...state,
         isSearching: action.payload.isSearching,
+      };
+    case mainPageTypes.TOGGLE_ANYTIME_OR_CALENDAR:
+      return {
+        ...state,
+        anytimeOrCalendar: action.payload.anytimeOrCalendar,
       };
     default:
       return state;
