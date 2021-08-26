@@ -6,16 +6,18 @@ export interface FilterState {
   filterData:FilterDataInterface;
   isFilterOpen:boolean;
   toggleFilterBoxes:{[key:string]:boolean};
+  multiRangeSlider:{
+    clear:boolean;
+    initialMin:number;
+    initialMax:number;
+  }
 }
 
 const initialState:FilterState= {
   filterData :{
     priceSlider: {
-      min: 0,
-      max: 200,
-      initialMin:0,
-      initialMax:200,
-      clear:false
+      min:{value:0},
+      max:{value:200}
     },
     roomsAndBeds: {
       beds: { value: 0, text: 'Beds' },
@@ -70,6 +72,11 @@ const initialState:FilterState= {
     amenities:false,
     facilities:false,
     areas:false
+  },
+  multiRangeSlider:{
+    initialMin:0,
+    initialMax:200,
+    clear:false
   }
 };
 
@@ -86,7 +93,8 @@ const filterReducer = (
     case filterTypes.CHANGE_FILTER_PRICE:
       return {
         ...state,
-        filterData:{...state.filterData,priceSlider:action.payload}
+        filterData:{...state.filterData,priceSlider:action.payload},
+        multiRangeSlider:{...state.multiRangeSlider,clear:false}
       };
     case filterTypes.CHANGE_FILTER_PROPERTY_TYPE:
       return {
@@ -121,7 +129,8 @@ const filterReducer = (
     case filterTypes.CLEAR_FILTER:
       return {
         ...state,
-        filterData:{...initialState.filterData,priceSlider:{...initialState.filterData.priceSlider,clear:true}},
+        filterData:initialState.filterData,
+        multiRangeSlider:{...state.multiRangeSlider,clear:true}
       };
     case filterTypes.TOGGLE_PROPERT_TYPE_INPUTS:
       return {
