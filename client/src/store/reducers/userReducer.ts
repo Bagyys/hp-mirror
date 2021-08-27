@@ -11,6 +11,7 @@ export interface userState {
   isLoading: boolean;
   token: string | null;
   isNavMenuOpened:boolean;
+  isPageScrolled:boolean;
 }
 
 export const isValidToken = (token: string | null) => {
@@ -51,7 +52,8 @@ const initialState: userState = {
   token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
   isAuthenticated: false,
   isLoading: true,
-  isNavMenuOpened:false
+  isNavMenuOpened:false, // Nav parameters here?
+  isPageScrolled:false // Nav parameters here?
 };
 
 const userReducer = (state = initialState, action: UserActions) => {
@@ -140,6 +142,11 @@ const userReducer = (state = initialState, action: UserActions) => {
         ...state,
         isNavMenuOpened:action.payload
       }    
+    case userTypes.PAGE_SCROLL:
+      return {
+        ...state,
+        isPageScrolled:action.payload
+      }     
     default:
       return state;
   }

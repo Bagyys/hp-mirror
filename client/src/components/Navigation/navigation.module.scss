@@ -75,32 +75,6 @@
             width: 2.8rem;
           }
         }
-        // .Menu {
-        //   display: none;
-        //   position: relative;
-        //   @media (max-width: 640px) {
-        //     display: block;
-        //     .Close {
-        //       position: absolute;
-        //       right: 15px;
-        //       top: 15px;
-        //       text-align: right;
-        //       color: $lightGrey;
-        //       font-size: 2rem;
-        //       cursor: pointer;
-        //     }
-        //     .MobileLink {
-        //       display: block;
-        //       margin: 35px 30px 0px;
-        //       color: $lightGrey;
-        //       font-size: 2rem;
-        //       text-decoration: none;
-        //       &:first-child {
-        //         margin-top: 50px;
-        //       }
-        //     }
-        //   }
-        // }
        .NavMenuBtn {
          position: relative;
          .Slider{
@@ -221,38 +195,16 @@
            }
          }
        }
-        // .Register,
-        // .Login{
-        //   font-size: $smallerMediumFont;
-        //   font-weight: $font-Weight-bold;
-        //   font-family: $helvetica;
-        //   line-height: $lineHeight20px;
-    
-        //   a {
-        //     color: $fontColor;
-        //     text-decoration: none;
-        //     position: relative;
-
-        //     .ProfilePicture {
-        //       position: absolute;
-        //       top: -4.4rem;
-        //       right: 5%;
-        //       width: 5.1rem;
-        //       height: 5.1rem;
-        //       border-radius: 50%;
-        //     }
-        //   }
-          
-        // }
-        // .Register {
-        //   background-color: #F6F8F9;
-        //   padding: 1.3rem 2.25rem 1.48rem 2.55rem;
-        //   border-radius: 2.2rem;
-        //   margin-right: 2.7rem;
-        // }
-
-        
     }
   }
   
 }
+@include respond(mobile){
+  .HideNav{
+    z-index: -1;
+  }
+  .ShowNav{
+    z-index: 102;
+  }
+}
+

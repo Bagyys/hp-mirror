@@ -97,7 +97,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
       ? dispatch(quickViewAction(id))
       : dispatch(quickViewAction(''));
     window.scrollTo({
-      top: isMobile ? 60 : 0,
+      top: 0,
       behavior: 'smooth',
     });
   };

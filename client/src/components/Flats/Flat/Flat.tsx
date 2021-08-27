@@ -81,9 +81,9 @@ const Flat: React.FC<FlatProps> = (props) => {
                 />
                 <p className={classes.TotalPrice}>244€ total</p>
               </div>
-              <div className={classes.FlatBtnsContainer}>
-                {!isMobile &&
-                  (props.recentlyView ? (
+              {!isMobile && (
+                <div className={classes.FlatBtnsContainer}>
+                  {props.recentlyView ? (
                     <Link
                       to={{
                         pathname: `/flat/${props.property._id}`,
@@ -99,8 +99,9 @@ const Flat: React.FC<FlatProps> = (props) => {
                     >
                       Quick View
                     </Button>
-                  ))}
-              </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
