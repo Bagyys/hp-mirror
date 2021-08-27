@@ -9,11 +9,8 @@ export interface FilterDataInterface {
 }
 
 export interface PriceInterface {
-  min: number;
-  max:number
-  clear:boolean;
-  initialMin:number;
-  initialMax:number;
+  min: {[key:string]:number};
+  max:{[key:string]:number};
 }
 export interface RoomsBedsInterface {
    [key: string]: { value: number; text: string };

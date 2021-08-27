@@ -34,20 +34,17 @@ interface SideFilterProps {
 }
 
 const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
-  // const [clearFilter, setClearFilter] = useState<boolean>(false);
-
   const dispatch = useDispatch();
   const filterSide: FilterState = useSelector(
     (state: StoreState) => state.filter
   );
-  const { filterData, toggleFilterBoxes } = filterSide;
+  const { filterData, toggleFilterBoxes, multiRangeSlider } = filterSide;
 
   const priceHandler = useCallback(
     debounce(({ min, max }: { min: number; max: number }) => {
       const newData = cloneDeep(filterData.priceSlider);
-      newData.min = min;
-      newData.max = max;
-      newData.clear = false;
+      newData.min.value = min;
+      newData.max.value = max;
       dispatch(changeFilterPriceAction(newData));
     }, 300),
     [filterData]
@@ -217,6 +214,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
     ev: ChangeEvent<HTMLInputElement>,
     id: string
   ) => {
+    console.log(ev.target.name);
     const newData = cloneDeep(filterData.areas);
     newData[id].value = ev.target.checked;
     dispatch(changeFilterAreasAction(newData));
@@ -246,7 +244,14 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
     dispatch(clearFilterAction());
   };
   const Save = () => {
-    alert('Save');
+    let formData = {};
+    const arr = objecToArray(filterData);
+    arr.map(({ id, config }) => {
+      objecToArray(config).map(({ id, config }) => {
+        formData = { ...formData, [id]: config.value };
+      });
+    });
+    console.log(formData);
   };
   return (
     <div className={classes.SideFilterContainer}>
@@ -267,11 +272,11 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
       <div className={classes.FilterSliderContainer}>
         <h2>Price</h2>
         <MultiRangeSlider
-          min={filterData.priceSlider.min}
-          max={filterData.priceSlider.max}
-          initialMin={filterData.priceSlider.initialMin}
-          initialMax={filterData.priceSlider.initialMax}
-          clear={filterData.priceSlider.clear}
+          min={filterData.priceSlider.min.value}
+          max={filterData.priceSlider.max.value}
+          initialMin={multiRangeSlider.initialMin}
+          initialMax={multiRangeSlider.initialMax}
+          clear={multiRangeSlider.clear}
           onChange={priceHandler}
         />
       </div>
