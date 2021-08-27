@@ -1,9 +1,11 @@
 import React from "react";
+import { useMediaPredicate } from "react-media-hook";
 import { useSelector } from "react-redux";
 import { StoreState } from "../../../store/configureStore";
 
 const Title = () => {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
+  const isMobile = useMediaPredicate("(max-width: 675px)");
   return (
     <React.Fragment>
       {mainPage.isSearching ? (
@@ -13,7 +15,13 @@ const Title = () => {
       ) : (
         <h1> Your happy stay in Hamburg</h1>
       )}
-      {!mainPage.isSearching ? <p>When are you planning to stay? </p> : null}
+      {!mainPage.isSearching ? (
+        <p>
+          {isMobile
+            ? "Select dates for your home "
+            : "When are you planning to stay?"}
+        </p>
+      ) : null}
     </React.Fragment>
   );
 };

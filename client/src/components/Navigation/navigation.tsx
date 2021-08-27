@@ -21,7 +21,8 @@ import NavRoutes from "./NavRoutes/NavRoutes";
 import Backdrop from "../Backdrop/Backdrop";
 import classes from "./navigation.module.scss";
 import Button from "../Button/button";
-
+import SearchProgression from "../Main/components/searchProgression";
+import Calendar from "../Main/components/calendar";
 const Navigation = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
@@ -79,6 +80,8 @@ const Navigation = () => {
         <div className={classes.Middle}>
           <div>Anytime</div>
           <SearchBox />
+          {/* <SearchProgression />
+          <Calendar /> */}
         </div>
         <div className={classes.Right}>
           <div className={classes.Favorite}>

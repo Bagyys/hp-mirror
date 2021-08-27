@@ -77,6 +77,7 @@ function SearchProgress() {
   }, [mainPage.startDate, mainPage.endDate, adults, children]);
 
   const changeSearchState = () => {
+    dispatch(setProceedToGuests(false));
     if (!mainPage.isSearching) {
       dispatch(toggleIsSearching(true));
     }
@@ -91,7 +92,6 @@ function SearchProgress() {
       dispatch(setProceedToGuests(true));
     }
     changeState({ ...appState, activeObject: appState.objects[index] });
-    console.log(appState, "active Object");
   };
 
   const toggleActiveStyles = (index: number) => {

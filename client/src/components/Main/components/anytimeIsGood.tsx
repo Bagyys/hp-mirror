@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { useMediaPredicate } from "react-media-hook";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleAnytimeOrCalendar,
@@ -10,6 +10,7 @@ import classes from "../main.module.scss";
 
 function AnytimeIsGood() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
+  const isMobile = useMediaPredicate("(max-width: 675px)");
   const dispatch = useDispatch();
   const isCalendarShowed = () => {
     dispatch(toggleAnytimeOrCalendar("anytime"));
@@ -28,7 +29,7 @@ function AnytimeIsGood() {
 
   return (
     <div onClick={() => isCalendarShowed()} className={classes.AnyTimeIsGood}>
-      Anytime is good &gt;
+      {isMobile ? "Anytime" : `Anytime is good`}
     </div>
   );
 }
