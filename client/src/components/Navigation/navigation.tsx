@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaPredicate } from 'react-media-hook';
 import { Link } from 'react-router-dom';
@@ -24,6 +24,7 @@ import Backdrop from '../Backdrop/Backdrop';
 import classes from './navigation.module.scss';
 import Button from '../Button/button';
 import { PropertyState } from '../../store/reducers/propertyReducer';
+import SearchType from '../Main/components/SearchType/searchType';
 const Navigation = () => {
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
@@ -111,8 +112,9 @@ const Navigation = () => {
           {/* <NavRoutes /> */}
         </div>
         <div className={classes.Middle}>
-          <div>Anytime</div>
-          <SearchBox />
+          {/* <div>Anytime</div>
+          <SearchBox /> */}
+          <SearchType />
         </div>
         <div className={classes.Right}>
           <div className={classes.Favorite}>
