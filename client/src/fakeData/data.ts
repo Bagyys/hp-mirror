@@ -9,6 +9,7 @@ export const fakeData:PropertyInterface[] = [
     type: 'Studio appartament',
     maxOccupants: 3,
     location: {
+      cord:{lat:54.6838794,lng:25.2671324},
       country: 'Country',
       city: 'City',
       district: 'Rothenburg',
@@ -114,6 +115,7 @@ export const fakeData:PropertyInterface[] = [
     type: 'One bedroom appartament',
     maxOccupants: 3,
     location: {
+      cord:{lat:54.8833306 ,lng:25.2833322},
       country: 'Country',
       city: 'City',
       district: 'District',
@@ -209,6 +211,7 @@ export const fakeData:PropertyInterface[] = [
     type: 'Loft appartment in city center',
     maxOccupants: 3,
     location: {
+      cord:{lat:54.6833306 ,lng:25.4833322},
       country: 'Country',
       city: 'City',
       district: 'District',
@@ -304,6 +307,7 @@ export const fakeData:PropertyInterface[] = [
     type: 'Small appartment close to park',
     maxOccupants: 3,
     location: {
+      cord:{lat:54.6633306 ,lng:25.2633322},
       country: 'Country',
       city: 'City',
       district: 'District',
@@ -399,6 +403,7 @@ export const fakeData:PropertyInterface[] = [
     type: 'Studio appartment',
     maxOccupants: 3,
     location: {
+      cord:{lat:54.6233306 ,lng:25.2233322},
       country: 'Country',
       city: 'City',
       district: 'District',
@@ -494,6 +499,7 @@ export const fakeData:PropertyInterface[] = [
     type: 'Studio appartment',
     maxOccupants: 3,
     location: {
+      cord:{lat:54.6533306 ,lng:25.2533322},
       country: 'Country',
       city: 'City',
       district: 'District',
@@ -589,6 +595,7 @@ export const fakeData:PropertyInterface[] = [
     type: 'Studio appartment',
     maxOccupants: 3,
     location: {
+      cord:{lat:54.6653306 ,lng:25.2443322},
       country: 'Country',
       city: 'City',
       district: 'District',

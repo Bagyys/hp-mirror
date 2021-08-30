@@ -64,6 +64,10 @@ export interface PaginationCurrentPage
   extends Action<typeof propertyTypes.PAGINATION_CURRENT_PAGE> {
   payload: number;
 }
+export interface ActivePropertyCords
+  extends Action<typeof propertyTypes.ADD_ACTIVE_PROPERTY_CORDS> {
+  payload: {lat:number,lng:number};
+}
 
 export type PropertyActions =
   | GetAllPropertiesStart
@@ -79,7 +83,8 @@ export type PropertyActions =
   | ClearSelectedProperty
   | QuickViewProperty
   | PaginationPageSize
-  | PaginationCurrentPage;
+  | PaginationCurrentPage
+  | ActivePropertyCords;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -214,6 +219,14 @@ export const quickViewAction =
     dispatch({
       type: propertyTypes.PAGINATION_CURRENT_PAGE,
       payload: page,
+    });
+  };
+
+  export const activePropertyCordsAction =
+  (cords:{lat:number,lng:number}) => (dispatch: Dispatch) => {
+    dispatch({
+      type: propertyTypes.ADD_ACTIVE_PROPERTY_CORDS,
+      payload: cords,
     });
   };
 

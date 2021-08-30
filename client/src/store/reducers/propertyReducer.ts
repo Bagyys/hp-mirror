@@ -12,6 +12,7 @@ export interface PropertyState {
   quickViewPropertyId:string;
   pageSize:number;
   currentPage:number;
+  activePropertyCord:{lat:number,lng:number}
 }
 
 const initialState: PropertyState = {
@@ -19,7 +20,9 @@ const initialState: PropertyState = {
   selectedProperty: "",
   quickViewPropertyId:"",
   pageSize:4,
-  currentPage:1
+  currentPage:1,
+  activePropertyCord:{lat: 54.687157,
+    lng: 25.279652,}
 };
 
 const propertyReducer = (
@@ -69,6 +72,11 @@ const propertyReducer = (
         ...state,
         currentPage:action.payload,
       };
+    case propertyTypes.ADD_ACTIVE_PROPERTY_CORDS:
+      return {
+        ...state,
+        activePropertyCord:action.payload,
+      };  
     default:
       return state;
   }

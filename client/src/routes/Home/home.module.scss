@@ -20,6 +20,7 @@
     justify-content: space-between;
     @include respond(mobile){
         flex-direction: column;
+        height: 40rem;
     }
   }
   .Locks {

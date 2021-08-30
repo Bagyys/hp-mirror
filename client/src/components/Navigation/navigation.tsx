@@ -69,7 +69,7 @@ const Navigation = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [wrapperRef, isNavMenuOpened]);
+  }, [isNavMenuOpened]);
 
   //Nav visibility on mobile, then click on quickview property and scroll
   useEffect(() => {
@@ -112,9 +112,9 @@ const Navigation = () => {
           {/* <NavRoutes /> */}
         </div>
         <div className={classes.Middle}>
-          {/* <div>Anytime</div>
-          <SearchBox /> */}
-          <SearchType />
+          <div>Anytime</div>
+          <SearchBox />
+          {/* <SearchType /> */}
         </div>
         <div className={classes.Right}>
           <div className={classes.Favorite}>

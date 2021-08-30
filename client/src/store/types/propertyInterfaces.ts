@@ -86,6 +86,7 @@ export interface SeasonalPriceInterface {
 }
 
 export interface LocationInterface {
+  cord:{lat:number,lng:number};
   country: string;
   city: string;
   district: string;
