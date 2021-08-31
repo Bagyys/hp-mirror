@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useMediaPredicate } from 'react-media-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -7,6 +7,7 @@ import { PropertyState } from '../../store/reducers/propertyReducer';
 import { ErrorState } from '../../store/reducers/errorReducer';
 import { PropertyInterface } from '../../store/types/propertyInterfaces';
 import {
+  activePropertyCordsAction,
   currentPageAction,
   getAllPropertiesAction,
   pageSizeAction,
@@ -91,11 +92,9 @@ const Flats: React.FC<FlatsProps> = (props) => {
     dispatch(addToFavoriteAction(id, user.favorites));
   };
 
-  const QuickViewHandler = (id: string) => {
-    let quickViewFlat = currentPaginationData.some((item) => item._id === id);
-    quickViewFlat
-      ? dispatch(quickViewAction(id))
-      : dispatch(quickViewAction(''));
+  const QuickViewHandler = (id: string, cord: any) => {
+    dispatch(activePropertyCordsAction(cord));
+    dispatch(quickViewAction(id));
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -110,8 +109,12 @@ const Flats: React.FC<FlatsProps> = (props) => {
           .map((property: PropertyInterface) => {
             return (
               <Flat
-                quickViewClicked={() => QuickViewHandler(property._id)}
-                mobileClickHandler={() => QuickViewHandler(property._id)}
+                quickViewClicked={() =>
+                  QuickViewHandler(property._id, property.location.cord)
+                }
+                mobileClickHandler={() =>
+                  QuickViewHandler(property._id, property.location.cord)
+                }
                 key={property._id}
                 property={property}
                 clickedLike={() => favoritesHandler(property._id)}
@@ -129,17 +132,20 @@ const Flats: React.FC<FlatsProps> = (props) => {
   if (!isMobile && properties.length > 0) {
     const recentlyView = properties.slice(-2); //tiesiog isvedu paskutinius apartamentus
     recentlyViewPropertiesRender = (
-      <ul className={classes.FlatsListConatiner}>
-        {recentlyView.map((property: PropertyInterface, index: number) => (
-          <Flat
-            clickedLike={() => favoritesHandler(property._id)}
-            liked={isStringInArray(property._id, user.favorites)}
-            recentlyView={true}
-            key={property._id}
-            property={property}
-          />
-        ))}
-      </ul>
+      <React.Fragment>
+        <h2>Recently viewed</h2>
+        <ul className={classes.FlatsListConatiner}>
+          {recentlyView.map((property: PropertyInterface, index: number) => (
+            <Flat
+              clickedLike={() => favoritesHandler(property._id)}
+              liked={isStringInArray(property._id, user.favorites)}
+              recentlyView={true}
+              key={property._id}
+              property={property}
+            />
+          ))}
+        </ul>
+      </React.Fragment>
     );
   }
 
@@ -182,7 +188,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
           />
 
           <div className={classes.RecentlyViewContainer}>
-            <h2>Recently viewed</h2>
             {recentlyViewPropertiesRender}
           </div>
         </>

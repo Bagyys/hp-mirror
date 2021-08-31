@@ -1,0 +1,30 @@
+@import '../../../styles/global.scss';
+@import '../../../styles/mixins';
+.MarkerContainer{
+    font-weight: $font-Weight-bold ;
+    font-family: $helvetica;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    &.Marker {
+        background-color: $white;
+        color: $black;
+        font-size: $fontSize23px;
+        width: 7rem;
+        height: 5rem;
+        border-radius: 2.2rem;
+    }
+    &.Active {
+        background-color: $black2;
+        color: $white;
+        font-size: $fontSize30px;
+        width: 9.4rem;
+        height: 7rem;
+        border-radius: 3.2rem;
+    }
+
+}

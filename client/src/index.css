@@ -202,6 +202,28 @@ table {
   cx: 8px;
   cy: 9px;
 }
+/* google map */
+.gm-bundled-control{
+    top: 7.8rem !important;
+    right: 8.5rem !important;
+}
+.gm-bundled-control .gmnoprint > div{
+    border-radius: 1rem !important;
+    width: 7rem !important;
+    height: inherit !important;
+    text-align: center !important;
+}
+.gm-bundled-control .gmnoprint div .gm-control-active{
+    width: 7rem !important;
+    height: 6rem !important;
+}
+.gm-bundled-control .gmnoprint div .gm-control-active >img{
+    width: 2.2rem !important;
+    height: auto !important;
+}
+.gm-bundled-control .gmnoprint div .gm-control-active+div{
+    width: 6rem !important;
+}
 /* * {
   background: #000 !important;
   color: #0f0 !important;
