@@ -33,7 +33,7 @@ const Favorite = () => {
         {favoriteList.map((property) => {
           return (
             <Flat
-              mobileClickHandler={() => favoriteClickHandler(property._id)}
+              quickViewClicked={() => favoriteClickHandler(property._id)}
               key={property._id}
               property={property}
               favoritePage={true}

@@ -7,8 +7,6 @@
     width: 4.2rem;
     height: 4.2rem;
     border-radius: 50%;
-    background-color: transparent;
-    border: 1.5px solid $lightGrey4;
     cursor: pointer;
     padding: 0;
     @include respond(mobile){
@@ -18,11 +16,25 @@
             width: 1.7rem;
         }
     }
-    &:disabled{
-        border-color: $disableBtn;
-        cursor: default;
-    }
     &:disabled img{
         opacity: 0.4;
+    }
+    &.FilterCounter {
+        background-color: transparent;
+        border: 1.5px solid $lightGrey4;
+        &:disabled{
+            background-color: transparent;
+            border-color: $disableBtn;
+            cursor: default;
+        }
+    }
+    &.MainGuestCounter {
+        background-color: $lightGrey2;
+        border: none;
+        &:disabled{
+            background-color: transparent;
+            border: 1.5px solid $disableBtn;
+            cursor: default;
+        }
     }
 }

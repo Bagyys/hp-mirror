@@ -15,11 +15,9 @@ import DailyPrice from './DailyPrices/DailyPrice';
 interface FlatProps {
   property: PropertyInterface;
   favoritePage?: boolean;
-  recentlyView?: boolean;
   liked: boolean;
   quickViewClicked?: () => void;
   clickedLike: () => void;
-  mobileClickHandler?: () => void;
 }
 const Flat: React.FC<FlatProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
@@ -46,7 +44,7 @@ const Flat: React.FC<FlatProps> = (props) => {
           )}
         </div>
         <div
-          onClick={isMobile ? props.mobileClickHandler : undefined}
+          onClick={isMobile ? props.quickViewClicked : undefined}
           className={classes.InfoContainer}
         >
           <div className={classes.Info}>
@@ -83,23 +81,9 @@ const Flat: React.FC<FlatProps> = (props) => {
               </div>
               {!isMobile && (
                 <div className={classes.FlatBtnsContainer}>
-                  {props.recentlyView ? (
-                    <Link
-                      to={{
-                        pathname: `/flat/${props.property._id}`,
-                        state: { property: props.property },
-                      }}
-                    >
-                      <Button btnType={'FlatInfo'}>View</Button>
-                    </Link>
-                  ) : (
-                    <Button
-                      clicked={props.quickViewClicked}
-                      btnType={'FlatInfo'}
-                    >
-                      Quick View
-                    </Button>
-                  )}
+                  <Button clicked={props.quickViewClicked} btnType={'FlatInfo'}>
+                    Quick View
+                  </Button>
                 </div>
               )}
             </div>

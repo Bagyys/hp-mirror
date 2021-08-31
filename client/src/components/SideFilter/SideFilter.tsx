@@ -69,6 +69,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
               <p>{config.text}</p>
               <div className={classes.CounterBtnsCounter}>
                 <CounterButton
+                  btnType="FilterCounter"
                   clicked={() => counterHandler(id, -1)}
                   isDisabled={config.value === 0}
                 >
@@ -76,6 +77,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
                 </CounterButton>
                 <p>{config.value}</p>
                 <CounterButton
+                  btnType="FilterCounter"
                   clicked={() => counterHandler(id, 1)}
                   isDisabled={false}
                 >
