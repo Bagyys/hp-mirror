@@ -27,6 +27,7 @@ function SearchProgress() {
   const adults = mainPage.guests.adults;
   const children = mainPage.guests.children;
   const isMobile = useMediaPredicate("(max-width: 675px)");
+  const isLaptop = useMediaPredicate("(max-width: 1660px)");
   const [appState, changeState] = useState<activeObjectInterface>({
     activeObject: { id: 1, title: "Check in", text: "" },
 
@@ -129,29 +130,64 @@ function SearchProgress() {
       {appState.objects.map(
         (element: { title: string; text: string }, index: number) => {
           return (
-            <div
-              key={index}
-              className={toggleActiveStyles(index)}
-              onClick={() => toggleActive(index)}
-              style={{
-                lineHeight: "2rem",
-              }}
-            >
-              <h2>
-                {element.title}
-                <br />
-                {mainPage.isSearching ? <span>{element.text}</span> : null}
-              </h2>
-            </div>
+            <React.Fragment>
+              {isMobile ? (
+                <div
+                  key={index}
+                  className={toggleActiveStyles(index)}
+                  onClick={() => toggleActive(index)}
+                  style={
+                    mainPage.isSearching
+                      ? {
+                          lineHeight: "2rem",
+                        }
+                      : {
+                          lineHeight: "5.5rem",
+                        }
+                  }
+                >
+                  <h2>
+                    {element.title}
+                    <br />
+                    {mainPage.isSearching ? <span>{element.text}</span> : null}
+                  </h2>
+                </div>
+              ) : (
+                <div
+                  key={index}
+                  className={toggleActiveStyles(index)}
+                  onClick={() => toggleActive(index)}
+                  style={
+                    mainPage.isSearching
+                      ? { padding: "0.9rem 0 ", lineHeight: "2rem" }
+                      : {
+                          lineHeight: "2rem",
+                        }
+                  }
+                >
+                  <h2
+                    style={
+                      mainPage.isSearching
+                        ? { padding: "0.3rem 0" }
+                        : { padding: "1rem 0" }
+                    }
+                  >
+                    {element.title}
+                    <br />
+                    {mainPage.isSearching ? <span>{element.text}</span> : null}
+                  </h2>
+                </div>
+              )}
+            </React.Fragment>
           );
         }
       )}
       {mainPage.isSearching ? (
         <React.Fragment>
-          {isMobile ? null : (
+          {isLaptop ? null : (
             <div
               className={classes.SearchButton}
-              style={{ right: "0%", padding: "2.5rem 1.7rem 2.5rem 1.5rem" }}
+              style={{ right: "0%", padding: "1.8rem 1.7rem 1.8rem 1.5rem" }}
             >
               <p className={classes.SearchText}>Search</p>
               <img src={searchImg} alt="Search" />

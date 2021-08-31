@@ -14,13 +14,15 @@
     margin: 0 auto!important;
     justify-content: space-between!important;
   }
-  @media (max-width: 675px) {
-    .rdrMonths {
-      width: 100%!important;
-      flex-direction: column!important;
-     align-items: center;
+
+    @media (max-width: 1660px) {
+      .rdrMonths {
+        width: 100%!important;
+        flex-direction: column!important;
+       align-items: center;
+      }
     }
-}
+
 
 
 @media (max-width: 675px) {
@@ -31,6 +33,7 @@
 }
   .rdrMonth {
     /* padding: 0 0.833em 5.49rem 0.833em!important; */
+    width: 40%!important;
     margin:  0!important;
     background: white!important;
     box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
@@ -40,7 +43,15 @@
     padding-right: 3.4rem!important; 
   }
 
-  @media (max-width: 675px) {
+  @media (max-width: 1660px) {
+    .rdrMonth {
+      width: 50%!important;
+ 
+      margin:0 auto!important;
+    }
+  }
+
+  @media (max-width: 1200px) {
     .rdrMonth {
       width: 70%!important;
 

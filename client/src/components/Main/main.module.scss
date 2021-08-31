@@ -3,9 +3,10 @@
 .Main {
     display: flex;
     min-height: 1080px;
+    max-width: 192rem;
     @media (max-width: 675px) {
         flex-direction: column;
-        min-height: auto;
+        min-height:auto;
       }
     .Left {
         width: 50%;
@@ -158,7 +159,8 @@
                }
                 }
                 &:nth-child(3) {
-                    // margin-left: 2.68rem;
+                    margin-left: 2.5rem;
+                    text-align: left;
                     h2 {
                         
                         padding: 1rem 0;
@@ -167,8 +169,7 @@
                        }
                     }
                     @include respond(mobile){
-                        margin-left: 2rem;
-                        text-align: left;
+                        
                    }
                    @media (max-width: 420px) {
                     margin-left: 0.5rem;
@@ -305,6 +306,14 @@
 
    
            
+          }
+
+          .Calendar {
+      
+              @include respond(laptop){
+                display: flex;
+                flex-direction: column;
+            }
           }
 
           .AnyTimeIsGood {
@@ -475,6 +484,10 @@
             flex-wrap: wrap;
             justify-content: space-between;
             position: relative;
+            @include respond(mobile){
+             width: 90%;
+             margin: 5rem auto 0 auto;
+            }
             .month{
                 flex: 0 0 auto;
                 background-color: rgba(255, 255, 255, 0.4);
@@ -488,7 +501,10 @@
                 cursor: pointer;
                 margin-bottom: 1.5rem;
              
-
+                @include respond(mobile){
+                    width: 45%;
+                    margin-right: 0;
+                   }
                
                 
                 .SelectedImg {
@@ -505,15 +521,16 @@
             }
 
             .SearchButton {
-                position: absolute;
-                right: 2%;
-                bottom: -25%;
+                // position: absolute;
+                // right: 2%;
+                // bottom: -25%;
                 cursor: pointer;
                 display: flex;
                 padding: 1.7rem 1.7rem 1.7rem 1.6rem;
                 background-color: #4D94E8;
                 border-radius: 5rem;
                 transition: padding 0.4s ease-in-out;
+                align-self: flex-end;
               }
               .SearchText {
                   margin: 0;
