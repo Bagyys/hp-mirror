@@ -1,0 +1,17 @@
+@import "../../../../styles/global.scss";
+
+.Button {
+  position: absolute;
+  box-sizing: border-box;
+  width: 18.25rem;
+  height: 3.2rem;
+  border-radius: 0.4rem;
+  background-color: $white;
+  font-family: $workSans;
+  font-size: $smallerMediumFont;
+  font-weight: $font-Weight-bold;
+  color: $black2;
+  border: none;
+  top: 50.12rem;
+  right: 2.47rem;
+}

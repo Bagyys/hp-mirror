@@ -15,7 +15,7 @@ import { StoreState } from "../../store/configureStore";
 import { toggleFilterButtonAction } from "../../store/actions/filterActions";
 import { FilterState } from "../../store/reducers/filterReducer";
 import { PropertyState } from "../../store/reducers/propertyReducer";
-const isChoosing = true;
+const isChoosing = false;
 function Home() {
   const dispatch = useDispatch();
   const filter: FilterState = useSelector((state: StoreState) => state.filter);

@@ -1,11 +1,14 @@
 @import "../../styles/global.scss";
 
 .FlatReview {
+  box-sizing: border-box;
+  margin: 9.29rem 8.6rem 0rem 7.61rem;
   .FlatBox {
     margin-bottom: 2rem;
+    width: 100%;
 
     .ImagesBox {
-      padding-bottom: 7rem;
+      // padding-bottom: 7rem;
       position: relative;
       overflow: hidden;
       .arrowRight {
@@ -42,7 +45,6 @@
 
       .Images {
         display: flex;
-        width: 1920px;
       }
 
       .Images2 {
