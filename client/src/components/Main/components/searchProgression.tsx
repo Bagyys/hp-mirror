@@ -8,6 +8,8 @@ import {
   setProceedToGuests,
   toggleIsSearching,
 } from "../../../store/actions/mainPageActions";
+import { useMediaPredicate } from "react-media-hook";
+import React from "react";
 
 interface activeObjectInterface {
   activeObject: null | {
@@ -24,6 +26,7 @@ function SearchProgress() {
   const dispatch = useDispatch();
   const adults = mainPage.guests.adults;
   const children = mainPage.guests.children;
+  const isMobile = useMediaPredicate("(max-width: 675px)");
   const [appState, changeState] = useState<activeObjectInterface>({
     activeObject: { id: 1, title: "Check in", text: "" },
 
@@ -144,13 +147,17 @@ function SearchProgress() {
         }
       )}
       {mainPage.isSearching ? (
-        <div
-          className={classes.SearchButton}
-          style={{ right: "0%", padding: "2.5rem 1.7rem 2.5rem 1.5rem" }}
-        >
-          <p className={classes.SearchText}>Search</p>
-          <img src={searchImg} alt="Search" />
-        </div>
+        <React.Fragment>
+          {isMobile ? null : (
+            <div
+              className={classes.SearchButton}
+              style={{ right: "0%", padding: "2.5rem 1.7rem 2.5rem 1.5rem" }}
+            >
+              <p className={classes.SearchText}>Search</p>
+              <img src={searchImg} alt="Search" />
+            </div>
+          )}
+        </React.Fragment>
       ) : (
         <div className={classes.SearchButton}>
           <p className={classes.SearchText}></p>

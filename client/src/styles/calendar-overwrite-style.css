@@ -23,7 +23,12 @@
 }
 
 
-  
+@media (max-width: 675px) {
+  .rdrWeekDays {
+    display: none!important;
+  }
+
+}
   .rdrMonth {
     /* padding: 0 0.833em 5.49rem 0.833em!important; */
     margin:  0!important;
@@ -37,7 +42,7 @@
 
   @media (max-width: 675px) {
     .rdrMonth {
-      width: 80%!important;
+      width: 70%!important;
 
     }
   }
@@ -51,7 +56,13 @@
       color: #343638!important;
       padding: 3.2rem 0!important;
   }
-  
+
+  @media (max-width: 675px) {
+    .rdrMonthName {
+      padding-bottom: 0!important;
+    }
+  }
+
   .rdrDay {
       height: 4em!important;
   }

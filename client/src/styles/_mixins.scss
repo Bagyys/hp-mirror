@@ -10,4 +10,9 @@
           @content;
         }
       }
+      @if $breakpoint==tablet-laptop {
+        @media only screen and (max-width: $tablet-laptop) {
+          @content;
+        }
+      }
     }
