@@ -9,17 +9,21 @@ import {
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../../store/configureStore";
+import { useMediaPredicate } from "react-media-hook";
 
 function Calendar() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
+  const isMobile = useMediaPredicate("(max-width: 675px)");
   const dispatch = useDispatch();
   const [range, setRange] = useState([
     {
-      // startDate: moment.utc().startOf("day").toDate(),
+      startDate: moment.utc().startOf("day").toDate(),
       // endDate: moment.utc().add(1, "day").startOf("day").toDate(),
+      endDate: moment.utc().startOf("day").toDate(),
       key: "selection",
     },
   ]);
+  console.log(range, "KAS RANGE?");
   // useEffect(() => {
   //   if (mainPage.startDate && mainPage.endDate) {
   //     dispatch(setProceedToGuests(true));
@@ -50,7 +54,7 @@ function Calendar() {
         weekStartsOn={1}
         weekdayDisplayFormat="EEEEEE"
         showMonthAndYearPickers={false}
-        months={2}
+        months={isMobile ? 1 : 2}
         direction="horizontal"
         monthDisplayFormat="MMMM yyyy"
       />

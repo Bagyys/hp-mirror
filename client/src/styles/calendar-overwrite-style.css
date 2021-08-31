@@ -14,6 +14,15 @@
     margin: 0 auto!important;
     justify-content: space-between!important;
   }
+  @media (max-width: 675px) {
+    .rdrMonths {
+      width: 100%!important;
+      flex-direction: column!important;
+     align-items: center;
+    }
+}
+
+
   
   .rdrMonth {
     /* padding: 0 0.833em 5.49rem 0.833em!important; */
@@ -24,6 +33,13 @@
     position: relative!important;
     padding-left: 3.4rem!important;
     padding-right: 3.4rem!important; 
+  }
+
+  @media (max-width: 675px) {
+    .rdrMonth {
+      width: 80%!important;
+
+    }
   }
   .rdrMonthName {
     text-align: center!important;
@@ -65,7 +81,10 @@
    
   }
  
-  
+  .rdrDayDisabled {
+    background-color: transparent!important;
+    opacity: 0.5!important;
+}
   .rdrStartEdge {
     background: #F0F0F0!important;
     left: 3px!important;

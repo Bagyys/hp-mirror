@@ -11586,3 +11586,8 @@
 =======
 >>>>>>> 947112df46aed1f7f927bbd201854d199424a0f3
 >>>>>>> origin/Simonas
+::1 - - [27/Aug/2021:13:08:46 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [27/Aug/2021:13:08:46 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [27/Aug/2021:13:15:27 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [27/Aug/2021:13:15:27 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [30/Aug/2021:06:20:11 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10263

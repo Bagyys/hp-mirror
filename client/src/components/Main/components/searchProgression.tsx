@@ -114,14 +114,14 @@ function SearchProgress() {
   return (
     <div
       className={classes.SearchBox}
-      style={
-        mainPage.isSearching
-          ? {
-              marginTop: "6.7rem",
-              backgroundColor: "rgba(255, 255, 255, 0.85)",
-            }
-          : { padding: `0.1rem 5.1rem 0.1rem 0` }
-      }
+      // style={
+      //   mainPage.isSearching
+      //     ? {
+      //         marginTop: "6.7rem",
+      //         backgroundColor: "rgba(255, 255, 255, 0.85)",
+      //       }
+      //     : { padding: `0` }
+      // }
     >
       {appState.objects.map(
         (element: { title: string; text: string }, index: number) => {
@@ -132,11 +132,13 @@ function SearchProgress() {
               onClick={() => toggleActive(index)}
               style={{
                 lineHeight: "2rem",
-                padding: mainPage.isSearching ? "1rem 3rem" : "",
               }}
             >
-              <h2>{element.title}</h2>
-              {mainPage.isSearching ? <span>{element.text}</span> : null}
+              <h2>
+                {element.title}
+                <br />
+                {mainPage.isSearching ? <span>{element.text}</span> : null}
+              </h2>
             </div>
           );
         }
@@ -144,7 +146,7 @@ function SearchProgress() {
       {mainPage.isSearching ? (
         <div
           className={classes.SearchButton}
-          style={{ right: "-13%", padding: "1.6rem 1.7rem 1.6rem 1.5rem" }}
+          style={{ right: "0%", padding: "2.5rem 1.7rem 2.5rem 1.5rem" }}
         >
           <p className={classes.SearchText}>Search</p>
           <img src={searchImg} alt="Search" />
