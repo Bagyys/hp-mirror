@@ -112,9 +112,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
                 quickViewClicked={() =>
                   QuickViewHandler(property._id, property.location.cord)
                 }
-                mobileClickHandler={() =>
-                  QuickViewHandler(property._id, property.location.cord)
-                }
                 key={property._id}
                 property={property}
                 clickedLike={() => favoritesHandler(property._id)}
@@ -139,9 +136,11 @@ const Flats: React.FC<FlatsProps> = (props) => {
             <Flat
               clickedLike={() => favoritesHandler(property._id)}
               liked={isStringInArray(property._id, user.favorites)}
-              recentlyView={true}
               key={property._id}
               property={property}
+              quickViewClicked={() =>
+                QuickViewHandler(property._id, property.location.cord)
+              }
             />
           ))}
         </ul>
