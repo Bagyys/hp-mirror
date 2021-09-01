@@ -4,6 +4,8 @@ import { BsStarFill } from "react-icons/bs";
 import classes from "./appartmentsRewie.module.scss";
 //Icons
 import doubleBed from "../../../../assets/images/double.png";
+//Components
+import ReserveNightsForm from "../ReserveNights/ReserveNightsForm";
 
 const AppartmentsRewie = () => {
   return (
@@ -34,28 +36,34 @@ const AppartmentsRewie = () => {
           </div>
           <div>
             <img src={doubleBed} alt="img" />
+            <p>1 Double bed</p>
           </div>
           <div>
             <img src={doubleBed} alt="img" />
+            <p>1 Double bed</p>
           </div>
           <div>
             <img src={doubleBed} alt="img" />
+            <p>1 Double bed</p>
           </div>
           <div>
             <img src={doubleBed} alt="img" />
-          </div>
-          <div>
-            <img src={doubleBed} alt="img" />
-          </div>
-          <div>
-            <img src={doubleBed} alt="img" />
-          </div>
-          <div>
-            <img src={doubleBed} alt="img" />
+            <p>1 Double bed</p>
           </div>
         </div>
       </div>
-    </ div>
+      <hr></hr>
+      <div className={classes.AboutLayer}>
+        <h4 className={classes.AboutPlace}>About the place</h4>
+        <p className={classes.AboutDescription}>
+          Studio apparment with a prival bathroom with of Hamburg equipped with
+          all the amenities. An apparment is bright with a large window, a newly
+          renovated bathroom and two panoramic terrace with sunbeds.
+        </p>
+      </div>
+      <hr></hr>
+      <ReserveNightsForm />
+    </div>
   );
 };
 export default AppartmentsRewie;
