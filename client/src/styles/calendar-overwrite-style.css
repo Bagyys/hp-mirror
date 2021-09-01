@@ -24,6 +24,13 @@
     }
 
 
+    @media (max-width: 675px) {
+      .rdrMonthAndYearWrapper {
+          display:none!important;
+      }
+    }
+
+
 
 @media (max-width: 675px) {
   .rdrWeekDays {
@@ -53,9 +60,14 @@
 
   @media (max-width: 1200px) {
     .rdrMonth {
-      width: 70%!important;
+      width: 75%!important;
 
     }
+  }
+    @media (max-width: 675px) {
+      .rdrMonth {
+        margin-top: 1rem!important;
+      }
   }
   .rdrMonthName {
     text-align: center!important;
@@ -66,7 +78,14 @@
       padding: 0!important;
       color: #343638!important;
       padding: 3.2rem 0!important;
+     
   }
+
+  @media (max-width: 675px) {
+    .rdrMonthName {
+      padding: 1.5rem 0!important;
+    }
+}
 
   @media (max-width: 675px) {
     .rdrMonthName {

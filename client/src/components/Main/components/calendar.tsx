@@ -13,7 +13,6 @@ import MobileButton from "./Buttons/mobileButton";
 
 function Calendar() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
-  const isMobile = useMediaPredicate("(max-width: 675px)");
   const isLaptop = useMediaPredicate("(max-width: 1660px)");
   const dispatch = useDispatch();
   const [range, setRange] = useState([

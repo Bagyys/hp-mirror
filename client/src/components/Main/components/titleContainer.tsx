@@ -13,8 +13,8 @@ const Title = () => {
         <h1
           style={
             isMobile
-              ? { marginBottom: "2.5rem", marginTop: "2.8rem" }
-              : { marginBottom: "13.8rem", marginTop: "4.6rem" }
+              ? { display: "none" }
+              : { marginBottom: "11rem", marginTop: "11rem" }
           }
         >
           {title}

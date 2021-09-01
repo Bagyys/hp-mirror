@@ -161,6 +161,7 @@ function SearchProgress() {
                     mainPage.isSearching
                       ? { padding: "0.9rem 0 ", lineHeight: "2rem" }
                       : {
+                          padding: "1.2rem",
                           lineHeight: "2rem",
                         }
                   }
@@ -169,7 +170,7 @@ function SearchProgress() {
                     style={
                       mainPage.isSearching
                         ? { padding: "0.3rem 0" }
-                        : { padding: "1rem 0" }
+                        : { padding: "0.8rem 0" }
                     }
                   >
                     {element.title}
