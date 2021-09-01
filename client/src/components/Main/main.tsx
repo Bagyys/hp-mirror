@@ -1,5 +1,6 @@
 import classes from "./main.module.scss";
 import logo from "../../assets/images/Logo.svg";
+import mobileLogo from "../../assets/images/MobileLogo.svg";
 import React, { useState } from "react";
 import GuestContainer from "./components/guestContainer";
 import Title from "./components/titleContainer";
@@ -10,15 +11,23 @@ import { useSelector } from "react-redux";
 import { StoreState } from "../../store/configureStore";
 import Anytime from "./components/anytime";
 import AnyTimeIsGood from "./components/anytimeIsGood";
+import { useMediaPredicate } from "react-media-hook";
 function Main() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
   const forwardToGuests = mainPage.proceedToGuests;
-
+  const isMobile = useMediaPredicate("(max-width: 675px)");
   return (
     <div className={classes.Main}>
-      <div className={classes.Left}>
-        <img src={logo} alt="Logo" />
-      </div>
+      {mainPage.isSearching ? (
+        <div className={classes.Left}>
+          <img src={isMobile ? mobileLogo : logo} alt="Logo" />
+        </div>
+      ) : (
+        <div className={classes.Left} style={{ maxHeight: "none" }}>
+          <img src={isMobile ? mobileLogo : logo} alt="Logo" />
+        </div>
+      )}
+
       <div className={classes.Right}>
         <Title />
         {mainPage.isSearching ? <SearchType /> : null}
