@@ -1,34 +1,36 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
-import { DateRange, OnChangeProps } from 'react-date-range';
-import moment from 'moment';
-import Swal from 'sweetalert2';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-import { IoShareSocialSharp } from 'react-icons/io5';
-import { BiHeart } from 'react-icons/bi';
-import { BsStarFill } from 'react-icons/bs';
-import { MdVerifiedUser } from 'react-icons/md';
-import { GrRotateRight } from 'react-icons/gr';
-import { MdKeyboardArrowRight } from 'react-icons/md';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
+import { DateRange, OnChangeProps } from "react-date-range";
+import moment from "moment";
+import Swal from "sweetalert2";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { IoShareSocialSharp } from "react-icons/io5";
+import { BiHeart } from "react-icons/bi";
+import { BsStarFill } from "react-icons/bs";
+import { MdVerifiedUser } from "react-icons/md";
+import { GrRotateRight } from "react-icons/gr";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
-import BreadCrumbs from '../../components/BreadCrums/BreadCrums';
-import DefaultSlide from '../../components/Slider/defaultSlide/defaultSlide';
-import BookingSchedule from '../../components/BookingSchedule/BookingSchedule';
-import { StoreState } from '../../store/configureStore';
-import { PropertyState } from '../../store/reducers/propertyReducer';
-import { ErrorState } from '../../store/reducers/errorReducer';
-import { userState } from '../../store/reducers/userReducer';
-import { PropertyInterface } from '../../store/types/propertyInterfaces';
-import { getOnePropertyAction } from '../../store/actions/propertyActions';
+import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
+import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
+import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
+import Navigation from "../../components/Navigation/navigation";
+import FlatInfo from "../../components/FlatReviewContentent/FlatInfo/flatInfo";
+import { StoreState } from "../../store/configureStore";
+import { PropertyState } from "../../store/reducers/propertyReducer";
+import { ErrorState } from "../../store/reducers/errorReducer";
+import { userState } from "../../store/reducers/userReducer";
+import { PropertyInterface } from "../../store/types/propertyInterfaces";
+import { getOnePropertyAction } from "../../store/actions/propertyActions";
 import {
   checkAvailabilityAction,
   bookTimeAction,
-} from '../../store/actions/bookingActions';
-import { clearErrorAction } from '../../store/actions/errorActions';
+} from "../../store/actions/bookingActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
 
-import classes from './FlatReview.module.scss';
+import classes from "./FlatReview.module.scss";
 interface CustomRange {
   startDate: Date;
   endDate: Date;
@@ -85,10 +87,10 @@ const FlatView = (props: PropsInterface) => {
     if (error) {
       Swal.fire({
         title: error,
-        text: 'Please try again',
-        icon: 'warning',
+        text: "Please try again",
+        icon: "warning",
         showCancelButton: false,
-        confirmButtonText: 'OK',
+        confirmButtonText: "OK",
       }).then(() => {
         handleError();
       });
@@ -104,9 +106,9 @@ const FlatView = (props: PropsInterface) => {
 
   const [range, setRange] = useState([
     {
-      startDate: moment.utc().startOf('day').toDate(),
-      endDate: moment.utc().add(1, 'day').startOf('day').toDate(),
-      key: 'selection',
+      startDate: moment.utc().startOf("day").toDate(),
+      endDate: moment.utc().add(1, "day").startOf("day").toDate(),
+      key: "selection",
     },
   ]);
   const [current, setCurrent] = useState<number>(0);
@@ -134,7 +136,7 @@ const FlatView = (props: PropsInterface) => {
     } else {
       while (theDate <= end) {
         dates = [...dates, theDate];
-        theDate = moment.utc(theDate).add(1, 'day').toDate();
+        theDate = moment.utc(theDate).add(1, "day").toDate();
       }
     }
     return dates;
@@ -184,7 +186,7 @@ const FlatView = (props: PropsInterface) => {
     setIsScheduleOpened(true);
   };
   const handleBooking = async (residents: number) => {
-    console.log('user._id');
+    console.log("user._id");
     console.log(user._id);
     const body = {
       userId: user._id,
@@ -197,7 +199,7 @@ const FlatView = (props: PropsInterface) => {
       occupiedTime: booking.displayDays,
     };
     await dispatch(bookTimeAction(body));
-    history.push('/reservations');
+    history.push("/reservations");
   };
 
   let propertyRender = <></>;
@@ -224,7 +226,7 @@ const FlatView = (props: PropsInterface) => {
       if (temparray.length < 8) {
         let leftSpace = 8 - temparray.length;
         for (i = 0; i < leftSpace; i++) {
-          temparray.push('/no-photo.png');
+          temparray.push("/no-photo.png");
         }
       }
       const testArray = [];
@@ -305,11 +307,11 @@ const FlatView = (props: PropsInterface) => {
               );
             }
           })}
-          <div className={classes.totalNumber}>
+          {/* <div className={classes.totalNumber}>
             <span>44 photos</span>
             <span>3 virtual tours</span>
             <span>1 video</span>
-          </div>
+          </div> */}
         </div>
         <div className={classes.contentBox}>
           <div className={classes.content}>
@@ -402,7 +404,13 @@ const FlatView = (props: PropsInterface) => {
     );
   }
 
-  return <div className={classes.FlatReview}>{propertyRender}</div>;
+  return (
+    <>
+      <Navigation />
+      <div className={classes.FlatReview}>{propertyRender}</div>
+      <FlatInfo />
+    </>
+  );
 };
 
 export default FlatView;

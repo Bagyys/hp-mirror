@@ -11683,3 +11683,10 @@
 ::1 - - [30/Aug/2021:07:39:00 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [30/Aug/2021:10:35:02 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 >>>>>>> origin/Simonas
+::1 - - [31/Aug/2021:07:49:37 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [31/Aug/2021:10:48:18 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [31/Aug/2021:11:22:33 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [31/Aug/2021:11:25:23 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [31/Aug/2021:12:09:52 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [31/Aug/2021:12:10:02 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [31/Aug/2021:12:14:36 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -

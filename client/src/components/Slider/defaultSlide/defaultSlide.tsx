@@ -1,5 +1,8 @@
 import React from "react";
+//Styles
 import classes from "./defaultSlide.module.scss";
+//Components
+import BtnShowAllPhotos from "../defaultSlide/BtnShowAllPhotos/btnShowAllPhotos";
 
 interface ImagesInterface {
   images: Array<string>;
@@ -40,6 +43,7 @@ const DefaultSlide = ({ images }: ImagesInterface) => {
             <img src={images[4]} alt="Flat-other" />
           )}
         </div>
+        <BtnShowAllPhotos />
       </div>
     </React.Fragment>
   );
