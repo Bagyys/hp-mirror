@@ -159,7 +159,11 @@ function SearchProgress() {
                   onClick={() => toggleActive(index)}
                   style={
                     mainPage.isSearching
-                      ? { padding: "0.9rem 0 ", lineHeight: "2rem" }
+                      ? {
+                          padding: "0.9rem 0 ",
+                          lineHeight: "2rem",
+                          fontSize: "1.9rem",
+                        }
                       : {
                           padding: "1.2rem",
                           lineHeight: "2rem",

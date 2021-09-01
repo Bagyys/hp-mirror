@@ -8,13 +8,19 @@
     position: relative!important;
     height: 3.83rem!important;
   }
+  /* rdrMonthAndYearWrapper Medias */
+  @media (max-width: 675px) {
+    .rdrMonthAndYearWrapper {
+        display:none!important;
+    }
+  }
   
   .rdrMonths {
-    width: 85.5%!important;
+    width: 90%!important;
     margin: 0 auto!important;
     justify-content: space-between!important;
   }
-
+  /* rtdMonths Medias */
     @media (max-width: 1660px) {
       .rdrMonths {
         width: 100%!important;
@@ -23,96 +29,82 @@
       }
     }
 
-
-    @media (max-width: 675px) {
-      .rdrMonthAndYearWrapper {
-          display:none!important;
-      }
-    }
-
-
-
-@media (max-width: 675px) {
-  .rdrWeekDays {
-    display: none!important;
-  }
-
-}
-  .rdrMonth {
-    /* padding: 0 0.833em 5.49rem 0.833em!important; */
-    width: 40%!important;
-    margin:  0!important;
-    background: white!important;
-    box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
-    border-radius: 3rem;
-    position: relative!important;
-    padding-left: 3.4rem!important;
-    padding-right: 3.4rem!important; 
-  }
-
-  @media (max-width: 1660px) {
     .rdrMonth {
-      width: 50%!important;
- 
-      margin:0 auto!important;
+      width: 40%!important;
+      margin:  0!important;
+      background: white!important;
+      box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
+      border-radius: 3rem;
+      position: relative!important;
+      padding-left: 3.4rem!important;
+      padding-right: 3.4rem!important; 
     }
-  }
-
-  @media (max-width: 1200px) {
-    .rdrMonth {
-      width: 75%!important;
-
-    }
-  }
-    @media (max-width: 675px) {
+  /* rdrMonth Medias */
+    @media (max-width: 1660px) {
       .rdrMonth {
-        margin-top: 1rem!important;
+        width: 50%!important;
+   
+        margin:0 auto!important;
       }
-  }
-  .rdrMonthName {
-    text-align: center!important;
-      font-size: 2.2rem!important;
-      line-height: 5rem!important;
-      font-weight: 500!important;
-      font-family: Helvetica Neue, Arial, sans-serif!important;
-      padding: 0!important;
-      color: #343638!important;
-      padding: 3.2rem 0!important;
-     
-  }
-
-  @media (max-width: 675px) {
-    .rdrMonthName {
-      padding: 1.5rem 0!important;
     }
-}
+  
+    @media (max-width: 1200px) {
+      .rdrMonth {
+        width: 75%!important;
+  
+      }
+    }
+      @media (max-width: 675px) {
+        .rdrMonth {
+          margin-top: 1rem!important;
+        }
+    }
+  
 
+    .rdrMonthName {
+      text-align: center!important;
+        font-size: 2.2rem!important;
+        line-height: 5rem!important;
+        font-weight: 500!important;
+        font-family: Helvetica Neue, Arial, sans-serif!important;
+        padding: 0!important;
+        color: #343638!important;
+        padding: 2.6rem 0!important;
+       
+    }
+
+     /* rdrMonthName Medias */
   @media (max-width: 675px) {
     .rdrMonthName {
       padding-bottom: 0!important;
     }
   }
 
-  .rdrDay {
-      height: 4em!important;
-  }
-  
-  
-  .rdrDayNumber span {
-    line-height: 3.9rem!important;
-    font-family: Helvetica, Arial, sans-serif!important;
-    font-size: 1.7rem!important;
-  }
-  
   .rdrWeekDay {
     font-size: 1.6rem!important;
     line-height: 3.6rem!important;
     font-family: Helvetica, Arial, sans-serif!important;
     color: #909090!important;
   }
-  
-  
-  
+ /* rdrWeekDay Medias */
+@media (max-width: 675px) {
+  .rdrWeekDays {
+    display: none!important;
+  }
+
+}
+
+.rdrDay {
+  height: 4em!important;
+}
+
+
+  .rdrDayNumber span {
+    line-height: 3.9rem!important;
+    font-family: Helvetica, Arial, sans-serif!important;
+    font-size: 1.7rem!important;
+  }
+
   .rdrDayToday .rdrDayNumber span:after {
    display: none!important;
   }
@@ -154,9 +146,9 @@
     background-image: url("../assets/images/arrow.svg")!important;
     background-repeat: no-repeat!important;
     background-position: center!important;
-    margin-left: 16%!important;
+    margin-left: 14%!important;
     position: absolute!important;
-    top: 220%!important;
+    top: 200%!important;
     z-index: 101!important;
     
   }
@@ -167,7 +159,7 @@
     background-position: center!important;
     margin-right: 16%!important;
     position: absolute!important;
-    top: 220%!important;
+    top: 200%!important;
     z-index: 101!important;
     right: 0!important;
     
