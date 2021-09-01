@@ -1,19 +1,20 @@
 import classes from "../main.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DateRange, OnChangeProps } from "react-date-range";
 import {
   setStartDateAction,
   setEndDateAction,
-  setProceedToGuests,
 } from "../../../store/actions/mainPageActions";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../../store/configureStore";
 import { useMediaPredicate } from "react-media-hook";
+import MobileButton from "./Buttons/mobileButton";
 
 function Calendar() {
   const mainPage = useSelector((state: StoreState) => state.mainPage);
   const isMobile = useMediaPredicate("(max-width: 675px)");
+  const isLaptop = useMediaPredicate("(max-width: 1660px)");
   const dispatch = useDispatch();
   const [range, setRange] = useState([
     {
@@ -23,12 +24,6 @@ function Calendar() {
       key: "selection",
     },
   ]);
-  console.log(range, "KAS RANGE?");
-  // useEffect(() => {
-  //   if (mainPage.startDate && mainPage.endDate) {
-  //     dispatch(setProceedToGuests(true));
-  //   }
-  // }, [mainPage.startDate, mainPage.endDate]);
 
   const handleRange = (item: any) => {
     // TODO: solve typescript conflict
@@ -54,10 +49,11 @@ function Calendar() {
         weekStartsOn={1}
         weekdayDisplayFormat="EEEEEE"
         showMonthAndYearPickers={false}
-        months={isMobile ? 1 : 2}
+        months={isLaptop ? 1 : 2}
         direction="horizontal"
         monthDisplayFormat="MMMM yyyy"
       />
+      {isLaptop ? <MobileButton /> : null}
     </div>
   );
 }

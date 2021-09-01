@@ -13,6 +13,9 @@
     width: 23.6rem;
     border-radius: 3.9rem;
     position: relative;
+    @media (max-width: 675px) {
+        margin-bottom: 2.9rem;
+     }
     .Anytime {
         cursor: pointer;
     }

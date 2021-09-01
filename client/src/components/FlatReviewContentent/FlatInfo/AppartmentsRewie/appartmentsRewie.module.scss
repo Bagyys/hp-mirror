@@ -1,7 +1,97 @@
 @import "../../../../styles/global.scss";
 
-.Layer {
-  display: flex;
-  justify-content: space-between;
-  width: 70%;
+.Content {
+  margin: 0 76.92rem 0 9.96rem;
+  box-sizing: border-box;
+  position: relative;
+
+  .Layer {
+    // width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .Text {
+      color: black;
+      font-size: $fontSize32px;
+      font-weight: $font-Weight-bold;
+      font-family: $helveticaNeue;
+      margin-bottom: 0.61rem;
+    }
+    .TextSmall {
+      color: black2;
+      font-size: $fontSize20px;
+      font-weight: $font-Weight-regular;
+      font-family: $helveticaNeue;
+      margin-bottom: 3.02rem;
+    }
+
+    .BtnSaveShare {
+      width: 9.1rem;
+      height: 4.6rem;
+      background-color: $white;
+      color: $black2;
+      font-size: $fontSize18px;
+      font-weight: $font-Weight-bold;
+      border: none;
+      text-decoration: solid underline $black2 0.2rem;
+      text-underline-offset: 0.2rem;
+      border-radius: 1.1rem;
+      &:hover {
+        cursor: pointer;
+        background-color: $lightGrey5;
+      }
+    }
+    .BtnSaveShare.active {
+      width: 9.1rem;
+      height: 4.6rem;
+      color: $black2;
+      font-size: $fontSize18px;
+      font-weight: $font-Weight-bold;
+      border: none;
+      text-decoration: solid underline $black2 0.2rem;
+      text-underline-offset: 0.2rem;
+    }
+  }
+
+  .StarRating {
+    margin-bottom: 2.49rem;
+    .RatingNumber {
+      font-size: $fontSize26px;
+      font-weight: $font-Weight-bold;
+      color: $black2;
+      font-family: $helveticaNeue;
+      margin: 0 0.97rem 0 0.77rem;
+    }
+    .Reviews {
+      font-size: $fontSize18px;
+      font-weight: $font-Weight-regular;
+      color: $blackGrey;
+      font-family: $helveticaNeue;
+    }
+  }
+  hr {
+    border-top: 1px solid $lightGrey6;
+  }
+  div {
+    display: flex;
+
+    .Icons {
+      display: inline;
+      width: 33%;
+      justify-content: space-between;
+      div {
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+        padding-left: 2.4rem;
+
+        p {
+          padding-left: 2.5rem;
+          font-size: $fontSize22px;
+          font-weight: $font-Weight-medium;
+          color: $black;
+        }
+      }
+    }
+  }
 }

@@ -1,11 +1,12 @@
 @import "../../styles/global.scss";
-
+@import "../../styles/mixins";
 .Main {
     display: flex;
     min-height: 1080px;
+    max-width: 192rem;
     @media (max-width: 675px) {
         flex-direction: column;
-        min-height: auto;
+        min-height:auto;
       }
     .Left {
         width: 50%;
@@ -14,12 +15,12 @@
         img {
             margin-top: 4.05rem;
             margin-left: 6.4%;
-            @media (max-width: 675px) {
+            @include respond(mobile){
                 margin-top: 1rem;
 
                }
         }
-        @media (max-width: 675px) {
+        @include respond(mobile){
            width: 100%;
            height: 32.1rem;
            background-position: 0 0rem;
@@ -31,7 +32,7 @@
         width: 50%;
         background-color: $orange;
         text-align: center;
-        @media (max-width: 675px) {
+        @include respond(mobile){
             width: 100%;
             min-height: 100vh;
             h1 {
@@ -52,7 +53,7 @@
             @media (max-width: 1000px) {
                 // width: 100%;
            }
-            @media (max-width: 675px) {
+           @include respond(mobile){
                     width: 56%;
                     font-size:  $fontSize38px;
                     line-height: $lineHeight49px;
@@ -68,12 +69,14 @@
             line-height: $lineHeight30px;
             color: $black;  
             font-weight: $font-Weight-medium;
-            @media (max-width: 675px) {
+            @include respond(mobile){
                 margin: 6.3rem 0 1.5rem 0 ;
                 font-size: $fontSize20px;
                 line-height: $lineHeight30px;
            }
         }
+     
+      
         .SearchBox {
             position: relative;
             width: 70%;
@@ -95,7 +98,7 @@
                 line-height: $lineHeight27px;
            }
       
-            @media (max-width: 675px) {
+           @include respond(mobile){
                 margin: 0 auto;
               
            }
@@ -103,8 +106,9 @@
                 padding: 1rem 0rem;
                 width: 33%;
                 cursor: pointer;
-                @media (max-width: 675px) {
-                    // padding: 1.8rem 0rem;
+                @include respond(mobile){
+                    padding: 0.7rem 0rem;
+                    width: 30%;
                }  
                 span {
                     font-size: $fontSize18px;
@@ -117,6 +121,14 @@
                     // padding-right: 4.86rem;
                     // border-right: 0.1rem solid #CBD0D3;
                     padding-left: 5.4rem;
+
+                    h2 {
+                        
+                        padding: 1rem 0;
+                        @include respond(mobile){
+                            padding: 0rem;  
+                       }
+                    }
                     @media (max-width: 1000px) {
                         padding-right: 0rem;
                         padding-left: 0rem;
@@ -130,6 +142,9 @@
                     h2 {
                         border-right: 0.1rem solid #FFC96C;
                         padding: 1rem 0;
+                        @include respond(mobile){
+                            padding: 0rem;  
+                       }
                     }
                     
                     @media (max-width: 1000px) {
@@ -137,22 +152,29 @@
                         margin-left: 1.5rem;
                         white-space: nowrap; 
                    }
-                   @media (max-width: 675px) {
+                   @include respond(mobile){
                         
                     margin-left: 0;
                
                }
                 }
                 &:nth-child(3) {
-                    // margin-left: 2.68rem;
+                    margin-left: 2.5rem;
+                    text-align: left;
                     h2 {
                         
                         padding: 1rem 0;
+                        @include respond(mobile){
+                            padding: 0rem;  
+                       }
                     }
-                    @media (max-width: 675px) {
-                        margin-left: 2rem;
-                        text-align: left;
+                    @include respond(mobile){
+                        
                    }
+                   @media (max-width: 420px) {
+                    margin-left: 0.5rem;
+                    text-align: left;
+               }
                 }
             }
 
@@ -163,8 +185,9 @@
                 border-radius: 5.5rem;
                 cursor: pointer;
                 padding: 1rem 0rem;
-                @media (max-width: 675px) {
-                    // padding: 1.8rem 0rem;
+                @include respond(mobile){
+                    padding: 0.7rem 0rem;
+                    width: 30%;
                }  
               
                 &:first-child {
@@ -173,9 +196,12 @@
                     transition: all 0.4s ease-in-out; 
                     h2 {
                         padding: 1rem 0;
+                        @media (max-width: 675px) {
+                            padding: 0rem;  
+                       }
                     }
                         
-                    @media (max-width: 675px) {
+                    @include respond(mobile){
                         padding-right: 0rem;
                         padding-left: 0rem; 
                         white-space: nowrap;
@@ -186,7 +212,14 @@
                     // padding-left: 2.935rem;  
                     border: none; 
                     transition: all 0.4s ease-in-out;
-                    @media (max-width: 675px) {
+                    h2 {
+                        padding: 1rem 0;
+                        @include respond(mobile){
+                            padding: 0rem;  
+                       }
+                    }
+                    @include respond(mobile){
+                        padding: 0.7rem 0rem;
                         padding-right: 2rem;
                         padding-left: 1rem;
                         white-space: nowrap; 
@@ -199,7 +232,14 @@
                     // padding-left: 3rem;  
                     border: none; 
                     transition: all 0.4s ease-in-out;
-                    @media (max-width: 675px) {
+                    h2 {
+                        padding: 1rem 0;
+                        @include respond(mobile){
+                            padding: 0rem;  
+                       }
+                    }
+                    @include respond(mobile){
+                        padding: 0.7rem 0rem;
                         padding-right: 2rem;
                         padding-left: 2rem; 
                    }
@@ -249,9 +289,9 @@
               background-color: #4D94E8;
               border-radius: 5rem;
               transition: padding 0.4s ease-in-out;
-              @media (max-width: 675px) {
+              @include respond(mobile){
                top:50%;
-                right: 7%;
+                right: 10%;
              
            }
             }
@@ -268,6 +308,14 @@
            
           }
 
+          .Calendar {
+      
+              @include respond(laptop){
+                display: flex;
+                flex-direction: column;
+            }
+          }
+
           .AnyTimeIsGood {
               margin-top:  8.7rem;
               font-size: $fontSize21px;
@@ -276,15 +324,19 @@
                 font-weight: $font-Weight-bold;
                 line-height: $lineHeight36px;
                 cursor: pointer;
-                @media (max-width: 675px) {
+                @include respond(mobile){
                    margin-top: 4.4rem;
                }
           }
 
 .GuestWrapper {
     display: flex;
-    justify-content: flex-end;
-    margin-right: 9.5rem;
+    flex-direction: column;
+   
+    @include respond(mobile){
+        margin-right: 0rem;
+        justify-content: center;
+    }
     .GuestBox {
         background-color: $white;
         border-radius: 3.3rem;
@@ -293,7 +345,13 @@
         display: flex;
         flex-direction: column;
         width: 43%;
+        align-self: flex-end;
         padding: 4rem 4rem 2.8rem 4rem;
+        margin-right: 9.5rem;
+        @include respond(mobile){
+            width: 70%;
+            margin: 3.6rem auto 0 auto;
+        }
         .Upper {
             display: flex;
             flex-direction: row;
@@ -426,6 +484,10 @@
             flex-wrap: wrap;
             justify-content: space-between;
             position: relative;
+            @include respond(mobile){
+             width: 90%;
+             margin: 5rem auto 0 auto;
+            }
             .month{
                 flex: 0 0 auto;
                 background-color: rgba(255, 255, 255, 0.4);
@@ -439,7 +501,10 @@
                 cursor: pointer;
                 margin-bottom: 1.5rem;
              
-
+                @include respond(mobile){
+                    width: 45%;
+                    margin-right: 0;
+                   }
                
                 
                 .SelectedImg {
@@ -456,15 +521,16 @@
             }
 
             .SearchButton {
-                position: absolute;
-                right: 2%;
-                bottom: -25%;
+                // position: absolute;
+                // right: 2%;
+                // bottom: -25%;
                 cursor: pointer;
                 display: flex;
                 padding: 1.7rem 1.7rem 1.7rem 1.6rem;
                 background-color: #4D94E8;
                 border-radius: 5rem;
                 transition: padding 0.4s ease-in-out;
+                align-self: flex-end;
               }
               .SearchText {
                   margin: 0;

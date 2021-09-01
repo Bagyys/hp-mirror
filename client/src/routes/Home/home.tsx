@@ -1,3 +1,23 @@
+// <<<<<<< HEAD
+// import Flats from "../../components/Flats/flats";
+// import Map from "../../components/Map/map";
+// import { useMediaPredicate } from "react-media-hook";
+// import SecondaryNavMobile from "../../components/SecondaryNavMobile/SecondaryNavMobile";
+// import Main from "../../components/Main/main";
+// import classes from "./home.module.scss";
+// import { cn } from "../../utilities/joinClasses";
+// import Navigation from "../../components/Navigation/navigation";
+// import Footer from "../../components/Footer/Footer";
+// import { Fragment } from "react";
+// import Backdrop from "../../components/Backdrop/Backdrop";
+// import SideFilter from "../../components/SideFilter/SideFilter";
+// import { useDispatch, useSelector } from "react-redux";
+// import { StoreState } from "../../store/configureStore";
+// import { toggleFilterButtonAction } from "../../store/actions/filterActions";
+// import { FilterState } from "../../store/reducers/filterReducer";
+// import { PropertyState } from "../../store/reducers/propertyReducer";
+// const isChoosing = false;
+// =======
 import Flats from "../../components/Flats/flats";
 import Map from "../../components/Map/map";
 import { useMediaPredicate } from "react-media-hook";
@@ -16,6 +36,7 @@ import { toggleFilterButtonAction } from "../../store/actions/filterActions";
 import { FilterState } from "../../store/reducers/filterReducer";
 import { PropertyState } from "../../store/reducers/propertyReducer";
 const isChoosing = false;
+// >>>>>>> 0ff0da6ec04802619c75b212ec057f2f69ca0c3c
 function Home() {
   const dispatch = useDispatch();
   const filter: FilterState = useSelector((state: StoreState) => state.filter);
