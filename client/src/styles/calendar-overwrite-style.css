@@ -11,9 +11,15 @@
   /* rdrMonthAndYearWrapper Medias */
   @media (max-width: 675px) {
     .rdrMonthAndYearWrapper {
-        display:none!important;
+        height: 0.8rem!important;
     }
   }
+ 
+
+    .rdrMonthAndYearPickers {
+        display:none!important;
+    }
+
   
   .rdrMonths {
     width: 90%!important;
@@ -131,7 +137,7 @@
   }
   
   .rdrMonthAndYearPickers {
-    display: none!important;
+    height: none!important;
   }
   
   .rdrPprevButton i, .rdrNextButton i   {
@@ -152,6 +158,13 @@
     z-index: 101!important;
     
   }
+
+  @media (max-width: 675px) {
+    .rdrPprevButton{
+      top: 700%!important;
+    }
+  
+  }
   
   .rdrNextButton {
     background-image: url("../assets/images/arrowNext.svg")!important;
@@ -164,6 +177,14 @@
     right: 0!important;
     
   }
+
+  @media (max-width: 675px) {
+    .rdrNextButton{
+      top: 700%!important;
+    }
+  
+  }
+  
   
   .rdrDateDisplayWrapper {
     display: none!important;

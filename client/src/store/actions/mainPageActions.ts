@@ -21,6 +21,7 @@ export interface MainPageInterface {
     isCalendar: boolean;
     isSearching: boolean;
     anytimeOrCalendar: string;
+    isChoosing: boolean;
   };
 }
 
@@ -96,6 +97,16 @@ export const toggleAnytimeOrCalendar =
       type: mainPageTypes.TOGGLE_ANYTIME_OR_CALENDAR,
       payload: {
         anytimeOrCalendar,
+      },
+    });
+  };
+
+export const toggleIsChoosing =
+  (isChoosing: boolean) => (dispatch: Dispatch) => {
+    dispatch({
+      type: mainPageTypes.TOGGLE_CHOOSING,
+      payload: {
+        isChoosing,
       },
     });
   };

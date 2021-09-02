@@ -15,23 +15,24 @@ import { StoreState } from "../../store/configureStore";
 import { toggleFilterButtonAction } from "../../store/actions/filterActions";
 import { FilterState } from "../../store/reducers/filterReducer";
 import { PropertyState } from "../../store/reducers/propertyReducer";
-const isChoosing = true;
+import { useState } from "react";
 function Home() {
   const dispatch = useDispatch();
   const filter: FilterState = useSelector((state: StoreState) => state.filter);
+  const mainPage = useSelector((state: StoreState) => state.mainPage);
   const properties: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
   const { quickViewPropertyId } = properties;
   const { isFilterOpen } = filter;
   const isMobile = useMediaPredicate("(max-width: 675px)");
-
+  localStorage.removeItem("persist:root");
   const toggleHandler = () => {
     dispatch(toggleFilterButtonAction(!isFilterOpen));
   };
   return (
     <div className={classes.App}>
-      {isChoosing ? (
+      {mainPage.isChoosing ? (
         <Main />
       ) : (
         <Fragment>

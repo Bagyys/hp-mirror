@@ -6,11 +6,12 @@ import { StoreState } from "../../../store/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setProceedToGuests,
+  toggleIsChoosing,
   toggleIsSearching,
 } from "../../../store/actions/mainPageActions";
 import { useMediaPredicate } from "react-media-hook";
 import React from "react";
-
+import Swal from "sweetalert2";
 interface activeObjectInterface {
   activeObject: null | {
     id: number;
@@ -102,6 +103,8 @@ function SearchProgress() {
     if (mainPage.isSearching) {
       if (appState.objects[index] === appState.activeObject) {
         return `${classes.Active}`;
+      } else if (appState.activeObject?.id === 3) {
+        return `${classes.SpecCase}`;
       } else {
         return `${classes.inActive}`;
       }
@@ -115,18 +118,35 @@ function SearchProgress() {
     }
   };
 
+  const searchFlats = () => {
+    console.log("Ieskom butu");
+    if (!mainPage.startDate) {
+      Swal.fire({
+        text: "Please select Check in date",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      });
+    } else if (!mainPage.endDate) {
+      Swal.fire({
+        text: "Please select Check out date",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      });
+    } else if (mainPage.guests.adults === 0 && mainPage.guests.children === 0) {
+      Swal.fire({
+        text: "Please select at least one guest",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      });
+    } else {
+      dispatch(toggleIsChoosing(false));
+    }
+  };
   return (
-    <div
-      className={classes.SearchBox}
-      // style={
-      //   mainPage.isSearching
-      //     ? {
-      //         marginTop: "6.7rem",
-      //         backgroundColor: "rgba(255, 255, 255, 0.85)",
-      //       }
-      //     : { padding: `0` }
-      // }
-    >
+    <div className={classes.SearchBox}>
       {appState.objects.map(
         (element: { title: string; text: string }, index: number) => {
           return (
@@ -191,6 +211,7 @@ function SearchProgress() {
         <React.Fragment>
           {isLaptop ? null : (
             <div
+              onClick={() => searchFlats()}
               className={classes.SearchButton}
               style={{ right: "0%", padding: "1.8rem 1.7rem 1.8rem 1.5rem" }}
             >
@@ -200,7 +221,18 @@ function SearchProgress() {
           )}
         </React.Fragment>
       ) : (
-        <div className={classes.SearchButton}>
+        <div
+          className={classes.SearchButton}
+          onClick={() =>
+            Swal.fire({
+              title: "Upps",
+              text: "Select dates and amount of guests",
+              icon: "warning",
+              showCancelButton: false,
+              confirmButtonText: "OK",
+            })
+          }
+        >
           <p className={classes.SearchText}></p>
           <img src={searchImg} alt="Search" />
         </div>

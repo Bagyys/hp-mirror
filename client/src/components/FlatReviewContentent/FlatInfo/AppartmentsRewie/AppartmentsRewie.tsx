@@ -52,6 +52,7 @@ const AppartmentsRewie = () => {
           </div>
         </div>
       </div>
+      {/* Negalima hr naudoti */}
       <hr></hr>
       <div className={classes.AboutLayer}>
         <h4 className={classes.AboutPlace}>About the place</h4>
