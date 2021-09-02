@@ -17,7 +17,7 @@ import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
 import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
 import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
 import Navigation from "../../components/Navigation/navigation";
-import FlatInfo from "../../components/FlatReviewContentent/FlatInfo/flatInfo";
+import FlatInfo from "../../components/FlatReviewContentent/FlatInfo/FlatInfo";
 import { StoreState } from "../../store/configureStore";
 import { PropertyState } from "../../store/reducers/propertyReducer";
 import { ErrorState } from "../../store/reducers/errorReducer";

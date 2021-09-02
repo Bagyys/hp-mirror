@@ -1,2 +1,18 @@
 @import "../../../../styles/global.scss";
 
+.Selection {
+  border: 2px solid $disableBtn;
+  border-radius: 1rem;
+  .Form {
+    display: flex;
+    justify-content: space-between;
+  }
+  .Select {
+    border-top: 2px solid $disableBtn;
+    width: 100%;
+  }
+}
+
+.TextField {
+  width: 50%;
+}

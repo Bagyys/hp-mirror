@@ -1,7 +1,7 @@
 @import "../../../../styles/global.scss";
 
 .Content {
-  margin: 0 76.92rem 0 9.96rem;
+  padding: 0 76.92rem 0 9.96rem;
   box-sizing: border-box;
   position: relative;
 
@@ -54,7 +54,9 @@
   }
 
   .StarRating {
-    margin-bottom: 2.49rem;
+    padding-bottom: 2.49rem;
+    border-bottom: 1px solid $lightGrey6;
+
     .RatingNumber {
       font-size: $fontSize26px;
       font-weight: $font-Weight-bold;
@@ -69,9 +71,6 @@
       font-family: $helveticaNeue;
     }
   }
-  hr {
-    border-top: 1px solid $lightGrey6;
-  }
   div {
     .Icons {
       box-sizing: border-box;
@@ -84,6 +83,7 @@
         box-sizing: border-box;
         padding-left: 2.4rem;
         margin-bottom: 6.19rem;
+
         p {
           padding-left: 2.5rem;
           font-size: $fontSize22px;
@@ -95,6 +95,8 @@
   }
 
   .AboutLayer {
+    border-top: 1px solid $lightGrey6;
+    border-bottom: 1px solid $lightGrey6;
     .AboutPlace {
       font-size: $fontSize30px;
       font-weight: $font-Weight-bold;
@@ -111,6 +113,35 @@
       margin-top: 2.7rem;
       line-height: 3.5rem;
       margin-bottom: 5.04rem;
+    }
+  }
+  .BookingPurchaseForm {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 16rem;
+    display: block;
+    border-radius: 1rem;
+    border: 1px solid $lightGrey6;
+    height: 63.6rem;
+    width: 50rem;
+    box-shadow: 0 0.3rem 1rem $lightGrey6;
+    .BookingLayer {
+      margin: 3.8rem 3.32rem 3.65rem 3.3rem;
+    }
+    .BookingPrice {
+      font-size: $fontSize33px;
+      font-weight: $font-Weight-bold;
+      color: $black;
+      font-family: $helveticaNeue;
+      margin-left: 0.53rem;
+    }
+    .BookingNights {
+      font-size: $fontSize21px;
+      font-weight: $font-Weight-regular;
+      color: $black;
+      font-family: $helveticaNeue;
+      margin-left: 0.9rem;
     }
   }
 }
