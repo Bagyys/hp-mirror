@@ -121,6 +121,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
           {currentPaginationData
             .filter((item) => item._id !== propertyStore.quickViewPropertyId)
             .map((property: PropertyInterface) => {
+              console.log(property, "PROPERTY");
               return (
                 <Flat
                   quickViewClicked={() =>
