@@ -25,12 +25,14 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
     <div className={classes.QuickViewFlatContainer}>
       <div className={classes.SliderWithInfoContainer}>
         <ImageSlider borders="QuickView" slides={props.property.images} />
-        <img
-          onClick={props.close}
-          className={classes.Close}
-          src={close}
-          alt="close"
-        />
+        {isMobile && (
+          <img
+            onClick={props.close}
+            className={classes.Close}
+            src={close}
+            alt="close"
+          />
+        )}
         <div className={classes.InfoContainer}>
           <Ratings
             overallRating={props.property.overallRating}
@@ -75,6 +77,11 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
           />
           <p className={classes.TotalPrice}>244€ total</p>
         </div>
+        {!isMobile && (
+          <p className={classes.Close} onClick={props.close}>
+            Close
+          </p>
+        )}
         <Link
           to={{
             pathname: `/flat/${props.property._id}`,

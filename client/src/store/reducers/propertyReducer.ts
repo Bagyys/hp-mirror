@@ -10,7 +10,8 @@ export interface PropertyState {
   properties: Array<PropertyInterface>;
   selectedProperty: string;
   quickViewPropertyId:string;
-  pageSize:number;
+  pageSizeMain:number;
+  pageSizeFavorite:number;
   currentPage:number;
   activePropertyCord:{lat:number,lng:number}
 }
@@ -19,7 +20,8 @@ const initialState: PropertyState = {
   properties: [] as Array<PropertyInterface>,
   selectedProperty: "",
   quickViewPropertyId:"",
-  pageSize:4,
+  pageSizeMain:4,
+  pageSizeFavorite:12,
   currentPage:1,
   activePropertyCord:{lat: 54.687157,
     lng: 25.279652,}
@@ -65,7 +67,7 @@ const propertyReducer = (
     case propertyTypes.PAGINATION_PAGE_SIZE:
       return {
         ...state,
-        pageSize:action.payload,
+        pageSizeMain:action.payload,
       };
     case propertyTypes.PAGINATION_CURRENT_PAGE:
       return {

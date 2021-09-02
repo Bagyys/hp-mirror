@@ -11,6 +11,8 @@
     padding: 1.55rem 15.3rem 1.55rem 10.7rem;
     line-height: $lineHeight36px;
     font-family: $helveticaNeue;
+    max-width: 175.428rem;
+    margin: 0 auto;
     @include respond(pc) {
         padding: 1.55rem 9% 1.55rem 9%;
     }

@@ -8,59 +8,45 @@ import { cn } from '../../utilities/joinClasses';
 import Navigation from '../../components/Navigation/navigation';
 import Footer from '../../components/Footer/Footer';
 import { Fragment } from 'react';
-import Backdrop from '../../components/Backdrop/Backdrop';
-import SideFilter from '../../components/SideFilter/SideFilter';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StoreState } from '../../store/configureStore';
-import { toggleFilterButtonAction } from '../../store/actions/filterActions';
-import { FilterState } from '../../store/reducers/filterReducer';
 import { PropertyState } from '../../store/reducers/propertyReducer';
-const isChoosing = true;
+const isChoosing = false;
 function Home() {
-  const dispatch = useDispatch();
-  const filter: FilterState = useSelector((state: StoreState) => state.filter);
-  const properties: PropertyState = useSelector(
+  const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
-  const { quickViewPropertyId } = properties;
-  const { isFilterOpen } = filter;
+  const { properties, quickViewPropertyId } = propertyStore;
   const isMobile = useMediaPredicate('(max-width: 675px)');
 
-  const toggleHandler = () => {
-    dispatch(toggleFilterButtonAction(!isFilterOpen));
-  };
   return (
-    <div className={classes.App}>
-      {/* If not used delete later with all component */}
-      {/* <Filter /> */}
-      {isChoosing ? (
-        <Main />
-      ) : (
-        <Fragment>
-          <Navigation />
-          {isMobile && <SecondaryNavMobile toggleHandler={toggleHandler} />}
-          {isFilterOpen && <SideFilter toggleHandler={toggleHandler} />}
-          {!isMobile && (
-            <Backdrop
-              isVisible={isFilterOpen}
-              toggleHandler={toggleHandler}
-            ></Backdrop>
-          )}
-          <div
-            className={cn(
-              classes.ContentBox,
-              quickViewPropertyId
-                ? classes.MobileContentToTop
-                : classes.MobileContent
-            )}
-          >
-            <Flats toggleHandler={toggleHandler} />
-            <Map />
-          </div>
-          <Footer />
-        </Fragment>
-      )}
-    </div>
+    <>
+      <div className={classes.App}>
+        {/* If not used delete later with all component */}
+        {/* <Filter /> */}
+        {isChoosing ? (
+          <Main />
+        ) : (
+          <Fragment>
+            <Navigation />
+            {isMobile && <SecondaryNavMobile />}
+
+            <div
+              className={cn(
+                classes.ContentBox,
+                quickViewPropertyId
+                  ? classes.MobileContentToTop
+                  : classes.MobileContent
+              )}
+            >
+              <Flats properties={properties} isMain={true} />
+              <Map />
+            </div>
+            <Footer />
+          </Fragment>
+        )}
+      </div>
+    </>
   );
 }
 
