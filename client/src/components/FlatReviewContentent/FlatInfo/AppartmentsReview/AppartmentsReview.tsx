@@ -1,13 +1,13 @@
 import React from "react";
 import { BsStarFill } from "react-icons/bs";
 //Style
-import classes from "./appartmentsRewie.module.scss";
+import classes from "./appartmentsReview.module.scss";
 //Icons
 import doubleBed from "../../../../assets/images/double.png";
 //Components
 import ReserveNightsForm from "../ReserveNights/ReserveNightsForm";
 
-const AppartmentsRewie = () => {
+const AppartmentsReview = () => {
   return (
     <div className={classes.Content}>
       <div className={classes.Layer}>
@@ -27,7 +27,7 @@ const AppartmentsRewie = () => {
         <span className={classes.RatingNumber}>4.75 </span>
         <span className={classes.Reviews}>(7 Reviews) </span>
       </div>
-      <hr></hr>
+
       <div>
         <div className={classes.Icons}>
           <div>
@@ -52,7 +52,7 @@ const AppartmentsRewie = () => {
           </div>
         </div>
       </div>
-      <hr></hr>
+
       <div className={classes.AboutLayer}>
         <h4 className={classes.AboutPlace}>About the place</h4>
         <p className={classes.AboutDescription}>
@@ -61,9 +61,16 @@ const AppartmentsRewie = () => {
           renovated bathroom and two panoramic terrace with sunbeds.
         </p>
       </div>
-      <hr></hr>
-      <ReserveNightsForm />
+      <div className={classes.BookingPurchaseForm}>
+        <div className={classes.BookingLayer}>
+          <div>
+            <span className={classes.BookingPrice}>41$</span>
+            <span className={classes.BookingNights}>/nights</span>
+          </div>
+          <ReserveNightsForm />
+        </div>
+      </div>
     </div>
   );
 };
-export default AppartmentsRewie;
+export default AppartmentsReview;
