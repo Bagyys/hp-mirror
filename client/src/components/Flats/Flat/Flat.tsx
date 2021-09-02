@@ -11,6 +11,7 @@ import MainInformation from './MainInformation/MainInformation';
 import { Link } from 'react-router-dom';
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
 import DailyPrice from './DailyPrices/DailyPrice';
+import { cn } from '../../../utilities/joinClasses';
 
 interface FlatProps {
   property: PropertyInterface;
@@ -18,12 +19,18 @@ interface FlatProps {
   liked: boolean;
   quickViewClicked?: () => void;
   clickedLike: () => void;
+  isMain?: boolean;
 }
 const Flat: React.FC<FlatProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
 
   let propertiesRender = (
-    <li className={classes.Flat}>
+    <li
+      className={cn(
+        classes.Flat,
+        props.isMain ? classes.FlatMain : classes.FlatFavorite
+      )}
+    >
       <div className={classes.FlatContent}>
         <div className={classes.FlatImg}>
           <ImageSlider borders="FlatCard" slides={props.property.images} />

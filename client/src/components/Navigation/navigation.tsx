@@ -118,16 +118,18 @@ const Navigation = () => {
         </div>
         <div className={classes.Right}>
           <div className={classes.Favorite}>
-            <Button btnType="FavoriteNav">
-              {user?.favorites.length > 0 ? (
-                <React.Fragment>
+            <Link to="/favorites">
+              {user.favorites.length ? (
+                <Button btnType="PcFavoriteNavActive">
                   <img src={favoritePcActive} alt="favorite" />
                   <p>{user.favorites.length}</p>
-                </React.Fragment>
+                </Button>
               ) : (
-                <img src={favoritePc} alt="favorite" />
+                <Button btnType="PcFavoriteNav">
+                  <img src={favoritePc} alt="favorite" />
+                </Button>
               )}
-            </Button>
+            </Link>
           </div>
           <div className={classes.Guide}>
             <img src={GuideImg} alt="Favorites" />

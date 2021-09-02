@@ -2,7 +2,6 @@
 @import "../../../styles/mixins";
     ul {
         .Flat {
-            flex: 0 0 48.35%;
             background-color: $white;
             margin-bottom: 2rem;
             background-clip: border-box;
@@ -11,17 +10,26 @@
             border-radius: 1rem;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
             margin: 0 3.3% 2.5% 0;
+            &.FlatMain{
+                flex: 0 0 48.35%;
+                &:nth-child(2n+2){
+                    margin-right: 0;
+                    @include respond(mobile){
+                        margin-right: 0.64rem;
+                        margin-left: 0.64rem;
+                    }
+                }
+            }
+            &.FlatFavorite {
+                flex: 0 0 22.52%;
+                &:nth-child(4n+4){
+                    margin-right: 0;
+                }
+            }
             @include respond(mobile){
                 flex: 0 0 73%;
                 margin-right: 0.64rem;
                 margin-left: 0.64rem;
-            }
-            &:nth-child(2n+2){
-                margin-right: 0;
-                @include respond(mobile){
-                    margin-right: 0.64rem;
-                    margin-left: 0.64rem;
-                }
             }
             &:hover .FlatContent .InfoContainer .Info .PriceBtnContainer .FlatBtnsContainer {
                 visibility: visible;
@@ -31,6 +39,7 @@
                 .InfoContainer {
                     padding: 0 1.57rem 1.6rem 1.76rem;
                     position: relative;
+                    min-height: 19rem;
                     @include respond(mobile){
                         padding: 0 1.57rem 1.4rem 1.17rem;
                         cursor: pointer;
@@ -40,6 +49,10 @@
                             display: flex;
                             justify-content: space-between;
                             align-items: flex-end;
+                            color:$black2;
+                            position: absolute;
+                            bottom: 1.7rem;
+                            width: 91%;
                             @include respond(mobile){
                                 align-items: center;
                             }

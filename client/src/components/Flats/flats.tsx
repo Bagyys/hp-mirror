@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useMediaPredicate } from 'react-media-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -24,9 +24,15 @@ import Button from '../Button/button';
 import { isStringInArray } from '../../utilities/isStringInArray';
 import { userState } from '../../store/reducers/userReducer';
 import { addToFavoriteAction } from '../../store/actions/userActions';
+import SideFilter from '../SideFilter/SideFilter';
+import { FilterState } from '../../store/reducers/filterReducer';
+import Backdrop from '../Backdrop/Backdrop';
+import { toggleFilterButtonAction } from '../../store/actions/filterActions';
+import { cn } from '../../utilities/joinClasses';
 
 interface FlatsProps {
-  toggleHandler: () => void;
+  properties: PropertyInterface[];
+  isMain: boolean;
 }
 const Flats: React.FC<FlatsProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
@@ -34,14 +40,14 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
   const { user } = auth;
-
+  const filter: FilterState = useSelector((state: StoreState) => state.filter);
+  const { isFilterOpen } = filter;
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
-  const { properties, quickViewPropertyId, pageSize, currentPage } =
+  const { quickViewPropertyId, pageSizeMain, currentPage, pageSizeFavorite } =
     propertyStore;
-
-  const quickViewData = properties.find(
+  const quickViewData = props.properties.find(
     (item) => item._id === quickViewPropertyId
   );
 
@@ -51,12 +57,13 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const { error } = errorState;
 
   useEffect(() => {
-    dispatch(getAllPropertiesAction());
-  }, []);
+    dispatch(quickViewAction(''));
+  }, [currentPage, pageSizeMain]);
 
   useEffect(() => {
-    dispatch(quickViewAction(''));
-  }, [currentPage, pageSize]);
+    dispatch(getAllPropertiesAction());
+    dispatch(currentPageAction(1));
+  }, []);
 
   const handleError = () => {
     dispatch(clearErrorAction());
@@ -79,10 +86,12 @@ const Flats: React.FC<FlatsProps> = (props) => {
       top: 0,
       behavior: 'smooth',
     });
-    const firstPageIndex = (currentPage - 1) * pageSize;
-    const lastPageIndex = firstPageIndex + pageSize;
-    return properties.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, pageSize, properties]);
+    const firstPageIndex =
+      (currentPage - 1) * (props.isMain ? pageSizeMain : pageSizeFavorite);
+    const lastPageIndex =
+      firstPageIndex + (props.isMain ? pageSizeMain : pageSizeFavorite);
+    return props.properties.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, pageSizeMain, pageSizeFavorite, props.properties]);
 
   const pageSizeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(pageSizeAction(Number(e.target.value)));
@@ -100,36 +109,42 @@ const Flats: React.FC<FlatsProps> = (props) => {
       behavior: 'smooth',
     });
   };
+  const toggleFilterHandler = () => {
+    dispatch(toggleFilterButtonAction(!isFilterOpen));
+  };
   let propertiesRender = <></>;
-  if (properties.length > 0) {
+  if (props.properties.length > 0) {
     propertiesRender = (
-      <ul className={classes.FlatsListConatiner}>
-        {currentPaginationData
-          .filter((item) => item._id !== propertyStore.quickViewPropertyId)
-          .map((property: PropertyInterface) => {
-            return (
-              <Flat
-                quickViewClicked={() =>
-                  QuickViewHandler(property._id, property.location.cord)
-                }
-                key={property._id}
-                property={property}
-                clickedLike={() => favoritesHandler(property._id)}
-                liked={isStringInArray(
-                  property._id,
-                  user !== null ? user.favorites : []
-                )}
-              />
-            );
-          })}
-      </ul>
+      <React.Fragment>
+        {!props.isMain && <h2>Your favorites</h2>}
+        <ul className={classes.FlatsListConatiner}>
+          {currentPaginationData
+            .filter((item) => item._id !== propertyStore.quickViewPropertyId)
+            .map((property: PropertyInterface) => {
+              return (
+                <Flat
+                  quickViewClicked={() =>
+                    QuickViewHandler(property._id, property.location.cord)
+                  }
+                  isMain={props.isMain}
+                  key={property._id}
+                  property={property}
+                  clickedLike={() => favoritesHandler(property._id)}
+                  liked={isStringInArray(property._id, user.favorites)}
+                />
+              );
+            })}
+        </ul>
+      </React.Fragment>
     );
   }
   let recentlyViewPropertiesRender = <></>;
-  if (!isMobile && properties.length > 0) {
-    const recentlyView = properties.slice(-2); //tiesiog isvedu paskutinius apartamentus
+  if (!isMobile && props.properties.length > 0) {
+    const recentlyView = props.isMain
+      ? props.properties.slice(-2)
+      : props.properties.slice(-4); //tiesiog isvedu paskutinius apartamentus
     recentlyViewPropertiesRender = (
-      <React.Fragment>
+      <div className={classes.RecentlyViewContainer}>
         <h2>Recently viewed</h2>
         <ul className={classes.FlatsListConatiner}>
           {recentlyView.map((property: PropertyInterface, index: number) => (
@@ -138,35 +153,57 @@ const Flats: React.FC<FlatsProps> = (props) => {
               liked={isStringInArray(property._id, user.favorites)}
               key={property._id}
               property={property}
+              isMain={props.isMain}
               quickViewClicked={() =>
                 QuickViewHandler(property._id, property.location.cord)
               }
             />
           ))}
         </ul>
-      </React.Fragment>
+      </div>
     );
   }
 
   return (
-    <div className={classes.FlatsContainer}>
-      <div className={classes.FlatsContainerNav}>
-        <div className={classes.FilterBtnContainer}>
-          <Button clicked={props.toggleHandler} btnType="OpenFilter">
+    <div
+      className={cn(
+        classes.FlatsContainer,
+        props.isMain
+          ? classes.FlatsContainerMain
+          : classes.FlatsContainerFavorite
+      )}
+    >
+      <div
+        className={cn(
+          classes.FlatsContainerNav,
+          props.isMain
+            ? classes.FlatsContainerNavMain
+            : classes.FlatsContainerNavFavorite
+        )}
+      >
+        <div
+          style={props.isMain && isMobile ? { display: 'none' } : {}}
+          className={classes.FilterBtnContainer}
+        >
+          <Button clicked={toggleFilterHandler} btnType="OpenFilter">
             <img src={filterImg} />
           </Button>
+          {!props.isMain && <h1>Favorites</h1>}
         </div>
         <div className={classes.RightSide}>
-          <div className={classes.CustomSelect}>
-            <select onChange={pageSizeHandler} value={pageSize}>
-              <option value="4">4</option>
-              <option value="6">6</option>
-              <option value="8">8</option>
-            </select>
-          </div>
-          <p className={classes.PcResults}>{properties.length} results</p>
+          {props.isMain && (
+            <div className={classes.CustomSelect}>
+              <select onChange={pageSizeHandler} value={pageSizeMain}>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+              </select>
+            </div>
+          )}
+          <p className={classes.PcResults}>{props.properties.length} results</p>
           <p className={classes.MobileResults}>
-            {properties.length} places to stay <img src={arrow} alt="Arrow2" />
+            {props.properties.length} places to stay{' '}
+            <img src={arrow} alt="Arrow2" />
           </p>
         </div>
       </div>
@@ -181,15 +218,20 @@ const Flats: React.FC<FlatsProps> = (props) => {
         <>
           <Pagination
             currentPage={currentPage}
-            totalCount={properties.length}
-            pageSize={pageSize}
+            totalCount={props.properties.length}
+            pageSize={props.isMain ? pageSizeMain : pageSizeFavorite}
             onPageChange={(page) => dispatch(currentPageAction(page))}
           />
 
-          <div className={classes.RecentlyViewContainer}>
-            {recentlyViewPropertiesRender}
-          </div>
+          {recentlyViewPropertiesRender}
         </>
+      )}
+      {isFilterOpen && <SideFilter toggleHandler={toggleFilterHandler} />}
+      {!isMobile && isFilterOpen && (
+        <Backdrop
+          isVisible={isFilterOpen}
+          toggleHandler={toggleFilterHandler}
+        ></Backdrop>
       )}
     </div>
   );
