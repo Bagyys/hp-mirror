@@ -19,7 +19,7 @@ function Home() {
   );
   const { properties, quickViewPropertyId } = propertyStore;
   const isMobile = useMediaPredicate("(max-width: 675px)");
-
+  localStorage.removeItem("persist:root");
   return (
     <>
       <div className={classes.App}>
