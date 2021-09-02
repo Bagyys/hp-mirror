@@ -8,9 +8,6 @@
         flex: 0 0 44.7%;
         margin-left: 4.7rem;
         margin-top: 2.87rem;
-        @include respond(mobile){
-            margin: 1rem 0 0 0;
-        }
     }
     &.FlatsContainerFavorite{
         flex: 1;
@@ -86,8 +83,9 @@
         @include respond(mobile){
             flex-wrap: nowrap;
             overflow-y: auto;
-            padding-left: 1.16rem;
             margin-bottom: 2.58rem;
+            padding-top: 0.2rem;
+            padding-left: 1.2rem;
         }
     }
     .RecentlyViewContainer {

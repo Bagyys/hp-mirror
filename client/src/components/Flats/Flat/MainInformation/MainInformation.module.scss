@@ -1,5 +1,5 @@
 @import "../../../../styles/global.scss";
-
+@import "../../../../styles/mixins";
 .MainInformation {
     color: $lightGrey;
     font-size: $fontSize20px;
@@ -7,4 +7,8 @@
     font-family: $helveticaNeue;
     margin-bottom: 1.14rem;
     margin-top:1.5rem;
+    @include respond(mobile){
+        font-size: $fontSize17px;
+        line-height: $lineHeight17px;
+    }
 }

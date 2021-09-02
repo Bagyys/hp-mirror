@@ -20,7 +20,7 @@
     padding: .2rem 1.92rem;
     
     @include respond(mobile){
-        font-size: $smallerMediumFont;
+        font-size: $fontSize18px;
         line-height: $lineHeight25px;
         padding: .75rem 1.69rem;
     }

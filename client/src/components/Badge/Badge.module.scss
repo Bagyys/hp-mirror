@@ -5,7 +5,7 @@
     color: $black2;
     cursor: default;
 }
-%shared-filter-page-discount {
+%shared-filterPage-discount {
     font-size: $fontSize21px;
     font-weight: $font-Weight-bold;
     line-height: $lineHeight35px;
@@ -15,6 +15,11 @@
     font-family: $roboto;
     margin-bottom: 0.69rem;
     background-color: $orange;
+    @include respond(mobile){
+        font-size: $fontSize18px;
+        width: 5.3rem;
+        line-height: 3.3rem;
+    }
 }
 %shared-after {
     content: attr(data-title);
@@ -42,7 +47,7 @@
     z-index: 1;
 }
 .Badge5 {
-    @extend %shared-filter-page-discount;
+    @extend %shared-filterPage-discount;
      &:hover:after{
         @extend %shared-after;
         top: -5.2rem;
@@ -53,7 +58,7 @@
     }
 }
 .Badge20 {
-    @extend %shared-filter-page-discount;
+    @extend %shared-filterPage-discount;
      &:hover:after{
         @extend %shared-after;
         top: -5.2rem;
@@ -70,12 +75,12 @@
     font-family: $helveticaNeue;
     padding:0.85rem 0 0.85rem 1.65rem;
     margin-bottom: 1.52rem;
-    @include respond(mobile){
-        padding: .7rem 1.58rem;
-        font-size: $mediumFontSize;
-        line-height: $lineHeight21px;
-        margin-bottom: 0
-    }
+    // @include respond(mobile){
+    //     padding: .7rem 1.58rem;
+    //     font-size: $mediumFontSize;
+    //     line-height: $lineHeight21px;
+    //     margin-bottom: 0
+    // }
 }
 .BadgeDiscountLongOrShort {
     @extend %shared-long-short-badge;
