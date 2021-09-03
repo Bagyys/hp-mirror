@@ -3,15 +3,16 @@ import React, { Component } from "react";
 import classes from "./flatInfo.module.scss";
 //Component
 import AppartmentsRewie from "./AppartmentsReview/AppartmentsReview";
+import PlaceOffers from "./PlaceOffers/PlaceOffers";
+import DiscountCalendor from "./DiscountCalendor/DiscountCalendor";
 
 const FlatInfo = () => {
   return (
     <>
       <div className={classes.Layer}>
         <AppartmentsRewie />
-        <h1>About the place</h1>
-        <h1>Whats this place offers</h1>
-        <form>Payment and reservation info</form>
+        <PlaceOffers />
+        <DiscountCalendor />
       </div>
     </>
   );

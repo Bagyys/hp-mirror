@@ -1,0 +1,66 @@
+@import "../../../../styles/global.scss";
+.Layer {
+  box-sizing: border-box;
+  padding: 0 94.7rem 0 9.9rem;
+  .Header {
+    h3 {
+      color: black;
+      font-size: $fontSize30px;
+      font-weight: $font-Weight-bold;
+      font-family: $helveticaNeue;
+    }
+    p {
+      color: $blackGrey;
+      font-size: $fontSize18px;
+      font-weight: $font-Weight-regular;
+      font-family: $helveticaNeue;
+      padding-top: 0.8rem;
+    }
+  }
+  .DiscountInfo {
+    box-sizing: border-box;
+    border: 1px solid $orange;
+    border-radius: 2.6rem;
+    margin-left: 4.3rem;
+    margin-top: 5.84rem;
+    h4 {
+      color: $black2;
+      font-size: $fontSize21px;
+      font-weight: $font-Weight-regular;
+      font-family: $helveticaNeue;
+      padding: 3.3rem 20.62rem 0 5.36rem;
+    }
+  }
+  .DiscountTextInfo {
+    display: flex;
+  }
+  .DiscountText {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    p {
+      color: $black2;
+      font-size: $fontSize17px;
+      font-weight: $font-Weight-regular;
+      font-family: $roboto;
+    }
+    span {
+      color: $black2;
+      font-size: $fontSize17px;
+      font-weight: $font-Weight-bold;
+      font-family: $roboto;
+    }
+    .span1 {
+      box-sizing: border-box;
+      padding: 0.18rem 1.73rem 0.37rem 1.15rem;
+      border: 2px solid $orange;
+      background-color: $orange;
+      text-align: center;
+      border-radius: 2.2rem;
+      color: $black2;
+      font-size: $fontSize21px;
+      font-weight: $font-Weight-bold;
+      font-family: $helveticaNeue;
+    }
+  }
+}
