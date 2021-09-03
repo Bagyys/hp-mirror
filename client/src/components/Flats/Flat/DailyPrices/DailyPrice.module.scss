@@ -4,14 +4,11 @@
 .Price{
     margin-right: 1.93rem;
     @include respond(mobile){
-        margin-right: 0;
+        margin-right: 1rem;
     }
     .Separator {
         font-size: inherit;
         font-weight: $font-Weight-regular;
-        @include respond(mobile){
-            margin: 0 .7rem 0 .92rem;
-        }
     }
     span{
         font-size: $fontSize27px;
@@ -21,24 +18,3 @@
         }
     }     
 }
-.QuickViewPrice {
-    margin-right: 1.93rem;
-    @include respond(mobile){
-        margin-right: 0;
-    }
-    .Separator {
-        font-size: inherit;
-        font-weight: $font-Weight-regular;
-        @include respond(mobile){
-            margin: 0 .62rem 0 .92rem;
-        }
-    }
-    span{
-        font-size: $fontSize27px;
-        font-weight: $font-Weight-bold;
-        @include respond(mobile){
-            font-size: $fontSize20px;
-        }
-    }     
-}
-    

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 //Style
-import classes from "./flatInfo.module.scss";
+import classes from './flatInfo.module.scss';
 //Component
-import AppartmentsRewie from "./AppartmentsReview/AppartmentsReview";
+import AppartmentsRewie from './AppartmentsReview/AppartmentsReview';
 
 const FlatInfo = () => {
   return (

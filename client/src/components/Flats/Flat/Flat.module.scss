@@ -12,6 +12,9 @@
             margin: 0 3.3% 2.5% 0;
             &.FlatMain{
                 flex: 0 0 48.35%;
+                @include respond(mobile){
+                    flex: 0 0 73%;
+                }
                 &:nth-child(2n+2){
                     margin-right: 0;
                     @include respond(mobile){
@@ -43,6 +46,7 @@
                     @include respond(mobile){
                         padding: 0 1.57rem 1.4rem 1.17rem;
                         cursor: pointer;
+                        min-height: 23rem;
                     }
                     .Info {
                         .PriceBtnContainer {
@@ -54,12 +58,18 @@
                             bottom: 1.7rem;
                             width: 91%;
                             @include respond(mobile){
-                                align-items: center;
+                                flex-direction: column;
+                                align-items: flex-start;
                             }
                             .FlatBtnsContainer {
                                 visibility: hidden;
                                 opacity: 0;
                                 transition: all 0.3s ease-in;
+                                @include respond(mobile){
+                                    visibility: visible;
+                                    opacity: 1;
+                                    margin:1.5rem auto 0 auto;
+                                }
                             }
                             .PriceContainer {
                                 display: flex;
@@ -67,39 +77,20 @@
                                 font-size: $fontSize19px;
                                 margin-left: 0.14rem;
                                 @include respond(mobile){
-                                    flex-direction: column;
-                                    align-items: flex-end;
                                     font-size: $fontSize18px;
                                 }
                                 .TotalPrice { 
                                     color: $lightGrey4;   
                                     @include respond(mobile){
                                         font-size: $mediumFontSize;
-                                        margin-top: 0.3rem;
                                     }    
                                 }
                             }
-                            .BadgeContainer {
-                                display: flex;
-                                flex-direction: column;
-                                font-size: $smallFontSize;
-                                color: $blackGrey;
-                                p {
-                                    line-height: $fontSize32px;
-                                }
-                            }
-                        }
-                        
+                        }                      
                     }
                 }
                 .FlatImg {
                     position: relative;
-                    .BadgeInContent {
-                        position: absolute;
-                         margin-top: 1.35rem;
-                         right:1.57rem ;
-                         z-index: 1;
-                    }
                 }
             }
         }
