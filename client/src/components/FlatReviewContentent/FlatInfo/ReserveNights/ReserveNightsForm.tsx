@@ -11,6 +11,7 @@ import classes from "./reserveNightsForm.module.scss";
 interface ReservNights {}
 
 const ReserveNightsForm: FC<ReservNights> = (): any => {
+  console.log({ TextField }, "textsadkjaghsdkjashgdkjagshdkjh");
   const [startDate, setStartDate] = useState(new Date());
   const handleDateChange = (date: any) => {
     setStartDate(date);
@@ -46,30 +47,61 @@ const ReserveNightsForm: FC<ReservNights> = (): any => {
         endDate={endDate}
         minDate={startDate}
       /> */}
-      <div className={classes.Selection}>
-        <form className={classes.Form}>
-          <TextField
-            id="date"
-            label="Check In"
-            type="date"
-            defaultValue="2021-09-02"
-            classes={{
-              root: classes.TextField,
-              // FormLabel: classes.text,
-              // label: classes.text
-            }}
-          />
-          <TextField
-            id="date"
-            label="Check In"
-            type="date"
-            defaultValue="2021-09-02"
-            classes={{
-              root: classes.TextField,
-            }}
-          />
-        </form>
-        <Select className={classes.Select} value="Guest" />
+      <div>
+        <div className={classes.Selection}>
+          <form className={classes.Form}>
+            <TextField
+              id="date"
+              label="Check In"
+              type="date"
+              defaultValue="2021-09-02"
+              classes={{
+                root: classes.TextField,
+                
+                // FormLabel: classes.text,
+                // rail: classes.asd,
+                // formControl: classes.SmallText;
+              }}
+              InputProps={{
+                className: classes.asd,
+                classes: {
+                  root: classes.bbd,
+                  // underline: "none",
+                },
+              }}
+            />
+            {console.log(TextField)}
+            <TextField
+              id="date"
+              label="Check In"
+              type="date"
+              defaultValue="2021-09-02"
+              classes={{
+                root: classes.TextField,
+              }}
+            />
+          </form>
+          <Select className={classes.Select} />
+        </div>
+        <div>
+          <button className={classes.ReserveBtn}>Reserve</button>
+          <p className={classes.SmallText}>You won't be charget yet</p>
+        </div>
+        <div className={classes.ReservePaymentInfo}>
+          <span>22$ x 7 nights</span>
+          <span> 220$</span>
+        </div>
+        <div className={classes.ReservePaymentDiscountInfo}>
+          <div className={classes.Layer}>
+            <span className={classes.Discount}> -5%</span>
+            <p>with one week booking</p>
+          </div>
+          <span> -20$</span>
+        </div>
+        <div className={classes.TotalPrice}>
+          <span>Total</span>
+          <span>200$</span>
+        </div>
       </div>
     </>
   );

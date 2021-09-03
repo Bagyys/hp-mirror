@@ -1,6 +1,7 @@
 @import "../../../../styles/global.scss";
 
 .Selection {
+  box-sizing: border-box;
   border: 2px solid $disableBtn;
   border-radius: 1rem;
   .Form {
@@ -13,6 +14,79 @@
   }
 }
 
+.ReserveBtn {
+  width: 100%;
+  height: 6.27rem;
+  border-radius: 3.1rem;
+  border: none;
+  background: linear-gradient(to right, $lightRed, $darkRed);
+  color: $white;
+  font-size: $fontSize22px;
+  font-weight: $font-Weight-bold;
+  font-family: $helvetica;
+}
+.SmallText {
+  text-align: center;
+  color: $blackGrey;
+  font-size: $fontSize18px;
+  font-weight: $font-Weight-regular;
+  font-family: $helvetica;
+  padding-top: 1.62rem;
+}
+.asd {
+  background-color: orange;
+}
+
+.bbd {
+  background-color: pink;
+}
+
 .TextField {
   width: 50%;
+}
+.ReservePaymentInfo {
+  display: flex;
+  justify-content: space-between;
+  span {
+    color: $black2;
+    font-size: $fontSize21px;
+    font-weight: $font-Weight-regular;
+    font-family: $helvetica;
+  }
+}
+.ReservePaymentDiscountInfo {
+  display: flex;
+  justify-content: space-between;
+  .Layer {
+    display: flex;
+  }
+  .Discount {
+    color: $orange;
+    font-size: $fontSize24px;
+    font-weight: $font-Weight-bold;
+    font-family: $helvetica;
+  }
+  p {
+    color: $black2;
+    font-size: $fontSize21px;
+    font-weight: $font-Weight-regular;
+    font-family: $helvetica;
+    padding-left: 0.7rem;
+  }
+  span {
+    color: $black2;
+    font-size: $fontSize21px;
+    font-weight: $font-Weight-regular;
+    font-family: $helvetica;
+  }
+}
+.TotalPrice {
+  display: flex;
+  justify-content: space-between;
+  span {
+    color: $black2;
+    font-size: $fontSize22px;
+    font-weight: $font-Weight-bold;
+    font-family: $helvetica;
+  }
 }
