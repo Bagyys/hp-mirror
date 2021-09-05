@@ -5,8 +5,8 @@
           @content;
         }
       }
-      @if $breakpoint==mobileFilter {
-        @media only screen and (max-width: $mobileFilter) {
+      @if $breakpoint==mobileSmall {
+        @media only screen and (max-width: $mobileSmall) {
           @content;
         }
       }

@@ -20,11 +20,15 @@ const SecondaryNavMobile: React.FC = () => {
   return (
     <div className={classes.SecondaryNavContainer}>
       <div className={classes.BtnContainer}>
-        <Button clicked={toggleFilterHandler} btnType="OpenFilter">
+        <Button
+          clicked={toggleFilterHandler}
+          btnType="OpenFilter"
+          bgColor="White"
+        >
           <img src={filterImg} />
         </Button>
         <Link to="/favorites">
-          <Button btnType="MobileFavorite">
+          <Button btnType="MobileSecondaryNavFavorite" bgColor="White">
             <img src={favoriteMob} alt="favorite-mobile" />
           </Button>
         </Link>

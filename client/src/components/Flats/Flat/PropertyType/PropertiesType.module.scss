@@ -5,11 +5,10 @@
     line-height: $lineHeight26px;
     font-family: $helveticaNeue;
     margin-bottom: 0.75rem;
-    max-width: 31.5rem;
+    width: 80%;
     @include respond(mobile){
         font-size: $fontSize18px;
         line-height: $lineHeight20px;
-        margin-bottom: 0.41rem;
-        width: 80%;
+        margin-bottom: 1.5rem;
     }
     }

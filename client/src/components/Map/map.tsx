@@ -15,7 +15,6 @@ function Map() {
   );
   const dispatch = useDispatch();
   const { properties, quickViewPropertyId, activePropertyCord } = propertyStore;
-
   const [bounds, setBounds] = useState<any>(null);
   const markerClickedHandler = (id: string) => {
     const clickedProperty = properties?.find((_, i) => i === Number(id));

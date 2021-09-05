@@ -10,5 +10,7 @@
     @include respond(mobile){
         font-size: $fontSize17px;
         line-height: $lineHeight17px;
+        margin-top: 0;
+        margin-bottom: 2.2rem;
     }
 }

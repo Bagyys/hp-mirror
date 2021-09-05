@@ -8,8 +8,8 @@ import { ErrorState } from '../../store/reducers/errorReducer';
 import { PropertyInterface } from '../../store/types/propertyInterfaces';
 import {
   activePropertyCordsAction,
+  addRecentlyViewedAction,
   currentPageAction,
-  getAllPropertiesAction,
   pageSizeAction,
   quickViewAction,
 } from '../../store/actions/propertyActions';
@@ -29,9 +29,11 @@ import { FilterState } from '../../store/reducers/filterReducer';
 import Backdrop from '../Backdrop/Backdrop';
 import { toggleFilterButtonAction } from '../../store/actions/filterActions';
 import { cn } from '../../utilities/joinClasses';
+import QuickViewFlatFavoritePc from './QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
+import MyBooking from './MyBooking/MyBooking';
+import { filterArrayById } from '../../utilities/filterArrayById';
 
 interface FlatsProps {
-  properties: PropertyInterface[];
   isMain: boolean;
 }
 const Flats: React.FC<FlatsProps> = (props) => {
@@ -45,9 +47,18 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
-  const { quickViewPropertyId, pageSizeMain, currentPage, pageSizeFavorite } =
-    propertyStore;
-  const quickViewData = props.properties.find(
+  const {
+    quickViewPropertyId,
+    pageSizeMain,
+    currentPage,
+    pageSizeFavorite,
+    properties,
+    recentlyViewedProperties,
+  } = propertyStore;
+  const propertiesList = props.isMain
+    ? properties
+    : filterArrayById(properties, user.favorites);
+  const quickViewData = propertiesList.find(
     (item) => item._id === quickViewPropertyId
   );
 
@@ -55,13 +66,12 @@ const Flats: React.FC<FlatsProps> = (props) => {
     (state: StoreState) => state.error
   );
   const { error } = errorState;
-
+  console.log(recentlyViewedProperties);
   useEffect(() => {
     dispatch(quickViewAction(''));
   }, [currentPage, pageSizeMain]);
 
   useEffect(() => {
-    dispatch(getAllPropertiesAction());
     dispatch(currentPageAction(1));
   }, []);
 
@@ -90,8 +100,8 @@ const Flats: React.FC<FlatsProps> = (props) => {
       (currentPage - 1) * (props.isMain ? pageSizeMain : pageSizeFavorite);
     const lastPageIndex =
       firstPageIndex + (props.isMain ? pageSizeMain : pageSizeFavorite);
-    return props.properties.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, pageSizeMain, pageSizeFavorite, props.properties]);
+    return propertiesList.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, pageSizeMain, pageSizeFavorite, propertiesList]);
 
   const pageSizeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(pageSizeAction(Number(e.target.value)));
@@ -102,8 +112,16 @@ const Flats: React.FC<FlatsProps> = (props) => {
   };
 
   const QuickViewHandler = (id: string, cord: any) => {
-    dispatch(activePropertyCordsAction(cord));
+    //pakeist any
+    props.isMain && dispatch(activePropertyCordsAction(cord));
     dispatch(quickViewAction(id));
+    dispatch(
+      addRecentlyViewedAction(
+        id,
+        recentlyViewedProperties,
+        props.isMain ? 2 : 4
+      )
+    );
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -113,19 +131,38 @@ const Flats: React.FC<FlatsProps> = (props) => {
     dispatch(toggleFilterButtonAction(!isFilterOpen));
   };
   let propertiesRender = <></>;
-  if (props.properties.length > 0) {
+  if (propertiesList.length > 0) {
     propertiesRender = (
       <React.Fragment>
-        {!props.isMain && <h2>Your favorites</h2>}
-        <ul className={classes.FlatsListConatiner}>
-          {quickViewData && (
-            <>
-              <QuickViewFlat
-                close={() => dispatch(quickViewAction(''))}
-                property={quickViewData}
-              />
-              <li></li>
-            </>
+        {/* Title for Favorite page PC */}
+        {!props.isMain && !isMobile && <h2>Your favorites</h2>}
+        {/* QuickView for filter page mobile and pc, and favorite page mobile */}
+        {quickViewData && (props.isMain || isMobile) && (
+          <QuickViewFlat
+            clickedLike={() => favoritesHandler(quickViewData._id)}
+            liked={isStringInArray(quickViewData._id, user.favorites)}
+            close={() => dispatch(quickViewAction(''))}
+            property={quickViewData}
+            isMain={props.isMain}
+          />
+        )}
+        <ul
+          className={cn(
+            classes.FlatsListConatiner,
+            props.isMain
+              ? classes.FlatsListConatinerMain
+              : classes.FlatsListConatinerFavorite
+          )}
+        >
+          {/* QuickView for favorite page pc */}
+          {quickViewData && !props.isMain && !isMobile && (
+            <QuickViewFlatFavoritePc
+              clickedLike={() => favoritesHandler(quickViewData._id)}
+              liked={isStringInArray(quickViewData._id, user.favorites)}
+              close={() => dispatch(quickViewAction(''))}
+              property={quickViewData}
+              isMain={props.isMain}
+            />
           )}
           {currentPaginationData
             .filter((item) => item._id !== quickViewPropertyId)
@@ -148,10 +185,12 @@ const Flats: React.FC<FlatsProps> = (props) => {
     );
   }
   let recentlyViewPropertiesRender = <></>;
-  if (!isMobile && props.properties.length > 0) {
-    const recentlyView = props.isMain
-      ? props.properties.slice(-2)
-      : props.properties.slice(-4); //tiesiog isvedu paskutinius apartamentus
+  let recentlyViewed = filterArrayById(
+    properties,
+    recentlyViewedProperties
+  ).reverse();
+  if (!isMobile && recentlyViewed.length > 0) {
+    let recentlyView = props.isMain ? recentlyViewed.slice(-2) : recentlyViewed;
     recentlyViewPropertiesRender = (
       <div className={classes.RecentlyViewContainer}>
         <h2>Recently viewed</h2>
@@ -172,7 +211,20 @@ const Flats: React.FC<FlatsProps> = (props) => {
       </div>
     );
   }
-
+  let myBookingsRender = <></>;
+  if (!props.isMain) {
+    const bookings = propertiesList.slice(-2);
+    myBookingsRender = (
+      <React.Fragment>
+        <h2>Your Bookings</h2>
+        <ul className={classes.MyBookingContainer}>
+          {bookings.map((property) => (
+            <MyBooking key={property._id} BookedProperty={property} />
+          ))}
+        </ul>
+      </React.Fragment>
+    );
+  }
   return (
     <div
       className={cn(
@@ -181,13 +233,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
           ? classes.FlatsContainerMain
           : classes.FlatsContainerFavorite
       )}
-      style={
-        isMobile
-          ? quickViewData
-            ? { margin: '29rem 0 0 0' }
-            : { margin: '0' }
-          : {}
-      }
     >
       <div
         className={cn(
@@ -201,7 +246,11 @@ const Flats: React.FC<FlatsProps> = (props) => {
           style={props.isMain && isMobile ? { display: 'none' } : {}}
           className={classes.FilterBtnContainer}
         >
-          <Button clicked={toggleFilterHandler} btnType="OpenFilter">
+          <Button
+            clicked={toggleFilterHandler}
+            btnType={props.isMain ? 'OpenFilter' : 'OpenFilterFavorite'}
+            bgColor="Grey"
+          >
             <img src={filterImg} />
           </Button>
           {!props.isMain && <h1>Favorites</h1>}
@@ -216,20 +265,25 @@ const Flats: React.FC<FlatsProps> = (props) => {
               </select>
             </div>
           )}
-          <p className={classes.PcResults}>{props.properties.length} results</p>
-          <p className={classes.MobileResults}>
-            {props.properties.length} places to stay{' '}
-            <img src={arrow} alt="Arrow2" />
-          </p>
+
+          {props.isMain && isMobile ? (
+            <p className={classes.MobileResults}>
+              {propertiesList.length} places to stay{' '}
+              <img src={arrow} alt="Arrow2" />
+            </p>
+          ) : (
+            <p className={classes.PcResults}>{propertiesList.length} results</p>
+          )}
         </div>
       </div>
-
+      {/* {!props.isMain && <MyBooking />} */}
+      {myBookingsRender}
       {propertiesRender}
       {!isMobile && (
         <>
           <Pagination
             currentPage={currentPage}
-            totalCount={props.properties.length}
+            totalCount={propertiesList.length}
             pageSize={props.isMain ? pageSizeMain : pageSizeFavorite}
             onPageChange={(page) => dispatch(currentPageAction(page))}
           />

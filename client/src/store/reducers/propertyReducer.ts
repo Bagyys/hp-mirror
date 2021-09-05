@@ -13,7 +13,8 @@ export interface PropertyState {
   pageSizeMain:number;
   pageSizeFavorite:number;
   currentPage:number;
-  activePropertyCord:{lat:number,lng:number}
+  activePropertyCord:{lat:number,lng:number};
+  recentlyViewedProperties:Array<string>;
 }
 
 const initialState: PropertyState = {
@@ -24,7 +25,8 @@ const initialState: PropertyState = {
   pageSizeFavorite:12,
   currentPage:1,
   activePropertyCord:{lat: 54.687157,
-    lng: 25.279652,}
+    lng: 25.279652,},
+  recentlyViewedProperties:[] as Array<string>
 };
 
 const propertyReducer = (
@@ -79,6 +81,16 @@ const propertyReducer = (
         ...state,
         activePropertyCord:action.payload,
       };  
+    case propertyTypes.ADD_RECENTLY_VIEWED:
+      return {
+        ...state,
+        recentlyViewedProperties:action.payload,
+      };  
+      // case propertyTypes.RESET_PROPERTY_CORDS:
+      // return {
+      //   ...state,
+      //   activePropertyCord:initialState.activePropertyCord,
+      // };  
     default:
       return state;
   }

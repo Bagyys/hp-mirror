@@ -19,6 +19,7 @@
         font-size: $fontSize18px;
         width: 5.3rem;
         line-height: 3.3rem;
+        margin-bottom: 0.4rem;
     }
 }
 %shared-after {
@@ -52,9 +53,15 @@
         @extend %shared-after;
         top: -5.2rem;
         right: -6.4rem;
+        @include respond(mobile){
+            display: none;
+        }
     }
     &:hover:before {
         @extend %shared-before;
+        @include respond(mobile){
+            display: none;
+        }
     }
 }
 .Badge20 {
@@ -63,9 +70,15 @@
         @extend %shared-after;
         top: -5.2rem;
         right: -10.4rem;
+        @include respond(mobile){
+            display: none;
+        }
     }
     &:hover:before {
         @extend %shared-before;
+        @include respond(mobile){
+            display: none;
+        }
     }
 }
 %shared-long-short-badge {
@@ -82,11 +95,11 @@
     //     margin-bottom: 0
     // }
 }
-.BadgeDiscountLongOrShort {
+.BadgeDiscountLong {
     @extend %shared-long-short-badge;
     background-color: $orange;
 }
-.BadgeCancelationOrDate{
+.BadgeCancelation{
     @extend %shared-long-short-badge;
     background-color: $lightGrey2;
 }

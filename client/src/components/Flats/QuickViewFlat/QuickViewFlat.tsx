@@ -13,37 +13,47 @@ import { PropertyInterface } from '../../../store/types/propertyInterfaces';
 import GroupedBadges from '../Flat/GroupedBadges/GroupedBadges';
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { cn } from '../../../utilities/joinClasses';
+import Favorites from '../Flat/Favorites/Favorites';
 interface QuickViewFlatProps {
   property: PropertyInterface;
   close: () => void;
+  isMain: boolean;
+  liked: boolean;
+  clickedLike: () => void;
 }
 
 const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
   return (
-    <li className={classes.QuickViewFlatContainer}>
-      <div className={classes.SliderWithInfoContainer}>
-        <ImageSlider borders="QuickView" slides={props.property.images} />
-        <div className={classes.InfoContainer}>
-          <Ratings
-            overallRating={props.property.overallRating}
-            ratingsCount={props.property.ratingsCount}
-          />
-          <PropertiesType>{props.property.type}</PropertiesType>
-          {isMobile ? (
-            <GroupedBadges {...props.property.discount} />
-          ) : (
-            <MainInformation facilities={props.property.facilities} />
-          )}
-        </div>
+    <div
+      className={cn(
+        classes.QuickViewFlatContainer,
+        props.isMain
+          ? classes.QuickViewFlatContainerMain
+          : classes.QuickViewFlatContainerFavorite
+      )}
+    >
+      <div className={classes.SliderContainer}>
+        <ImageSlider sliderClass="QuickView" slides={props.property.images} />
+        <Favorites liked={props.liked} clickedLike={props.clickedLike} />
+      </div>
+      <div className={classes.InfoContainer}>
+        <Ratings
+          overallRating={props.property.overallRating}
+          ratingsCount={props.property.ratingsCount}
+        />
+        <PropertiesType>{props.property.type}</PropertiesType>
+        {isMobile && <GroupedBadges {...props.property.discount} />}
+        <MainInformation facilities={props.property.facilities} />
       </div>
       <div className={classes.ExtraInformationContainer}>
         {!isMobile && (
           <React.Fragment>
-            <Badge badge="BadgeDiscountLongOrShort">
+            <Badge badge="BadgeDiscountLong">
               Discount available on long term
             </Badge>
-            <Badge badge="BadgeCancelationOrDate">
+            <Badge badge="BadgeCancelation">
               Free cancelation until July 6
             </Badge>
           </React.Fragment>
@@ -51,7 +61,12 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
 
         <InformationWithIcons facilities={props.property.facilities} />
       </div>
-      <div className={classes.AboutPlaceContainer}>
+      <div
+        style={
+          isMobile && props.isMain ? { display: 'none' } : { display: 'block' }
+        }
+        className={classes.AboutPlaceContainer}
+      >
         <AboutPlace>{props.property.description}</AboutPlace>
       </div>
       <div className={classes.PriceBtnContainer}>
@@ -69,11 +84,13 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
               state: { property: props.property },
             }}
           >
-            <Button btnType={'FlatInfo'}>Read all details and Reserve</Button>
+            <Button btnType={'FlatInfo'} bgColor="Blue">
+              Read all details and Reserve
+            </Button>
           </Link>
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 export default QuickViewFlat;
