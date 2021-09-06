@@ -7,8 +7,8 @@
     margin-left: 1%;
     @include respond(mobile) {
         order: -1;
-        flex: 0 0 100%;
-        height: 39rem;
+        flex: 1 0 100%;
+        height: 46rem;
         margin-left: 0;
     }
 }

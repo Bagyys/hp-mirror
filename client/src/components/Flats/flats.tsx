@@ -66,7 +66,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
     (state: StoreState) => state.error
   );
   const { error } = errorState;
-  console.log(recentlyViewedProperties);
   useEffect(() => {
     dispatch(quickViewAction(''));
   }, [currentPage, pageSizeMain]);
@@ -189,8 +188,11 @@ const Flats: React.FC<FlatsProps> = (props) => {
     properties,
     recentlyViewedProperties
   ).reverse();
+  //issiaiskinti reikiama funkcionaluma
   if (!isMobile && recentlyViewed.length > 0) {
-    let recentlyView = props.isMain ? recentlyViewed.slice(-2) : recentlyViewed;
+    let recentlyView = props.isMain
+      ? recentlyViewed.slice(0, 2)
+      : recentlyViewed;
     recentlyViewPropertiesRender = (
       <div className={classes.RecentlyViewContainer}>
         <h2>Recently viewed</h2>
@@ -212,8 +214,9 @@ const Flats: React.FC<FlatsProps> = (props) => {
     );
   }
   let myBookingsRender = <></>;
-  if (!props.isMain) {
-    const bookings = propertiesList.slice(-2);
+  //Testinis
+  if (!props.isMain && propertiesList.length > 0) {
+    const bookings = propertiesList.slice(-1);
     myBookingsRender = (
       <React.Fragment>
         <h2>Your Bookings</h2>
