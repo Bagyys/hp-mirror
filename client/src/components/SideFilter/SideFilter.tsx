@@ -258,7 +258,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   return (
     <div className={classes.SideFilterContainer}>
       <div className={classes.SideFilterNav}>
-        <Button clicked={toggleHandler} btnType="CloseFilter">
+        <Button clicked={toggleHandler} btnType="CloseFilter" bgColor="Grey">
           <img src={close} />
           <span>Close</span>
         </Button>
@@ -266,7 +266,7 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
           <Button clicked={Clear} btnType="ClearFilter">
             Clear
           </Button>
-          <Button clicked={Save} btnType="SaveFilter">
+          <Button clicked={Save} btnType="SaveFilter" bgColor="Black">
             Save
           </Button>
         </div>

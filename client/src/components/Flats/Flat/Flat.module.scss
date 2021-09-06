@@ -10,9 +10,14 @@
             border-radius: 1rem;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
             margin: 0 3.3% 2.5% 0;
+            @include respond(mobile){
+                flex: 0 0 73%;
+            }
             &.FlatMain{
                 flex: 0 0 48.35%;
                 @include respond(mobile){
+                    margin-right: 0.64rem;
+                    margin-left: 0.64rem;
                     flex: 0 0 73%;
                 }
                 &:nth-child(2n+2){
@@ -28,13 +33,11 @@
                 &:nth-child(4n+4){
                     margin-right: 0;
                 }
+                @include respond(mobile){
+                    margin: 0 0 3rem 0;
+                }
             }
-            @include respond(mobile){
-                flex: 0 0 73%;
-                margin-right: 0.64rem;
-                margin-left: 0.64rem;
-            }
-            &:hover .FlatContent .InfoContainer .Info .PriceBtnContainer .FlatBtnsContainer {
+            &:hover .FlatContent .InfoContainer .PriceBtnContainer .FlatBtnsContainer {
                 visibility: visible;
                 opacity: 1;
             }
@@ -43,51 +46,55 @@
                     padding: 0 1.57rem 1.6rem 1.76rem;
                     position: relative;
                     min-height: 19rem;
-                    @include respond(mobile){
-                        padding: 0 1.57rem 1.4rem 1.17rem;
-                        cursor: pointer;
-                        min-height: 23rem;
+                    &.InfoContainerMain{
+                        @include respond(mobile){
+                            padding: 0 1.57rem 1.4rem 1.17rem;
+                            min-height: 23rem;
+                        }
                     }
-                    .Info {
-                        .PriceBtnContainer {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: flex-end;
-                            color:$black2;
-                            position: absolute;
-                            bottom: 1.7rem;
-                            width: 91%;
+                    &.InfoContainerFavorite{
+                       @include respond(mobile){
+                            min-height: initial;
+                        }
+                    }
+                    .PriceBtnContainer {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-end;
+                        color:$black2;
+                        bottom: 1.7rem;
+                        width: 91%;
+                        @include respond(mobile){
+                            flex-direction: column;
+                            align-items: flex-start;
+                            width: 100%;
+                        }
+                        .FlatBtnsContainer {
+                            visibility: hidden;
+                            opacity: 0;
+                            transition: all 0.3s ease-in;
                             @include respond(mobile){
-                                flex-direction: column;
-                                align-items: flex-start;
+                                visibility: visible;
+                                opacity: 1;
+                                margin:1.5rem auto 0 auto;
                             }
-                            .FlatBtnsContainer {
-                                visibility: hidden;
-                                opacity: 0;
-                                transition: all 0.3s ease-in;
+                        }
+                        .PriceContainer {
+                            display: flex;
+                            align-items: baseline;
+                            font-size: $fontSize19px;
+                            margin-left: 0.14rem;
+                            @include respond(mobile){
+                                font-size: $fontSize18px;
+                            }
+                            .TotalPrice { 
+                                color: $lightGrey4;   
                                 @include respond(mobile){
-                                    visibility: visible;
-                                    opacity: 1;
-                                    margin:1.5rem auto 0 auto;
-                                }
+                                    font-size: $mediumFontSize;
+                                }    
                             }
-                            .PriceContainer {
-                                display: flex;
-                                align-items: baseline;
-                                font-size: $fontSize19px;
-                                margin-left: 0.14rem;
-                                @include respond(mobile){
-                                    font-size: $fontSize18px;
-                                }
-                                .TotalPrice { 
-                                    color: $lightGrey4;   
-                                    @include respond(mobile){
-                                        font-size: $mediumFontSize;
-                                    }    
-                                }
-                            }
-                        }                      
-                    }
+                        }
+                    }  
                 }
                 .FlatImg {
                     position: relative;

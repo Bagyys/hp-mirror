@@ -12,7 +12,7 @@
             margin-right: .5rem;
         }
     }
-    @include respond(mobileFilter){
+    @include respond(mobileSmall){
         flex: 0 0 17rem;
     }
     &:nth-child(2n){

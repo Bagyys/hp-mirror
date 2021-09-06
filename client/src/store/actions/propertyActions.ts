@@ -4,6 +4,7 @@ import propertyTypes from "../types/propertyTypes";
 import errorTypes from "../types/errorTypes";
 import { PropertyInterface } from "../types/propertyInterfaces";
 import { fakeData } from '../../fakeData/data'; //Fake data demo
+import { isStringInArray } from "../../utilities/isStringInArray";
 
 // -------------------- URLS --------------------
 
@@ -68,6 +69,13 @@ export interface ActivePropertyCords
   extends Action<typeof propertyTypes.ADD_ACTIVE_PROPERTY_CORDS> {
   payload: {lat:number,lng:number};
 }
+export interface AddRecentlyViewed
+  extends Action<typeof propertyTypes.ADD_RECENTLY_VIEWED> {
+  payload: string;
+}
+// export interface ResetPropertyCords
+//   extends Action<typeof propertyTypes.RESET_PROPERTY_CORDS> {
+// }
 
 export type PropertyActions =
   | GetAllPropertiesStart
@@ -84,7 +92,8 @@ export type PropertyActions =
   | QuickViewProperty
   | PaginationPageSize
   | PaginationCurrentPage
-  | ActivePropertyCords;
+  | ActivePropertyCords
+  | AddRecentlyViewed;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -229,5 +238,30 @@ export const quickViewAction =
       payload: cords,
     });
   };
+
+  export const addRecentlyViewedAction =
+  (id:string,properties:Array<string>,total:number) => (dispatch: Dispatch) => {
+     let newData = [...properties];
+     let isRecentlyViewed = isStringInArray(id, newData);
+    if(!isRecentlyViewed){
+      if(total==2 &&newData.length>1){
+        newData.slice(0,newData.length-total)
+        console.log('newdata  '+newData)
+      } 
+      
+      newData.length>(total-1)&&newData.shift();
+      newData.push(id);
+    }
+    dispatch({
+      type: propertyTypes.ADD_RECENTLY_VIEWED,
+      payload: newData,
+    });
+  };
+  // export const resetPropertyCordsAction =
+  // () => (dispatch: Dispatch) => {
+  //   dispatch({
+  //     type: propertyTypes.RESET_PROPERTY_CORDS
+  //   });
+  // };
 
 // -------------------- END of ACTIONS --------------------

@@ -8,11 +8,16 @@
         flex: 0 0 44.7%;
         margin-left: 4.7rem;
         margin-top: 2.87rem;
+        @include respond(mobile){
+            margin:0;
+        }
     }
     &.FlatsContainerFavorite{
         flex: 1;
         margin: 2.87rem 5rem 0 6.6rem;
-
+        @include respond(mobile){
+            margin:0 2rem;
+        }
     }
     h2 {
         font-size: $fontSize33px;
@@ -44,20 +49,13 @@
                 line-height: $lineHeight36px;
                 font-size: $fontSize19px;
                 color:$blackGrey;
-                @include respond(mobile){
-                    display: none;
-                }
             }
             .MobileResults{
                 line-height: $lineHeight41px;
                 font-size: $smallFontSize;
                 color:$black2;
-                display: none;
                 img{
                     margin-left: 1.4rem;
-                }
-                @include respond(mobile){
-                    display: block;
                 }
             }
         }
@@ -70,22 +68,35 @@
                 font-family: $helveticaNeue;
                 color: $black;
                 margin-left: 3rem;
+                @include respond(mobile){
+                    font-size: $fontSize18px;
+                    margin-left: 1.6rem;
+                }
             }
             // @include respond(mobile){
             //     display: none;
             // }
         }
     }
-    .FlatsListConatiner {
+    .FlatsListConatiner{
         display:flex;
         flex-wrap: wrap;
         margin-bottom: 6.22rem;
+        &.FlatsListConatinerMain {       
         @include respond(mobile){
             flex-wrap: nowrap;
             overflow-y: auto;
             margin-bottom: 2.58rem;
             padding-top: 0.2rem;
             padding-left: 1.2rem;
+        }
+        }
+        &.FlatsListConatinerFavorite{
+            
+            @include respond(mobile){
+                display: block;
+                margin-bottom: 2.58rem;
+            }
         }
     }
     .RecentlyViewContainer {

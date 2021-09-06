@@ -1,0 +1,17 @@
+@import "../../../../styles/global.scss";
+.Header {
+  h3 {
+    color: black;
+    font-size: $fontSize30px;
+    font-weight: $font-Weight-bold;
+    font-family: $helveticaNeue;
+  }
+  p {
+    color: $blackGrey;
+    font-size: $fontSize18px;
+    font-weight: $font-Weight-regular;
+    font-family: $helveticaNeue;
+    padding-top: 0.8rem;
+  }
+}
+

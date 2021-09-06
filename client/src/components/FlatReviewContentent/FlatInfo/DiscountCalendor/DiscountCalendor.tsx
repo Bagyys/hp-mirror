@@ -30,6 +30,12 @@ const DiscountCalendor = () => {
           </div>
         </div>
         <Calendor />
+        <div className={classes.BtnLayer}>
+          <div className={classes.BtnPosition}>
+            <button>Clear</button>
+            <button>Save</button>
+          </div>
+        </div>
       </div>
     </>
   );

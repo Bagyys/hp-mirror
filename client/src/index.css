@@ -193,6 +193,7 @@ table {
 .slider-slide {
   outline: none ;
 }
+
 .slider-list {
   margin: 0 !important;
   cursor: default !important;
@@ -223,6 +224,11 @@ table {
 }
 .gm-bundled-control .gmnoprint div .gm-control-active+div{
     width: 6rem !important;
+}
+@media only screen and (max-width: 665px) {
+  .gm-bundled-control{
+    display: none !important;
+  }
 }
 /* * {
   background: #000 !important;

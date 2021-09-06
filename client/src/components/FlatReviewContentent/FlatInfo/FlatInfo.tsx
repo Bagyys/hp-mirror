@@ -5,7 +5,8 @@ import classes from "./flatInfo.module.scss";
 import AppartmentsRewie from "../FlatInfo/ApartmentsReview/ApartmentsReview";
 import PlaceOffers from "./PlaceOffers/PlaceOffers";
 import DiscountCalendor from "./DiscountCalendor/DiscountCalendor";
-
+import CommentsSection from "./CommentsSection/CommentsSection";
+import Location from "./Location/Location";
 const FlatInfo = () => {
   return (
     <>
@@ -13,6 +14,8 @@ const FlatInfo = () => {
         <AppartmentsRewie />
         <PlaceOffers />
         <DiscountCalendor />
+        <CommentsSection />
+        <Location />
       </div>
     </>
   );

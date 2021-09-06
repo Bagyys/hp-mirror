@@ -395,7 +395,7 @@ export const addToFavoriteAction = (id:string,favorites:Array<string>) =>  (disp
   });
 }; 
 
-export const toggleMenuButtonAction = (isOpen:boolean) =>  (dispatch: Dispatch) => {
+export const toggleNavMenuButtonAction = (isOpen:boolean) =>  (dispatch: Dispatch) => {
   dispatch({
     type: userTypes.TOGGLE_MENU_BUTTON,
     payload: isOpen,

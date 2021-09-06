@@ -5,7 +5,7 @@ import Button from '../../Button/button';
 import GroupedBadges from './GroupedBadges/GroupedBadges';
 import Ratings from './Ratings/Ratings';
 import Favorites from './Favorites/Favorites';
-import PropertyType from './PropertyType/PropertiesType';
+import PropertiesType from './PropertyType/PropertiesType';
 import MainInformation from './MainInformation/MainInformation';
 import { Link } from 'react-router-dom';
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
@@ -32,31 +32,47 @@ const Flat: React.FC<FlatProps> = (props) => {
     >
       <div className={classes.FlatContent}>
         <div className={classes.FlatImg}>
-          <ImageSlider borders="FlatCard" slides={props.property.images} />
+          <ImageSlider sliderClass="FlatCard" slides={props.property.images} />
           <Favorites liked={props.liked} clickedLike={props.clickedLike} />
         </div>
-        <div className={classes.InfoContainer}>
-          <div className={classes.Info}>
-            <GroupedBadges {...props.property.discount} />
-            <Ratings
-              overallRating={props.property.overallRating}
-              ratingsCount={props.property.ratingsCount}
-            />
-            <PropertyType>{props.property.type}</PropertyType>
+        <div
+          className={cn(
+            classes.InfoContainer,
+            props.isMain
+              ? classes.InfoContainerMain
+              : classes.InfoContainerFavorite
+          )}
+        >
+          <GroupedBadges {...props.property.discount} />
+          <Ratings
+            overallRating={props.property.overallRating}
+            ratingsCount={props.property.ratingsCount}
+          />
+          <PropertiesType>{props.property.type}</PropertiesType>
 
-            <MainInformation facilities={props.property.facilities} />
+          <MainInformation facilities={props.property.facilities} />
 
-            <div className={classes.PriceBtnContainer}>
-              <div className={classes.PriceContainer}>
-                <DailyPrice price={props.property.price.daily} />
-                <p className={classes.TotalPrice}>244€ total</p>
-              </div>
+          <div
+            style={
+              !props.isMain && isMobile
+                ? { position: 'initial' }
+                : { position: 'absolute' }
+            }
+            className={classes.PriceBtnContainer}
+          >
+            <div className={classes.PriceContainer}>
+              <DailyPrice price={props.property.price.daily} />
+              <p className={classes.TotalPrice}>244€ total</p>
+            </div>
 
-              <div className={classes.FlatBtnsContainer}>
-                <Button clicked={props.quickViewClicked} btnType={'FlatInfo'}>
-                  Quick View
-                </Button>
-              </div>
+            <div className={classes.FlatBtnsContainer}>
+              <Button
+                clicked={props.quickViewClicked}
+                btnType={'FlatInfo'}
+                bgColor="Blue"
+              >
+                Quick View
+              </Button>
             </div>
           </div>
         </div>
