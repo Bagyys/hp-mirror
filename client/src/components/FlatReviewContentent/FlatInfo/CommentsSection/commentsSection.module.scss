@@ -1,0 +1,92 @@
+@import "../../../../styles/global.scss";
+
+.BorderLine {
+  box-sizing: border-box;
+  border-top: 1px solid $grey;
+  margin-left: 9.9rem;
+  width: 150rem;
+}
+.ReviewsLayer {
+  box-sizing: border-box;
+  padding-top: 5rem;
+  padding-left: 9.9rem;
+  padding-bottom: 8.2rem;
+  width: 163.2rem;
+  display: flex;
+  .Reviews {
+    font-size: $fontSize30px;
+    font-weight: $font-Weight-bold;
+    color: black;
+    font-family: $helveticaNeue;
+  }
+  .StarRating {
+    .RatingNumber {
+      font-size: $fontSize26px;
+      font-weight: $font-Weight-bold;
+      color: $black2;
+      font-family: $helveticaNeue;
+      margin: 0 0.97rem 0 0.77rem;
+    }
+    .Reviews {
+      font-size: $fontSize18px;
+      font-weight: $font-Weight-regular;
+      color: $blackGrey;
+      font-family: $helveticaNeue;
+    }
+  }
+}
+.CommnetLayer {
+  .Collumn {
+    box-sizing: border-box;
+    padding-left: 9.9rem;
+    width: 163.2rem;
+
+    .CommentBox {
+      display: inline-block;
+      width: 50%;
+      padding-bottom: 6.7rem;
+
+      img {
+        display: inline-block;
+        box-sizing: border-box;
+        vertical-align: top;
+        width: 10%;
+        max-width: 5.7rem;
+        height: auto;
+        border-radius: 50%;
+      }
+      .CommentInfo {
+        display: inline-block;
+        box-sizing: border-box;
+        vertical-align: middle;
+        width: 90%;
+        height: 100%;
+        padding-left: 1rem;
+        span {
+          padding-top: 0.5rem;
+          padding-bottom: 0.5rem;
+          display: block;
+          font-size: $fontSize20px;
+          font-weight: $font-Weight-medium;
+          color: black;
+          font-family: $helveticaNeue;
+        }
+
+        .date {
+          font-size: $fontSize18px;
+          font-weight: $font-Weight-regular;
+          color: $blackGrey;
+          font-family: $helveticaNeue;
+          padding-bottom: 3rem;
+        }
+        p {
+          display: block;
+          font-size: $fontSize18px;
+          font-weight: $font-Weight-regular;
+          color: $black2;
+          font-family: $helveticaNeue;
+        }
+      }
+    }
+  }
+}

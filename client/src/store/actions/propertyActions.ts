@@ -260,4 +260,29 @@ export const activePropertyCordsAction =
 //   });
 // };
 
+  export const addRecentlyViewedAction =
+  (id:string,properties:Array<string>,total:number) => (dispatch: Dispatch) => {
+     let newData = [...properties];
+     let isRecentlyViewed = isStringInArray(id, newData);
+    if(!isRecentlyViewed){
+      if(total==2 &&newData.length>1){
+        newData.slice(0,newData.length-total)
+        console.log('newdata  '+newData)
+      } 
+      
+      newData.length>(total-1)&&newData.shift();
+      newData.push(id);
+    }
+    dispatch({
+      type: propertyTypes.ADD_RECENTLY_VIEWED,
+      payload: newData,
+    });
+  };
+  // export const resetPropertyCordsAction =
+  // () => (dispatch: Dispatch) => {
+  //   dispatch({
+  //     type: propertyTypes.RESET_PROPERTY_CORDS
+  //   });
+  // };
+
 // -------------------- END of ACTIONS --------------------

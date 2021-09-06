@@ -1,7 +1,7 @@
 @import "../../../../styles/global.scss";
 .Layer {
   box-sizing: border-box;
-  padding: 0 94.7rem 0 9.9rem;
+  padding: 3.2rem 94.7rem 0 9.9rem;
   .Header {
     h3 {
       color: black;
@@ -23,12 +23,13 @@
     border-radius: 2.6rem;
     margin-left: 4.3rem;
     margin-top: 5.84rem;
+    padding-bottom: 2.8rem;
     h4 {
       color: $black2;
       font-size: $fontSize21px;
       font-weight: $font-Weight-regular;
       font-family: $helveticaNeue;
-      padding: 3.3rem 20.62rem 0 5.36rem;
+      padding: 3.3rem 20.62rem 2.83rem 5.36rem;
     }
   }
   .DiscountTextInfo {
@@ -36,13 +37,16 @@
   }
   .DiscountText {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     text-align: center;
+    padding-right: 3.2rem;
     p {
       color: $black2;
       font-size: $fontSize17px;
       font-weight: $font-Weight-regular;
       font-family: $roboto;
+      padding-top: 0.8rem;
+      padding-left: 0.76rem;
     }
     span {
       color: $black2;
@@ -52,10 +56,15 @@
     }
     .span1 {
       box-sizing: border-box;
-      padding: 0.18rem 1.73rem 0.37rem 1.15rem;
+
+      width: 6.481rem;
+      height: 3.356rem;
+
+      padding-top: 0.4rem;
+
       border: 2px solid $orange;
       background-color: $orange;
-      text-align: center;
+
       border-radius: 2.2rem;
       color: $black2;
       font-size: $fontSize21px;
@@ -63,4 +72,31 @@
       font-family: $helveticaNeue;
     }
   }
+
+  .BtnLayer {
+    .BtnPosition {
+      padding-right: 2.3rem;
+      padding-top: 3.23rem;
+      display: flex;
+      justify-content: flex-end;
+      // border-bottom: 7.2rem;
+      button {
+        width: 9.9rem;
+        height: 4.6rem;
+        border-radius: 1.1rem;
+        color: $grey;
+        font-size: $fontSize20px;
+        font-weight: $font-Weight-bold;
+        font-family: $helveticaNeue;
+        background-color: $white;
+        border: none;
+
+        &:hover {
+          background-color: $black2;
+          color: $white;
+        }
+      }
+    }
+  }
 }
+
