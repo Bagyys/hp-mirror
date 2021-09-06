@@ -1,5 +1,4 @@
 import { Route, Switch } from 'react-router-dom';
-import { useMediaPredicate } from 'react-media-hook';
 import { UserRoute } from '../components/PrivateRoute/PrivateRoute';
 import Home from './Home/home';
 import Register from '../routes/Register/Register';
@@ -11,13 +10,12 @@ import Reservations from '../routes/Reservations/Reservations';
 import History from '../routes/History/History';
 import Settings from '../routes/Settings/Settings';
 import Locks from '../routes/Locks/Locks';
-import Favorite from './Favorites/Favorite';
+import Favorite from './Favorite/Favorite';
 const Routes = () => {
-  const isMobile = useMediaPredicate('(max-width: 675px)');
   return (
     <Switch>
       <Route path="/" exact component={Home} />
-      {isMobile && <Route path="/favorites" component={Favorite} />}
+      <Route path="/favorites" component={Favorite} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
       <Route path="/flat/:id" component={FlatReview} />

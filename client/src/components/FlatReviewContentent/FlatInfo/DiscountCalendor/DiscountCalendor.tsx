@@ -22,7 +22,7 @@ const DiscountCalendor = () => {
               </p>
             </div>
             <div className={classes.DiscountText}>
-              <span className={classes.span1}>-2000%</span>
+              <span className={classes.span1}>-20%</span>
               <p>
                 when booking <span>one month</span>
               </p>

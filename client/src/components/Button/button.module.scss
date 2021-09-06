@@ -20,7 +20,7 @@
     padding: .2rem 1.92rem;
     
     @include respond(mobile){
-        font-size: $smallerMediumFont;
+        font-size: $fontSize18px;
         line-height: $lineHeight25px;
         padding: .75rem 1.69rem;
     }
@@ -51,10 +51,7 @@
     color: $white;
     border-radius: 1.1rem;
 }
-.Show {
-   visibility: visible;
-    opacity: 1; 
-}
+
 %shared-round-style {
     background-color: $lightGrey3;
     border-radius: 50%;
@@ -106,7 +103,9 @@
         height: 2.13rem;
     }
 }
-.FavoriteNav {
+.PcFavoriteNavActive {
+    @extend %shared-round-style;
+    padding: 1.7rem 1.2rem 1.4rem 1.2rem;
     img {
         width: 3.6rem;
         height: 2.8rem;
@@ -117,7 +116,14 @@
         font-weight: $font-Weight-bold;
         line-height: $lineHeight36px;
         font-family: $helvetica;
-        top: -1.7rem;
-        right: .4rem;
+        top: 0rem;
+        right: 1.6rem;
+    }
+}
+.PcFavoriteNav {
+    padding: 1.7rem 1.2rem 1.4rem 1.2rem;
+    img {
+        width: 3.6rem;
+        height: 2.8rem;
     }
 }

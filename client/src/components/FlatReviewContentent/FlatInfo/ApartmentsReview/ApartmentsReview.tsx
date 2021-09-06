@@ -1,18 +1,18 @@
 import React from "react";
 import { BsStarFill } from "react-icons/bs";
 //Style
-import classes from "./appartmentsReview.module.scss";
+import classes from "./apartmentsReview.module.scss";
 //Icons
 import doubleBed from "../../../../assets/images/double.png";
 //Components
 import ReserveNightsForm from "../ReserveNights/ReserveNightsForm";
 
-const AppartmentsReview = () => {
+const ApartmentsReview = () => {
   return (
     <div className={classes.Content}>
       <div className={classes.Layer}>
         <div>
-          <p className={classes.Text}>Studio appartments in city center!</p>
+          <p className={classes.Text}>Studio apartments in city center!</p>
           <p className={classes.TextSmall}>
             3 guest 2 beds 1 private bath Wifi
           </p>
@@ -52,12 +52,11 @@ const AppartmentsReview = () => {
           </div>
         </div>
       </div>
-
       <div className={classes.AboutLayer}>
         <h4 className={classes.AboutPlace}>About the place</h4>
         <p className={classes.AboutDescription}>
-          Studio apparment with a prival bathroom with of Hamburg equipped with
-          all the amenities. An apparment is bright with a large window, a newly
+          Studio apartment with a prival bathroom with of Hamburg equipped with
+          all the amenities. An apartment is bright with a large window, a newly
           renovated bathroom and two panoramic terrace with sunbeds.
         </p>
       </div>
@@ -73,4 +72,4 @@ const AppartmentsReview = () => {
     </div>
   );
 };
-export default AppartmentsReview;
+export default ApartmentsReview;

@@ -8,10 +8,9 @@ import PropertiesType from '../Flat/PropertyType/PropertiesType';
 import MainInformation from '../Flat/MainInformation/MainInformation';
 import DailyPrice from '../Flat/DailyPrices/DailyPrice';
 import AboutPlace from './AboutPlace/AboutPlace';
-import Area from '../Flat/Area/Area';
 import InformationWithIcons from './InformationWithIcons/InformationWithIcons';
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
-import close from '../../../assets/images/close_white.png';
+import GroupedBadges from '../Flat/GroupedBadges/GroupedBadges';
 import { Link } from 'react-router-dom';
 import React from 'react';
 interface QuickViewFlatProps {
@@ -22,15 +21,9 @@ interface QuickViewFlatProps {
 const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
   return (
-    <div className={classes.QuickViewFlatContainer}>
+    <li className={classes.QuickViewFlatContainer}>
       <div className={classes.SliderWithInfoContainer}>
         <ImageSlider borders="QuickView" slides={props.property.images} />
-        <img
-          onClick={props.close}
-          className={classes.Close}
-          src={close}
-          alt="close"
-        />
         <div className={classes.InfoContainer}>
           <Ratings
             overallRating={props.property.overallRating}
@@ -38,13 +31,7 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
           />
           <PropertiesType>{props.property.type}</PropertiesType>
           {isMobile ? (
-            <React.Fragment>
-              <Area district={props.property.location.district} />
-              <div className={classes.BadgesContainer}>
-                <Badge badge="BadgeDiscountLongOrShort">5%</Badge>
-                <p>long term</p>
-              </div>
-            </React.Fragment>
+            <GroupedBadges {...props.property.discount} />
           ) : (
             <MainInformation facilities={props.property.facilities} />
           )}
@@ -69,28 +56,24 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
       </div>
       <div className={classes.PriceBtnContainer}>
         <div className={classes.PriceContainer}>
-          <DailyPrice
-            priceClass="QuickViewPrice"
-            price={props.property.price.daily}
-          />
+          <DailyPrice price={props.property.price.daily} />
           <p className={classes.TotalPrice}>244€ total</p>
         </div>
-        <Link
-          to={{
-            pathname: `/flat/${props.property._id}`,
-            state: { property: props.property },
-          }}
-        >
-          <Button btnType={'FlatInfo'}>
-            {isMobile ? (
-              <span>More details and Reserve</span>
-            ) : (
-              <span>Read all details and Reserve</span>
-            )}
-          </Button>
-        </Link>
+        <div className={classes.BtnsContainer}>
+          <p className={classes.Close} onClick={props.close}>
+            Close
+          </p>
+          <Link
+            to={{
+              pathname: `/flat/${props.property._id}`,
+              state: { property: props.property },
+            }}
+          >
+            <Button btnType={'FlatInfo'}>Read all details and Reserve</Button>
+          </Link>
+        </div>
       </div>
-    </div>
+    </li>
   );
 };
 export default QuickViewFlat;

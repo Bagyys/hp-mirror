@@ -2,7 +2,7 @@ import React, { Component } from "react";
 //Style
 import classes from "./flatInfo.module.scss";
 //Component
-import AppartmentsRewie from "./AppartmentsReview/AppartmentsReview";
+import AppartmentsRewie from "../FlatInfo/ApartmentsReview/ApartmentsReview";
 import PlaceOffers from "./PlaceOffers/PlaceOffers";
 import DiscountCalendor from "./DiscountCalendor/DiscountCalendor";
 

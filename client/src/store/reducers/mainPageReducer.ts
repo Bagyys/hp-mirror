@@ -11,6 +11,7 @@ export interface InitialState {
   isCalendar: boolean;
   isSearching: boolean;
   anytimeOrCalendar: null | string;
+  isChoosing: null | boolean;
 }
 
 const initialState: InitialState = {
@@ -24,6 +25,7 @@ const initialState: InitialState = {
   isCalendar: true,
   isSearching: false,
   anytimeOrCalendar: null,
+  isChoosing: true,
 };
 
 const mainPageReducer = (state = initialState, action: MainPageInterface) => {
@@ -62,6 +64,11 @@ const mainPageReducer = (state = initialState, action: MainPageInterface) => {
       return {
         ...state,
         anytimeOrCalendar: action.payload.anytimeOrCalendar,
+      };
+    case mainPageTypes.TOGGLE_CHOOSING:
+      return {
+        ...state,
+        isChoosing: action.payload.isChoosing,
       };
     default:
       return state;

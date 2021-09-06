@@ -55,8 +55,8 @@
             color: $black;
             font-weight: $font-Weight-medium;
             margin: 17.6rem auto 0 auto;
-            @media (max-width: 1000px) {
-                // width: 100%;
+            @include respond(laptop){
+                margin-bottom: 5rem;
            }
            @include respond(mobile){
                     width: 90%;
@@ -149,6 +149,86 @@
                         text-align: left;
                         margin-left: 2.8rem;
                         border-right: 0.1rem solid #FFC96C;
+                        padding: 1rem 0;
+                        @include respond(mobile){
+                            padding: 0rem;  
+                            margin-left: 1rem;
+                       }
+                    }
+                    
+                    @media (max-width: 1000px) {
+                        
+                        margin-left: 1.5rem;
+                        white-space: nowrap; 
+                   }
+                   @include respond(mobile){
+                        
+                    margin-left: 0;
+               
+               }
+                }
+                &:nth-child(3) {
+                    margin-left: 2.5rem;
+                    text-align: left;
+                    h2 {
+                        
+                        padding: 1rem 0;
+                        @include respond(mobile){
+                            padding: 0rem;  
+                            margin-left: 1rem;
+                       }
+                    }
+                    @include respond(mobile){
+                        
+                   }
+                   @media (max-width: 420px) {
+                    margin-left: 0.5rem;
+                    text-align: left;
+               }
+                }
+            }
+
+            .SpecCase {
+                padding: 1rem 0rem;
+                width: 33%;
+                cursor: pointer;
+                @include respond(mobile){
+                    padding: 0.7rem 0rem;
+                    width: 33%;
+               }  
+                span {
+                    font-size: $fontSize18px;
+                    color: $blackGrey;
+                    font-weight: $font-Weight-regular;
+                   
+                 } 
+
+                &:first-child {
+                    // padding-right: 4.86rem;
+                    // border-right: 0.1rem solid #CBD0D3;
+                    padding-left: 5.4rem;
+
+                    h2 {
+                        text-align: left;
+                        margin-left: 2.8rem;
+                        padding: 1rem 0;
+                        @include respond(mobile){
+                            padding: 0rem;  
+                       }
+                    }
+                    @media (max-width: 1000px) {
+                        padding-right: 0rem;
+                        padding-left: 0rem;
+                        white-space: nowrap; 
+                   }  
+                  
+                }
+                &:nth-child(2) {
+                    // margin-left: 3rem;
+                    // padding-right: 5.2rem;
+                    h2 {
+                        text-align: left;
+                        margin-left: 2.8rem;
                         padding: 1rem 0;
                         @include respond(mobile){
                             padding: 0rem;  
@@ -369,7 +449,7 @@
         margin-top: 3.6rem;
         display: flex;
         flex-direction: column;
-        width: 43%;
+        width: 35%;
         align-self: flex-end;
         padding: 4rem 4rem 2.8rem 4rem;
         margin-right: 9.5rem;
@@ -509,13 +589,18 @@
             flex-wrap: wrap;
             justify-content: space-between;
             position: relative;
+            @include respond(laptop){
+                margin: 0rem auto 0 auto;
+              
+               }
+
             @include respond(mobile){
              width: 90%;
              margin: 5rem auto 0 auto;
            
             }
             .month{
-                flex: 0 0 auto;
+                flex: 0 0 23%;
                 background-color: rgba(255, 255, 255, 0.4);
                 width: 15.5rem;
                 display: flex;
@@ -526,11 +611,14 @@
                 cursor: pointer;
                 margin-bottom: 0.8rem;
              
-                @include respond(mobile){
-
+                @include respond(laptop){
+                    flex: 0 0 30%;
                     margin-right: 0;
                    }
-               
+                   @include respond(mobile){
+                    flex: 0 0 48%;
+                    margin-right: 0;
+                   }
                 
                 .SelectedImg {
                     display: none;
@@ -553,7 +641,7 @@
                 border-radius: 5rem;
                 transition: padding 0.4s ease-in-out;
                 align-self: flex-end;
-                margin: 2.7rem 2.8rem 0 auto
+                margin: 2.7rem 0 0 auto
               }
               .SearchText {
                   margin: 0;
@@ -566,7 +654,7 @@
 
             .active {
                     
-                    flex: 0 0 auto;
+                    flex: 0 0 23%;
                     background-color: rgba(255, 255, 255, 1);
                     width: 15.5rem;
                     display: flex;
@@ -576,7 +664,10 @@
                     padding: 3rem 0;
                     cursor: pointer;
                     margin-bottom: 0.8rem;
-                  
+                    @include respond(laptop){
+                        flex: 0 0 48%;
+                        
+                       }
 
                     
                     .SelectedImg {

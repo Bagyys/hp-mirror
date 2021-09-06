@@ -4,10 +4,15 @@ import NonSelectedImg from "../../../assets/images/NonSelected.svg";
 import { useState } from "react";
 import moment from "moment";
 import searchImg from "../../../assets/images/Search.svg";
+import { useMediaPredicate } from "react-media-hook";
 
 function Anytime() {
   const months: Array<string> = [];
-  for (let index = 0; index < 8; index++) {
+  const isMobile = useMediaPredicate("(max-width: 675px)");
+  const isLaptop = useMediaPredicate("(max-width: 1660px)");
+  let numberOfMonths = isMobile ? 4 : isLaptop ? 6 : 8;
+
+  for (let index = 0; index < numberOfMonths; index++) {
     let date = new Date();
     let newDate = new Date(date.setMonth(date.getMonth() + index));
     const formatMonth = moment(newDate).format("MMMM");

@@ -1,23 +1,38 @@
 @import "../../styles/global.scss";
 @import "../../styles/mixins";
 .FlatsContainer {
-    flex: 0 0 44.7%;
-    margin-left: 4.7rem;
-    margin-top: 2.87rem;
     font-family: $workSans;
     display: flex;
     flex-direction: column;
-    @include respond(mobile){
-        margin: 1rem 0 0 0;
+    &.FlatsContainerMain{
+        flex: 0 0 44.7%;
+        margin-left: 4.7rem;
+        margin-top: 2.87rem;
+    }
+    &.FlatsContainerFavorite{
+        flex: 1;
+        margin: 2.87rem 5rem 0 6.6rem;
+
+    }
+    h2 {
+        font-size: $fontSize33px;
+        font-weight: $font-Weight-bold;
+        margin-bottom: 3rem;
+        color: $black;
+        font-family: $helveticaNeue;
     }
     .FlatsContainerNav{
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin:0 0.9rem 2.22rem 1.9rem;
-        @include respond(mobile){
-            margin:.5rem 0 .5rem 2.15rem;
-            
+        &.FlatsContainerNavMain {
+            margin: 0 0.9rem 2.22rem 1.9rem;
+            @include respond(mobile){
+                margin:.5rem 0 .5rem 2.15rem;          
+            }
+        }
+        &.FlatsContainerNavFavorite {
+            margin: 0 0 3rem 0;
         }
         .RightSide {
             display: flex;
@@ -47,9 +62,18 @@
             }
         }
         .FilterBtnContainer {
-            @include respond(mobile){
-                display: none;
+            display: flex;
+            align-items: center;
+            h1 {
+                font-size: $fontSize33px;
+                font-weight: $font-Weight-bold;
+                font-family: $helveticaNeue;
+                color: $black;
+                margin-left: 3rem;
             }
+            // @include respond(mobile){
+            //     display: none;
+            // }
         }
     }
     .FlatsListConatiner {
@@ -59,8 +83,9 @@
         @include respond(mobile){
             flex-wrap: nowrap;
             overflow-y: auto;
-            padding-left: 1.16rem;
             margin-bottom: 2.58rem;
+            padding-top: 0.2rem;
+            padding-left: 1.2rem;
         }
     }
     .RecentlyViewContainer {

@@ -52,10 +52,13 @@
     }
     .span1 {
       box-sizing: border-box;
-      padding: 0.18rem 1.73rem 0.37rem 1.15rem;
+      width: 6.481rem;
+      height: 3.356rem;
+      // padding: 0.18rem 1.73rem 0.37rem 1.15rem;
       border: 2px solid $orange;
       background-color: $orange;
       text-align: center;
+
       border-radius: 2.2rem;
       color: $black2;
       font-size: $fontSize21px;

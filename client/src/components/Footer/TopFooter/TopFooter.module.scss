@@ -6,6 +6,8 @@
     border-top: 1px solid #CBD0D3;
     font-size: $fontSize21px;
     justify-content: space-between;
+    max-width: 175.428rem;
+    margin: 0 auto;
     @include respond(pc) {
         padding: 5.62rem 9% 8.3rem 9%;
         

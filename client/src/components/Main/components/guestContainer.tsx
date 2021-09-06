@@ -1,26 +1,23 @@
 import classes from '../main.module.scss';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import minus from '../../../assets/images/minus.png';
 import plus from '../../../assets/images/plus.png';
 import { setNumberOfAdultsAndChildren } from '../../../store/actions/mainPageActions';
 import CounterButton from '../../SideFilter/CounterButton/CounterButton';
 import { useMediaPredicate } from 'react-media-hook';
-import MobileButton from './Buttons/mobileButton'
+import MobileButton from './Buttons/mobileButton';
+import { StoreState } from '../../../store/configureStore';
 function GuestContainer() {
-  const isMobile = useMediaPredicate("(max-width: 675px)");
+  const isMobile = useMediaPredicate('(max-width: 675px)');
   const dispatch = useDispatch();
-  const [numberOfChildren, setNumberOfChildren] = useState<number>(0);
-  const [numberOfAdults, setNumberOfAdults] = useState<number>(0);
-
-  // const increment = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-  //   const target = e.target as HTMLInputElement;
-  //   if (target.id === "children") {
-  //     setNumberOfChildren(numberOfChildren + 1);
-  //   } else if (target.id === "adults") {
-  //     setNumberOfAdults(numberOfAdults + 1);
-  //   }
-  // };
+  const mainPage = useSelector((state: StoreState) => state.mainPage);
+  const [numberOfChildren, setNumberOfChildren] = useState<number>(
+    mainPage.guests.children
+  );
+  const [numberOfAdults, setNumberOfAdults] = useState<number>(
+    mainPage.guests.adults
+  );
 
   /* naujas kodas */
   const counterHandler = (guest: string, diff: number) => {
@@ -31,21 +28,6 @@ function GuestContainer() {
     dispatch(setNumberOfAdultsAndChildren(numberOfAdults, numberOfChildren));
   }, [numberOfChildren, numberOfAdults]);
 
-  // const decrement = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-  //   const target = e.target as HTMLInputElement;
-  //   if (target.id === "children") {
-  //     setNumberOfChildren(numberOfChildren - 1);
-  //     if (numberOfChildren <= 0) {
-  //       setNumberOfChildren(0);
-  //     }
-  //   } else if (target.id === "adults") {
-  //     setNumberOfAdults(numberOfAdults - 1);
-  //     if (numberOfAdults <= 0) {
-  //       setNumberOfAdults(0);
-  //     }
-  //   }
-  // };
-
   return (
     <div className={classes.GuestWrapper}>
       <div className={classes.GuestBox}>
@@ -55,22 +37,6 @@ function GuestContainer() {
             <p>Age 13 and above</p>
           </div>
           <div className={classes.Counting}>
-            {/* <span
-              id="adults"
-              onClick={(e) => decrement(e)}
-              className={classes.Decrement}
-              style={
-                numberOfAdults <= 0
-                  ? { backgroundColor: 'transparent' }
-                  : {
-                      backgroundColor: '#EBEDED',
-                      border: 'none',
-                      color: '#9E9E9F',
-                    }
-              }
-            >
-              -
-            </span> */}
             <CounterButton
               btnType="MainGuestCounter"
               clicked={() => counterHandler('adult', -1)}
@@ -86,13 +52,6 @@ function GuestContainer() {
             >
               <img src={plus} />
             </CounterButton>
-            {/* <span
-              id="adults"
-              onClick={(e) => increment(e)}
-              className={classes.Increment}
-            >
-              +
-            </span> */}
           </div>
         </div>
         <div className={classes.Down}>
@@ -101,22 +60,6 @@ function GuestContainer() {
             <p>Age under 12</p>
           </div>
           <div className={classes.Counting}>
-            {/* <span
-              id="children"
-              onClick={(e) => decrement(e)}
-              className={classes.Decrement}
-              style={
-                numberOfChildren <= 0
-                  ? { backgroundColor: 'transparent' }
-                  : {
-                      backgroundColor: '#EBEDED',
-                      border: 'none',
-                      color: '#9E9E9F',
-                    }
-              }
-            >
-              -
-            </span> */}
             <CounterButton
               btnType="MainGuestCounter"
               clicked={() => counterHandler('children', -1)}
@@ -132,13 +75,6 @@ function GuestContainer() {
             >
               <img src={plus} />
             </CounterButton>
-            {/* <span
-              id="children"
-              onClick={(e) => increment(e)}
-              className={classes.Increment}
-            >
-              +
-            </span> */}
           </div>
         </div>
       </div>

@@ -18,9 +18,10 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    position: relative;
     @include respond(mobile){
         flex-direction: column;
-        height: 40rem;
+        height: 46rem;
     }
   }
   .Locks {
