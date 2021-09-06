@@ -10,8 +10,8 @@ import {
   activePropertyCordsAction,
 } from "../../store/actions/propertyActions";
 
-interface StyleProp{
-  style: string
+interface StyleProp {
+  style: string;
 }
 
 function Map(props: StyleProp) {
@@ -29,11 +29,12 @@ function Map(props: StyleProp) {
     }
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+    behavior: "smooth"
     });
   };
   return (
-    <div className={{props.style ? classes.Map}}>
+    // <div className={{ props.style ? classes.Map}}>
+    <div>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyAtsfsGZOACHp7n2sYJZ7Z06Ku2uTasjM0" }}
         // defaultCenter={activePropertyCord}
