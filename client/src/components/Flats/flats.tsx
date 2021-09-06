@@ -300,7 +300,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
         </>
       )}
       {isFilterOpen && <SideFilter toggleHandler={toggleFilterHandler} />}
-      {!isMobile && isFilterOpen && (
+      {isFilterOpen && (
         <Backdrop
           isVisible={isFilterOpen}
           toggleHandler={toggleFilterHandler}

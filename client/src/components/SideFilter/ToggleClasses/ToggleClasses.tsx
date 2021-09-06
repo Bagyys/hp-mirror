@@ -11,18 +11,12 @@ const ToggleClass: React.FC<ToggleClassProps> = (props) => {
   return (
     <React.Fragment>
       {props.inputCount > 6 && (
-        <div className={classes.ToggleBtnContainer}>
-          <div
-            onClick={props.toggle}
-            className={props.show ? classes.Hide : classes.Show}
-          >
+        <div onClick={props.toggle} className={classes.ToggleBtnContainer}>
+          <div className={props.show ? classes.Hide : classes.Show}>
             Show all {props.text}
             <img src={arrow} className={classes.ArrowDown} />
           </div>
-          <div
-            onClick={props.toggle}
-            className={props.show ? classes.Show : classes.Hide}
-          >
+          <div className={props.show ? classes.Show : classes.Hide}>
             Show less
             <img src={arrow} className={classes.ArrowUp} />
           </div>
