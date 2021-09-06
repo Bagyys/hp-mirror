@@ -43,12 +43,10 @@ const QuickViewFlatFavoritePc: React.FC<QuickViewFlatProps> = (props) => {
           </div>
         </div>
         <div className={classes.ExtraInformationContainer}>
-          <Badge badge="BadgeDiscountLongOrShort">
+          <Badge badge="BadgeDiscountLong">
             Discount available on long term
           </Badge>
-          <Badge badge="BadgeCancelationOrDate">
-            Free cancelation until July 6
-          </Badge>
+          <Badge badge="BadgeCancelation">Free cancelation until July 6</Badge>
           <InformationWithIcons facilities={props.property.facilities} />
         </div>
 

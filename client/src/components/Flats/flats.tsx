@@ -1,43 +1,44 @@
-import React, { useEffect, useMemo, useRef } from "react";
-import { useMediaPredicate } from "react-media-hook";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import { StoreState } from "../../store/configureStore";
-import { PropertyState } from "../../store/reducers/propertyReducer";
-import { ErrorState } from "../../store/reducers/errorReducer";
-import { PropertyInterface } from "../../store/types/propertyInterfaces";
+import React, { useEffect, useMemo, useRef } from 'react';
+import { useMediaPredicate } from 'react-media-hook';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { StoreState } from '../../store/configureStore';
+import { PropertyState } from '../../store/reducers/propertyReducer';
+import { ErrorState } from '../../store/reducers/errorReducer';
+import { PropertyInterface } from '../../store/types/propertyInterfaces';
 import {
   activePropertyCordsAction,
   addRecentlyViewedAction,
   currentPageAction,
   pageSizeAction,
   quickViewAction,
-} from "../../store/actions/propertyActions";
-import { clearErrorAction } from "../../store/actions/errorActions";
-import classes from "./flats.module.scss";
-import filterImg from "../../assets/images/filter.png";
-import Flat from "./Flat/Flat";
-import Pagination from "../Pagination/Pagination";
-import QuickViewFlat from "./QuickViewFlat/QuickViewFlat";
-import arrow from "../../assets/images/arrow2.png";
-import Button from "../Button/button";
-import { isStringInArray } from "../../utilities/isStringInArray";
-import { userState } from "../../store/reducers/userReducer";
-import { addToFavoriteAction } from "../../store/actions/userActions";
-import SideFilter from "../SideFilter/SideFilter";
-import { FilterState } from "../../store/reducers/filterReducer";
-import Backdrop from "../Backdrop/Backdrop";
-import { toggleFilterButtonAction } from "../../store/actions/filterActions";
-import { cn } from "../../utilities/joinClasses";
-import QuickViewFlatFavoritePc from "./QuickViewFlatFavoritePc/QuickViewFlatFavoritePc";
-import MyBooking from "./MyBooking/MyBooking";
-import { filterArrayById } from "../../utilities/filterArrayById";
+  resetPropertyCordsAction,
+} from '../../store/actions/propertyActions';
+import { clearErrorAction } from '../../store/actions/errorActions';
+import classes from './flats.module.scss';
+import filterImg from '../../assets/images/filter.png';
+import Flat from './Flat/Flat';
+import Pagination from '../Pagination/Pagination';
+import QuickViewFlat from './QuickViewFlat/QuickViewFlat';
+import arrow from '../../assets/images/arrow2.png';
+import Button from '../Button/button';
+import { isStringInArray } from '../../utilities/isStringInArray';
+import { userState } from '../../store/reducers/userReducer';
+import { addToFavoriteAction } from '../../store/actions/userActions';
+import SideFilter from '../SideFilter/SideFilter';
+import { FilterState } from '../../store/reducers/filterReducer';
+import Backdrop from '../Backdrop/Backdrop';
+import { toggleFilterButtonAction } from '../../store/actions/filterActions';
+import { cn } from '../../utilities/joinClasses';
+import QuickViewFlatFavoritePc from './QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
+import MyBooking from './MyBooking/MyBooking';
+import { filterArrayById } from '../../utilities/filterArrayById';
 
 interface FlatsProps {
   isMain: boolean;
 }
 const Flats: React.FC<FlatsProps> = (props) => {
-  const isMobile = useMediaPredicate("(max-width: 675px)");
+  const isMobile = useMediaPredicate('(max-width: 675px)');
 
   const dispatch = useDispatch();
   const mainPage = useSelector((state: StoreState) => state.mainPage);
@@ -70,9 +71,8 @@ const Flats: React.FC<FlatsProps> = (props) => {
   );
   const { error } = errorState;
   useEffect(() => {
-    dispatch(quickViewAction(""));
+    dispatch(quickViewAction(''));
   }, [currentPage, pageSizeMain]);
-
   useEffect(() => {
     dispatch(currentPageAction(1));
   }, []);
@@ -84,10 +84,10 @@ const Flats: React.FC<FlatsProps> = (props) => {
     if (error) {
       Swal.fire({
         title: error,
-        text: "Please try again",
-        icon: "warning",
+        text: 'Please try again',
+        icon: 'warning',
         showCancelButton: false,
-        confirmButtonText: "OK",
+        confirmButtonText: 'OK',
       }).then(() => {
         handleError();
       });
@@ -96,7 +96,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const currentPaginationData = useMemo(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     const firstPageIndex =
       (currentPage - 1) * (props.isMain ? pageSizeMain : pageSizeFavorite);
@@ -113,8 +113,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
     dispatch(addToFavoriteAction(id, user.favorites));
   };
 
-  const QuickViewHandler = (id: string, cord: any) => {
-    //pakeist any
+  const QuickViewHandler = (id: string, cord: { lat: number; lng: number }) => {
     props.isMain && dispatch(activePropertyCordsAction(cord));
     dispatch(quickViewAction(id));
     dispatch(
@@ -126,11 +125,15 @@ const Flats: React.FC<FlatsProps> = (props) => {
     );
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
   const toggleFilterHandler = () => {
     dispatch(toggleFilterButtonAction(!isFilterOpen));
+  };
+  const closeQuickViewHandler = () => {
+    dispatch(quickViewAction(''));
+    dispatch(resetPropertyCordsAction());
   };
   let propertiesRender = <></>;
   if (propertiesList.length > 0) {
@@ -143,7 +146,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
           <QuickViewFlat
             clickedLike={() => favoritesHandler(quickViewData._id)}
             liked={isStringInArray(quickViewData._id, user.favorites)}
-            close={() => dispatch(quickViewAction(""))}
+            close={closeQuickViewHandler}
             property={quickViewData}
             isMain={props.isMain}
           />
@@ -161,7 +164,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
             <QuickViewFlatFavoritePc
               clickedLike={() => favoritesHandler(quickViewData._id)}
               liked={isStringInArray(quickViewData._id, user.favorites)}
-              close={() => dispatch(quickViewAction(""))}
+              close={closeQuickViewHandler}
               property={quickViewData}
               isMain={props.isMain}
             />
@@ -169,8 +172,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
           {currentPaginationData
             .filter((item) => item._id !== quickViewPropertyId)
             .map((property: PropertyInterface) => {
-              console.log(property, "Property");
-              
               return (
                 <Flat
                   quickViewClicked={() =>
@@ -251,12 +252,12 @@ const Flats: React.FC<FlatsProps> = (props) => {
         )}
       >
         <div
-          style={props.isMain && isMobile ? { display: "none" } : {}}
+          style={props.isMain && isMobile ? { display: 'none' } : {}}
           className={classes.FilterBtnContainer}
         >
           <Button
             clicked={toggleFilterHandler}
-            btnType={props.isMain ? "OpenFilter" : "OpenFilterFavorite"}
+            btnType={props.isMain ? 'OpenFilter' : 'OpenFilterFavorite'}
             bgColor="Grey"
           >
             <img src={filterImg} />
@@ -276,7 +277,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
 
           {props.isMain && isMobile ? (
             <p className={classes.MobileResults}>
-              {propertiesList.length} places to stay{" "}
+              {propertiesList.length} places to stay{' '}
               <img src={arrow} alt="Arrow2" />
             </p>
           ) : (
@@ -284,7 +285,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
           )}
         </div>
       </div>
-      {/* {!props.isMain && <MyBooking />} */}
       {myBookingsRender}
       {propertiesRender}
       {!isMobile && (

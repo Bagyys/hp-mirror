@@ -14,7 +14,6 @@ import { cn } from '../../../utilities/joinClasses';
 
 interface FlatProps {
   property: PropertyInterface;
-  favoritePage?: boolean;
   liked: boolean;
   quickViewClicked?: () => void;
   clickedLike: () => void;
@@ -22,7 +21,6 @@ interface FlatProps {
 }
 const Flat: React.FC<FlatProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
-
   let propertiesRender = (
     <li
       className={cn(
@@ -43,7 +41,7 @@ const Flat: React.FC<FlatProps> = (props) => {
               : classes.InfoContainerFavorite
           )}
         >
-          <GroupedBadges {...props.property.discount} />
+          <GroupedBadges {...props.property.discounts} />
           <Ratings
             overallRating={props.property.overallRating}
             ratingsCount={props.property.ratingsCount}

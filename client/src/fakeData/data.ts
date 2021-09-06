@@ -1,6 +1,6 @@
 import FlatImg from "../assets/images/flat_img.png";
 import { PropertyInterface } from "../store/types/propertyInterfaces";
-export const fakeData: PropertyInterface[] = [
+export const fakeData = [
   {
     _id: "a",
     title: "Testinis",

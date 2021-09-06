@@ -8,9 +8,10 @@
     justify-content: space-between;
     max-width: 175.428rem;
     margin: 0 auto;
-    @include respond(pc) {
-        padding: 5.62rem 9% 8.3rem 9%;
-        
+    @include respond(mobile) {
+        font-size: $fontSize17px;
+        padding: .2rem 0 18rem 3.2rem;
+        flex-direction: column;
     }
     .LinkBoxes{
         display: flex;
@@ -19,6 +20,9 @@
         flex: 0 0 19%;
         &:first-child {
             margin-left: 0;
+        }
+        @include respond(mobile) {
+            margin-top: 3rem;
         }
         p{
             font-weight: $font-Weight-bold;

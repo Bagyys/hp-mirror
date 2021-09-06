@@ -44,7 +44,7 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
           ratingsCount={props.property.ratingsCount}
         />
         <PropertiesType>{props.property.type}</PropertiesType>
-        {isMobile && <GroupedBadges {...props.property.discount} />}
+        {isMobile && <GroupedBadges {...props.property.discounts} />}
         <MainInformation facilities={props.property.facilities} />
       </div>
       <div className={classes.ExtraInformationContainer}>

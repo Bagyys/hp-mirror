@@ -3,7 +3,6 @@ import axios, { AxiosResponse } from "axios";
 import propertyTypes from "../types/propertyTypes";
 import errorTypes from "../types/errorTypes";
 import { PropertyInterface } from "../types/propertyInterfaces";
-import { fakeData } from "../../fakeData/data"; //Fake data demo
 import { isStringInArray } from "../../utilities/isStringInArray";
 
 // -------------------- URLS --------------------
@@ -73,9 +72,9 @@ export interface AddRecentlyViewed
   extends Action<typeof propertyTypes.ADD_RECENTLY_VIEWED> {
   payload: string;
 }
-// export interface ResetPropertyCords
-//   extends Action<typeof propertyTypes.RESET_PROPERTY_CORDS> {
-// }
+export interface ResetPropertyCords
+  extends Action<typeof propertyTypes.RESET_PROPERTY_CORDS> {
+}
 
 export type PropertyActions =
   | GetAllPropertiesStart
@@ -93,7 +92,8 @@ export type PropertyActions =
   | PaginationPageSize
   | PaginationCurrentPage
   | ActivePropertyCords
-  | AddRecentlyViewed;
+  | AddRecentlyViewed
+  | ResetPropertyCords;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -254,11 +254,12 @@ export const addRecentlyViewedAction =
       payload: newData,
     });
   };
-// export const resetPropertyCordsAction =
-// () => (dispatch: Dispatch) => {
-//   dispatch({
-//     type: propertyTypes.RESET_PROPERTY_CORDS
-//   });
-// };
+  
+export const resetPropertyCordsAction =
+  () => (dispatch: Dispatch) => {
+    dispatch({
+      type: propertyTypes.RESET_PROPERTY_CORDS
+    });
+  };
 
 // -------------------- END of ACTIONS --------------------
