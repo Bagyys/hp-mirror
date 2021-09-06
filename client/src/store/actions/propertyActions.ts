@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import propertyTypes from "../types/propertyTypes";
 import errorTypes from "../types/errorTypes";
 import { PropertyInterface } from "../types/propertyInterfaces";
-import { fakeData } from '../../fakeData/data'; //Fake data demo
+import { fakeData } from "../../fakeData/data"; //Fake data demo
 import { isStringInArray } from "../../utilities/isStringInArray";
 
 // -------------------- URLS --------------------
@@ -67,7 +67,7 @@ export interface PaginationCurrentPage
 }
 export interface ActivePropertyCords
   extends Action<typeof propertyTypes.ADD_ACTIVE_PROPERTY_CORDS> {
-  payload: {lat:number,lng:number};
+  payload: { lat: number; lng: number };
 }
 export interface AddRecentlyViewed
   extends Action<typeof propertyTypes.ADD_RECENTLY_VIEWED> {
@@ -113,8 +113,8 @@ export const getAllPropertiesAction = () => async (dispatch: Dispatch) => {
     ) {
       dispatch({
         type: propertyTypes.GET_ALL_PROPERTIES_SUCCESS,
-        payload: fakeData //fake data demo
-        // payload: response.data.properties,
+        // payload: fakeData //fake data demo
+        payload: response.data.properties,
       });
     } else {
       dispatch({
@@ -207,49 +207,47 @@ export const clearSelectedPropertyAction = () => async (dispatch: Dispatch) => {
   });
 };
 
-export const quickViewAction =
-  (id: string) => (dispatch: Dispatch) => {
-    dispatch({
-      type: propertyTypes.QUICK_VIEW_PROPERTY,
-      payload: id,
-    });
-  };
+export const quickViewAction = (id: string) => (dispatch: Dispatch) => {
+  dispatch({
+    type: propertyTypes.QUICK_VIEW_PROPERTY,
+    payload: id,
+  });
+};
 
-  export const pageSizeAction =
-  (size: number) => (dispatch: Dispatch) => {
-    dispatch({
-      type: propertyTypes.PAGINATION_PAGE_SIZE,
-      payload: size,
-    });
-  };
+export const pageSizeAction = (size: number) => (dispatch: Dispatch) => {
+  dispatch({
+    type: propertyTypes.PAGINATION_PAGE_SIZE,
+    payload: size,
+  });
+};
 
-  export const currentPageAction =
-  (page:number) => (dispatch: Dispatch) => {
-    dispatch({
-      type: propertyTypes.PAGINATION_CURRENT_PAGE,
-      payload: page,
-    });
-  };
+export const currentPageAction = (page: number) => (dispatch: Dispatch) => {
+  dispatch({
+    type: propertyTypes.PAGINATION_CURRENT_PAGE,
+    payload: page,
+  });
+};
 
-  export const activePropertyCordsAction =
-  (cords:{lat:number,lng:number}) => (dispatch: Dispatch) => {
+export const activePropertyCordsAction =
+  (cords: { lat: number; lng: number }) => (dispatch: Dispatch) => {
     dispatch({
       type: propertyTypes.ADD_ACTIVE_PROPERTY_CORDS,
       payload: cords,
     });
   };
 
-  export const addRecentlyViewedAction =
-  (id:string,properties:Array<string>,total:number) => (dispatch: Dispatch) => {
-     let newData = [...properties];
-     let isRecentlyViewed = isStringInArray(id, newData);
-    if(!isRecentlyViewed){
-      if(total==2 &&newData.length>1){
-        newData.slice(0,newData.length-total)
-        console.log('newdata  '+newData)
-      } 
-      
-      newData.length>(total-1)&&newData.shift();
+export const addRecentlyViewedAction =
+  (id: string, properties: Array<string>, total: number) =>
+  (dispatch: Dispatch) => {
+    let newData = [...properties];
+    let isRecentlyViewed = isStringInArray(id, newData);
+    if (!isRecentlyViewed) {
+      if (total == 2 && newData.length > 1) {
+        newData.slice(0, newData.length - total);
+        console.log("newdata  " + newData);
+      }
+
+      newData.length > total - 1 && newData.shift();
       newData.push(id);
     }
     dispatch({
@@ -257,11 +255,11 @@ export const quickViewAction =
       payload: newData,
     });
   };
-  // export const resetPropertyCordsAction =
-  // () => (dispatch: Dispatch) => {
-  //   dispatch({
-  //     type: propertyTypes.RESET_PROPERTY_CORDS
-  //   });
-  // };
+// export const resetPropertyCordsAction =
+// () => (dispatch: Dispatch) => {
+//   dispatch({
+//     type: propertyTypes.RESET_PROPERTY_CORDS
+//   });
+// };
 
 // -------------------- END of ACTIONS --------------------

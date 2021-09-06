@@ -1,12 +1,12 @@
-import classes from './InformationWithIcons.module.scss';
-import single from '../../../../assets/images/single.png';
-import double from '../../../../assets/images/double.png';
-import wifi from '../../../../assets/images/wifi.png';
-import bath from '../../../../assets/images/bath.png';
-import parking from '../../../../assets/images/parking.png';
-import workspace from '../../../../assets/images/workspace.png';
-import { FacilitiesInterface } from '../../../../store/types/propertyInterfaces';
-import React from 'react';
+import classes from "./InformationWithIcons.module.scss";
+import single from "../../../../assets/images/single.png";
+import double from "../../../../assets/images/double.png";
+import wifi from "../../../../assets/images/wifi.png";
+import bath from "../../../../assets/images/bath.png";
+import parking from "../../../../assets/images/parking.png";
+import workspace from "../../../../assets/images/workspace.png";
+import { FacilitiesInterface } from "../../../../store/types/propertyInterfaces";
+import React from "react";
 interface InformationWithIconsProps {
   facilities: FacilitiesInterface;
 }
@@ -14,17 +14,17 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
   let info = <React.Fragment></React.Fragment>;
   info = (
     <React.Fragment>
-      {props.facilities.bedsTest.double > 0 && (
+      {props.facilities.bedsInTotal.double > 0 && (
         <div className={classes.Items}>
           <div className={classes.ImgContainer}>
             <img src={double} />
           </div>
           <p className={classes.Beds}>
-            {`${props.facilities.bedsTest.double} ${
-              Object.keys(props.facilities.bedsTest)[1]
+            {`${props.facilities.bedsInTotal.double} ${
+              Object.keys(props.facilities.bedsInTotal)[1]
             }`}
             <span>
-              {props.facilities.bedsTest.double > 1 ? ' beds' : ' bed'}
+              {props.facilities.bedsInTotal.double > 1 ? " beds" : " bed"}
             </span>
           </p>
         </div>
@@ -37,17 +37,17 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
           <p>Wifi</p>
         </div>
       )}
-      {props.facilities.bedsTest.single > 0 && (
+      {props.facilities.bedsInTotal.single > 0 && (
         <div className={classes.Items}>
           <div className={classes.ImgContainer}>
             <img className={classes.Single} src={single} />
           </div>
           <p className={classes.Beds}>
-            {`${props.facilities.bedsTest.single} ${
-              Object.keys(props.facilities.bedsTest)[0]
+            {`${props.facilities.bedsInTotal.single} ${
+              Object.keys(props.facilities.bedsInTotal)[0]
             }`}
             <span>
-              {props.facilities.bedsTest.single > 1 ? ' beds' : ' bed'}
+              {props.facilities.bedsInTotal.single > 1 ? " beds" : " bed"}
             </span>
           </p>
         </div>
@@ -75,7 +75,7 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
           </div>
           <p>
             {`${props.facilities.bathrooms} ${
-              props.facilities.bathrooms > 1 ? ' Bathrooms' : ' Bathroom'
+              props.facilities.bathrooms > 1 ? " Bathrooms" : " Bathroom"
             }`}
           </p>
         </div>

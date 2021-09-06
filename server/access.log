@@ -12348,3 +12348,24 @@
 ::1 - - [05/Sep/2021:20:54:17 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [05/Sep/2021:20:55:36 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 >>>>>>> origin/favorite-filter-fixes
+::1 - - [06/Sep/2021:10:43:04 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10263
+::1 - - [06/Sep/2021:10:46:32 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:10:46:37 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:10:46:39 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:10:46:51 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:10:46:54 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:11:07:47 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:11:07:49 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:11:17:13 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:11:17:20 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:11:17:27 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:12:49:57 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10508
+::1 - - [06/Sep/2021:12:50:00 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:12:57:11 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10637
+::1 - - [06/Sep/2021:12:58:48 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:12:58:55 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:12:59:38 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:13:00:32 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:13:06:13 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10637
+::1 - - [06/Sep/2021:13:32:03 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [06/Sep/2021:13:33:59 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -

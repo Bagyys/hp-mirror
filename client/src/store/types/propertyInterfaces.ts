@@ -14,14 +14,14 @@ export interface PropertyInterface {
   occupiedTime: Array<OccupiedDayInterface>;
   ratings: Array<RatingInterface>;
   overallRating: number;
-  discount:DiscountInterface; //Dizainui del discount badge
+  discount: DiscountInterface; //Dizainui del discount badge
   ratingsCount: number;
   createdAt: Date;
 }
 
 export interface DiscountInterface {
-    more1Week:boolean;
-    more1Month:boolean;
+  more1Week: boolean;
+  more1Month: boolean;
 }
 
 export interface RatingInterface {
@@ -42,7 +42,7 @@ export interface OccupiedDayInterface {
 export interface FacilitiesInterface {
   size: number;
   wifi: boolean;
-  workspace:boolean;
+  workspace: boolean;
   parking: boolean;
   petFriendly: boolean;
   disabilityAccess: boolean;
@@ -51,7 +51,7 @@ export interface FacilitiesInterface {
   bathtub: boolean;
   washingMachine: boolean;
   balcony: boolean;
-  terrace:boolean; //dadejau
+  terrace: boolean; //dadejau
   breakfast: boolean;
   crib: boolean;
   nonSmoking: boolean;
@@ -60,7 +60,7 @@ export interface FacilitiesInterface {
   // bedType: string;
   beds: number;
   bedrooms: number;
-  bedsTest:{[key:string]:number}
+  bedsInTotal: { [key: string]: number };
 }
 
 export interface PriceInterface {
@@ -86,7 +86,7 @@ export interface SeasonalPriceInterface {
 }
 
 export interface LocationInterface {
-  cord:{lat:number,lng:number};
+  cord: { lat: number; lng: number };
   country: string;
   city: string;
   district: string;
