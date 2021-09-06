@@ -11,7 +11,7 @@ import Language from './Language/Language';
 import {
   loadUser,
   logoutAction,
-  toggleMenuButtonAction,
+  toggleNavMenuButtonAction,
   pageScrollAction,
 } from '../../store/actions/userActions';
 import favoritePc from '../../assets/images/Favorite.svg';
@@ -19,8 +19,6 @@ import favoritePcActive from '../../assets/images/favorite_yellow.png';
 import GuideImg from '../../assets/images/Guide.svg';
 import LogoImg from '../../assets/images/Logo.svg';
 import UserPic from '../../assets/images/UserPicture.svg';
-import NavRoutes from './NavRoutes/NavRoutes';
-import Backdrop from '../Backdrop/Backdrop';
 import classes from './navigation.module.scss';
 import Button from '../Button/button';
 import { PropertyState } from '../../store/reducers/propertyReducer';
@@ -49,7 +47,7 @@ const Navigation = () => {
     if (user && !user._id) {
       dispatch(loadUser());
     }
-    dispatch(toggleMenuButtonAction(false));
+    dispatch(toggleNavMenuButtonAction(false));
   }, []);
 
   useEffect(() => {}, [token, isAuthenticated]);
@@ -62,7 +60,7 @@ const Navigation = () => {
         !wrapperRef.current.contains(event.target as Node) &&
         isNavMenuOpened
       ) {
-        dispatch(toggleMenuButtonAction(false));
+        dispatch(toggleNavMenuButtonAction(false));
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -87,11 +85,11 @@ const Navigation = () => {
     }
   }, [quickViewPropertyId]);
   const handleSignOut = () => {
-    dispatch(toggleMenuButtonAction(false));
+    dispatch(toggleNavMenuButtonAction(false));
     dispatch(logoutAction());
   };
   const menuHandler = () => {
-    dispatch(toggleMenuButtonAction(!isNavMenuOpened));
+    dispatch(toggleNavMenuButtonAction(!isNavMenuOpened));
   };
 
   return (
@@ -120,7 +118,7 @@ const Navigation = () => {
           <div className={classes.Favorite}>
             <Link to="/favorites">
               {user.favorites.length ? (
-                <Button btnType="PcFavoriteNavActive">
+                <Button btnType="PcFavoriteNavActive" bgColor="Grey">
                   <img src={favoritePcActive} alt="favorite" />
                   <p>{user.favorites.length}</p>
                 </Button>

@@ -3,7 +3,7 @@ import FlatImg from '../assets/images/flat_img.png';
 import { PropertyInterface } from '../store/types/propertyInterfaces';
 export const fakeData:PropertyInterface[] = [
   {
-    _id: 'abcdedhdgf',
+    _id: 'a',
     title: 'Testinis',
     description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'Studio appartament',
@@ -14,7 +14,7 @@ export const fakeData:PropertyInterface[] = [
       city: 'City',
       district: 'Rothenburg',
       zipcode: 'Zip code',
-      addressString1: 'Address 1',
+      addressString1: 'Latosha S Johnson St. 43-6',
       addressString2: 'Address 2',
       distanceFromCenter: 50,
       timeZone: 'Time zone',
@@ -109,7 +109,7 @@ export const fakeData:PropertyInterface[] = [
     createdAt: new Date(),
   },
   {
-    _id: 'abcdeaaasfg',
+    _id: 'ab',
     title: 'Testinis',
     description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'One bedroom appartament',
@@ -120,7 +120,7 @@ export const fakeData:PropertyInterface[] = [
       city: 'City',
       district: 'District',
       zipcode: 'Zip code',
-      addressString1: 'Address 1',
+      addressString1: 'Address 1 addres 2 addres 3 address 4',
       addressString2: 'Address 2',
       distanceFromCenter: 50,
       timeZone: 'Time zone',
@@ -205,7 +205,7 @@ export const fakeData:PropertyInterface[] = [
     createdAt: new Date(),
   },
   {
-    _id: 'abfcdeadfghd',
+    _id: 'abc',
     title: 'Testinis',
     description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'Loft appartment in city center',
@@ -301,7 +301,7 @@ export const fakeData:PropertyInterface[] = [
     createdAt: new Date(),
   },
   {
-    _id: 'abcdeasdfgsgg',
+    _id: 'abcd',
     title: 'Testinis',
     description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'Small appartment close to park',
@@ -397,7 +397,7 @@ export const fakeData:PropertyInterface[] = [
     createdAt: new Date(),
   },
   {
-    _id: 'abcdeasdgfg',
+    _id: 'abcde',
     title: 'Testinis',
     description: 'Studio appartment with a prival bathroom with a heart of Hamburg equipped with all the amenities. An appartment is bright with a large windown, a newly renovated bathroom and two panoramic terrace with sunbeds',
     type: 'Studio appartment',
@@ -600,7 +600,7 @@ export const fakeData:PropertyInterface[] = [
       city: 'City',
       district: 'District',
       zipcode: 'Zip code',
-      addressString1: 'Address 1',
+      addressString1: 'Latosha S Johnson St. 43-6',
       addressString2: 'Address 2',
       distanceFromCenter: 50,
       timeZone: 'Time zone',
