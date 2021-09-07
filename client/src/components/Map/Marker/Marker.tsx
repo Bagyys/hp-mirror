@@ -6,7 +6,6 @@ interface MarkerProps {
   lng: number;
   // clicked: () => void;
   active: boolean;
-  overlayViewDivStyle: any;
 }
 const Marker: React.FC<MarkerProps> = (props) => {
   return (

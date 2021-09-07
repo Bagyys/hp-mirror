@@ -1,21 +1,21 @@
-import Button from '../../Button/button';
-import { PropertyInterface } from '../../../store/types/propertyInterfaces';
-import ImageSlider from '../../Slider/imageSlider';
-import MainInformation from '../Flat/MainInformation/MainInformation';
-import PropertiesType from '../Flat/PropertyType/PropertiesType';
-import Ratings from '../Flat/Ratings/Ratings';
-import classes from './MyBooking.module.scss';
-import home from '../../../assets/images/home.png';
-import calendarBegins from '../../../assets/images/calendar_booking_begins.png';
-import calendarEnds from '../../../assets/images/calendar_booking_ends.png';
+import Button from '../../../Button/button';
+import { PropertyInterface } from '../../../../store/types/propertyInterfaces';
+import ImageSlider from '../../../Slider/imageSlider';
+import MainInformation from '../../Flat/MainInformation/MainInformation';
+import PropertiesType from '../../Flat/PropertyType/PropertiesType';
+import Ratings from '../../Flat/Ratings/Ratings';
+import classes from './MyBookingPc.module.scss';
+import home from '../../../../assets/images/home.png';
+import calendarBegins from '../../../../assets/images/calendar_booking_begins.png';
+import calendarEnds from '../../../../assets/images/calendar_booking_ends.png';
 import { useEffect, useRef, useState } from 'react';
-import AboutPlace from '../QuickViewFlat/AboutPlace/AboutPlace';
-import Badge from '../../Badge/Badge';
-import InformationWithIcons from '../QuickViewFlat/InformationWithIcons/InformationWithIcons';
-interface MyBookingProps {
+import AboutPlace from '../../QuickViewFlat/AboutPlace/AboutPlace';
+import Badge from '../../../Badge/Badge';
+import InformationWithIcons from '../../QuickViewFlat/InformationWithIcons/InformationWithIcons';
+interface MyBookingPcProps {
   BookedProperty: PropertyInterface;
 }
-const MyBooking: React.FC<MyBookingProps> = (props) => {
+const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
   const targetRef = useRef<HTMLLIElement>(null);
   //Height of my_bookings li element, to dinamically change slider height, if address is longer
   const [dimensions, setDimensions] = useState<number | undefined>(0);
@@ -43,7 +43,7 @@ const MyBooking: React.FC<MyBookingProps> = (props) => {
                 overallRating={props.BookedProperty.overallRating}
                 ratingsCount={props.BookedProperty.ratingsCount}
               />
-              <PropertiesType>{props.BookedProperty.type}</PropertiesType>
+              <PropertiesType>{props.BookedProperty.title}</PropertiesType>
               <MainInformation facilities={props.BookedProperty.facilities} />
               {show && (
                 <Badge badge="BadgeCancelation">
@@ -113,4 +113,4 @@ const MyBooking: React.FC<MyBookingProps> = (props) => {
     </li>
   );
 };
-export default MyBooking;
+export default MyBookingPc;

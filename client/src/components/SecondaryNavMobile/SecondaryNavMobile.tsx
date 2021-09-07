@@ -8,8 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FilterState } from '../../store/reducers/filterReducer';
 import { StoreState } from '../../store/configureStore';
 import { toggleFilterButtonAction } from '../../store/actions/filterActions';
-
-const SecondaryNavMobile: React.FC = () => {
+interface SecondaryNavMobileProps {
+  isQuickViewClicked: boolean;
+}
+const SecondaryNavMobile: React.FC<SecondaryNavMobileProps> = (props) => {
   const dispatch = useDispatch();
   const filter: FilterState = useSelector((state: StoreState) => state.filter);
   const { isFilterOpen } = filter;
@@ -18,7 +20,14 @@ const SecondaryNavMobile: React.FC = () => {
     dispatch(toggleFilterButtonAction(!isFilterOpen));
   };
   return (
-    <div className={classes.SecondaryNavContainer}>
+    <div
+      style={
+        props.isQuickViewClicked
+          ? { margin: '1.2rem auto 0 auto' }
+          : { margin: '8.2rem auto 0 auto' }
+      }
+      className={classes.SecondaryNavContainer}
+    >
       <div className={classes.BtnContainer}>
         <Button
           clicked={toggleFilterHandler}

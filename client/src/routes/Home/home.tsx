@@ -37,7 +37,11 @@ function Home() {
         ) : (
           <Fragment>
             <Navigation />
-            {isMobile && <SecondaryNavMobile />}
+            {isMobile && (
+              <SecondaryNavMobile
+                isQuickViewClicked={quickViewPropertyId !== ''}
+              />
+            )}
 
             <div
               className={cn(
