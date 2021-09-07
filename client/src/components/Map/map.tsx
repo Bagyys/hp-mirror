@@ -1,21 +1,17 @@
-import classes from './map.module.scss';
-import GoogleMapReact from 'google-map-react';
-import Marker from './Marker/Marker';
-import { useEffect } from 'react';
-import { PropertyState } from '../../store/reducers/propertyReducer';
-import { StoreState } from '../../store/configureStore';
-import { useSelector, useDispatch } from 'react-redux';
+import classes from "./map.module.scss";
+import GoogleMapReact from "google-map-react";
+import Marker from "./Marker/Marker";
+import { useEffect } from "react";
+import { PropertyState } from "../../store/reducers/propertyReducer";
+import { StoreState } from "../../store/configureStore";
+import { useSelector, useDispatch } from "react-redux";
 import {
   quickViewAction,
   activePropertyCordsAction,
   resetPropertyCordsAction,
-} from '../../store/actions/propertyActions';
+} from "../../store/actions/propertyActions";
 
-interface MapProp {
-  mapStyle: string;
-}
-
-const Map: React.FC<MapProp> = (props) => {
+function Map() {
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
@@ -30,18 +26,18 @@ const Map: React.FC<MapProp> = (props) => {
     }
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
   return (
-    <div className={classes[props.mapStyle]}>
+    <div className={classes.Map}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyAtsfsGZOACHp7n2sYJZ7Z06Ku2uTasjM0' }}
+        bootstrapURLKeys={{ key: "AIzaSyAtsfsGZOACHp7n2sYJZ7Z06Ku2uTasjM0" }}
         defaultCenter={{ lat: 54.687157, lng: 25.279652 }}
         center={activePropertyCord}
         defaultZoom={12}
-        zoom={quickViewPropertyId === '' ? 11 : 12}
+        zoom={quickViewPropertyId === "" ? 11 : 12}
         margin={[50, 50, 50, 50]}
         options={{
           scrollwheel: false,
@@ -59,7 +55,7 @@ const Map: React.FC<MapProp> = (props) => {
       >
         {properties?.map((property, i) => (
           <Marker
-            overlayViewDivStyle={{ pointerEvents: 'none' }}
+            overlayViewDivStyle={{ pointerEvents: "none" }}
             lat={property.location.cord.lat}
             lng={property.location.cord.lng}
             key={i}
@@ -73,6 +69,6 @@ const Map: React.FC<MapProp> = (props) => {
       </GoogleMapReact>
     </div>
   );
-};
+}
 
 export default Map;

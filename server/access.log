@@ -12446,6 +12446,17 @@
 ::1 - - [06/Sep/2021:12:26:13 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [06/Sep/2021:13:05:18 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10691
 >>>>>>> origin/flatReviewsMap
+<<<<<<< HEAD
+::1 - - [07/Sep/2021:03:48:23 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10648
+::1 - - [07/Sep/2021:04:04:23 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:04:08:08 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:04:08:46 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:04:08:52 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:04:08:55 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:04:12:03 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:05:16:26 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10645
+::1 - - [07/Sep/2021:05:18:36 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+=======
 ::ffff:127.0.0.1 - - [06/Sep/2021:17:23:26 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10637
 ::1 - - [06/Sep/2021:17:24:41 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [06/Sep/2021:17:25:30 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
@@ -12540,6 +12551,7 @@
 ::1 - - [06/Sep/2021:21:50:21 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [06/Sep/2021:21:54:02 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [06/Sep/2021:22:13:11 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10648
+<<<<<<< HEAD
 ::1 - - [07/Sep/2021:07:35:33 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10648
 ::1 - - [07/Sep/2021:07:35:55 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [07/Sep/2021:07:38:09 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
@@ -12631,3 +12643,24 @@
 ::1 - - [07/Sep/2021:10:37:05 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [07/Sep/2021:10:37:50 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [07/Sep/2021:12:01:28 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10747
+=======
+>>>>>>> 37fa290365cab4db72e7df736b112b143664b3ec
+::1 - - [07/Sep/2021:05:22:57 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10646
+::1 - - [07/Sep/2021:05:32:54 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:06:20:08 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10646
+::1 - - [07/Sep/2021:06:20:52 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:08:02:55 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10648
+::1 - - [07/Sep/2021:08:03:11 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:08:11:54 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:09:05:57 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:09:07:57 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:09:28:51 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10697
+::1 - - [07/Sep/2021:09:36:47 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:10:07:50 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:10:09:46 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:10:27:40 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:11:16:15 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:11:27:53 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:11:28:37 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [07/Sep/2021:12:26:30 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10747
+>>>>>>> origin/FlatReviewsWorkingOnMap

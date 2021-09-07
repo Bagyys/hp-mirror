@@ -9,10 +9,11 @@ const Location = () => {
       <div className={classes.Header}>
         <h3>Location</h3>
         <p>Hamburg, Moorfeet</p>
-        <div className={classes.Map}>
-          <Map mapStyle="Map1" />
+        <div className={classes.Map1}>
+          <Map />
         </div>
       </div>
+      <div className={classes.BorderLine}></div>
     </>
   );
 };

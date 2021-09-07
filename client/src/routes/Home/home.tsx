@@ -48,7 +48,7 @@ function Home() {
               )}
             >
               <Flats isMain={true} />
-              <Map mapStyle="FilterPageMap" />
+              <Map  />
             </div>
             <Footer />
           </Fragment>

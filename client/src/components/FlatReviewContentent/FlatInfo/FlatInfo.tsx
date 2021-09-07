@@ -7,7 +7,12 @@ import PlaceOffers from "./PlaceOffers/PlaceOffers";
 import DiscountCalendor from "./DiscountCalendor/DiscountCalendor";
 import CommentsSection from "./CommentsSection/CommentsSection";
 import Location from "./Location/Location";
+import ThingsToKnow from "./ThingsToKnow/ThingsToKnow";
+import ChooseFlats from "./ChooseFlats/ChooseFlats";
+import PropertiesType from "../../Flats/Flat/PropertyType/PropertiesType";
+import Footer from "../../../components/Footer/Footer";
 const FlatInfo = () => {
+  const properties: any = [];
   return (
     <>
       <div className={classes.Layer}>
@@ -16,6 +21,12 @@ const FlatInfo = () => {
         <DiscountCalendor />
         <CommentsSection />
         <Location />
+        <ThingsToKnow />
+        <ChooseFlats />
+        {properties.map((property: any) => {
+          <ChooseFlats property={property} />;
+        })}
+        <Footer />
       </div>
     </>
   );
