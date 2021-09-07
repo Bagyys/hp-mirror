@@ -9,6 +9,7 @@ import Flats from '../../components/Flats/flats';
 const Favorite = () => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
   const history = useHistory();
+
   return (
     <React.Fragment>
       <Navigation />
