@@ -10,6 +10,7 @@
         margin-top: 2.87rem;
         @include respond(mobile){
             margin:0;
+            flex: 1 0 100%;
         }
     }
     &.FlatsContainerFavorite{
@@ -86,7 +87,7 @@
         @include respond(mobile){
             flex-wrap: nowrap;
             overflow-y: auto;
-            margin-bottom: 2.58rem;
+            margin-bottom: 0;
             padding-top: 0.2rem;
             padding-left: 1.2rem;
         }

@@ -1,0 +1,59 @@
+@import "../../../../styles/global.scss";
+
+.Layer {
+  box-sizing: border-box;
+  padding: 0 11.2rem 0 10.5rem;
+  h3 {
+    color: black;
+    font-size: $fontSize30px;
+    font-weight: $font-Weight-bold;
+    font-family: $helveticaNeue;
+    padding-top: 4rem;
+  }
+  .ListLayer {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    .ListItems {
+      display: inline-block;
+      width: 33.3%;
+      padding-top: 7.1rem;
+      padding-left: 3.6rem;
+
+      h5 {
+        color: black;
+        font-size: $fontSize20px;
+        font-weight: $font-Weight-bold;
+        font-family: $helveticaNeue;
+        padding-bottom: 2.5rem;
+      }
+      ul {
+        li {
+          box-sizing: border-box;
+          vertical-align: top;
+          height: auto;
+          color: $lightGrey6;
+          list-style-type: disc;
+          list-style-position: inside;
+          font-size: $fontSize21px;
+          span {
+            box-sizing: border-box;
+            display: inline-block;
+            vertical-align: top;
+            width: 90%;
+            color: $black2;
+            font-weight: $font-Weight-regular;
+            font-family: $helveticaNeue;
+            padding-bottom: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+.BorderLine {
+  border-top: 1px solid $grey;
+  width: 170rem;
+  margin-top: 9.9rem;
+  margin-left: 9.9rem;
+}

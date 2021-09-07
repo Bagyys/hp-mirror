@@ -1,28 +1,26 @@
-import { useMediaPredicate } from 'react-media-hook';
-import classes from './Flat.module.scss';
-import ImageSlider from '../../Slider/imageSlider';
-import Button from '../../Button/button';
-import GroupedBadges from './GroupedBadges/GroupedBadges';
-import Ratings from './Ratings/Ratings';
-import Favorites from './Favorites/Favorites';
-import PropertiesType from './PropertyType/PropertiesType';
-import MainInformation from './MainInformation/MainInformation';
-import { Link } from 'react-router-dom';
-import { PropertyInterface } from '../../../store/types/propertyInterfaces';
-import DailyPrice from './DailyPrices/DailyPrice';
-import { cn } from '../../../utilities/joinClasses';
+import { useMediaPredicate } from "react-media-hook";
+import classes from "./Flat.module.scss";
+import ImageSlider from "../../Slider/imageSlider";
+import Button from "../../Button/button";
+import GroupedBadges from "./GroupedBadges/GroupedBadges";
+import Ratings from "./Ratings/Ratings";
+import Favorites from "./Favorites/Favorites";
+import PropertiesType from "./PropertyType/PropertiesType";
+import MainInformation from "./MainInformation/MainInformation";
+import { Link } from "react-router-dom";
+import { PropertyInterface } from "../../../store/types/propertyInterfaces";
+import DailyPrice from "./DailyPrices/DailyPrice";
+import { cn } from "../../../utilities/joinClasses";
 
 interface FlatProps {
   property: PropertyInterface;
-  favoritePage?: boolean;
   liked: boolean;
   quickViewClicked?: () => void;
   clickedLike: () => void;
   isMain?: boolean;
 }
 const Flat: React.FC<FlatProps> = (props) => {
-  const isMobile = useMediaPredicate('(max-width: 675px)');
-
+  const isMobile = useMediaPredicate("(max-width: 675px)");
   let propertiesRender = (
     <li
       className={cn(
@@ -32,7 +30,8 @@ const Flat: React.FC<FlatProps> = (props) => {
     >
       <div className={classes.FlatContent}>
         <div className={classes.FlatImg}>
-          <ImageSlider sliderClass="FlatCard" slides={props.property.images} />
+          <ImageSlider sliderClass="FlatCard" slides={props.property?.images} />
+
           <Favorites liked={props.liked} clickedLike={props.clickedLike} />
         </div>
         <div
@@ -43,7 +42,7 @@ const Flat: React.FC<FlatProps> = (props) => {
               : classes.InfoContainerFavorite
           )}
         >
-          <GroupedBadges {...props.property.discount} />
+          <GroupedBadges {...props.property.discounts} />
           <Ratings
             overallRating={props.property.overallRating}
             ratingsCount={props.property.ratingsCount}
@@ -55,8 +54,8 @@ const Flat: React.FC<FlatProps> = (props) => {
           <div
             style={
               !props.isMain && isMobile
-                ? { position: 'initial' }
-                : { position: 'absolute' }
+                ? { position: "initial" }
+                : { position: "absolute" }
             }
             className={classes.PriceBtnContainer}
           >
@@ -68,7 +67,7 @@ const Flat: React.FC<FlatProps> = (props) => {
             <div className={classes.FlatBtnsContainer}>
               <Button
                 clicked={props.quickViewClicked}
-                btnType={'FlatInfo'}
+                btnType={"FlatInfo"}
                 bgColor="Blue"
               >
                 Quick View

@@ -13,6 +13,7 @@ const Location = () => {
           <Map />
         </div>
       </div>
+      <div className={classes.BorderLine}></div>
     </>
   );
 };

@@ -2,12 +2,12 @@
 .Map {
   background-color: lightgray;
   flex: 0 0 51.5%;
-  height: 96.4rem;
+  height: 96.4rem; //  inherit
   text-align: center;
   margin-left: 1%;
   @include respond(mobile) {
     order: -1;
-    flex: 0 0 100%;
+    flex: unset;
     height: 39rem;
     margin-left: 0;
   }

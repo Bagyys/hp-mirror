@@ -1,5 +1,7 @@
 @import "../../../../styles/global.scss";
 .Header {
+  padding-top: 5rem;
+  padding-left: 10.5rem;
   h3 {
     color: black;
     font-size: $fontSize30px;
@@ -12,12 +14,20 @@
     font-weight: $font-Weight-regular;
     font-family: $helveticaNeue;
     padding-top: 0.8rem;
+    padding-bottom: 5rem;
   }
 }
-
 .Map1 {
+  box-sizing: border-box;
+  padding: 0 11.2rem 9.3rem 0;
   display: block;
   width: 100%;
   height: 62.8rem;
-  object-fit: cover;
+  margin: 0;
+}
+.BorderLine {
+  border-top: 1px solid $grey;
+  width: 170rem;
+  margin-top: 9.3rem;
+  margin-left: 9.9rem;
 }

@@ -86,11 +86,11 @@ const propertyReducer = (
         ...state,
         recentlyViewedProperties:action.payload,
       };  
-      // case propertyTypes.RESET_PROPERTY_CORDS:
-      // return {
-      //   ...state,
-      //   activePropertyCord:initialState.activePropertyCord,
-      // };  
+    case propertyTypes.RESET_PROPERTY_CORDS:
+      return {
+        ...state,
+        activePropertyCord:initialState.activePropertyCord,
+      };  
     default:
       return state;
   }

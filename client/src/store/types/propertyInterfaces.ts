@@ -14,7 +14,7 @@ export interface PropertyInterface {
   occupiedTime: Array<OccupiedDayInterface>;
   ratings: Array<RatingInterface>;
   overallRating: number;
-  discount: DiscountInterface; //Dizainui del discount badge
+  discounts: DiscountInterface; //Dizainui del discount badge
   ratingsCount: number;
   createdAt: Date;
 }
