@@ -44,7 +44,7 @@ function Home() {
               )}
             >
               <Flats isMain={true} />
-              <Map style={"empty"} />
+              <Map  />
             </div>
             <Footer />
           </Fragment>

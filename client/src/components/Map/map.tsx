@@ -10,11 +10,9 @@ import {
   activePropertyCordsAction,
 } from "../../store/actions/propertyActions";
 
-interface StyleProp {
-  style: string;
-}
 
-function Map(props: StyleProp) {
+
+function Map() {
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
@@ -29,7 +27,7 @@ function Map(props: StyleProp) {
     }
     window.scrollTo({
       top: 0,
-    behavior: "smooth"
+      behavior: "smooth",
     });
   };
   return (
