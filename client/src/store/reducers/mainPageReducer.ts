@@ -15,8 +15,8 @@ export interface InitialState {
 }
 
 const initialState: InitialState = {
-  startDate: undefined,
-  endDate: undefined,
+  startDate: new Date(),
+  endDate: new Date(),
   proceedToGuests: false,
   guests: {
     adults: 0,
