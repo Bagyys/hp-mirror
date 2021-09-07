@@ -9,7 +9,7 @@ import React, { useCallback, ChangeEvent } from 'react';
 import Input from '../Input/Input';
 import ToggleClass from './ToggleClasses/ToggleClasses';
 import { objecToArray } from '../../utilities/objectToArr';
-import { cloneDeep, debounce, filter } from 'lodash';
+import { cloneDeep, debounce } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/configureStore';
 import {
@@ -249,9 +249,11 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
     let formData = {};
     const arr = objecToArray(filterData);
     arr.map(({ id, config }) => {
+      let objHelper = {};
       objecToArray(config).map(({ id, config }) => {
-        formData = { ...formData, [id]: config.value };
+        objHelper = { ...objHelper, [id]: config.value };
       });
+      formData = { ...formData, [id]: objHelper };
     });
     console.log(formData);
   };

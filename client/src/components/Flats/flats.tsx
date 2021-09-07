@@ -73,9 +73,9 @@ const Flats: React.FC<FlatsProps> = (props) => {
   useEffect(() => {
     dispatch(quickViewAction(''));
   }, [currentPage, pageSizeMain]);
-  useEffect(() => {
-    dispatch(currentPageAction(1));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(currentPageAction(1));
+  // }, []);
 
   const handleError = () => {
     dispatch(clearErrorAction());

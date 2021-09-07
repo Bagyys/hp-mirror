@@ -11,7 +11,10 @@ import { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from '../../store/configureStore';
 import { PropertyState } from '../../store/reducers/propertyReducer';
-import { getAllPropertiesAction } from '../../store/actions/propertyActions';
+import {
+  getAllPropertiesAction,
+  resetPropertyCordsAction,
+} from '../../store/actions/propertyActions';
 const isChoosing = false;
 function Home() {
   const dispatch = useDispatch();
@@ -19,11 +22,12 @@ function Home() {
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
-  const { quickViewPropertyId } = propertyStore;
+  const { quickViewPropertyId, activePropertyCord } = propertyStore;
   const isMobile = useMediaPredicate('(max-width: 675px)');
   // localStorage.removeItem('persist:root');
   useEffect(() => {
     dispatch(getAllPropertiesAction());
+    dispatch(resetPropertyCordsAction());
   }, []);
   return (
     <>
@@ -44,7 +48,7 @@ function Home() {
               )}
             >
               <Flats isMain={true} />
-              <Map style={'empty'} />
+              <Map mapStyle="FilterPageMap" />
             </div>
             <Footer />
           </Fragment>
