@@ -8,7 +8,7 @@ import plus from '../../assets/images/plus.png';
 import React, { useCallback, ChangeEvent } from 'react';
 import Input from '../Input/Input';
 import ToggleClass from './ToggleClasses/ToggleClasses';
-import { objecToArray } from '../../utilities/objectToArr';
+import { objecToArray } from '../../utilities/flatsFunctions';
 import { cloneDeep, debounce } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/configureStore';

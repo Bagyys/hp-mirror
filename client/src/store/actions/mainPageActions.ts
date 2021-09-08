@@ -22,6 +22,7 @@ export interface MainPageInterface {
     isSearching: boolean;
     anytimeOrCalendar: string;
     isChoosing: boolean;
+    searchedDayList:Array<string>;
   };
 }
 
@@ -108,5 +109,13 @@ export const toggleIsChoosing =
       payload: {
         isChoosing,
       },
+    });
+  };
+  //pridedu pasirinktu dienu lista i main reduceri
+  export const addSearchingDayList =
+  (searchedDayList: Array<string>) => (dispatch: Dispatch) => {
+    dispatch({
+      type: mainPageTypes.ADD_SEARCHED_DAY_LIST,
+      payload: {searchedDayList},
     });
   };

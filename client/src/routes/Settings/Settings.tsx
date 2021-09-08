@@ -1,28 +1,28 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
-import { StoreState } from "../../store/configureStore";
-import { PropertyState } from "../../store/reducers/propertyReducer";
-import { ErrorState } from "../../store/reducers/errorReducer";
+import { StoreState } from '../../store/configureStore';
+import { PropertyState } from '../../store/reducers/propertyReducer';
+import { ErrorState } from '../../store/reducers/errorReducer';
 import {
   getUnassignedLocksAction,
   assignLockAction,
   unassignLockAction,
   selectLockAction,
   clearSelectedLockAction,
-} from "../../store/actions/lockActions";
-import { throwErrorAction } from "../../store/actions/errorActions";
-import { LockProps } from "../../store/types/lockInterfaces";
+} from '../../store/actions/lockActions';
+import { throwErrorAction } from '../../store/actions/errorActions';
+import { LockProps } from '../../store/types/lockInterfaces';
 import {
   getAllPropertiesAction,
   selectPropertyAction,
   clearSelectedPropertyAction,
-} from "../../store/actions/propertyActions";
-import { clearErrorAction } from "../../store/actions/errorActions";
-import { PropertyInterface } from "../../store/types/propertyInterfaces";
+} from '../../store/actions/propertyActions';
+import { clearErrorAction } from '../../store/actions/errorActions';
+import { PropertyInterface } from '../../store/types/propertyInterfaces';
 
-import classes from "./Settings.module.scss";
+import classes from './Settings.module.scss';
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -35,14 +35,15 @@ const Settings = () => {
   );
   const properties: Array<PropertyInterface> = propertyStore.properties;
   const selectedProperty: string = propertyStore.selectedProperty;
-
+  const mainPage = useSelector((state: StoreState) => state.mainPage);
+  const { searchedDayList, guests } = mainPage;
   const errorState: ErrorState = useSelector(
     (state: StoreState) => state.error
   );
   const { error } = errorState;
 
   useEffect(() => {
-    dispatch(getAllPropertiesAction());
+    dispatch(getAllPropertiesAction(searchedDayList, guests));
     dispatch(getUnassignedLocksAction());
   }, []);
 
@@ -56,10 +57,10 @@ const Settings = () => {
     if (error) {
       Swal.fire({
         title: error,
-        text: "Please try again",
-        icon: "warning",
+        text: 'Please try again',
+        icon: 'warning',
         showCancelButton: false,
-        confirmButtonText: "OK",
+        confirmButtonText: 'OK',
       }).then(() => {
         handleError();
       });
@@ -121,7 +122,7 @@ const Settings = () => {
       dispatch(clearSelectedPropertyAction());
       dispatch(clearSelectedLockAction());
     } else {
-      dispatch(throwErrorAction("select lock and property"));
+      dispatch(throwErrorAction('select lock and property'));
     }
   };
 
@@ -131,7 +132,7 @@ const Settings = () => {
       dispatch(clearSelectedPropertyAction());
       dispatch(clearSelectedLockAction());
     } else {
-      dispatch(throwErrorAction("select lock and property"));
+      dispatch(throwErrorAction('select lock and property'));
     }
   };
   return (
@@ -181,7 +182,7 @@ const Settings = () => {
           <h4>Assigned lock:</h4>
           {selectedPropertyLock
             ? selectedPropertyLock
-            : " --- select property ---"}
+            : ' --- select property ---'}
         </div>
         <button onClick={handleUnassign}>Unassign</button>
       </div>

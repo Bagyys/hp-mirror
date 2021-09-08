@@ -1,17 +1,18 @@
-import classes from "../main.module.scss";
-import searchImg from "../../../assets/images/Search.svg";
-import { useEffect, useState } from "react";
-import moment from "moment";
-import { StoreState } from "../../../store/configureStore";
-import { useDispatch, useSelector } from "react-redux";
+import classes from '../main.module.scss';
+import searchImg from '../../../assets/images/Search.svg';
+import { useEffect, useState } from 'react';
+import moment from 'moment';
+import { StoreState } from '../../../store/configureStore';
+import { useDispatch, useSelector } from 'react-redux';
 import {
+  addSearchingDayList,
   setProceedToGuests,
   toggleIsChoosing,
   toggleIsSearching,
-} from "../../../store/actions/mainPageActions";
-import { useMediaPredicate } from "react-media-hook";
-import React from "react";
-import Swal from "sweetalert2";
+} from '../../../store/actions/mainPageActions';
+import { useMediaPredicate } from 'react-media-hook';
+import React from 'react';
+import Swal from 'sweetalert2';
 interface activeObjectInterface {
   activeObject: null | {
     id: number;
@@ -27,23 +28,25 @@ function SearchProgress() {
   const dispatch = useDispatch();
   const adults = mainPage.guests.adults;
   const children = mainPage.guests.children;
-  const isMobile = useMediaPredicate("(max-width: 675px)");
-  const isLaptop = useMediaPredicate("(max-width: 1660px)");
+  const startDate = mainPage.startDate;
+  const endDate: any = mainPage.endDate;
+  const isMobile = useMediaPredicate('(max-width: 675px)');
+  const isLaptop = useMediaPredicate('(max-width: 1660px)');
   const [appState, changeState] = useState<activeObjectInterface>({
-    activeObject: { id: 1, title: "Check in", text: "" },
+    activeObject: { id: 1, title: 'Check in', text: '' },
 
     objects: [
       {
         id: 1,
-        title: "Check in",
-        text: moment(mainPage.startDate).format("MMM Do"),
+        title: 'Check in',
+        text: moment(mainPage.startDate).format('MMM Do'),
       },
       {
         id: 2,
-        title: "Check out",
-        text: moment(mainPage.endDate).format("MMM Do"),
+        title: 'Check out',
+        text: moment(mainPage.endDate).format('MMM Do'),
       },
-      { id: 3, title: "Guests", text: "add dates" },
+      { id: 3, title: 'Guests', text: 'add dates' },
     ],
   });
 
@@ -51,22 +54,22 @@ function SearchProgress() {
   let checkOUtText: string;
   let guests: string;
   if (mainPage.startDate) {
-    checkInText = moment(mainPage.startDate).format("MMM Do");
+    checkInText = moment(mainPage.startDate).format('MMM Do');
   } else {
-    checkInText = "add date";
+    checkInText = 'add date';
   }
 
   if (mainPage.endDate) {
-    checkOUtText = moment(mainPage.endDate).format("MMM Do");
+    checkOUtText = moment(mainPage.endDate).format('MMM Do');
   } else {
-    checkOUtText = "add date";
+    checkOUtText = 'add date';
   }
 
   if (adults > 0 || children > 0) {
     const totalGuests = adults + children;
     guests = `Guests: ${totalGuests}`;
   } else {
-    guests = "add guests";
+    guests = 'add guests';
   }
 
   useEffect(() => {
@@ -74,9 +77,9 @@ function SearchProgress() {
       activeObject: null,
 
       objects: [
-        { id: 1, title: "Check in", text: checkInText },
-        { id: 2, title: "Check out", text: checkOUtText },
-        { id: 3, title: "Guests", text: guests },
+        { id: 1, title: 'Check in', text: checkInText },
+        { id: 2, title: 'Check out', text: checkOUtText },
+        { id: 3, title: 'Guests', text: guests },
       ],
     });
   }, [mainPage.startDate, mainPage.endDate, adults, children]);
@@ -108,7 +111,7 @@ function SearchProgress() {
   };
 
   const toggleActiveStyles = (index: number) => {
-    console.log(appState.activeObject, "Active Object");
+    console.log(appState.activeObject, 'Active Object');
     if (mainPage.isSearching) {
       if (appState.objects[index] === appState.activeObject) {
         return `${classes.Active}`;
@@ -136,30 +139,43 @@ function SearchProgress() {
   };
 
   const searchFlats = () => {
-    console.log("Ieskom butu");
+    console.log('Ieskom butu');
     if (!mainPage.startDate) {
       Swal.fire({
-        text: "Please select Check in date",
-        icon: "warning",
+        text: 'Please select Check in date',
+        icon: 'warning',
         showCancelButton: false,
-        confirmButtonText: "OK",
+        confirmButtonText: 'OK',
       });
     } else if (!mainPage.endDate) {
       Swal.fire({
-        text: "Please select Check out date",
-        icon: "warning",
+        text: 'Please select Check out date',
+        icon: 'warning',
         showCancelButton: false,
-        confirmButtonText: "OK",
+        confirmButtonText: 'OK',
       });
     } else if (mainPage.guests.adults === 0 && mainPage.guests.children === 0) {
       Swal.fire({
-        text: "Please select at least one guest",
-        icon: "warning",
+        text: 'Please select at least one guest',
+        icon: 'warning',
         showCancelButton: false,
-        confirmButtonText: "OK",
+        confirmButtonText: 'OK',
       });
     } else {
       dispatch(toggleIsChoosing(false));
+      //pridedu pasirinktu dienu lista i main reduceri
+      let fromToArray: Array<string> = [];
+      if (startDate) {
+        const test = new Date(startDate);
+        const test2 = new Date(endDate);
+        while (test < test2) {
+          // this line modifies the original firstDate reference which you want to make the while loop work
+          test.setDate(test.getDate() + 1);
+          // this pushes a new date , if you were to push firstDate then you will keep updating every item in the array
+          fromToArray.push(new Date(test).toString());
+        }
+      }
+      dispatch(addSearchingDayList(fromToArray));
     }
   };
   return (
@@ -176,10 +192,10 @@ function SearchProgress() {
                   style={
                     mainPage.isSearching
                       ? {
-                          lineHeight: "2rem",
+                          lineHeight: '2rem',
                         }
                       : {
-                          lineHeight: "5.5rem",
+                          lineHeight: '5.5rem',
                         }
                   }
                 >
@@ -197,21 +213,21 @@ function SearchProgress() {
                   style={
                     mainPage.isSearching
                       ? {
-                          padding: "0.9rem 0 ",
-                          lineHeight: "2rem",
-                          fontSize: "1.9rem",
+                          padding: '0.9rem 0 ',
+                          lineHeight: '2rem',
+                          fontSize: '1.9rem',
                         }
                       : {
-                          padding: "1.2rem",
-                          lineHeight: "2rem",
+                          padding: '1.2rem',
+                          lineHeight: '2rem',
                         }
                   }
                 >
                   <h2
                     style={
                       mainPage.isSearching
-                        ? { padding: "0.3rem 0" }
-                        : { padding: "0.8rem 0" }
+                        ? { padding: '0.3rem 0' }
+                        : { padding: '0.8rem 0' }
                     }
                   >
                     {element.title}
@@ -230,7 +246,7 @@ function SearchProgress() {
             <div
               onClick={() => searchFlats()}
               className={classes.SearchButton}
-              style={{ right: "0%", padding: "1.8rem 1.7rem 1.8rem 1.5rem" }}
+              style={{ right: '0%', padding: '1.8rem 1.7rem 1.8rem 1.5rem' }}
             >
               <p className={classes.SearchText}>Search</p>
               <img src={searchImg} alt="Search" />
@@ -242,11 +258,11 @@ function SearchProgress() {
           className={classes.SearchButton}
           onClick={() =>
             Swal.fire({
-              title: "Upps",
-              text: "Select dates and amount of guests",
-              icon: "warning",
+              title: 'Upps',
+              text: 'Select dates and amount of guests',
+              icon: 'warning',
               showCancelButton: false,
-              confirmButtonText: "OK",
+              confirmButtonText: 'OK',
             })
           }
         >

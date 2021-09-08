@@ -53,7 +53,6 @@ const Map: React.FC<MapProp> = (props) => {
           clickableIcons: false,
         }}
         onChange={(e) => {
-          console.log(e);
           // dispatch(
           //   activePropertyCordsAction({ lat: e.center.lat, lng: e.center.lng })
           // );

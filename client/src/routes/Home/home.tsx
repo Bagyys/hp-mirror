@@ -19,16 +19,20 @@ const isChoosing = false;
 function Home() {
   const dispatch = useDispatch();
   const mainPage = useSelector((state: StoreState) => state.mainPage);
+  const { searchedDayList, guests } = mainPage;
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
-  const { quickViewPropertyId, activePropertyCord } = propertyStore;
+  const { quickViewPropertyId } = propertyStore;
   const isMobile = useMediaPredicate('(max-width: 675px)');
+
   // localStorage.removeItem('persist:root');
   useEffect(() => {
-    dispatch(getAllPropertiesAction());
+    //is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu paemus duomenis is API, nezinau ar tinka?
+    dispatch(getAllPropertiesAction(searchedDayList, guests));
     dispatch(resetPropertyCordsAction());
-  }, []);
+  }, [mainPage.searchedDayList, mainPage.guests]);
+
   return (
     <>
       <div className={classes.App}>

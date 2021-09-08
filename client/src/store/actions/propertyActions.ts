@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import propertyTypes from "../types/propertyTypes";
 import errorTypes from "../types/errorTypes";
 import { PropertyInterface } from "../types/propertyInterfaces";
-import { isStringInArray } from "../../utilities/isStringInArray";
+import { availableProperties, isStringInArray } from "../../utilities/flatsFunctions";
 
 // -------------------- URLS --------------------
 
@@ -76,6 +76,7 @@ export interface ResetPropertyCords
   extends Action<typeof propertyTypes.RESET_PROPERTY_CORDS> {
 }
 
+
 export type PropertyActions =
   | GetAllPropertiesStart
   | GetAllPropertiesSuccess
@@ -99,7 +100,7 @@ export type PropertyActions =
 
 // -------------------- ACTIONS --------------------
 
-export const getAllPropertiesAction = () => async (dispatch: Dispatch) => {
+export const getAllPropertiesAction = (days:Array<string>,guests:{[key:string]:number}) => async (dispatch: Dispatch) => {
   dispatch({ type: propertyTypes.GET_ALL_PROPERTIES_START });
   try {
     const response: AxiosResponse<{
@@ -111,10 +112,12 @@ export const getAllPropertiesAction = () => async (dispatch: Dispatch) => {
       response.data.message === undefined &&
       response.data.properties !== undefined
     ) {
+      // paemus duomenis is API is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu , nezinau ar tinka?
+      let available=availableProperties(response.data.properties,days,guests)
       dispatch({
         type: propertyTypes.GET_ALL_PROPERTIES_SUCCESS,
         // payload: fakeData //fake data demo
-        payload: response.data.properties,
+        payload: available,
       });
     } else {
       dispatch({
@@ -261,5 +264,6 @@ export const resetPropertyCordsAction =
       type: propertyTypes.RESET_PROPERTY_CORDS
     });
   };
+
 
 // -------------------- END of ACTIONS --------------------
