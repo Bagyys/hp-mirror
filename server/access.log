@@ -12664,3 +12664,4 @@
 ::1 - - [07/Sep/2021:11:28:37 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [07/Sep/2021:12:26:30 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10747
 >>>>>>> origin/FlatReviewsWorkingOnMap
+::1 - - [07/Sep/2021:13:25:54 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10747
