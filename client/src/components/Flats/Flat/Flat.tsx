@@ -47,7 +47,7 @@ const Flat: React.FC<FlatProps> = (props) => {
             overallRating={props.property.overallRating}
             ratingsCount={props.property.ratingsCount}
           />
-          <PropertiesType>{props.property.type}</PropertiesType>
+          <PropertiesType>{props.property.title}</PropertiesType>
 
           <MainInformation facilities={props.property.facilities} />
 

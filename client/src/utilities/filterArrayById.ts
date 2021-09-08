@@ -1,7 +1,9 @@
 import { PropertyInterface } from "../store/types/propertyInterfaces";
 
 export const filterArrayById = (properties:PropertyInterface[], arr: Array<string>) => 
- { const Arr:PropertyInterface[]=[];
+ { 
+  //ideda apartamentus i favorite list ir recently viewed ir rikiuoja juos pagal paspaudima
+  const Arr:PropertyInterface[]=[];
   for(let el of arr){
     for(let el2 of properties){
       if(el===el2._id){

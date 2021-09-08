@@ -17,6 +17,11 @@
         width: 7rem;
         height: 5rem;
         border-radius: 2.2rem;
+        @include respond(mobile){
+            font-size: $smallerMediumFont;
+            width: 4.7rem;
+            height: 3.5rem;
+        }
     }
     &.Active {
         background-color: $black2;
@@ -25,6 +30,12 @@
         width: 9.4rem;
         height: 7rem;
         border-radius: 3.2rem;
+        @include respond(mobile){
+            font-size: $smallerMediumFont;
+            width: 4.7rem;
+            height: 3.5rem;
+            border-radius: 2.2rem;
+        }
     }
 
 }
