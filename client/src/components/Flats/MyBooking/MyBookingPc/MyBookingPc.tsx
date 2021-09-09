@@ -19,95 +19,94 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
   const targetRef = useRef<HTMLLIElement>(null);
   //Height of my_bookings li element, to dinamically change slider height, if address is longer
   const [dimensions, setDimensions] = useState<number | undefined>(0);
-  const [show, setShow] = useState<boolean>(false);
+  const [showQuickView, setShowQuickView] = useState<boolean>(false);
   useEffect(() => {
-    setDimensions(targetRef.current?.offsetHeight);
+    setDimensions(targetRef.current?.clientHeight);
   }, []);
   const quickViewHandler = () => {
-    setShow(!show);
+    setShowQuickView(!showQuickView);
   };
+  console.log(dimensions);
   return (
     <li ref={targetRef} className={classes.MyBookingContainer}>
       <div className={classes.MyBookingFlatImg}>
         <ImageSlider
           sliderClass="BookedFlatCard"
           slides={props.BookedProperty.images}
-          height={dimensions}
+          height={showQuickView ? 460 : dimensions}
         />
       </div>
       <div className={classes.MyBookingInfoContainer}>
-        <div className={classes.MyBookingWrapper}>
-          <div className={classes.Row}>
-            <div className={classes.ApartamentInfo}>
-              <Ratings
-                overallRating={props.BookedProperty.overallRating}
-                ratingsCount={props.BookedProperty.ratingsCount}
-              />
-              <PropertiesType>{props.BookedProperty.title}</PropertiesType>
-              <MainInformation facilities={props.BookedProperty.facilities} />
-              {show && (
-                <Badge badge="BadgeCancelation">
-                  Free cancelation until July 6
-                </Badge>
-              )}
-            </div>
+        <div className={classes.Row}>
+          <div className={classes.ApartamentInfo}>
+            <Ratings
+              overallRating={props.BookedProperty.overallRating}
+              ratingsCount={props.BookedProperty.ratingsCount}
+            />
+            <PropertiesType>{props.BookedProperty.title}</PropertiesType>
+            <MainInformation facilities={props.BookedProperty.facilities} />
+            {showQuickView && (
+              <Badge badge="BadgeCancelation">
+                Free cancelation until July 6
+              </Badge>
+            )}
+          </div>
 
-            <div className={classes.BookingInfo}>
-              <div className={classes.MyBookingBoxesContainer}>
-                <div className={classes.MyBookingInfoBox}>
-                  <img src={home} alt="home" />
-                  <p>{props.BookedProperty.location.addressString1}</p>
-                </div>
-                <div className={classes.Separator}></div>
-                <div className={classes.MyBookingInfoBox}>
-                  <img src={calendarBegins} alt="calendar begins" />
-                  <p className={classes.Bold}>Booking begins</p>
-                  <p>2021-06-05</p>
-                </div>
-                <div className={classes.Separator}></div>
-                <div className={classes.MyBookingInfoBox}>
-                  <img src={calendarEnds} alt="calendar ends" />
-                  <p className={classes.Bold}>Booking ends</p>
-                  <p>2021-06-16</p>
-                </div>
+          <div className={classes.BookingInfo}>
+            <div className={classes.MyBookingBoxesContainer}>
+              <div className={classes.MyBookingInfoBox}>
+                <img src={home} alt="home" />
+                <p>{props.BookedProperty.location.addressString1}</p>
+              </div>
+              <div className={classes.Separator}></div>
+              <div className={classes.MyBookingInfoBox}>
+                <img src={calendarBegins} alt="calendar begins" />
+                <p className={classes.Bold}>Booking begins</p>
+                <p>2021-06-05</p>
+              </div>
+              <div className={classes.Separator}></div>
+              <div className={classes.MyBookingInfoBox}>
+                <img src={calendarEnds} alt="calendar ends" />
+                <p className={classes.Bold}>Booking ends</p>
+                <p>2021-06-16</p>
               </div>
             </div>
           </div>
-          {show && (
-            <div className={classes.Row}>
-              <div className={classes.AboutPlaceContainer}>
-                <AboutPlace>{props.BookedProperty.description}</AboutPlace>
-              </div>
-              <div className={classes.InformationWithIconsContainer}>
-                <InformationWithIcons
-                  facilities={props.BookedProperty.facilities}
-                />
-              </div>
+        </div>
+        {showQuickView && (
+          <div className={classes.Row}>
+            <div className={classes.AboutPlaceContainer}>
+              <AboutPlace>{props.BookedProperty.description}</AboutPlace>
             </div>
-          )}
-          <div className={classes.FlatBtnsContainer}>
-            <Button
-              clicked={quickViewHandler}
-              btnType={'FlatInfo'}
-              bgColor="Blue"
-            >
-              Quick View
-            </Button>
-            <Button
-              clicked={() => console.log('labas')}
-              btnType={'FlatInfo'}
-              bgColor="Orange"
-            >
-              Unlock door
-            </Button>
-            <Button
-              clicked={() => console.log('labas')}
-              btnType={'FlatInfo'}
-              bgColor="Red"
-            >
-              Contact owner
-            </Button>
+            <div className={classes.InformationWithIconsContainer}>
+              <InformationWithIcons
+                facilities={props.BookedProperty.facilities}
+              />
+            </div>
           </div>
+        )}
+        <div className={classes.FlatBtnsContainer}>
+          <Button
+            clicked={quickViewHandler}
+            btnType={'FlatInfo'}
+            bgColor="Blue"
+          >
+            Quick View
+          </Button>
+          <Button
+            clicked={() => console.log('labas')}
+            btnType={'FlatInfo'}
+            bgColor="Orange"
+          >
+            Unlock door
+          </Button>
+          <Button
+            clicked={() => console.log('labas')}
+            btnType={'FlatInfo'}
+            bgColor="Red"
+          >
+            Contact owner
+          </Button>
         </div>
       </div>
     </li>

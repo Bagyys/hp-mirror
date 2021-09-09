@@ -6,7 +6,7 @@
     border-radius: 1rem;
     margin-bottom: 3rem;
     display: flex;
-    min-height: 21rem;
+    
     .MyBookingFlatImg{
         flex: 0 0 23%;
         margin-left: -.1px;
@@ -16,6 +16,7 @@
         padding: 1.2rem 5rem 2.8rem 3rem;
         flex: 1;
         position: relative;
+        // min-height: 21rem;
         .Row{
             display: flex;
             justify-content: space-between;

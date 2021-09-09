@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useMediaPredicate } from 'react-media-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -22,7 +22,6 @@ import Pagination from '../Pagination/Pagination';
 import QuickViewFlat from './QuickViewFlat/QuickViewFlat';
 import arrow from '../../assets/images/arrow2.png';
 import Button from '../Button/button';
-import { isStringInArray } from '../../utilities/isStringInArray';
 import { userState } from '../../store/reducers/userReducer';
 import { addToFavoriteAction } from '../../store/actions/userActions';
 import SideFilter from '../SideFilter/SideFilter';
@@ -32,10 +31,11 @@ import { toggleFilterButtonAction } from '../../store/actions/filterActions';
 import { cn } from '../../utilities/joinClasses';
 import QuickViewFlatFavoritePc from './QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
 import MyBookingPc from './MyBooking/MyBookingPc/MyBookingPc';
-import { filterArrayById } from '../../utilities/filterArrayById';
-import moment from 'moment';
 import MyBookingMobile from './MyBooking/MyBookingMobile/MyBookingMobile';
-import { availableProperties } from '../../utilities/availableProperties';
+import {
+  filterArrayById,
+  isStringInArray,
+} from '../../utilities/flatsFunctions';
 
 interface FlatsProps {
   isMain: boolean;
@@ -45,8 +45,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const dispatch = useDispatch();
   const mainPage = useSelector((state: StoreState) => state.mainPage);
   const auth: userState = useSelector((state: StoreState) => state.user);
-  const startDate = mainPage.startDate;
-  const endDate: any = mainPage.endDate;
+
   const { user } = auth;
   const filter: FilterState = useSelector((state: StoreState) => state.filter);
   const { isFilterOpen } = filter;
@@ -66,24 +65,9 @@ const Flats: React.FC<FlatsProps> = (props) => {
   );
   const { error } = errorState;
 
-  let fromToArray: Array<Date> = [];
-  if (startDate) {
-    const test = new Date(startDate);
-    const test2 = new Date(endDate);
-    while (test < test2) {
-      // this line modifies the original firstDate reference which you want to make the while loop work
-      test.setDate(test.getDate() + 1);
-      // this pushes a new date , if you were to push firstDate then you will keep updating every item in the array
-      fromToArray.push(new Date(test));
-    }
-  }
-
   const propertiesList = props.isMain
-    ? availableProperties(properties, fromToArray)
-    : filterArrayById(
-        availableProperties(properties, fromToArray),
-        user.favorites
-      );
+    ? properties
+    : filterArrayById(properties, user.favorites);
 
   const quickViewData = propertiesList.find(
     (item) => item._id === quickViewPropertyId
@@ -92,6 +76,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
   useEffect(() => {
     dispatch(quickViewAction(''));
   }, [currentPage, pageSizeMain]);
+
   // useEffect(() => {
   //   dispatch(currentPageAction(1));
   // }, []);

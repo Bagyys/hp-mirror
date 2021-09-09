@@ -7,7 +7,7 @@ import errorTypes from "../types/errorTypes";
 import { userState } from "../reducers/userReducer";
 import { UserInterface } from "../types/userInterfaces";
 import {PropertyInterface} from "../types/propertyInterfaces";
-import { isStringInArray } from "../../utilities/isStringInArray";
+import { isStringInArray } from "../../utilities/flatsFunctions";
 
 // -------------------- URLS --------------------
 

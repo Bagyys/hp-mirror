@@ -4,7 +4,7 @@ import { cn } from '../../../utilities/joinClasses';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../../store/configureStore';
 import { LanguageState } from '../../../store/reducers/languageReducer';
-import { objecToArray } from '../../../utilities/objectToArr';
+import { objecToArray } from '../../../utilities/flatsFunctions';
 import { changeLanguageAction } from '../../../store/actions/languageActions';
 
 const Language: React.FC = () => {

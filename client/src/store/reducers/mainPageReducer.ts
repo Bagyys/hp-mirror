@@ -12,6 +12,7 @@ export interface InitialState {
   isSearching: boolean;
   anytimeOrCalendar: null | string;
   isChoosing: null | boolean;
+  searchedDayList:Array<string>;
 }
 
 const initialState: InitialState = {
@@ -26,6 +27,7 @@ const initialState: InitialState = {
   isSearching: false,
   anytimeOrCalendar: null,
   isChoosing: true,
+  searchedDayList:[]
 };
 
 const mainPageReducer = (state = initialState, action: MainPageInterface) => {
@@ -69,6 +71,11 @@ const mainPageReducer = (state = initialState, action: MainPageInterface) => {
       return {
         ...state,
         isChoosing: action.payload.isChoosing,
+      };
+    case mainPageTypes.ADD_SEARCHED_DAY_LIST:
+      return {
+        ...state,
+        searchedDayList: action.payload.searchedDayList,
       };
     default:
       return state;
