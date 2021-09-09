@@ -39,7 +39,6 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
     (state: StoreState) => state.filter
   );
   const { filterData, toggleFilterBoxes, multiRangeSlider } = filterSide;
-  console.log('labas');
   const priceHandler = useCallback(
     debounce(({ min, max }: { min: number; max: number }) => {
       const newData = cloneDeep(filterData.priceSlider);

@@ -1,6 +1,6 @@
 import { PropertyInterface } from '../../../../store/types/propertyInterfaces';
 import Button from '../../../Button/button';
-import classes from './MyBookingMobile.module.scss';
+import classes from './MyBookingMobileStick.module.scss';
 import eye from '../../../../assets/images/eye.png';
 import door from '../../../../assets/images/door.png';
 import call from '../../../../assets/images/call.png';

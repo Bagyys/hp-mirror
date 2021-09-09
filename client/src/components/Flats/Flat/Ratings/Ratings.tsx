@@ -1,5 +1,5 @@
 import classes from './Ratings.module.scss';
-import ratingStar from '../../../../assets/images/rating_star.png';
+import { BsStarFill } from 'react-icons/bs';
 interface RatingsProps {
   overallRating: number;
   ratingsCount: number;
@@ -7,7 +7,7 @@ interface RatingsProps {
 const Ratings: React.FC<RatingsProps> = (props) => (
   <div className={classes.RatingsContainer}>
     <div className={classes.Ratings}>
-      <img src={ratingStar} />
+      <BsStarFill size="1.16em" color="#4d94e8" />
       <span>{props.overallRating}</span>
     </div>
     <div className={classes.Reviews}>

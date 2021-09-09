@@ -1,4 +1,4 @@
-import Flats from '../../components/Flats/flats';
+import Flats from '../../components/Flats/Flats';
 import Map from '../../components/Map/map';
 import { useMediaPredicate } from 'react-media-hook';
 import SecondaryNavMobile from '../../components/SecondaryNavMobile/SecondaryNavMobile';
@@ -31,7 +31,7 @@ function Home() {
     //is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu paemus duomenis is API, nezinau ar tinka?
     dispatch(getAllPropertiesAction(searchedDayList, guests));
     dispatch(resetPropertyCordsAction());
-  }, [mainPage.searchedDayList, mainPage.guests]);
+  }, [searchedDayList, mainPage]);
 
   return (
     <>
@@ -56,7 +56,9 @@ function Home() {
               )}
             >
               <Flats isMain={true} />
-              <Map  />
+              <div className={classes.MapContainer}>
+                <Map />
+              </div>
             </div>
             <Footer />
           </Fragment>

@@ -3,7 +3,7 @@ import moment from "moment";
 
 export const filterArrayById = (properties:PropertyInterface[], arr: Array<string>) => 
  { 
-  //ideda apartamentus i favorite list ir recently viewed ir rikiuoja juos pagal paspaudima
+  //ideda apartamentus i favorite list ir recently viewed ,kad rikiuotu juos pagal paspaudima
   const Arr:PropertyInterface[]=[];
   for(let el of arr){
     for(let el2 of properties){
@@ -17,6 +17,7 @@ export const filterArrayById = (properties:PropertyInterface[], arr: Array<strin
 
 export const availableProperties = (properties:PropertyInterface[],days:Array<string>,guests:{[key:string]:number}) => 
  { 
+   //filtruoja ar butai laisvi ir atitinka gyventoju skaiciu 
   return properties.filter((item) => {
         return !item.occupiedTime.some((occupiedDay) => {
           return days.some((item) => {

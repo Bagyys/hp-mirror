@@ -5,7 +5,7 @@ import { useMediaPredicate } from 'react-media-hook';
 import { useHistory } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 import React from 'react';
-import Flats from '../../components/Flats/flats';
+import Flats from '../../components/Flats/Flats';
 const Favorite = () => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
   const history = useHistory();

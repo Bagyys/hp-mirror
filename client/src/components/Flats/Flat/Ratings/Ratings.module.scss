@@ -4,6 +4,7 @@
     display:flex;
     align-items: center;
     font-size: $fontSize19px;
+    margin-bottom: 1.7rem;
     @include respond(mobile){
         font-size: $fontSize18px;
     }
@@ -18,11 +19,9 @@
             margin-right: 0.58rem;
         }
         span {
-            line-height: $lineHeight49px;
+            line-height: $lineHeight29px;
             font-weight: $font-Weight-bold;
-            @include respond(mobile){
-                line-height: $lineHeight46px;
-            }
+            margin-left: 0.58rem;
         }
     }
     .Reviews {

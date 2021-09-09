@@ -1,14 +1,4 @@
 @import "../../styles/mixins";
 .FilterPageMap {
-  background-color: lightgray;
-  flex: 0 0 51.5%;
-  height: 96.4rem; //  inherit
-  text-align: center;
-  margin-left: 1%;
-  @include respond(mobile) {
-    order: -1;
-    flex: unset;
-    height: 46rem;
-    margin-left: 0;
-  }
+  height: 100%; //  inherit
 }
