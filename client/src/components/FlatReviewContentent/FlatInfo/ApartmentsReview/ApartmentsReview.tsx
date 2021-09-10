@@ -62,7 +62,7 @@ const ApartmentsReview = () => {
       </div>
       <div className={classes.BookingPurchaseForm}>
         <div className={classes.BookingLayer}>
-          <div>
+          <div className={classes.BookingLayerMargin}>
             <span className={classes.BookingPrice}>41$</span>
             <span className={classes.BookingNights}>/nights</span>
           </div>

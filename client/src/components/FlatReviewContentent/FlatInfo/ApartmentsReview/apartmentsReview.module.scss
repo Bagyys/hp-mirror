@@ -129,6 +129,7 @@
     .BookingLayer {
       margin: 3.8rem 3.32rem 3.65rem 3.3rem;
     }
+
     .BookingPrice {
       font-size: $fontSize33px;
       font-weight: $font-Weight-bold;
@@ -144,4 +145,7 @@
       margin-left: 0.9rem;
     }
   }
+}
+.BookingLayerMargin {
+  margin-bottom: 3.23rem;
 }

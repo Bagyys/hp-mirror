@@ -26,6 +26,7 @@ const url = process.env.REACT_APP_SERVER_URL;
 
 export interface CheckAvailability
   extends Action<typeof bookingTypes.CHECK_SELECTED_DAYS> {
+
   payload: {
     displayDays: Array<SelectionAvailabilty>;
     selectedDays: Array<Date>;
@@ -68,6 +69,7 @@ export type BookingActions =
 export const checkAvailabilityAction =
   (selectedDays: Array<Date>, occupiedTime: Array<OccupiedDayInterface>) =>
   (dispatch: Dispatch) => {
+    
     const displayDays = selectedDays.map((selectedDay: Date) => {
       const occIndex = indexInArray(occupiedTime, selectedDay);
       let displayDay;

@@ -1,5 +1,5 @@
-import Badge from '../../../Badge/Badge';
-import classes from './GroupedBadges.module.scss';
+import Badge from "../../../Badge/Badge";
+import classes from "./GroupedBadges.module.scss";
 interface GroupedBadgeProps {
   more1Week: boolean;
   more1Month: boolean;

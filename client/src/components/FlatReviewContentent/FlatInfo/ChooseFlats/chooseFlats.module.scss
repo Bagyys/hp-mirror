@@ -1,0 +1,19 @@
+@import "../../../../styles/global.scss";
+
+.FlatLayer {
+  display: inline-block;
+}
+.FlatLayer1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 3.1rem 11.2rem 0 9.9rem;
+}
+h3 {
+  color: black;
+  font-size: $fontSize30px;
+  font-weight: $font-Weight-bold;
+  font-family: $helveticaNeue;
+
+  padding: 4rem 0 3.1rem 9.9rem;
+}
