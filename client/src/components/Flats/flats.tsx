@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useMediaPredicate } from 'react-media-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -31,7 +31,7 @@ import { toggleFilterButtonAction } from '../../store/actions/filterActions';
 import { cn } from '../../utilities/joinClasses';
 import QuickViewFlatFavoritePc from './QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
 import MyBookingPc from './MyBooking/MyBooking';
-import MyBookingMobile from './MyBooking/MyBookingMobileStick/MyBookingMobileStick';
+import MyBookingMobile from './MyBookingMobileStick/MyBookingMobileStick';
 import {
   filterArrayById,
   isStringInArray,

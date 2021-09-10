@@ -1,5 +1,6 @@
 import Button from '../../Button/button';
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
+import { useMediaPredicate } from 'react-media-hook';
 import ImageSlider from '../../Slider/imageSlider';
 import MainInformation from '../Flat/MainInformation/MainInformation';
 import PropertiesType from '../Flat/PropertyType/PropertiesType';
@@ -17,6 +18,7 @@ interface MyBookingPcProps {
   bookedProperty: PropertyInterface;
 }
 const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
+  const isMobile = useMediaPredicate('(max-width: 675px)');
   const [showQuickView, setShowQuickView] = useState<boolean>(false);
   const quickViewHandler = () => {
     setShowQuickView(!showQuickView);
@@ -28,7 +30,7 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
         className={classes.MyBookingFlatImg}
       >
         <ImageSlider
-          sliderClass="BookedFlatCard"
+          sliderClass={showQuickView ? 'QuickView' : 'BookedFlatCard'}
           slides={props.bookedProperty.images}
         />
       </div>
@@ -41,7 +43,7 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
             />
             <PropertiesType>{props.bookedProperty.title}</PropertiesType>
             <MainInformation facilities={props.bookedProperty.facilities} />
-            {showQuickView && (
+            {showQuickView && !isMobile && (
               <Badge badge="BadgeCancelation">
                 Free cancelation until July 6
               </Badge>
@@ -57,14 +59,18 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
               <div className={classes.Separator}></div>
               <div className={classes.MyBookingInfoBox}>
                 <img src={calendarBegins} alt="calendar begins" />
-                <p className={classes.Bold}>Booking begins</p>
-                <p>2021-06-05</p>
+                <div>
+                  <p className={classes.Bold}>Booking begins</p>
+                  <p>2021-06-05</p>
+                </div>
               </div>
               <div className={classes.Separator}></div>
               <div className={classes.MyBookingInfoBox}>
                 <img src={calendarEnds} alt="calendar ends" />
-                <p className={classes.Bold}>Booking ends</p>
-                <p>2021-06-16</p>
+                <div>
+                  <p className={classes.Bold}>Booking ends</p>
+                  <p>2021-06-16</p>
+                </div>
               </div>
             </div>
           </div>

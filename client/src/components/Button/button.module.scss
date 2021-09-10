@@ -35,11 +35,11 @@
     font-size: $fontSize21px;
     line-height: $lineHeight35px;
     padding: .2rem 1.92rem;
-    
     @include respond(mobile){
         font-size: $fontSize18px;
         line-height: $lineHeight25px;
         padding: .75rem 1.69rem;
+        margin-bottom: 1rem;
     }
     a{
         text-decoration: none;
