@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useMediaPredicate } from 'react-media-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -30,7 +30,7 @@ import Backdrop from '../Backdrop/Backdrop';
 import { toggleFilterButtonAction } from '../../store/actions/filterActions';
 import { cn } from '../../utilities/joinClasses';
 import QuickViewFlatFavoritePc from './QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
-import MyBookingPc from './MyBooking/MyBooking';
+import MyBooking from './MyBooking/MyBooking';
 import MyBookingMobile from './MyBookingMobileStick/MyBookingMobileStick';
 import {
   filterArrayById,
@@ -42,9 +42,9 @@ interface FlatsProps {
 }
 const Flats: React.FC<FlatsProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
+  const scrollRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
-
   const { user } = auth;
   const filter: FilterState = useSelector((state: StoreState) => state.filter);
   const { isFilterOpen } = filter;
@@ -124,7 +124,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
     dispatch(addToFavoriteAction(id, user.favorites));
   };
 
-  const QuickViewHandler = (id: string, cord: { lat: number; lng: number }) => {
+  const quickViewHandler = (id: string, cord: { lat: number; lng: number }) => {
     props.isMain && dispatch(activePropertyCordsAction(cord));
     dispatch(quickViewAction(id));
     dispatch(
@@ -134,10 +134,12 @@ const Flats: React.FC<FlatsProps> = (props) => {
         props.isMain ? 2 : 4
       )
     );
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    props.isMain
+      ? window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      : scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   const toggleFilterHandler = () => {
     dispatch(toggleFilterButtonAction(!isFilterOpen));
@@ -145,13 +147,21 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const closeQuickViewHandler = () => {
     dispatch(quickViewAction(''));
     dispatch(resetPropertyCordsAction());
+    props.isMain
+      ? window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      : scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   let propertiesRender = <></>;
   if (propertiesList.length > 0) {
     propertiesRender = (
       <React.Fragment>
         {/* Title for Favorite page PC */}
-        {!props.isMain && <h2>Your Favorites</h2>}
+        {!props.isMain && (
+          <h2 ref={!props.isMain && scrollRef}>Your Favorites</h2>
+        )}
         {/* QuickView for filter page mobile and pc, and favorite page mobile */}
         {quickViewData && (props.isMain || isMobile) && (
           <QuickViewFlat
@@ -186,7 +196,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
               return (
                 <Flat
                   quickViewClicked={() =>
-                    QuickViewHandler(property._id, property.location.cord)
+                    quickViewHandler(property._id, property.location.cord)
                   }
                   isMain={props.isMain}
                   key={property._id}
@@ -223,7 +233,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
               property={property}
               isMain={props.isMain}
               quickViewClicked={() =>
-                QuickViewHandler(property._id, property.location.cord)
+                quickViewHandler(property._id, property.location.cord)
               }
             />
           ))}
@@ -240,9 +250,10 @@ const Flats: React.FC<FlatsProps> = (props) => {
         <h2>Your Bookings</h2>
         <ul className={classes.MyBookingsContainer}>
           {bookings.map((property) => (
-            <MyBookingPc key={property._id} bookedProperty={property} />
+            <MyBooking key={property._id} bookedProperty={property} />
           ))}
         </ul>
+        {/* Veliau padaryti pagal artimiausia data */}
         {isMobile && (
           <MyBookingMobile key={bookings[0]._id} BookedProperty={bookings[0]} />
         )}
@@ -303,7 +314,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
       {myBookingsRender}
       {propertiesRender}
       {!isMobile && (
-        <>
+        <React.Fragment>
           <Pagination
             currentPage={currentPage}
             totalCount={propertiesList.length}
@@ -312,7 +323,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
           />
 
           {recentlyViewPropertiesRender}
-        </>
+        </React.Fragment>
       )}
       {isFilterOpen && <SideFilter toggleHandler={toggleFilterHandler} />}
       {isFilterOpen && (

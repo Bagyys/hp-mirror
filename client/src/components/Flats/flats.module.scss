@@ -30,6 +30,7 @@
         font-family: $helveticaNeue;
         @include respond(mobile){
             font-size: $fontSize23px;
+            scroll-margin-top: 8rem
         }
     }
     .FlatsContainerNav{

@@ -91,7 +91,6 @@ const propertyReducer = (
         ...state,
         activePropertyCord:initialState.activePropertyCord,
       }; 
-    
     default:
       return state;
   }

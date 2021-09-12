@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import socket from "../../utilities/socketConnection";
-import Swal from "sweetalert2";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import socket from '../../utilities/socketConnection';
+import Swal from 'sweetalert2';
 
-import { StoreState } from "../../store/configureStore";
-import { userState } from "../../store/reducers/userReducer";
-import { reservationState } from "../../store/reducers/reservationReducer";
-import { ErrorState } from "../../store/reducers/errorReducer";
+import { StoreState } from '../../store/configureStore';
+import { userState } from '../../store/reducers/userReducer';
+import { reservationState } from '../../store/reducers/reservationReducer';
+import { ErrorState } from '../../store/reducers/errorReducer';
 import {
   getActiveReservationsAction,
   updateCurrentLockAction,
-} from "../../store/actions/reservationActions";
-import { clearErrorAction } from "../../store/actions/errorActions";
+} from '../../store/actions/reservationActions';
+import { clearErrorAction } from '../../store/actions/errorActions';
 
-import Reservation from "../../containers/Reservation/Reservation";
+import Reservation from '../../containers/Reservation/Reservation';
 
-import classes from "./Reservations.module.scss";
+import classes from './Reservations.module.scss';
 
 const Reservations = () => {
   const dispatch = useDispatch();
@@ -43,10 +43,9 @@ const Reservations = () => {
       dispatch(getActiveReservationsAction(user._id));
     }
   }, []);
-
   // updating locks with socket io if they're updated in database
   useEffect(() => {
-    socket.on("lockUpdate", (data) => {
+    socket.on('lockUpdate', (data) => {
       const { id, o1, o2, o3 } = data;
       if (currentLockId !== undefined && id === currentLockId) {
         dispatch(updateCurrentLockAction(o1, o2, o3));
@@ -62,10 +61,10 @@ const Reservations = () => {
     if (error) {
       Swal.fire({
         title: error,
-        text: "Please try again",
-        icon: "warning",
+        text: 'Please try again',
+        icon: 'warning',
         showCancelButton: false,
-        confirmButtonText: "OK",
+        confirmButtonText: 'OK',
       }).then(() => {
         handleError();
       });
@@ -94,7 +93,7 @@ const Reservations = () => {
   const [areLocksDisabled, setLocksDisabled] = useState<boolean[]>(
     Array.from({ length: reservations.length }, (i) => (i = true))
   );
-  console.log("areLocksDisabled");
+  console.log('areLocksDisabled');
   console.log(areLocksDisabled);
   const changeVisibility = (changeIndex: number) => {
     const newArr = isReservationVisible.map((value, index) => {

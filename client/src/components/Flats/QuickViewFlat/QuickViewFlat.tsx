@@ -12,7 +12,7 @@ import InformationWithIcons from './InformationWithIcons/InformationWithIcons';
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
 import GroupedBadges from '../Flat/GroupedBadges/GroupedBadges';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { RefObject } from 'react';
 import { cn } from '../../../utilities/joinClasses';
 import Favorites from '../Flat/Favorites/Favorites';
 interface QuickViewFlatProps {

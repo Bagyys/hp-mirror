@@ -26,8 +26,11 @@ import {
   toggleAmenitiesAction,
   toggleHouseRulesAction,
   togglePropertyTypeAction,
+  toggleFilterButtonAction,
 } from '../../store/actions/filterActions';
 import { FilterState } from '../../store/reducers/filterReducer';
+import { PropertyState } from '../../store/reducers/propertyReducer';
+import { getAllPropertiesAction } from '../../store/actions/propertyActions';
 
 interface SideFilterProps {
   toggleHandler: () => void;
@@ -38,6 +41,8 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   const filterSide: FilterState = useSelector(
     (state: StoreState) => state.filter
   );
+  const mainPage = useSelector((state: StoreState) => state.mainPage);
+  const { searchedDayList, guests } = mainPage;
   const { filterData, toggleFilterBoxes, multiRangeSlider } = filterSide;
   const priceHandler = useCallback(
     debounce(({ min, max }: { min: number; max: number }) => {
@@ -244,17 +249,10 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   const Clear = () => {
     dispatch(clearFilterAction());
   };
+
   const Save = () => {
-    let formData = {};
-    const arr = objecToArray(filterData);
-    arr.map(({ id, config }) => {
-      let objHelper = {};
-      objecToArray(config).map(({ id, config }) => {
-        objHelper = { ...objHelper, [id]: config.value };
-      });
-      formData = { ...formData, [id]: objHelper };
-    });
-    console.log(formData);
+    dispatch(toggleFilterButtonAction(false));
+    dispatch(getAllPropertiesAction(searchedDayList, guests, filterData));
   };
   return (
     <div className={classes.SideFilterContainer}>

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const propertySchema = new Schema(
@@ -17,13 +17,13 @@ const propertySchema = new Schema(
     type: {
       type: String,
       enum: [
-        "studio",
-        "apartment",
-        "house",
-        "guest-house",
-        "hostel",
-        "bed-and-breakfast",
-        "camping",
+        'studio',
+        'apartment',
+        'house',
+        'loft',
+        'single',
+        'boat',
+        'camping',
       ], // TODO: which possible types??  -----------------------
       required: true,
     },
@@ -60,7 +60,7 @@ const propertySchema = new Schema(
     // property type
     rentType: {
       type: String,
-      enum: ["hourly", "daily", "weekly"], // TODO: which possible types?? -----------------------
+      enum: ['hourly', 'daily', 'weekly'], // TODO: which possible types?? -----------------------
       required: true,
     },
     images: [
@@ -131,15 +131,16 @@ const propertySchema = new Schema(
       crib: { type: Boolean, required: true },
       nonSmoking: { type: Boolean, required: true },
       terrace: { type: Boolean, required: true },
+      healing: { type: Boolean, required: true },
       bathroomType: {
         type: String,
-        enum: ["private", "shared"], // TODO: which possible types?? -----------------------
+        enum: ['private', 'shared'], // TODO: which possible types?? -----------------------
         required: true,
       },
       bathrooms: { type: Number, required: true },
       bedType: {
         type: String,
-        enum: ["twin", "double"], // TODO: which possible types?? -----------------------
+        enum: ['twin', 'double'], // TODO: which possible types?? -----------------------
         required: true,
       },
       beds: { type: Number, required: true },
@@ -152,7 +153,7 @@ const propertySchema = new Schema(
     },
     lock: {
       type: Schema.Types.ObjectId,
-      ref: "Lock",
+      ref: 'Lock',
       required: false,
     },
     services: {
@@ -206,7 +207,7 @@ const propertySchema = new Schema(
       new Schema(
         {
           // rater user id
-          user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+          user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
           // // order id
           // order: { type: Schema.Types.ObjectId, ref: "Order", required: false },
           // rating time
@@ -242,6 +243,6 @@ const propertySchema = new Schema(
 );
 
 module.exports = {
-  Property: mongoose.model("Property", propertySchema),
+  Property: mongoose.model('Property', propertySchema),
   propertySchema: propertySchema,
 };

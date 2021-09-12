@@ -100,7 +100,7 @@ export type PropertyActions =
 
 // -------------------- ACTIONS --------------------
 
-export const getAllPropertiesAction = (days:Array<string>,guests:{[key:string]:number}) => async (dispatch: Dispatch) => {
+export const getAllPropertiesAction = (days:Array<string>,guests:{[key:string]:number},formData:any) => async (dispatch: Dispatch) => {
   dispatch({ type: propertyTypes.GET_ALL_PROPERTIES_START });
   try {
     const response: AxiosResponse<{
@@ -112,8 +112,8 @@ export const getAllPropertiesAction = (days:Array<string>,guests:{[key:string]:n
       response.data.message === undefined &&
       response.data.properties !== undefined
     ) {
-      // paemus duomenis is API is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu , nezinau ar tinka?
-      let available=availableProperties(response.data.properties,days,guests)
+      //is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu paemus duomenis is API, taip pat cia filtruojami sideFilter duomenys, nezinau ar tinka?
+      let available=availableProperties(response.data.properties,days,guests,formData)
       dispatch({
         type: propertyTypes.GET_ALL_PROPERTIES_SUCCESS,
         // payload: fakeData //fake data demo
@@ -264,6 +264,7 @@ export const resetPropertyCordsAction =
       type: propertyTypes.RESET_PROPERTY_CORDS
     });
   };
+
 
 
 // -------------------- END of ACTIONS --------------------
