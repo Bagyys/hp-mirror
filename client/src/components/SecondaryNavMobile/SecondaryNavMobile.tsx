@@ -1,6 +1,6 @@
 import classes from './SecondaryNavMobile.module.scss';
 import { Link } from 'react-router-dom';
-import Button from '../Button/button';
+import Button from '../../routes/components/Button/button';
 import SearchBox from '../Navigation/SearchBox/SearchBox';
 import favoriteMob from '../../assets/images/favorite_red.png';
 import filterImg from '../../assets/images/filter.png';

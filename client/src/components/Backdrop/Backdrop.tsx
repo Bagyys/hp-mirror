@@ -1,23 +1,25 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useRef } from 'react';
 import classes from './Backdrop.module.scss';
 
-interface Props {
+interface BackdropProps {
   isVisible: boolean;
-  children?: ReactNode;
   toggleHandler: () => void | Function;
+  children?: React.ReactNode;
 }
-const Backdrop: React.FC<Props> = ({ isVisible, children, toggleHandler }) =>
-  isVisible ? (
+const Backdrop: React.FC<BackdropProps> = (props) => {
+  let screenHeight: number = document.documentElement.scrollHeight / 10;
+  return (
     <div
       className={classes.Backdrop}
-      style={{ height: `${document.documentElement.scrollHeight / 10}rem` }}
+      style={{ height: `${screenHeight}rem` }}
       onClick={() => {
         console.log('clicked on Backdrop');
-        toggleHandler();
+        props.toggleHandler();
       }}
     >
-      {children}
+      {props.children}
     </div>
-  ) : null;
+  );
+};
 
 export default Backdrop;

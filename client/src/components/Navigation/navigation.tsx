@@ -20,7 +20,7 @@ import GuideImg from '../../assets/images/Guide.svg';
 import LogoImg from '../../assets/images/Logo.svg';
 import UserPic from '../../assets/images/UserPicture.svg';
 import classes from './navigation.module.scss';
-import Button from '../Button/button';
+import Button from '../../routes/components/Button/button';
 import { PropertyState } from '../../store/reducers/propertyReducer';
 import SearchType from '../Main/components/SearchType/searchType';
 const Navigation = () => {

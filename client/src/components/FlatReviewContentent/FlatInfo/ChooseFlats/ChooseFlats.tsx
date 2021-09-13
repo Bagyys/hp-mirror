@@ -1,11 +1,11 @@
 //Style
-import classes0 from "./chooseFlats.module.scss";
-import classes1 from "../../../../components/Flats/Flat/Flat.module.scss";
-import classes2 from "../../../Flats/Flats.module.scss";
+import classes0 from './chooseFlats.module.scss';
+import classes1 from '../../../../routes/components/Flat/Flat.module.scss';
+import classes2 from '../../../Flats/Flats.module.scss';
 //Components
-import Flat from "../../../Flats/Flat/Flat";
-import { useDispatch, useSelector } from "react-redux";
-import { StoreState } from "../../../../store/configureStore";
+import Flat from '../../../../routes/components/Flat/Flat';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreState } from '../../../../store/configureStore';
 
 const ChooseFlats = (props: any) => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const ChooseFlats = (props: any) => {
                               key={index}
                               property={butas}
                               clickedLike={function (): void {
-                                throw new Error("Function not implemented.");
+                                throw new Error('Function not implemented.');
                               }}
                             />
                           </section>

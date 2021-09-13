@@ -82,6 +82,7 @@ const userReducer = (state = initialState, action: UserActions) => {
       };
     case userTypes.LOG_IN_SUCCESS:
     case userTypes.REGISTER_SUCCESS:
+      // const addFavorites
       return {
         ...state,
         isLoading: false,
@@ -91,7 +92,7 @@ const userReducer = (state = initialState, action: UserActions) => {
         currentUser: localStorage.getItem("token")
           ? isValidToken(localStorage.getItem("token"))
           : null,
-        user: action.payload.user,
+        // user:{...state.user,action.payload.user},
       };
     case userTypes.VERIFY_SUCCESS:
       return {

@@ -17,21 +17,21 @@ import {
 import { clearErrorAction } from '../../store/actions/errorActions';
 import classes from './Flats.module.scss';
 import filterImg from '../../assets/images/filter.png';
-import Flat from './Flat/Flat';
+import Flat from '../../routes/components/Flat/Flat';
 import Pagination from '../Pagination/Pagination';
-import QuickViewFlat from './QuickViewFlat/QuickViewFlat';
+import QuickViewFlat from '../../routes/components/QuickViewFlat/QuickViewFlat';
 import arrow from '../../assets/images/arrow2.png';
-import Button from '../Button/button';
+import Button from '../../routes/components/Button/button';
 import { userState } from '../../store/reducers/userReducer';
 import { addToFavoriteAction } from '../../store/actions/userActions';
-import SideFilter from '../SideFilter/SideFilter';
+import SideFilter from './SideFilter/SideFilter';
 import { FilterState } from '../../store/reducers/filterReducer';
 import Backdrop from '../Backdrop/Backdrop';
 import { toggleFilterButtonAction } from '../../store/actions/filterActions';
 import { cn } from '../../utilities/joinClasses';
-import QuickViewFlatFavoritePc from './QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
-import MyBooking from './MyBooking/MyBooking';
-import MyBookingMobile from './MyBookingMobileStick/MyBookingMobileStick';
+import QuickViewFlatFavoritePc from '../../routes/components/QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
+import MyBooking from '../../routes/components/MyBooking/MyBooking';
+import MyBookingMobile from '../../routes/components/MyBookingMobileStick/MyBookingMobileStick';
 import {
   filterArrayById,
   isStringInArray,
@@ -115,7 +115,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
     propertiesList,
     props.isMain,
   ]);
-
+  console.log('labas');
   const pageSizeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(pageSizeAction(Number(e.target.value)));
     dispatch(currentPageAction(1));
@@ -324,13 +324,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
 
           {recentlyViewPropertiesRender}
         </React.Fragment>
-      )}
-      {isFilterOpen && <SideFilter toggleHandler={toggleFilterHandler} />}
-      {isFilterOpen && (
-        <Backdrop
-          isVisible={isFilterOpen}
-          toggleHandler={toggleFilterHandler}
-        ></Backdrop>
       )}
     </div>
   );

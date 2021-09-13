@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import minus from '../../../assets/images/minus.png';
 import plus from '../../../assets/images/plus.png';
 import { setNumberOfAdultsAndChildren } from '../../../store/actions/mainPageActions';
-import CounterButton from '../../SideFilter/CounterButton/CounterButton';
+import Button from '../../../routes/components/Button/button';
 import { useMediaPredicate } from 'react-media-hook';
 import MobileButton from './Buttons/mobileButton';
 import { StoreState } from '../../../store/configureStore';
@@ -37,21 +37,23 @@ function GuestContainer() {
             <p>Age 13 and above</p>
           </div>
           <div className={classes.Counting}>
-            <CounterButton
+            <Button
+              bgColor="LightGrey"
               btnType="MainGuestCounter"
               clicked={() => counterHandler('adult', -1)}
               isDisabled={numberOfAdults === 0}
             >
               <img src={minus} />
-            </CounterButton>
+            </Button>
             <span className={classes.Number}>{numberOfAdults}</span>
-            <CounterButton
+            <Button
+              bgColor="LightGrey"
               btnType="MainGuestCounter"
               clicked={() => counterHandler('adult', +1)}
               isDisabled={false}
             >
               <img src={plus} />
-            </CounterButton>
+            </Button>
           </div>
         </div>
         <div className={classes.Down}>
@@ -60,21 +62,23 @@ function GuestContainer() {
             <p>Age under 12</p>
           </div>
           <div className={classes.Counting}>
-            <CounterButton
+            <Button
+              bgColor="LightGrey"
               btnType="MainGuestCounter"
               clicked={() => counterHandler('children', -1)}
               isDisabled={numberOfChildren === 0}
             >
               <img src={minus} />
-            </CounterButton>
+            </Button>
             <span className={classes.Number}>{numberOfChildren}</span>
-            <CounterButton
+            <Button
+              bgColor="LightGrey"
               btnType="MainGuestCounter"
               clicked={() => counterHandler('children', +1)}
               isDisabled={false}
             >
               <img src={plus} />
-            </CounterButton>
+            </Button>
           </div>
         </div>
       </div>
