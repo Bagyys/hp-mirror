@@ -13859,6 +13859,7 @@
 ::1 - - [12/Sep/2021:21:17:27 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [12/Sep/2021:21:17:56 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [12/Sep/2021:21:18:15 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+<<<<<<< HEAD
 >>>>>>> origin/favorite-filter-fixes
 ::1 - - [13/Sep/2021:05:27:41 +0000] "GET /property/getAllProperties HTTP/1.1" 200 10939
 ::1 - - [13/Sep/2021:05:27:47 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
@@ -13869,3 +13870,15 @@
 ::1 - - [13/Sep/2021:05:27:49 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [13/Sep/2021:05:27:49 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [13/Sep/2021:05:28:17 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+=======
+::1 - - [12/Sep/2021:21:20:19 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [12/Sep/2021:21:22:04 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [12/Sep/2021:21:22:11 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [12/Sep/2021:21:22:15 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [12/Sep/2021:21:22:19 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [13/Sep/2021:06:21:24 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [13/Sep/2021:06:21:35 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [13/Sep/2021:06:26:28 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [13/Sep/2021:06:27:53 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [13/Sep/2021:06:28:04 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+>>>>>>> origin/favorite-filter-fixes
