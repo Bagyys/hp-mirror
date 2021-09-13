@@ -1,9 +1,10 @@
 import filterTypes from "../types/filterTypes";
 import { FilterActions } from "../actions/filterActions";
-import { FilterDataInterface } from "../types/filterInterface";
+import { FilterDataInterface, FormDataInterface } from "../types/filterInterface";
 
 export interface FilterState {
   filterData:FilterDataInterface;
+  formData:FormDataInterface;
   isFilterOpen:boolean;
   toggleFilterBoxes:{[key:string]:boolean};
   multiRangeSlider:{
@@ -63,6 +64,53 @@ const initialState:FilterState= {
       bergedorf: { value: false, type: 'checkbox', text: 'Bergedorf' },
       wendsbeck: { value: false, type: 'checkbox', text: 'Wendsbeck' },
       test: { value: false, type: 'checkbox', text: 'Test' },
+    }
+  },
+  formData:{
+    priceSlider: {
+      min:0,
+      max:200
+    },
+    roomsAndBeds: {
+      beds: 0,
+      bedrooms: 0,
+      bathrooms:0,
+    },
+    propertType: {
+      house: false,
+      loft: false,
+      apartment: false,
+      single: false,
+      studio: false,
+      boat: false,
+    },
+    houseRules: {
+      petAllowed: false,
+      nonSmoking: false,
+    },
+    amenities: {
+      airConditioning: false,
+      healing: false,
+      kitchen:false,
+      washer:false,
+      balcon: false,
+      carPark: false,
+    },
+    facilities: {
+      wifi: false,
+      terrace: false,
+      pool: false,
+      gym: false
+      
+    },
+    areas: {
+      hamburg:false, 
+      altona:  false,
+      mitte:  false, 
+      nort:  false,
+      bergedorf:  false, 
+      wendsbeck:  false,
+      test:  false
     }
   },
   isFilterOpen:false,
@@ -156,6 +204,11 @@ const filterReducer = (
       return {
         ...state,
         toggleFilterBoxes:{...state.toggleFilterBoxes,areas:action.payload},
+      };  
+    case filterTypes.ADD_FORM_DATA:
+      return {
+        ...state,
+        formData:action.payload,
       };  
     default:
       return state;

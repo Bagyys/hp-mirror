@@ -1,5 +1,6 @@
 import { PropertyInterface } from "../store/types/propertyInterfaces";
 import moment from "moment";
+import { FormDataInterface } from "../store/types/filterInterface";
 
 export const filterArrayById = (properties:PropertyInterface[], arr: Array<string>) => 
  { 
@@ -15,18 +16,18 @@ export const filterArrayById = (properties:PropertyInterface[], arr: Array<strin
   return Arr;
 }
 
-export const checkingInputs = (formData:{id:string,config:any}[], ...arr: boolean[]) => {
+export const checkingInputs = (formData:{id:string,config:boolean}[], ...arr: boolean[]) => {
     //Tikrina ar inputai pazymeti sideFilter
   return formData.every(
-        (item, i) => !item.config.value || arr[i] === item.config.value
+        (item, i) => !item.config || arr[i] === item.config
       );
 };
 
-export const availableProperties = (properties:PropertyInterface[],days:Array<string>,guests:{[key:string]:number},filterData:any) => 
+export const availableProperties = (properties:PropertyInterface[],days:Array<string>,guests:{[key:string]:number},formData:FormDataInterface) => 
  { 
    //is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu paemus duomenis is API, taip pat cia filtruojami sideFilter duomenys, nezinau ar tinka?
-   let propertyTypeStrings = objecToArray(filterData.propertType).filter(
-      (item) => item.config.value
+   let propertyTypeStrings = objecToArray(formData.propertType).filter(
+      (item) => item.config
     );
   return properties.filter((item) => {
         return !item.occupiedTime.some((occupiedDay) => {
@@ -34,20 +35,20 @@ export const availableProperties = (properties:PropertyInterface[],days:Array<st
             let selectedDay = moment(new Date(item)).format('YYYY-MM-DD');
             return occupiedDay.dateString === selectedDay;
           });
-        })&&item.maxOccupants>=guests.adults&&item.price.daily <= filterData.priceSlider.max.value &&
-        item.price.daily >= filterData.priceSlider.min.value &&
-        item.facilities.beds >= filterData.roomsAndBeds.beds.value &&
-        item.facilities.bedrooms >= filterData.roomsAndBeds.bedrooms.value &&
-        item.facilities.bathrooms >= filterData.roomsAndBeds.bathrooms.value &&
+        })&&item.maxOccupants>=guests.adults&&item.price.daily <= formData.priceSlider.max &&
+        item.price.daily >= formData.priceSlider.min &&
+        item.facilities.beds >= formData.roomsAndBeds.beds &&
+        item.facilities.bedrooms >= formData.roomsAndBeds.bedrooms &&
+        item.facilities.bathrooms >= formData.roomsAndBeds.bathrooms &&
         (propertyTypeStrings.length === 0 ||
           propertyTypeStrings.some((it) => item.type === it.id)) &&
         checkingInputs(
-          objecToArray(filterData.houseRules),
+          objecToArray(formData.houseRules),
           item.facilities.petFriendly,
           item.facilities.nonSmoking
         ) &&
         checkingInputs(
-          objecToArray(filterData.amenities),
+          objecToArray(formData.amenities),
           item.facilities.airConditioning,
           item.facilities.healing,
           item.facilities.kitchen,
@@ -56,7 +57,7 @@ export const availableProperties = (properties:PropertyInterface[],days:Array<st
           item.facilities.parking
         ) &&
         checkingInputs(
-          objecToArray(filterData.facilities),
+          objecToArray(formData.facilities),
           item.facilities.wifi,
           item.facilities.terrace
         );

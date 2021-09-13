@@ -40,7 +40,7 @@ const initialState: userState = {
     passwordResetToken: "",
     role: "",
     legalEntity: "",
-    activeReservations: [],
+    activeReservations: [], 
     pastReservations: [],
     canceledReservations: [],
     favorites: [],
@@ -82,7 +82,8 @@ const userReducer = (state = initialState, action: UserActions) => {
       };
     case userTypes.LOG_IN_SUCCESS:
     case userTypes.REGISTER_SUCCESS:
-      // const addFavorites
+      //pridedu pasirinktus favorites i user lista prisijungus ar uzsiregistravus
+      const addFavorites=[...state.user.favorites];
       return {
         ...state,
         isLoading: false,
@@ -92,7 +93,7 @@ const userReducer = (state = initialState, action: UserActions) => {
         currentUser: localStorage.getItem("token")
           ? isValidToken(localStorage.getItem("token"))
           : null,
-        // user:{...state.user,action.payload.user},
+        user: {...action.payload.user,favorites:addFavorites},
       };
     case userTypes.VERIFY_SUCCESS:
       return {

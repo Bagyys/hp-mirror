@@ -45,13 +45,13 @@ const Settings = () => {
     (state: StoreState) => state.filter
   );
 
-  const { filterData } = filterSide;
+  const { formData } = filterSide;
   const { error } = errorState;
 
   useEffect(() => {
-    dispatch(getAllPropertiesAction(searchedDayList, guests, filterData));
+    dispatch(getAllPropertiesAction(searchedDayList, guests, formData));
     dispatch(getUnassignedLocksAction());
-  }, [searchedDayList, guests]);
+  }, [searchedDayList, guests, formData]);
 
   useEffect(() => {}, [locks, properties, selectedLock, selectedProperty]);
 

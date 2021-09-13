@@ -1,6 +1,6 @@
 import { Action, Dispatch } from "redux";
 import filterTypes from "../types/filterTypes";
-import { PriceInterface,ApartamentInfoInterface,RoomsBedsInterface } from "../types/filterInterface";
+import { PriceInterface,ApartamentInfoInterface,RoomsBedsInterface, FormDataInterface } from "../types/filterInterface";
 
 // -------------------- URLS --------------------
 
@@ -63,6 +63,10 @@ export interface ToggleAreasInputs
   extends Action<typeof filterTypes.TOGGLE_AREAS_INPUTS> {
       payload:boolean;
   }   
+export interface AddFormData
+  extends Action<typeof filterTypes.ADD_FORM_DATA> {
+      payload:FormDataInterface;
+  }    
 
 
 export type FilterActions =
@@ -80,7 +84,7 @@ export type FilterActions =
   | TogglAmenitiesInputs
   | ToggleFacilitiesInputs
   | ToggleAreasInputs
- 
+  | AddFormData
   ;
 
 // -------------------- END of ACTION INTERFACES --------------------
@@ -176,5 +180,11 @@ export const toggleAreasAction = (show:boolean) => (dispatch: Dispatch) => {
   dispatch({
       type:filterTypes.TOGGLE_AREAS_INPUTS,
       payload:show
+  })
+};
+export const addFormDataAction = (formData:FormDataInterface) => (dispatch: Dispatch) => {
+  dispatch({
+      type:filterTypes.ADD_FORM_DATA,
+      payload:formData
   })
 };

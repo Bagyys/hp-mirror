@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { useMediaPredicate } from 'react-media-hook';
 import classes from './MultiRangeSlider.module.scss';
-import { cn } from '../../../../utilities/joinClasses';
+import { cn } from '../../../utilities/joinClasses';
 
 interface MultiRangeSliderProps {
   min: number;

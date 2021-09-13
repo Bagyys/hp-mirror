@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './ToggleClasses.module.scss';
-import arrow from '../../../../assets/images/arrow.png';
+import arrow from '../../../assets/images/arrow.png';
 interface ToggleClassProps {
   toggle: () => void;
   inputCount: number;

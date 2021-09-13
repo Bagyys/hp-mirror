@@ -11,10 +11,11 @@ export type StoreState = ReturnType<typeof reducers>;
 export default function configureStore(preloadedState?: {}) {
   const middlewares = [loggerMiddleware, thunkMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);
+ 
   const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["mainPage"],
+    whitelist:['mainPage']
   };
 
   const enhancers = [middlewareEnhancer, monitorReducerEnhancer];
@@ -36,3 +37,4 @@ export default function configureStore(preloadedState?: {}) {
   const persistor = persistStore(store);
   return { store, persistor };
 }
+

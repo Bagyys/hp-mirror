@@ -35,8 +35,8 @@ function Map() {
         bootstrapURLKeys={{ key: 'AIzaSyAtsfsGZOACHp7n2sYJZ7Z06Ku2uTasjM0' }}
         defaultCenter={{ lat: 54.687157, lng: 25.279652 }}
         center={{
-          lat: activePropertyCord.lat - 0.01,
-          lng: activePropertyCord.lng,
+          lat: activePropertyCord?.lat - 0.01,
+          lng: activePropertyCord?.lng,
         }}
         defaultZoom={12}
         zoom={quickViewPropertyId === '' ? 11 : 12}

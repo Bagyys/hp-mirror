@@ -82,18 +82,6 @@
         }
     }
 }
-.OpenFilterFavorite {
-    border-radius: 50%;
-    padding: 1.85rem 1.86rem;
-    @include respond(mobile){
-        padding: 1.08rem 1.1rem;
-            img {
-                width: 1.6rem;
-                height: 1.6rem;
-            }
-    }
-    
-}
 .CloseFilter {
     border-radius: 50%;
     padding: 2.2rem 2.21rem;

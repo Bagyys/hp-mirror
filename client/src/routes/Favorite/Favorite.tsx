@@ -6,10 +6,22 @@ import { useHistory } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 import React from 'react';
 import Flats from '../../components/Flats/Flats';
+import { FilterState } from '../../store/reducers/filterReducer';
+import { StoreState } from '../../store/configureStore';
+import { useSelector, useDispatch } from 'react-redux';
+import SideFilter from '../../components/SideFilter/SideFilter';
+import { toggleFilterButtonAction } from '../../store/actions/filterActions';
 const Favorite = () => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
   const history = useHistory();
-
+  const dispatch = useDispatch();
+  const filterSide: FilterState = useSelector(
+    (state: StoreState) => state.filter
+  );
+  const toggleFilterHandler = () => {
+    dispatch(toggleFilterButtonAction(!isFilterOpen));
+  };
+  const { isFilterOpen } = filterSide;
   return (
     <React.Fragment>
       <Navigation />
@@ -20,9 +32,10 @@ const Favorite = () => {
             Return to list
           </div>
         )}
-        <Flats isMain={false} />
+        <Flats isMain={false} toggleFilter={toggleFilterHandler} />
       </div>
       <Footer />
+      {isFilterOpen && <SideFilter toggleHandler={toggleFilterHandler} />}
     </React.Fragment>
   );
 };

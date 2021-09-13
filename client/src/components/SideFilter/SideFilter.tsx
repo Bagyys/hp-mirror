@@ -1,16 +1,16 @@
 import classes from './SideFilter.module.scss';
-import close from '../../../assets/images/close.png';
-import Button from '../../../routes/components/Button/button';
+import close from '../../assets/images/close.png';
+import Button from '../../routes/components/Button/button';
 import MultiRangeSlider from './MultiRangeSlider/MultiRangeSlider';
-import minus from '../../../assets/images/minus.png';
-import plus from '../../../assets/images/plus.png';
+import minus from '../../assets/images/minus.png';
+import plus from '../../assets/images/plus.png';
 import React, { useCallback, ChangeEvent } from 'react';
-import Input from '../../../routes/components/Input/Input';
+import Input from '../../routes/components/Input/Input';
 import ToggleClass from './ToggleClasses/ToggleClasses';
-import { objecToArray } from '../../../utilities/flatsFunctions';
+import { objecToArray } from '../../utilities/flatsFunctions';
 import { cloneDeep, debounce } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../../store/configureStore';
+import { StoreState } from '../../store/configureStore';
 import {
   changeFilterBedsRoomsAction,
   changeFilterPriceAction,
@@ -26,10 +26,13 @@ import {
   toggleHouseRulesAction,
   togglePropertyTypeAction,
   toggleFilterButtonAction,
-} from '../../../store/actions/filterActions';
-import { FilterState } from '../../../store/reducers/filterReducer';
-import { PropertyState } from '../../../store/reducers/propertyReducer';
-import { getAllPropertiesAction } from '../../../store/actions/propertyActions';
+  addFormDataAction,
+} from '../../store/actions/filterActions';
+import { FilterState } from '../../store/reducers/filterReducer';
+import { PropertyState } from '../../store/reducers/propertyReducer';
+import { getAllPropertiesAction } from '../../store/actions/propertyActions';
+import Backdrop from '../Backdrop/Backdrop';
+import { FormDataInterface } from '../../store/types/filterInterface';
 
 interface SideFilterProps {
   toggleHandler: () => void;
@@ -42,7 +45,8 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   );
   const mainPage = useSelector((state: StoreState) => state.mainPage);
   const { searchedDayList, guests } = mainPage;
-  const { filterData, toggleFilterBoxes, multiRangeSlider } = filterSide;
+  const { filterData, toggleFilterBoxes, multiRangeSlider, isFilterOpen } =
+    filterSide;
   const priceHandler = useCallback(
     debounce(({ min, max }: { min: number; max: number }) => {
       const newData = cloneDeep(filterData.priceSlider);
@@ -250,103 +254,120 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
   };
 
   const Save = () => {
+    let formData: FormDataInterface = {} as FormDataInterface;
+    const arr = objecToArray(filterData);
+    arr.map(({ id, config }) => {
+      let objHelper = {};
+      objecToArray(config).map(({ id, config }) => {
+        objHelper = { ...objHelper, [id]: config.value };
+      });
+      formData = { ...formData, [id]: objHelper };
+    });
+    dispatch(addFormDataAction(formData));
     dispatch(toggleFilterButtonAction(false));
-    dispatch(getAllPropertiesAction(searchedDayList, guests, filterData));
   };
   return (
-    <div className={classes.SideFilterContainer}>
-      <div className={classes.SideFilterNav}>
-        <Button clicked={toggleHandler} btnType="CloseFilter" bgColor="Grey">
-          <img src={close} />
-          <span>Close</span>
-        </Button>
-        <div className={classes.ButtonsContainer}>
-          <Button clicked={Clear} btnType="ClearFilter">
-            Clear
+    <>
+      <div className={classes.SideFilterContainer}>
+        <div className={classes.SideFilterNav}>
+          <Button clicked={toggleHandler} btnType="CloseFilter" bgColor="Grey">
+            <img src={close} />
+            <span>Close</span>
           </Button>
-          <Button clicked={Save} btnType="SaveFilter" bgColor="Black">
-            Save
-          </Button>
+          <div className={classes.ButtonsContainer}>
+            <Button clicked={Clear} btnType="ClearFilter">
+              Clear
+            </Button>
+            <Button clicked={Save} btnType="SaveFilter" bgColor="Black">
+              Save
+            </Button>
+          </div>
+        </div>
+        <div className={classes.FilterSliderContainer}>
+          <h2>Price</h2>
+          <MultiRangeSlider
+            min={filterData.priceSlider.min.value}
+            max={filterData.priceSlider.max.value}
+            initialMin={multiRangeSlider.initialMin}
+            initialMax={multiRangeSlider.initialMax}
+            clear={multiRangeSlider.clear}
+            onChange={priceHandler}
+          />
+        </div>
+        <div className={classes.FilterBtnAndCheckboxContainer}>
+          <div className={classes.FilterBoxes}>
+            <h2>Rooms and beds</h2>
+            {bedsAndRooms}
+          </div>
+          <div className={classes.FilterBoxes}>
+            <h2>Property type</h2>
+            {propertyType}
+            <ToggleClass
+              inputCount={propertTypeArray.length}
+              show={toggleFilterBoxes.propertyType}
+              text={'property types'}
+              toggle={() =>
+                dispatch(
+                  togglePropertyTypeAction(!toggleFilterBoxes.propertyType)
+                )
+              }
+            />
+          </div>
+          <div className={classes.FilterBoxes}>
+            <h2>House Rules</h2>
+            {houseRules}
+            <ToggleClass
+              inputCount={houseRulesArray.length}
+              show={toggleFilterBoxes.houseRules}
+              text={'house rules'}
+              toggle={() =>
+                dispatch(toggleHouseRulesAction(!toggleFilterBoxes.houseRules))
+              }
+            />
+          </div>
+          <div className={classes.FilterBoxes}>
+            <h2>Amenities</h2>
+            {amenities}
+            <ToggleClass
+              inputCount={amenitiesArray.length}
+              show={toggleFilterBoxes.amenities}
+              text={'amenities'}
+              toggle={() =>
+                dispatch(toggleAmenitiesAction(!toggleFilterBoxes.amenities))
+              }
+            />
+          </div>
+          <div className={classes.FilterBoxes}>
+            <h2>Facilities</h2>
+            {facilities}
+            <ToggleClass
+              inputCount={facilitiesArray.length}
+              show={toggleFilterBoxes.facilities}
+              text={'facilities'}
+              toggle={() =>
+                dispatch(toggleFacilitiesAction(!toggleFilterBoxes.facilities))
+              }
+            />
+          </div>
+          <div className={classes.FilterBoxes}>
+            <h2>Areas</h2>
+            {areas}
+            <ToggleClass
+              inputCount={areasArray.length}
+              show={toggleFilterBoxes.areas}
+              text={'areas'}
+              toggle={() =>
+                dispatch(toggleAreasAction(!toggleFilterBoxes.areas))
+              }
+            />
+          </div>
         </div>
       </div>
-      <div className={classes.FilterSliderContainer}>
-        <h2>Price</h2>
-        <MultiRangeSlider
-          min={filterData.priceSlider.min.value}
-          max={filterData.priceSlider.max.value}
-          initialMin={multiRangeSlider.initialMin}
-          initialMax={multiRangeSlider.initialMax}
-          clear={multiRangeSlider.clear}
-          onChange={priceHandler}
-        />
-      </div>
-      <div className={classes.FilterBtnAndCheckboxContainer}>
-        <div className={classes.FilterBoxes}>
-          <h2>Rooms and beds</h2>
-          {bedsAndRooms}
-        </div>
-        <div className={classes.FilterBoxes}>
-          <h2>Property type</h2>
-          {propertyType}
-          <ToggleClass
-            inputCount={propertTypeArray.length}
-            show={toggleFilterBoxes.propertyType}
-            text={'property types'}
-            toggle={() =>
-              dispatch(
-                togglePropertyTypeAction(!toggleFilterBoxes.propertyType)
-              )
-            }
-          />
-        </div>
-        <div className={classes.FilterBoxes}>
-          <h2>House Rules</h2>
-          {houseRules}
-          <ToggleClass
-            inputCount={houseRulesArray.length}
-            show={toggleFilterBoxes.houseRules}
-            text={'house rules'}
-            toggle={() =>
-              dispatch(toggleHouseRulesAction(!toggleFilterBoxes.houseRules))
-            }
-          />
-        </div>
-        <div className={classes.FilterBoxes}>
-          <h2>Amenities</h2>
-          {amenities}
-          <ToggleClass
-            inputCount={amenitiesArray.length}
-            show={toggleFilterBoxes.amenities}
-            text={'amenities'}
-            toggle={() =>
-              dispatch(toggleAmenitiesAction(!toggleFilterBoxes.amenities))
-            }
-          />
-        </div>
-        <div className={classes.FilterBoxes}>
-          <h2>Facilities</h2>
-          {facilities}
-          <ToggleClass
-            inputCount={facilitiesArray.length}
-            show={toggleFilterBoxes.facilities}
-            text={'facilities'}
-            toggle={() =>
-              dispatch(toggleFacilitiesAction(!toggleFilterBoxes.facilities))
-            }
-          />
-        </div>
-        <div className={classes.FilterBoxes}>
-          <h2>Areas</h2>
-          {areas}
-          <ToggleClass
-            inputCount={areasArray.length}
-            show={toggleFilterBoxes.areas}
-            text={'areas'}
-            toggle={() => dispatch(toggleAreasAction(!toggleFilterBoxes.areas))}
-          />
-        </div>
-      </div>
-    </div>
+      <Backdrop
+        isVisible={isFilterOpen}
+        toggleHandler={toggleHandler}
+      ></Backdrop>
+    </>
   );
 };
 export default SideFilter;

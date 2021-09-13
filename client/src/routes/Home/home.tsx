@@ -16,8 +16,7 @@ import {
   resetPropertyCordsAction,
 } from '../../store/actions/propertyActions';
 import { FilterState } from '../../store/reducers/filterReducer';
-import SideFilter from '../../components/Flats/SideFilter/SideFilter';
-import Backdrop from '../../components/Backdrop/Backdrop';
+import SideFilter from '../../components/SideFilter/SideFilter';
 import { toggleFilterButtonAction } from '../../store/actions/filterActions';
 const isChoosing = false;
 function Home() {
@@ -27,12 +26,12 @@ function Home() {
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
-  const { quickViewPropertyId } = propertyStore;
+  const { quickViewPropertyId, properties } = propertyStore;
   const filterSide: FilterState = useSelector(
     (state: StoreState) => state.filter
   );
 
-  const { filterData, isFilterOpen } = filterSide;
+  const { formData, isFilterOpen } = filterSide;
   const isMobile = useMediaPredicate('(max-width: 675px)');
   const toggleFilterHandler = () => {
     dispatch(toggleFilterButtonAction(!isFilterOpen));
@@ -40,9 +39,9 @@ function Home() {
   // localStorage.removeItem('persist:root');
   useEffect(() => {
     //is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu paemus duomenis is API, taip pat cia filtruojami sideFilter duomenys, nezinau ar tinka?
-    dispatch(getAllPropertiesAction(searchedDayList, guests, filterData));
+    dispatch(getAllPropertiesAction(searchedDayList, guests, formData));
     dispatch(resetPropertyCordsAction());
-  }, [searchedDayList, guests]);
+  }, [searchedDayList, formData]);
 
   return (
     <>
@@ -66,21 +65,13 @@ function Home() {
                   : classes.MobileContent
               )}
             >
-              <Flats isMain={true} />
+              <Flats isMain={true} toggleFilter={toggleFilterHandler} />
               <div className={classes.MapContainer}>
                 <Map />
               </div>
             </div>
             <Footer />
-            {isFilterOpen && (
-              <>
-                <SideFilter toggleHandler={toggleFilterHandler} />
-                <Backdrop
-                  isVisible={isFilterOpen}
-                  toggleHandler={toggleFilterHandler}
-                ></Backdrop>
-              </>
-            )}
+            {isFilterOpen && <SideFilter toggleHandler={toggleFilterHandler} />}
           </Fragment>
         )}
       </div>

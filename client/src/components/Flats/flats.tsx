@@ -24,10 +24,6 @@ import arrow from '../../assets/images/arrow2.png';
 import Button from '../../routes/components/Button/button';
 import { userState } from '../../store/reducers/userReducer';
 import { addToFavoriteAction } from '../../store/actions/userActions';
-import SideFilter from './SideFilter/SideFilter';
-import { FilterState } from '../../store/reducers/filterReducer';
-import Backdrop from '../Backdrop/Backdrop';
-import { toggleFilterButtonAction } from '../../store/actions/filterActions';
 import { cn } from '../../utilities/joinClasses';
 import QuickViewFlatFavoritePc from '../../routes/components/QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
 import MyBooking from '../../routes/components/MyBooking/MyBooking';
@@ -39,6 +35,7 @@ import {
 
 interface FlatsProps {
   isMain: boolean;
+  toggleFilter: () => void;
 }
 const Flats: React.FC<FlatsProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
@@ -46,8 +43,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
   const { user } = auth;
-  const filter: FilterState = useSelector((state: StoreState) => state.filter);
-  const { isFilterOpen } = filter;
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
@@ -70,7 +65,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
     [props.isMain, user.favorites, properties]
   );
 
-  const quickViewData = propertiesList.find(
+  const quickViewData = propertiesList?.find(
     (item) => item._id === quickViewPropertyId
   );
 
@@ -107,7 +102,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
       (currentPage - 1) * (props.isMain ? pageSizeMain : pageSizeFavorite);
     const lastPageIndex =
       firstPageIndex + (props.isMain ? pageSizeMain : pageSizeFavorite);
-    return propertiesList.slice(firstPageIndex, lastPageIndex);
+    return propertiesList?.slice(firstPageIndex, lastPageIndex);
   }, [
     currentPage,
     pageSizeMain,
@@ -115,7 +110,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
     propertiesList,
     props.isMain,
   ]);
-  console.log('labas');
+  console.log(properties, pageSizeMain);
   const pageSizeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(pageSizeAction(Number(e.target.value)));
     dispatch(currentPageAction(1));
@@ -141,9 +136,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
         })
       : scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-  const toggleFilterHandler = () => {
-    dispatch(toggleFilterButtonAction(!isFilterOpen));
-  };
   const closeQuickViewHandler = () => {
     dispatch(quickViewAction(''));
     dispatch(resetPropertyCordsAction());
@@ -155,7 +147,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
       : scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   let propertiesRender = <></>;
-  if (propertiesList.length > 0) {
+  if (propertiesList?.length > 0) {
     propertiesRender = (
       <React.Fragment>
         {/* Title for Favorite page PC */}
@@ -243,8 +235,8 @@ const Flats: React.FC<FlatsProps> = (props) => {
   }
   let myBookingsRender = <></>;
   //Testinis
-  if (!props.isMain && propertiesList.length > 0) {
-    const bookings = propertiesList.slice(-2);
+  if (!props.isMain && propertiesList?.length > 0) {
+    const bookings = propertiesList?.slice(-2);
     myBookingsRender = (
       <React.Fragment>
         <h2>Your Bookings</h2>
@@ -282,8 +274,8 @@ const Flats: React.FC<FlatsProps> = (props) => {
           className={classes.FilterBtnContainer}
         >
           <Button
-            clicked={toggleFilterHandler}
-            btnType={props.isMain ? 'OpenFilter' : 'OpenFilterFavorite'}
+            clicked={props.toggleFilter}
+            btnType="OpenFilter"
             bgColor="Grey"
           >
             <img src={filterImg} />
@@ -303,11 +295,13 @@ const Flats: React.FC<FlatsProps> = (props) => {
 
           {props.isMain && isMobile ? (
             <p className={classes.MobileResults}>
-              {propertiesList.length} places to stay{' '}
+              {propertiesList?.length} places to stay{' '}
               <img src={arrow} alt="Arrow2" />
             </p>
           ) : (
-            <p className={classes.PcResults}>{propertiesList.length} results</p>
+            <p className={classes.PcResults}>
+              {propertiesList?.length} results
+            </p>
           )}
         </div>
       </div>
@@ -317,7 +311,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
         <React.Fragment>
           <Pagination
             currentPage={currentPage}
-            totalCount={propertiesList.length}
+            totalCount={propertiesList?.length}
             pageSize={props.isMain ? pageSizeMain : pageSizeFavorite}
             onPageChange={(page) => dispatch(currentPageAction(page))}
           />
