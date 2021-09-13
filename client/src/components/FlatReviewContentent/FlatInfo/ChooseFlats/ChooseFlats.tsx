@@ -1,22 +1,18 @@
 //Style
 import classes0 from "./chooseFlats.module.scss";
 import classes1 from "../../../../components/Flats/Flat/Flat.module.scss";
-import classes2 from "../../../Flats/flats.module.scss";
+import classes2 from "../../../Flats/Flats.module.scss";
 //Components
 import Flat from "../../../Flats/Flat/Flat";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPropertiesAction } from "../../../../store/actions/propertyActions";
-import { PropertyInterface } from "../../../../store/types/propertyInterfaces";
-
-import { useEffect } from "react";
 import { StoreState } from "../../../../store/configureStore";
 
 const ChooseFlats = (props: any) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllPropertiesAction());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllPropertiesAction());
+  // }, []);
 
   const properties: any = useSelector((state: StoreState) => state.property);
 
