@@ -4,6 +4,7 @@
   box-sizing: border-box;
   border: 2px solid $disableBtn;
   border-radius: 1rem;
+  margin-bottom: 2.5rem;
   .Form {
     display: flex;
     justify-content: space-between;
@@ -33,20 +34,11 @@
   font-family: $helvetica;
   padding-top: 1.62rem;
 }
-.asd {
-  background-color: orange;
-}
 
-.bbd {
-  background-color: pink;
-}
-
-.TextField {
-  width: 50%;
-}
 .ReservePaymentInfo {
   display: flex;
   justify-content: space-between;
+  margin-top: 5rem;
   span {
     color: $black2;
     font-size: $fontSize21px;
@@ -57,6 +49,7 @@
 .ReservePaymentDiscountInfo {
   display: flex;
   justify-content: space-between;
+  margin-top: 3.2rem;
   .Layer {
     display: flex;
   }
@@ -80,13 +73,98 @@
     font-family: $helvetica;
   }
 }
+.TotalPriceBorder {
+  border-top: 1px solid $disableBtn;
+  margin-top: 3.7rem;
+}
 .TotalPrice {
   display: flex;
   justify-content: space-between;
+  margin-top: 2.2rem;
   span {
     color: $black2;
     font-size: $fontSize22px;
     font-weight: $font-Weight-bold;
     font-family: $helvetica;
+  }
+}
+
+//Material UI
+
+.TextField {
+  width: 50%;
+
+  label {
+    color: $lightGrey7;
+    font-size: $fontSize17px;
+    font-weight: $font-Weight-medium;
+    font-family: $helvetica;
+    padding: 1.58rem 0 0 3rem;
+    margin: 0;
+  }
+  div {
+    color: $black;
+    font-size: $fontSize21px;
+    font-weight: $font-Weight-regular;
+    font-family: $helvetica;
+    padding: 0.53rem 0 1.35rem 2.2rem;
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      background-image: none;
+      cursor: pointer;
+    }
+  }
+}
+.FormBorder {
+  border-right: 1px solid $disableBtn;
+  .TextField1 {
+    width: 100%;
+
+    label {
+      color: $lightGrey7;
+      font-size: $fontSize17px;
+      font-weight: $font-Weight-medium;
+      font-family: $helvetica;
+      padding: 1.58rem 0 0 3rem;
+    }
+
+    div {
+      color: $black;
+      font-size: $fontSize21px;
+      font-weight: $font-Weight-regular;
+      font-family: $helvetica;
+      padding: 0.53rem 0 1.35rem 2.2rem;
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        background-image: none;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.FormControl {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+
+  // padding: 0 2.27rem 1.55rem 0;
+  label {
+    box-sizing: border-box;
+    color: $lightGrey7;
+    font-size: $fontSize17px;
+    font-weight: $font-Weight-medium;
+    font-family: $helvetica;
+    padding: 0 0 0.46rem 2.21rem;
+    // margin-top: 1.45rem;
+  }
+  div {
+    color: $black;
+    font-size: $fontSize21px;
+    font-weight: $font-Weight-regular;
+    font-family: $helvetica;
+    padding-left: 1rem;
+
+    padding-right: 2.21rem;
+    svg {
+      padding-right: 2.21rem;
+    }
   }
 }

@@ -132,10 +132,10 @@ export const getAllPropertiesAction = (days:Array<string>,guests:{[key:string]:n
     dispatch({
       type: propertyTypes.GET_ALL_PROPERTIES_FAIL,
     });
-    dispatch({
-      type: errorTypes.THROW_ERROR,
-      payload: err.message,
-    });
+    // dispatch({
+    //   type: errorTypes.THROW_ERROR,
+    //   payload: err.message,
+    // });
   }
 };
 
@@ -152,10 +152,10 @@ export const getPropertieswoLocksAction = () => async (dispatch: Dispatch) => {
       payload: response.data,
     });
   } catch (err) {
-    dispatch({
-      type: propertyTypes.GET_PROPERTIES_WO_LOCKS_FAIL,
-      payload: err.message,
-    });
+    // dispatch({
+    //   type: propertyTypes.GET_PROPERTIES_WO_LOCKS_FAIL,
+    //   payload: err.message,
+    // });
   }
 };
 
@@ -189,10 +189,10 @@ export const getOnePropertyAction =
       dispatch({
         type: propertyTypes.GET_PROPERTY_FAIL,
       });
-      dispatch({
-        type: errorTypes.THROW_ERROR,
-        payload: err.message,
-      });
+      // dispatch({
+      //   type: errorTypes.THROW_ERROR,
+      //   payload: err.message,
+      // });
     }
   };
 

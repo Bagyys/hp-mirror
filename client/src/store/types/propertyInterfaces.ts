@@ -1,4 +1,5 @@
 export interface PropertyInterface {
+  [x: string]: any;
   _id: string;
   title: string;
   description: string;

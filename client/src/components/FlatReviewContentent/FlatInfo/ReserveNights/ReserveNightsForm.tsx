@@ -5,7 +5,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import "@material-ui/pickers";
-import { TextField, Select } from "@material-ui/core";
+import {
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@material-ui/core";
 import classes from "./reserveNightsForm.module.scss";
 
 interface ReservNights {}
@@ -50,26 +56,20 @@ const ReserveNightsForm: FC<ReservNights> = (): any => {
       <div>
         <div className={classes.Selection}>
           <form className={classes.Form}>
-            <TextField
-              id="date"
-              label="Check In"
-              type="date"
-              defaultValue="2021-09-02"
-              classes={{
-                root: classes.TextField,
-                
-                // FormLabel: classes.text,
-                // rail: classes.asd,
-                // formControl: classes.SmallText;
-              }}
-              InputProps={{
-                className: classes.asd,
-                classes: {
-                  root: classes.bbd,
-                  // underline: "none",
-                },
-              }}
-            />
+            <div className={classes.FormBorder}>
+              <TextField
+                id="date"
+                label="Check In"
+                type="date"
+                defaultValue="2021-09-02"
+                classes={{
+                  root: classes.TextField1,
+                  // FormLabel: classes.text,
+                  // rail: classes.asd,
+                  // formControl: classes.SmallText;
+                }}
+              />
+            </div>
             {console.log(TextField)}
             <TextField
               id="date"
@@ -81,7 +81,15 @@ const ReserveNightsForm: FC<ReservNights> = (): any => {
               }}
             />
           </form>
-          <Select className={classes.Select} />
+          <FormControl className={classes.FormControl}>
+            <InputLabel> Guest</InputLabel>
+            <Select>
+              <MenuItem value="Guest">Guest 1 </MenuItem>
+              <MenuItem value="Guest">Guest 2 </MenuItem>
+              <MenuItem value="Guest">Guest 3 </MenuItem>
+              <MenuItem value="Guest">Guest 4 </MenuItem>
+            </Select>
+          </FormControl>
         </div>
         <div>
           <button className={classes.ReserveBtn}>Reserve</button>
@@ -98,6 +106,7 @@ const ReserveNightsForm: FC<ReservNights> = (): any => {
           </div>
           <span> -20$</span>
         </div>
+        <div className={classes.TotalPriceBorder}></div>
         <div className={classes.TotalPrice}>
           <span>Total</span>
           <span>200$</span>
