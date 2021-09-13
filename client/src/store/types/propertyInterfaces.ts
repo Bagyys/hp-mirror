@@ -52,7 +52,7 @@ export interface FacilitiesInterface {
   bathtub: boolean;
   washingMachine: boolean;
   balcony: boolean;
-  terrace: boolean; //dadejau
+  terrace: boolean; 
   breakfast: boolean;
   crib: boolean;
   nonSmoking: boolean;
@@ -62,11 +62,12 @@ export interface FacilitiesInterface {
   beds: number;
   bedrooms: number;
   bedsInTotal: { [key: string]: number };
+  healing:boolean;
 }
 
 export interface PriceInterface {
   hourly?: number;
-  daily?: number;
+  daily: number;
   weekly?: number;
   isSeasonal: boolean;
   seasonalPrices?: Array<SeasonalPriceInterface>;

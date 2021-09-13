@@ -7,6 +7,15 @@ export interface FilterDataInterface {
   facilities: ApartamentInfoInterface;
   areas: ApartamentInfoInterface;
 }
+export interface FilteredDataInterface {
+  priceSlider: {min:number,max:number};
+  roomsAndBeds: {[key: string]:number};
+  propertType: {[key: string]:boolean};
+  houseRules: {[key: string]:boolean};
+  amenities: {[key: string]:boolean};
+  facilities: {[key: string]:boolean};
+  areas: {[key: string]:boolean};
+}
 
 export interface PriceInterface {
   min: {[key:string]:number};

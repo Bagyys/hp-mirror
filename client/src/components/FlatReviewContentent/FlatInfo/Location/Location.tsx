@@ -2,8 +2,10 @@
 import classes from './location.module.scss';
 //Components
 import Map from '../../../Map/map';
-
-const Location = () => {
+interface LocationProps {
+  cords?: { lat: number; lng: number };
+}
+const Location = (props: LocationProps) => {
   return (
     <>
       <div className={classes.Header}>

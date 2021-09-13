@@ -6,14 +6,9 @@ import classes from './ImageSlider.module.scss';
 interface SliderProps {
   slides: Array<string>;
   sliderClass: string;
-  height?: number;
 }
 
-const ImageSlider: React.FC<SliderProps> = ({
-  slides,
-  sliderClass,
-  height,
-}) => {
+const ImageSlider: React.FC<SliderProps> = ({ slides, sliderClass }) => {
   return (
     <section className={classes.Slider}>
       <Carousel
@@ -21,6 +16,7 @@ const ImageSlider: React.FC<SliderProps> = ({
         heightMode="max"
         dragging={true}
         swiping={true}
+        wrapAround={true}
         transitionMode={'scroll3d'}
         renderCenterRightControls={({ nextSlide }) => (
           <MdKeyboardArrowRight
@@ -47,12 +43,7 @@ const ImageSlider: React.FC<SliderProps> = ({
         }}
       >
         {slides.map((slide, index) => (
-          <img
-            style={height ? { height: height } : {}}
-            className={classes[sliderClass]}
-            key={index}
-            src={slide}
-          />
+          <img className={classes[sliderClass]} key={index} src={slide} />
         ))}
       </Carousel>
     </section>

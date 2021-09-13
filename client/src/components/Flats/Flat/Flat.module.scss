@@ -43,12 +43,11 @@
             }
             .FlatContent {
                 .InfoContainer {
-                    padding: 0 1.57rem 1.6rem 1.76rem;
+                    padding: 1.5rem 1.57rem 1.6rem 1.76rem;
                     position: relative;
                     min-height: 19rem;
                     &.InfoContainerMain{
                         @include respond(mobile){
-                            padding: 0 1.57rem 1.4rem 1.17rem;
                             min-height: 23rem;
                         }
                     }
@@ -98,6 +97,10 @@
                 }
                 .FlatImg {
                     position: relative;
+                    height:24.6rem ;
+                    @include respond(mobile){
+                        height: 50vw;
+                    }
                 }
             }
         }

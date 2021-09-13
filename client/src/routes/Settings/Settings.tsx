@@ -23,6 +23,7 @@ import { clearErrorAction } from '../../store/actions/errorActions';
 import { PropertyInterface } from '../../store/types/propertyInterfaces';
 
 import classes from './Settings.module.scss';
+import { FilterState } from '../../store/reducers/filterReducer';
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -40,12 +41,17 @@ const Settings = () => {
   const errorState: ErrorState = useSelector(
     (state: StoreState) => state.error
   );
+  const filterSide: FilterState = useSelector(
+    (state: StoreState) => state.filter
+  );
+
+  const { filterData } = filterSide;
   const { error } = errorState;
 
   useEffect(() => {
-    dispatch(getAllPropertiesAction(searchedDayList, guests));
+    dispatch(getAllPropertiesAction(searchedDayList, guests, filterData));
     dispatch(getUnassignedLocksAction());
-  }, []);
+  }, [searchedDayList, guests]);
 
   useEffect(() => {}, [locks, properties, selectedLock, selectedProperty]);
 

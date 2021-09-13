@@ -23,6 +23,19 @@
         flex-direction: column;
     }
   }
+  .MapContainer{
+    height: 96.4rem;
+    background-color: lightgray;
+    flex: 0 0 51.5%;
+    text-align: center;
+    margin-left: 1%;
+    @include respond(mobile) {
+      order: -1;
+      flex: unset;
+      height: 46rem;
+      margin-left: 0;
+    }
+  }
   .Locks {
     display: block;
     h1 {

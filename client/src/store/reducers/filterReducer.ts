@@ -27,14 +27,14 @@ const initialState:FilterState= {
     propertType: {
       house: { value: false, type: 'checkbox', text: 'House' },
       loft: { value: false, type: 'checkbox', text: 'Loft' },
-      appartament: { value: false, type: 'checkbox', text: 'Apartament' },
-      singleRoom: { value: false, type: 'checkbox', text: 'Single room' },
-      studioFlat: { value: false, type: 'checkbox', text: 'Studio flat' },
+      apartment: { value: false, type: 'checkbox', text: 'Apartment' },
+      single: { value: false, type: 'checkbox', text: 'Single room' },
+      studio: { value: false, type: 'checkbox', text: 'Studio flat' },
       boat: { value: false, type: 'checkbox', text: 'Boat' },
     },
     houseRules: {
       petAllowed: { value: false, type: 'checkbox', text: 'Pet allowed' },
-      smoking: { value: false, type: 'checkbox', text: 'Smoking' },
+      nonSmoking: { value: false, type: 'checkbox', text: 'Non-smoking' },
     },
     amenities: {
       airConditioning: {
@@ -46,14 +46,14 @@ const initialState:FilterState= {
       kitchen: { value: false, type: 'checkbox', text: 'Kitchen' },
       washer: { value: false, type: 'checkbox', text: 'Washer' },
       balcon: { value: false, type: 'checkbox', text: 'Balcon' },
-      carPark: { value: false, type: 'checkbox', text: 'Car park' },
+      carPark: { value: false, type: 'checkbox', text: 'Parking' },
     },
     facilities: {
-      freeParkin: { value: false, type: 'checkbox', text: 'Free parking' },
-      pool: { value: false, type: 'checkbox', text: 'Pool' },
-      gym: { value: false, type: 'checkbox', text: 'Gym' },
+      wifi: { value: false, type: 'checkbox', text: 'Wifi' },
       terrace: { value: false, type: 'checkbox', text: 'Terrace' },
-      balcony: { value: false, type: 'checkbox', text: 'Balcony' },
+      pool: { value: false, type: 'checkbox', text: 'Pool' },
+      gym: { value: false, type: 'checkbox', text: 'Gym' }
+      
     },
     areas: {
       hamburg: { value: false, type: 'checkbox', text: 'Hamburg' },

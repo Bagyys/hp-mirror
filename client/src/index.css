@@ -192,11 +192,13 @@ table {
 }
 .slider-slide {
   outline: none ;
+  height: 100% !important;
 }
 
 .slider-list {
   margin: 0 !important;
   cursor: default !important;
+  height: 100% !important;
 }
 .active .paging-dot > circle {
   r: 4px;

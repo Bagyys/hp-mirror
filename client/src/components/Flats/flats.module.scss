@@ -20,13 +20,6 @@
             margin:0 2rem;
         }
         .MyBookingsContainer{
-            @include respond(mobile){
-                position: fixed;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                z-index: 2;
-            }
         }
     }
     h2 {
@@ -35,6 +28,10 @@
         margin-bottom: 3rem;
         color: $black;
         font-family: $helveticaNeue;
+        @include respond(mobile){
+            font-size: $fontSize23px;
+            scroll-margin-top: 8rem
+        }
     }
     .FlatsContainerNav{
         display: flex;

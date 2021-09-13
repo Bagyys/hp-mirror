@@ -24,22 +24,24 @@
         margin-bottom: 1rem;
         position: relative;
         order: 1;
+        height: 24.6rem;
         @include respond(mobile){
             flex: 1 0 100%;
             margin-bottom: 0;
             order: initial;
+            height: 50vw;
         }
     }
     .InfoContainer {
         margin-left: 3rem;
         position: relative;
         order: 3;
-        margin-top: -11.3rem;
+        margin-top: -10rem;
         flex: 0 0 45%;
         @include respond(mobile){
             margin-left: 1.4rem;
             flex: 1;
-            margin-top: 0;
+            margin-top: 1.56rem;
             order: initial;
         }
     }

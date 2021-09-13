@@ -1,4 +1,4 @@
-import Flats from '../../components/Flats/flats';
+import Flats from '../../components/Flats/Flats';
 import Map from '../../components/Map/map';
 import { useMediaPredicate } from 'react-media-hook';
 import SecondaryNavMobile from '../../components/SecondaryNavMobile/SecondaryNavMobile';
@@ -15,6 +15,7 @@ import {
   getAllPropertiesAction,
   resetPropertyCordsAction,
 } from '../../store/actions/propertyActions';
+import { FilterState } from '../../store/reducers/filterReducer';
 const isChoosing = false;
 function Home() {
   const dispatch = useDispatch();
@@ -24,14 +25,19 @@ function Home() {
     (state: StoreState) => state.property
   );
   const { quickViewPropertyId } = propertyStore;
+  const filterSide: FilterState = useSelector(
+    (state: StoreState) => state.filter
+  );
+
+  const { filterData } = filterSide;
   const isMobile = useMediaPredicate('(max-width: 675px)');
 
   // localStorage.removeItem('persist:root');
   useEffect(() => {
-    //is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu paemus duomenis is API, nezinau ar tinka?
-    dispatch(getAllPropertiesAction(searchedDayList, guests));
+    //is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu paemus duomenis is API, taip pat cia filtruojami sideFilter duomenys, nezinau ar tinka?
+    dispatch(getAllPropertiesAction(searchedDayList, guests, filterData));
     dispatch(resetPropertyCordsAction());
-  }, [mainPage.searchedDayList, mainPage.guests]);
+  }, [searchedDayList, guests]);
 
   return (
     <>
@@ -56,7 +62,9 @@ function Home() {
               )}
             >
               <Flats isMain={true} />
-              <Map  />
+              <div className={classes.MapContainer}>
+                <Map />
+              </div>
             </div>
             <Footer />
           </Fragment>
