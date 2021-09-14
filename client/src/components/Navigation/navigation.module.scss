@@ -7,27 +7,29 @@
   z-index: 102;
   box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
   position: relative;
-  @include respond(mobile){
-      position: fixed;
-      top: 0;
-    }
+  @include respond(mobile) {
+    position: fixed;
+    top: 0;
+  }
   .NavigationWrapper {
-    max-width:  175.428rem;
+    box-sizing: border-box;
+    max-width: 175.428rem; //175.428
     align-items: center;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    padding:0 3%;
-    @include respond(mobile){
+    padding: 0 3%;
+    @include respond(mobile) {
       padding: 1.35rem 2.2rem;
     }
     .Left {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
+      padding-left: 7.71rem;
       align-items: center;
-      @include respond(mobile){
-        img{
+      @include respond(mobile) {
+        img {
           width: 15rem;
         }
       }
@@ -40,174 +42,172 @@
       font-weight: $font-Weight-bold;
       color: $fontColor;
       line-height: $lineHeight36px;
-      padding: 2.6rem 0 ;
+      padding: 2.6rem 0;
       font-family: $helvetica;
-
-      
-      @include respond(mobile){
+      // padding-left: 34.71rem;
+      @include respond(mobile) {
         display: none;
       }
-      
+      .MiddleDiv {
+        padding-right: 3.52rem;
+      }
     }
 
     .Right {
+      display: flex;
+      align-items: center;
+      .Favorite {
+        margin-right: 4.4rem;
+        position: relative;
+        @include respond(mobile) {
+          display: none;
+        }
+      }
+      .Guide {
         display: flex;
         align-items: center;
-        .Favorite {
-          margin-right: 4.4rem;
-          position: relative;
-          @include respond(mobile){
-              display: none;
-          }
-        } 
-        .Guide {
-          display: flex;
-          align-items: center;
-          font-size: $fontSize20px;
-          font-weight: $font-Weight-bold;
-          color: $fontColor;
-          font-family: $helvetica;
-          line-height: $lineHeight20px;
-          margin-right: 4.4rem;
-          cursor: pointer;
-          @include respond(mobile){
-            display: none;
-          }
-          img {
-            transform: rotate(-14deg);
-            width: 2.8rem;
-          }
+        font-size: $fontSize20px;
+        font-weight: $font-Weight-bold;
+        color: $fontColor;
+        font-family: $helvetica;
+        line-height: $lineHeight20px;
+        margin-right: 4.4rem;
+        cursor: pointer;
+        @include respond(mobile) {
+          display: none;
         }
-       .NavMenuBtn {
-         position: relative;
-         .Slider{
-            width: 13rem;
-            height: 6.4rem;
-            background-color: $lightGrey2;
-            position: relative;
-            border-radius: 4rem;
-            cursor: pointer;
-            @include respond(mobile ){
-              width: 8.5rem;
-              height: 4.3rem;
+        img {
+          transform: rotate(-14deg);
+          width: 2.8rem;
+        }
+      }
+      .NavMenuBtn {
+        position: relative;
+        .Slider {
+          width: 13rem;
+          height: 6.4rem;
+          background-color: $lightGrey2;
+          position: relative;
+          border-radius: 4rem;
+          cursor: pointer;
+          @include respond(mobile) {
+            width: 8.5rem;
+            height: 4.3rem;
+          }
+          .Burger {
+            height: 0.3rem;
+            position: absolute;
+            background-color: $disableBtn;
+            width: 2.5rem;
+            left: 2.9rem;
+            top: 3rem;
+            @include respond(mobile) {
+              width: 1.8rem;
+              height: 0.25rem;
+              left: 1.5rem;
+              top: 2.6rem;
             }
-            .Burger {
-              height: .3rem;
+            &:before {
+              content: "";
+              height: 0.3rem;
               position: absolute;
               background-color: $disableBtn;
               width: 2.5rem;
-              left: 2.9rem;
-              top: 3rem;
-              @include respond(mobile ){
-                width:1.8rem;
-                height: .25rem;
-                left: 1.5rem;
-                top: 2.6rem;
-              }
-              &:before {
-                content: '';
-                height: .3rem;
-                position: absolute;
-                background-color: $disableBtn;
-                width: 2.5rem;
-                top: -.9rem;
-                @include respond(mobile ){
-                  width:1.8rem;
-                  height: .25rem;
-                  top: -.9rem;
-                }
-              }
-              &:after {
-                content: '';
-                height: .3rem;
-                position: absolute;
-                background-color: $disableBtn;
-                width: 2.5rem;
-                top: .9rem;
-                @include respond(mobile ){
-                  display: none;
-                }
+              top: -0.9rem;
+              @include respond(mobile) {
+                width: 1.8rem;
+                height: 0.25rem;
+                top: -0.9rem;
               }
             }
-            .SliderItem {
+            &:after {
+              content: "";
+              height: 0.3rem;
               position: absolute;
-              width: 5rem;
-              height: 5rem;
-              border-radius: 50%;
-              background-color: #C4C4C4;
-              top: 0.7rem;
-              right: 0.78rem;
-              transform: translateX(0);
-              transition: all 0.3s ease;
-              @include respond(mobile ){
-                width: 3.7rem;
-                height: 3.7rem;
-                top: 0.3rem;
-                right: 0.5rem;
+              background-color: $disableBtn;
+              width: 2.5rem;
+              top: 0.9rem;
+              @include respond(mobile) {
+                display: none;
               }
-              img{
-                width: 100%;
-              }
-          }
-          .SlideOpen{
-            transform: translateX(-6.5rem); 
-            @include respond(mobile ){
-                transform: translateX(-3.7rem);
-              }
-          }
-         }
-         .MenuContainer {
-           width: 25.1rem;
-           background-color: $white;
-           position: absolute;
-           box-shadow: 0 0 1rem rgba(0, 0, 0, 0.29);
-           top: 8rem;
-           right: 0;
-           border-radius: 1rem;
-           padding: 2.8rem 5.3rem 2.8rem 1.2rem;
-           @include respond(mobile){
-              top:5rem;
-              width: 15rem;
-              padding: 1.8rem 3.3rem 1.8rem 1rem;
-
             }
-           .HostHome{
-             font-weight: $font-Weight-bold;
-             border-top: 1px solid $disableBtn;
-             border-bottom: 1px solid $disableBtn;
-             padding: 1.8rem 0;
-             margin: 1.8rem 0;
-             @include respond(mobile){
+          }
+          .SliderItem {
+            position: absolute;
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background-color: #c4c4c4;
+            top: 0.7rem;
+            right: 0.78rem;
+            transform: translateX(0);
+            transition: all 0.3s ease;
+            @include respond(mobile) {
+              width: 3.7rem;
+              height: 3.7rem;
+              top: 0.3rem;
+              right: 0.5rem;
+            }
+            img {
+              width: 100%;
+            }
+          }
+          .SlideOpen {
+            transform: translateX(-6.5rem);
+            @include respond(mobile) {
+              transform: translateX(-3.7rem);
+            }
+          }
+        }
+        .MenuContainer {
+          width: 25.1rem;
+          background-color: $white;
+          position: absolute;
+          box-shadow: 0 0 1rem rgba(0, 0, 0, 0.29);
+          top: 8rem;
+          right: 0;
+          border-radius: 1rem;
+          padding: 2.8rem 5.3rem 2.8rem 1.2rem;
+          @include respond(mobile) {
+            top: 5rem;
+            width: 15rem;
+            padding: 1.8rem 3.3rem 1.8rem 1rem;
+          }
+          .HostHome {
+            font-weight: $font-Weight-bold;
+            border-top: 1px solid $disableBtn;
+            border-bottom: 1px solid $disableBtn;
+            padding: 1.8rem 0;
+            margin: 1.8rem 0;
+            @include respond(mobile) {
               padding: 1rem 0;
               margin: 1rem 0;
             }
-           }
-           a{
-             text-decoration: none;
-             font-size: $fontSize22px;
-             line-height: $lineHeight43px;
-             color: $black2;
-             display: block;
-             font-family: $helvetica;
-             margin-left: 2rem;
-             @include respond(mobile){
+          }
+          a {
+            text-decoration: none;
+            font-size: $fontSize22px;
+            line-height: $lineHeight43px;
+            color: $black2;
+            display: block;
+            font-family: $helvetica;
+            margin-left: 2rem;
+            @include respond(mobile) {
               font-size: $mediumFontSize;
               line-height: $lineHeight34px;
               margin-left: 1rem;
-             }
-           }
-         }
-       }
+            }
+          }
+        }
+      }
     }
   }
-  
 }
-@include respond(mobile){
-  .HideNav{
+@include respond(mobile) {
+  .HideNav {
     z-index: -1;
   }
-  .ShowNav{
+  .ShowNav {
     z-index: 102;
   }
 }
-

@@ -1,9 +1,9 @@
-import classes from '../main.module.scss';
-import searchImg from '../../../assets/images/Search.svg';
-import { useEffect, useState } from 'react';
-import moment from 'moment';
-import { StoreState } from '../../../store/configureStore';
-import { useDispatch, useSelector } from 'react-redux';
+import classes from "../main.module.scss";
+import searchImg from "../../../assets/images/search.svg";
+import { useEffect, useState } from "react";
+import moment from "moment";
+import { StoreState } from "../../../store/configureStore";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addSearchingDayList,
   setProceedToGuests,

@@ -1,5 +1,5 @@
 import classes from "./buttons.module.scss";
-import searchImg from "../../../../assets/images/Search.svg";
+import searchImg from "../../../../assets/images/search.svg";
 
 const GuestContainer = () => {
   return (
