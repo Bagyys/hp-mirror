@@ -11,6 +11,7 @@
     left: 0;
     @include respond(mobile){
         width: 100%;
+        top:7rem;
     }
     h2 {
         font-size: $fontSize27px;

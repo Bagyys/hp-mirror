@@ -1,7 +1,7 @@
 import Flats from '../../components/Flats/Flats';
 import Map from '../../components/Map/map';
 import { useMediaPredicate } from 'react-media-hook';
-import SecondaryNavMobile from '../../components/SecondaryNavMobile/SecondaryNavMobile';
+import SecondaryNavMobile from '../components/SecondaryNavMobile/SecondaryNavMobile';
 import Main from '../../components/Main/main';
 import classes from './home.module.scss';
 import { cn } from '../../utilities/joinClasses';
@@ -26,7 +26,7 @@ function Home() {
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
-  const { quickViewPropertyId, properties } = propertyStore;
+  const { quickViewPropertyId } = propertyStore;
   const filterSide: FilterState = useSelector(
     (state: StoreState) => state.filter
   );
@@ -54,6 +54,7 @@ function Home() {
             {isMobile && (
               <SecondaryNavMobile
                 isQuickViewClicked={quickViewPropertyId !== ''}
+                toggleFilter={toggleFilterHandler}
               />
             )}
 
@@ -65,13 +66,13 @@ function Home() {
                   : classes.MobileContent
               )}
             >
-              <Flats isMain={true} toggleFilter={toggleFilterHandler} />
+              <Flats isMain={true} />
               <div className={classes.MapContainer}>
                 <Map />
               </div>
             </div>
             <Footer />
-            {isFilterOpen && <SideFilter toggleHandler={toggleFilterHandler} />}
+            {isFilterOpen && <SideFilter />}
           </Fragment>
         )}
       </div>

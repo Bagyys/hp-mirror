@@ -1,6 +1,6 @@
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
 import Carousel from 'nuka-carousel';
-import { cn } from '../../utilities/joinClasses';
+import { cn } from '../../../utilities/joinClasses';
 import classes from './ImageSlider.module.scss';
 
 interface SliderProps {

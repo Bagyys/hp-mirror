@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 //Styles
-import classes from "./defaultSlide.module.scss";
+import classes from './DefaultSlide.module.scss';
 //Components
-import BtnShowAllPhotos from "../defaultSlide/BtnShowAllPhotos/btnShowAllPhotos";
+import BtnShowAllPhotos from '../DefaultSlide/BtnShowAllPhotos/BtnShowAllPhotos';
 
 interface ImagesInterface {
   images: Array<string>;

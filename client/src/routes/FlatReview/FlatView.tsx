@@ -14,7 +14,7 @@ import { GrRotateRight } from 'react-icons/gr';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 
 import BreadCrumbs from '../../components/BreadCrums/BreadCrums';
-import DefaultSlide from '../../components/Slider/defaultSlide/defaultSlide';
+import DefaultSlide from '../components/ImageSlider/DefaultSlide/DefaultSlide';
 import BookingSchedule from '../../components/BookingSchedule/BookingSchedule';
 import Navigation from '../../components/Navigation/navigation';
 import FlatInfo from '../../components/FlatReviewContentent/FlatInfo/FlatInfo';

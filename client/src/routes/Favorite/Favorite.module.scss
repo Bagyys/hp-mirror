@@ -8,31 +8,9 @@
     @include respond (mobile){
         margin-top: 7rem;
     }
-    
-    // height: 89.5vh;
     .FavoriteFlats {
         position: relative;
-        // max-height: 80%;
-        // overflow-y: scroll;
-        // padding: .7rem;
+       
     }
-    // h2 {
-    //     font-size: $fontSize25px;
-    //     font-weight: $font-Weight-bold;
-    //     line-height: $lineHeight26px;
-    //     margin: 0 0 6% 2.57rem;
-    //     height: 4%;
-    // }
-    .Return{
-        font-size: $smallFontSize;
-        line-height: $lineHeight27px;
-        margin: 6% 1.47rem;
-        cursor: pointer;
-        display: inline-block;
-        height: 4%;
-        img {
-            transform: rotate(180deg);
-            margin-right: 0.57rem;
-        }
-    }
+    
 }

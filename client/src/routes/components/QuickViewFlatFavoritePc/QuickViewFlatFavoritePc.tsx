@@ -1,7 +1,7 @@
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
 import classes from './QuickViewFlatFavoritePc.module.scss';
 import { useMediaPredicate } from 'react-media-hook';
-import ImageSlider from '../../../components/Slider/imageSlider';
+import ImageSlider from '../ImageSlider/ImageSlider';
 import Favorites from '../../../routes/components/Favorites/Favorites';
 import Ratings from '../../../routes/components/Ratings/Ratings';
 import PropertiesType from '../../../routes/components/PropertyType/PropertiesType';

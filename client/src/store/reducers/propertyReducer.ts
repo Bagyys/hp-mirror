@@ -10,6 +10,7 @@ export interface PropertyState {
   properties: Array<PropertyInterface>;
   selectedProperty: string;
   quickViewPropertyId:string;
+  myBookingQuickViewId:string;
   pageSizeMain:number;
   pageSizeFavorite:number;
   currentPage:number;
@@ -21,6 +22,7 @@ const initialState: PropertyState = {
   properties: [] as Array<PropertyInterface>,
   selectedProperty: "",
   quickViewPropertyId:"",
+  myBookingQuickViewId:"",
   pageSizeMain:4,
   pageSizeFavorite:12,
   currentPage:1,
@@ -66,6 +68,11 @@ const propertyReducer = (
         ...state,
         quickViewPropertyId:action.payload,
       };
+    case propertyTypes.MY_BOOKING_QUICK_VIEW_PROPERTY:
+      return {
+        ...state,
+        myBookingQuickViewId:action.payload,
+      };  
     case propertyTypes.PAGINATION_PAGE_SIZE:
       return {
         ...state,
@@ -81,16 +88,16 @@ const propertyReducer = (
         ...state,
         activePropertyCord:action.payload,
       };  
+     case propertyTypes.RESET_PROPERTY_CORDS:
+      return {
+        ...state,
+        activePropertyCord:initialState.activePropertyCord,
+      };   
     case propertyTypes.ADD_RECENTLY_VIEWED:
       return {
         ...state,
         recentlyViewedProperties:action.payload,
       };  
-    case propertyTypes.RESET_PROPERTY_CORDS:
-      return {
-        ...state,
-        activePropertyCord:initialState.activePropertyCord,
-      }; 
     default:
       return state;
   }

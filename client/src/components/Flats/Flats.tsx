@@ -10,18 +10,16 @@ import {
   activePropertyCordsAction,
   addRecentlyViewedAction,
   currentPageAction,
+  myBookingQuickViewAction,
   pageSizeAction,
   quickViewAction,
   resetPropertyCordsAction,
 } from '../../store/actions/propertyActions';
 import { clearErrorAction } from '../../store/actions/errorActions';
 import classes from './Flats.module.scss';
-import filterImg from '../../assets/images/filter.png';
 import Flat from '../../routes/components/Flat/Flat';
 import Pagination from '../Pagination/Pagination';
 import QuickViewFlat from '../../routes/components/QuickViewFlat/QuickViewFlat';
-import arrow from '../../assets/images/arrow2.png';
-import Button from '../../routes/components/Button/button';
 import { userState } from '../../store/reducers/userReducer';
 import { addToFavoriteAction } from '../../store/actions/userActions';
 import { cn } from '../../utilities/joinClasses';
@@ -32,10 +30,12 @@ import {
   filterArrayById,
   isStringInArray,
 } from '../../utilities/flatsFunctions';
+import { toggleFilterButtonAction } from '../../store/actions/filterActions';
+import { FilterState } from '../../store/reducers/filterReducer';
+import FlatsNav from '../../routes/components/FlatsNav/FlatsNav';
 
 interface FlatsProps {
   isMain: boolean;
-  toggleFilter: () => void;
 }
 const Flats: React.FC<FlatsProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
@@ -48,12 +48,17 @@ const Flats: React.FC<FlatsProps> = (props) => {
   );
   const {
     quickViewPropertyId,
+    myBookingQuickViewId,
     pageSizeMain,
     currentPage,
     pageSizeFavorite,
     properties,
     recentlyViewedProperties,
   } = propertyStore;
+  const filterSide: FilterState = useSelector(
+    (state: StoreState) => state.filter
+  );
+  const { isFilterOpen } = filterSide;
   const errorState: ErrorState = useSelector(
     (state: StoreState) => state.error
   );
@@ -68,14 +73,14 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const quickViewData = propertiesList?.find(
     (item) => item._id === quickViewPropertyId
   );
-
+  console.log(quickViewData);
   useEffect(() => {
     dispatch(quickViewAction(''));
   }, [currentPage, pageSizeMain]);
 
-  // useEffect(() => {
-  //   dispatch(currentPageAction(1));
-  // }, []);
+  useEffect(() => {
+    dispatch(currentPageAction(1));
+  }, []);
 
   const handleError = () => {
     dispatch(clearErrorAction());
@@ -110,7 +115,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
     propertiesList,
     props.isMain,
   ]);
-  console.log(properties, pageSizeMain);
   const pageSizeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(pageSizeAction(Number(e.target.value)));
     dispatch(currentPageAction(1));
@@ -145,6 +149,12 @@ const Flats: React.FC<FlatsProps> = (props) => {
           behavior: 'smooth',
         })
       : scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+  const myBookingQuickViewHandler = (id: string) => {
+    dispatch(myBookingQuickViewAction(id));
+  };
+  const closeMyBookingQuickViewHandler = () => {
+    dispatch(myBookingQuickViewAction(''));
   };
   let propertiesRender = <></>;
   if (propertiesList?.length > 0) {
@@ -205,7 +215,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
   }
   let recentlyViewPropertiesRender = <></>;
   let recentlyViewed = filterArrayById(
-    properties,
+    propertiesList,
     recentlyViewedProperties
   ).reverse();
   //issiaiskinti reikiama funkcionaluma
@@ -242,7 +252,18 @@ const Flats: React.FC<FlatsProps> = (props) => {
         <h2>Your Bookings</h2>
         <ul className={classes.MyBookingsContainer}>
           {bookings.map((property) => (
-            <MyBooking key={property._id} bookedProperty={property} />
+            <MyBooking
+              key={property._id}
+              close={closeMyBookingQuickViewHandler}
+              myBookingQuickViewClicked={() =>
+                myBookingQuickViewHandler(property._id)
+              }
+              isQuickViewed={
+                myBookingQuickViewId !== '' &&
+                myBookingQuickViewId === property._id
+              }
+              bookedProperty={property}
+            />
           ))}
         </ul>
         {/* Veliau padaryti pagal artimiausia data */}
@@ -261,50 +282,13 @@ const Flats: React.FC<FlatsProps> = (props) => {
           : classes.FlatsContainerFavorite
       )}
     >
-      <div
-        className={cn(
-          classes.FlatsContainerNav,
-          props.isMain
-            ? classes.FlatsContainerNavMain
-            : classes.FlatsContainerNavFavorite
-        )}
-      >
-        <div
-          style={props.isMain && isMobile ? { display: 'none' } : {}}
-          className={classes.FilterBtnContainer}
-        >
-          <Button
-            clicked={props.toggleFilter}
-            btnType="OpenFilter"
-            bgColor="Grey"
-          >
-            <img src={filterImg} />
-          </Button>
-          {!props.isMain && <h1>Favorites</h1>}
-        </div>
-        <div className={classes.RightSide}>
-          {props.isMain && (
-            <div className={classes.CustomSelect}>
-              <select onChange={pageSizeHandler} value={pageSizeMain}>
-                <option value="4">4</option>
-                <option value="6">6</option>
-                <option value="8">8</option>
-              </select>
-            </div>
-          )}
-
-          {props.isMain && isMobile ? (
-            <p className={classes.MobileResults}>
-              {propertiesList?.length} places to stay{' '}
-              <img src={arrow} alt="Arrow2" />
-            </p>
-          ) : (
-            <p className={classes.PcResults}>
-              {propertiesList?.length} results
-            </p>
-          )}
-        </div>
-      </div>
+      <FlatsNav
+        pageSize={pageSizeMain}
+        pageSizeHandler={pageSizeHandler}
+        numberOfApartaments={propertiesList?.length}
+        isMain={props.isMain}
+        filterOpen={() => dispatch(toggleFilterButtonAction(!isFilterOpen))}
+      />
       {myBookingsRender}
       {propertiesRender}
       {!isMobile && (

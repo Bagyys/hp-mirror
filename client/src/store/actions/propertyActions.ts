@@ -75,7 +75,10 @@ export interface AddRecentlyViewed
 export interface ResetPropertyCords
   extends Action<typeof propertyTypes.RESET_PROPERTY_CORDS> {
 }
-
+export interface MyBookingQuickViewProperty
+  extends Action<typeof propertyTypes.MY_BOOKING_QUICK_VIEW_PROPERTY> {
+  payload: string;
+}
 
 export type PropertyActions =
   | GetAllPropertiesStart
@@ -94,7 +97,8 @@ export type PropertyActions =
   | PaginationCurrentPage
   | ActivePropertyCords
   | AddRecentlyViewed
-  | ResetPropertyCords;
+  | ResetPropertyCords
+  | MyBookingQuickViewProperty;
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -213,6 +217,13 @@ export const clearSelectedPropertyAction = () => async (dispatch: Dispatch) => {
 export const quickViewAction = (id: string) => (dispatch: Dispatch) => {
   dispatch({
     type: propertyTypes.QUICK_VIEW_PROPERTY,
+    payload: id,
+  });
+};
+
+export const myBookingQuickViewAction = (id: string) => (dispatch: Dispatch) => {
+  dispatch({
+    type: propertyTypes.MY_BOOKING_QUICK_VIEW_PROPERTY,
     payload: id,
   });
 };

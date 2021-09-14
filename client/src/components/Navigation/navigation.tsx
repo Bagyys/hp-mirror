@@ -23,12 +23,17 @@ import classes from './navigation.module.scss';
 import Button from '../../routes/components/Button/button';
 import { PropertyState } from '../../store/reducers/propertyReducer';
 import SearchType from '../Main/components/SearchType/searchType';
+import { FilterState } from '../../store/reducers/filterReducer';
 const Navigation = () => {
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
   const properties: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
+  const filterSide: FilterState = useSelector(
+    (state: StoreState) => state.filter
+  );
+  const { isFilterOpen } = filterSide;
   const { quickViewPropertyId } = properties;
   // const errorState: ErrorState = useSelector(
   //   (state: StoreState) => state.error
@@ -96,8 +101,9 @@ const Navigation = () => {
     <div
       className={cn(
         classes.Navigation,
-        quickViewPropertyId && classes.HideNav,
-        isPageScrolled ? classes.ShowNav : ''
+        quickViewPropertyId && !isPageScrolled && !isFilterOpen
+          ? classes.HideNav
+          : ''
       )}
     >
       <div className={classes.NavigationWrapper}>
