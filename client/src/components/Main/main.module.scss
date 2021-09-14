@@ -11,7 +11,7 @@
       }
     .Left {
         width: 50%;
-        background-image: url('../../assets/images/MainPic.png');
+        background-image: url('../../assets/images/mainPic.png');
         background-repeat: no-repeat;
         @include respond(tablet-laptop){
             width: 100%;

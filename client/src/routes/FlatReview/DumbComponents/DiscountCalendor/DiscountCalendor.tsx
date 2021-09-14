@@ -2,7 +2,7 @@
 import classes from "../DiscountCalendor/discountCalendor.module.scss";
 
 //Components
-import Calendor from "../../../Main/components/calendar";
+import Calendor from "../../../../components/Main/components/calendar";
 
 const DiscountCalendor = () => {
   return (

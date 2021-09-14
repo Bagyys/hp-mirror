@@ -1,9 +1,10 @@
 //Styles
 import classes from './location.module.scss';
 //Components
-import Map from '../../../Map/map';
+import Map from '../../../../components/Map/map';
 
 const Location = () => {
+
   return (
     <>
       <div className={classes.Header}>

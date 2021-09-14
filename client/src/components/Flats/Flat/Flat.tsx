@@ -21,6 +21,11 @@ interface FlatProps {
 }
 const Flat: React.FC<FlatProps> = (props) => {
   const isMobile = useMediaPredicate("(max-width: 675px)");
+  console.log(Flat, "Flat COmponent");
+  console.log(props, "Props");
+  console.log(isMobile, "FLat Component isMobile?");
+  console.log(useMediaPredicate, "FLat Component useMediaPredicate()");
+
   let propertiesRender = (
     <li
       className={cn(
@@ -78,6 +83,25 @@ const Flat: React.FC<FlatProps> = (props) => {
       </div>
     </li>
   );
+  console.log(propertiesRender, "????????????????");
+
+  console.log(propertiesRender.props, "className????????????????");
+  console.log(
+    propertiesRender.props.children,
+    "className Children????????????????"
+  );
+  console.log(
+    propertiesRender.props.children.props,
+    "className Children Props????????????????"
+  );
+  console.log(
+    propertiesRender.props.children.props.children,
+    "className Children Props Children????????????????"
+  );
+
+  console.log(ImageSlider, "ImageSLider");
+  console.log(Favorites.propTypes, "Favorites");
+  console.log(GroupedBadges, "GroupeBandges");
   return <>{propertiesRender}</>;
 };
 

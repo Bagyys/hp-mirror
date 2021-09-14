@@ -1,28 +1,28 @@
-import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useMediaPredicate } from 'react-media-hook';
-import { Link } from 'react-router-dom';
-import { cn } from '../../utilities/joinClasses';
-import { StoreState } from '../../store/configureStore';
-import { userState } from '../../store/reducers/userReducer';
-import SearchBox from './SearchBox/SearchBox';
-import Language from './Language/Language';
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useMediaPredicate } from "react-media-hook";
+import { Link } from "react-router-dom";
+import { cn } from "../../utilities/joinClasses";
+import { StoreState } from "../../store/configureStore";
+import { userState } from "../../store/reducers/userReducer";
+import SearchBox from "./SearchBox/SearchBox";
+import Language from "./Language/Language";
 // import { ErrorState } from '../../store/reducers/errorReducer';
 import {
   loadUser,
   logoutAction,
   toggleNavMenuButtonAction,
   pageScrollAction,
-} from '../../store/actions/userActions';
-import favoritePc from '../../assets/images/Favorite.svg';
-import favoritePcActive from '../../assets/images/favorite_yellow.png';
-import GuideImg from '../../assets/images/Guide.svg';
-import LogoImg from '../../assets/images/Logo.svg';
-import UserPic from '../../assets/images/UserPicture.svg';
-import classes from './navigation.module.scss';
-import Button from '../Button/button';
-import { PropertyState } from '../../store/reducers/propertyReducer';
-import SearchType from '../Main/components/SearchType/searchType';
+} from "../../store/actions/userActions";
+import favoritePc from "../../assets/images/favorite.svg";
+import favoritePcActive from "../../assets/images/favorite_yellow.png";
+import GuideImg from "../../assets/images/guide.svg";
+import LogoImg from "../../assets/images/logo.svg";
+import UserPic from "../../assets/images/userPicture.svg";
+import classes from "./navigation.module.scss";
+import Button from "../Button/button";
+import { PropertyState } from "../../store/reducers/propertyReducer";
+import SearchType from "../Main/components/SearchType/searchType";
 const Navigation = () => {
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
@@ -36,7 +36,7 @@ const Navigation = () => {
   // const { error } = errorState;
   const { token, isAuthenticated, user, isNavMenuOpened, isPageScrolled } =
     auth;
-  const isMobile = useMediaPredicate('(max-width: 675px)');
+  const isMobile = useMediaPredicate("(max-width: 675px)");
   const wrapperRef = useRef<HTMLDivElement>(null); //Nav menu, close then click outside
 
   /*Nav visibility on mobile, then click on quickview property and scroll*/
@@ -63,9 +63,9 @@ const Navigation = () => {
         dispatch(toggleNavMenuButtonAction(false));
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isNavMenuOpened]);
 
@@ -78,9 +78,9 @@ const Navigation = () => {
           dispatch(pageScrollAction(show));
         }
       };
-      document.addEventListener('scroll', handleScroll);
+      document.addEventListener("scroll", handleScroll);
       return () => {
-        document.removeEventListener('scroll', handleScroll);
+        document.removeEventListener("scroll", handleScroll);
       };
     }
   }, [quickViewPropertyId]);
@@ -97,7 +97,7 @@ const Navigation = () => {
       className={cn(
         classes.Navigation,
         quickViewPropertyId && classes.HideNav,
-        isPageScrolled ? classes.ShowNav : ''
+        isPageScrolled ? classes.ShowNav : ""
       )}
     >
       <div className={classes.NavigationWrapper}>
@@ -110,7 +110,7 @@ const Navigation = () => {
           {/* <NavRoutes /> */}
         </div>
         <div className={classes.Middle}>
-          <div>Anytime</div>
+          <div className={classes.MiddleDiv}>Anytime</div>
           <SearchBox />
           {/* <SearchType /> */}
         </div>
@@ -141,7 +141,7 @@ const Navigation = () => {
               <div
                 className={cn(
                   classes.SliderItem,
-                  isNavMenuOpened ? classes.SlideOpen : ''
+                  isNavMenuOpened ? classes.SlideOpen : ""
                 )}
               >
                 {isAuthenticated && token && (

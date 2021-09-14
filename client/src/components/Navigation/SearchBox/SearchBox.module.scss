@@ -3,11 +3,12 @@
 .SearchBoxs {
   position: relative;
   display: flex;
+  width: 42.3rem;
   margin-left: 3.52rem;
   background-color: rgba(235, 237, 237, 0.8);
   padding:1.5rem 9.78rem 1.5rem 4.41rem;
   border-radius: 5.5rem;
-  @include respond (mobile){
+  @include respond(mobile) {
     background-color: $white;
     font-size: $smallerMediumFont;
     font-weight: $font-Weight-bold;
@@ -20,34 +21,34 @@
   }
   .Date {
     padding-right: 3.52rem;
-    border-right: 0.1rem solid #CBD0D3;
-    @include respond(mobile){
+    border-right: 0.1rem solid #cbd0d3;
+    @include respond(mobile) {
       padding-right: 1.68rem;
     }
   }
   .Guests {
     padding-left: 3.52rem;
-    @include respond(mobile){
+    @include respond(mobile) {
       padding-left: 1.1rem;
       padding-right: 0;
     }
-    }
+  }
   .SearchButton {
     position: absolute;
     right: 0;
     top: 0;
     cursor: pointer;
-    background-color: #4D94E8;
+    background-color: #4d94e8;
     padding: 2.07rem;
     border-radius: 50%;
-    @include respond(mobile){
-      right: .74rem;
-      top: .7rem;
+    @include respond(mobile) {
+      right: 0.74rem;
+      top: 0.7rem;
       padding: 1rem;
     }
-    img{
+    img {
       display: block;
-      @include respond(mobile){
+      @include respond(mobile) {
         width: 1.8rem;
         height: 1.8rem;
       }

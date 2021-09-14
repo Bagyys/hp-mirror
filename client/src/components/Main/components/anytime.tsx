@@ -1,9 +1,9 @@
 import classes from "../main.module.scss";
-import SelectedMonthImg from "../../../assets/images/SelectedMonth.svg";
-import NonSelectedImg from "../../../assets/images/NonSelected.svg";
+import SelectedMonthImg from "../../../assets/images/selectedMonth.svg";
+import NonSelectedImg from "../../../assets/images/nonSelected.svg";
 import { useState } from "react";
 import moment from "moment";
-import searchImg from "../../../assets/images/Search.svg";
+import searchImg from "../../../assets/images/search.svg";
 import { useMediaPredicate } from "react-media-hook";
 
 function Anytime() {

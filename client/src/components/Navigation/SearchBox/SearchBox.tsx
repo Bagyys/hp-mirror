@@ -1,5 +1,5 @@
 import classes from "./SearchBox.module.scss";
-import searchImg from "../../../assets/images/Search.svg";
+import searchImg from "../../../assets/images/search.svg";
 import { useSelector } from "react-redux";
 import { StoreState } from "../../../store/configureStore";
 import moment from "moment";

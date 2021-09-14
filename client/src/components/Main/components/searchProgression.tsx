@@ -1,5 +1,5 @@
 import classes from "../main.module.scss";
-import searchImg from "../../../assets/images/Search.svg";
+import searchImg from "../../../assets/images/search.svg";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { StoreState } from "../../../store/configureStore";
