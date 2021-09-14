@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import { useMediaPredicate } from 'react-media-hook';
-import { useDispatch, useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
-import { StoreState } from '../../store/configureStore';
-import { PropertyState } from '../../store/reducers/propertyReducer';
-import { ErrorState } from '../../store/reducers/errorReducer';
-import { PropertyInterface } from '../../store/types/propertyInterfaces';
+import React, { useEffect, useMemo, useRef } from "react";
+import { useMediaPredicate } from "react-media-hook";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { StoreState } from "../../store/configureStore";
+import { PropertyState } from "../../store/reducers/propertyReducer";
+import { ErrorState } from "../../store/reducers/errorReducer";
+import { PropertyInterface } from "../../store/types/propertyInterfaces";
 import {
   activePropertyCordsAction,
   addRecentlyViewedAction,
@@ -13,32 +13,32 @@ import {
   pageSizeAction,
   quickViewAction,
   resetPropertyCordsAction,
-} from '../../store/actions/propertyActions';
-import { clearErrorAction } from '../../store/actions/errorActions';
-import classes from './Flats.module.scss';
-import filterImg from '../../assets/images/filter.png';
-import Flat from '../../routes/components/Flat/Flat';
-import Pagination from '../Pagination/Pagination';
-import QuickViewFlat from '../../routes/components/QuickViewFlat/QuickViewFlat';
-import arrow from '../../assets/images/arrow2.png';
-import Button from '../../routes/components/Button/button';
-import { userState } from '../../store/reducers/userReducer';
-import { addToFavoriteAction } from '../../store/actions/userActions';
-import { cn } from '../../utilities/joinClasses';
-import QuickViewFlatFavoritePc from '../../routes/components/QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
-import MyBooking from '../../routes/components/MyBooking/MyBooking';
-import MyBookingMobile from '../../routes/components/MyBookingMobileStick/MyBookingMobileStick';
+} from "../../store/actions/propertyActions";
+import { clearErrorAction } from "../../store/actions/errorActions";
+import classes from "./Flats.module.scss";
+import filterImg from "../../assets/images/filter.png";
+import Flat from "../../routes/components/Flat/Flat";
+import Pagination from "../Pagination/Pagination";
+import QuickViewFlat from "../../routes/components/QuickViewFlat/QuickViewFlat";
+import arrow from "../../assets/images/arrow2.png";
+import Button from "../../routes/components/Button/button";
+import { userState } from "../../store/reducers/userReducer";
+import { addToFavoriteAction } from "../../store/actions/userActions";
+import { cn } from "../../utilities/joinClasses";
+import QuickViewFlatFavoritePc from "../../routes/components/QuickViewFlatFavoritePc/QuickViewFlatFavoritePc";
+import MyBooking from "../../routes/components/MyBooking/MyBooking";
+import MyBookingMobile from "../../routes/components/MyBookingMobileStick/MyBookingMobileStick";
 import {
   filterArrayById,
   isStringInArray,
-} from '../../utilities/flatsFunctions';
+} from "../../utilities/flatsFunctions";
 
 interface FlatsProps {
   isMain: boolean;
   toggleFilter: () => void;
 }
 const Flats: React.FC<FlatsProps> = (props) => {
-  const isMobile = useMediaPredicate('(max-width: 675px)');
+  const isMobile = useMediaPredicate("(max-width: 675px)");
   const scrollRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
@@ -70,7 +70,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
   );
 
   useEffect(() => {
-    dispatch(quickViewAction(''));
+    dispatch(quickViewAction(""));
   }, [currentPage, pageSizeMain]);
 
   // useEffect(() => {
@@ -84,10 +84,10 @@ const Flats: React.FC<FlatsProps> = (props) => {
     if (error) {
       Swal.fire({
         title: error,
-        text: 'Please try again',
-        icon: 'warning',
+        text: "Please try again",
+        icon: "warning",
         showCancelButton: false,
-        confirmButtonText: 'OK',
+        confirmButtonText: "OK",
       }).then(() => {
         handleError();
       });
@@ -96,7 +96,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const currentPaginationData = useMemo(() => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
     const firstPageIndex =
       (currentPage - 1) * (props.isMain ? pageSizeMain : pageSizeFavorite);
@@ -132,19 +132,19 @@ const Flats: React.FC<FlatsProps> = (props) => {
     props.isMain
       ? window.scrollTo({
           top: 0,
-          behavior: 'smooth',
+          behavior: "smooth",
         })
-      : scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+      : scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   const closeQuickViewHandler = () => {
-    dispatch(quickViewAction(''));
+    dispatch(quickViewAction(""));
     dispatch(resetPropertyCordsAction());
     props.isMain
       ? window.scrollTo({
           top: 0,
-          behavior: 'smooth',
+          behavior: "smooth",
         })
-      : scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+      : scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   let propertiesRender = <></>;
   if (propertiesList?.length > 0) {
@@ -270,7 +270,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
         )}
       >
         <div
-          style={props.isMain && isMobile ? { display: 'none' } : {}}
+          style={props.isMain && isMobile ? { display: "none" } : {}}
           className={classes.FilterBtnContainer}
         >
           <Button
@@ -295,7 +295,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
 
           {props.isMain && isMobile ? (
             <p className={classes.MobileResults}>
-              {propertiesList?.length} places to stay{' '}
+              {propertiesList?.length} places to stay{" "}
               <img src={arrow} alt="Arrow2" />
             </p>
           ) : (
