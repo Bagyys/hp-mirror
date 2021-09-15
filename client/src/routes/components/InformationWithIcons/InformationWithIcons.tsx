@@ -1,12 +1,12 @@
-import classes from './InformationWithIcons.module.scss';
-import single from '../../../assets/images/single.png';
-import double from '../../../assets/images/double.png';
-import wifi from '../../../assets/images/wifi.png';
-import bath from '../../../assets/images/bath.png';
-import parking from '../../../assets/images/parking.png';
-import workspace from '../../../assets/images/workspace.png';
-import { FacilitiesInterface } from '../../../store/types/propertyInterfaces';
-import React from 'react';
+import classes from "./InformationWithIcons.module.scss";
+import single from "../../../assets/images/single.png";
+import double from "../../../assets/images/double.png";
+import wifi from "../../../assets/images/wifi.png";
+import bath from "../../../assets/images/bath.png";
+import parking from "../../../assets/images/parking.png";
+import workspace from "../../../assets/images/work_space.png";
+import { FacilitiesInterface } from "../../../store/types/propertyInterfaces";
+import React from "react";
 interface InformationWithIconsProps {
   facilities: FacilitiesInterface;
 }
@@ -24,7 +24,7 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
               Object.keys(props.facilities.bedsInTotal)[1]
             }`}
             <span>
-              {props.facilities.bedsInTotal.double > 1 ? ' beds' : ' bed'}
+              {props.facilities.bedsInTotal.double > 1 ? " beds" : " bed"}
             </span>
           </p>
         </div>
@@ -47,7 +47,7 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
               Object.keys(props.facilities.bedsInTotal)[0]
             }`}
             <span>
-              {props.facilities.bedsInTotal.single > 1 ? ' beds' : ' bed'}
+              {props.facilities.bedsInTotal.single > 1 ? " beds" : " bed"}
             </span>
           </p>
         </div>
@@ -75,7 +75,7 @@ const InformationWithIcons: React.FC<InformationWithIconsProps> = (props) => {
           </div>
           <p>
             {`${props.facilities.bathrooms} ${
-              props.facilities.bathrooms > 1 ? ' Bathrooms' : ' Bathroom'
+              props.facilities.bathrooms > 1 ? " Bathrooms" : " Bathroom"
             }`}
           </p>
         </div>

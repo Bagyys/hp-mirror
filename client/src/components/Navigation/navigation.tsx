@@ -14,11 +14,11 @@ import {
   toggleNavMenuButtonAction,
   pageScrollAction,
 } from "../../store/actions/userActions";
-import favoritePc from "../../assets/images/Favorite.svg";
+import favoritePc from "../../assets/images/favorite.svg";
 import favoritePcActive from "../../assets/images/favorite_yellow.png";
-import GuideImg from "../../assets/images/Guide.svg";
+import GuideImg from "../../assets/images/guide.svg";
 import LogoImg from "../../assets/images/logo.svg";
-import UserPic from "../../assets/images/UserPicture.svg";
+import UserPic from "../../assets/images/user_picture.svg";
 import classes from "./navigation.module.scss";
 import Button from "../../routes/components/Button/button";
 import { PropertyState } from "../../store/reducers/propertyReducer";
