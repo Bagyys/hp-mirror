@@ -1,0 +1,125 @@
+@import "../../../styles/global.scss";
+@import "../../../styles/mixins";
+.QuickViewFlatContainer {
+    background-color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
+    border-radius: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 1;
+    &.QuickViewFlatContainerMain{
+        margin-bottom: 7.28rem;
+        @include respond(mobile){
+            margin: -22rem 1.6rem 0 1.6rem;
+            order: -1;
+        }
+    }
+    &.QuickViewFlatContainerFavorite{
+        @include respond(mobile){
+            margin-bottom: 3rem;
+        }
+    }
+    .SliderContainer {
+        flex: 0 0 48.2%;
+        margin-bottom: 1rem;
+        position: relative;
+        order: 1;
+        @include respond(mobile){
+            flex: 1 0 100%;
+            margin-bottom: 0;
+            order: initial;
+        }
+    }
+    .InfoContainer {
+        margin-left: 3rem;
+        position: relative;
+        order: 3;
+        margin-top: -11.3rem;
+        flex: 0 0 45%;
+        @include respond(mobile){
+            margin-left: 1.4rem;
+            flex: 1;
+            margin-top: 0;
+            order: initial;
+        }
+    }
+    .ExtraInformationContainer{
+        flex:0 0 45.4%;
+        margin:2.21rem 2.5rem 0 2.8rem;
+        order: 2;
+        min-height: 33.7rem;
+        @include respond(mobile){
+            flex: 1 0 87%;
+            margin: 2rem 2.2rem 0 2.2rem;
+            order: initial;
+            min-height: initial;
+        }
+        
+    }
+    .AboutPlaceContainer {
+        order: 4;
+        margin:1.5rem 2rem 0 2rem;
+        border-top: 1px solid $disableBtn;
+        border-bottom:  1px solid $disableBtn;
+        padding: 2rem 1rem;
+        @include respond(mobile){
+            padding: 0;
+            order: initial;
+            border: none;
+        }
+    }
+    .PriceBtnContainer {
+        margin: 2rem 2.5rem 2.5rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 0 0 93.6%;
+        color: $black2;
+        order: 5;
+        @include respond(mobile){
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 2rem 1.2rem 1.38rem 1.2rem;
+            flex: 0 0 92.8%;
+            order: initial;
+        }
+        .PriceContainer {
+            display: flex;
+            align-items: baseline;
+            font-size: $fontSize19px;
+            margin-left: 0.14rem;
+            @include respond(mobile){
+                font-size: $fontSize18px;
+                margin-left: 1rem;
+                
+            }
+            .TotalPrice { 
+                color: $lightGrey4;   
+                @include respond(mobile){
+                    font-size: $mediumFontSize;
+                }    
+            }
+        }
+        .BtnsContainer {
+            display: flex;
+            align-items: center;         
+            @include respond(mobile){
+                flex-direction: column;
+                margin:1.8rem auto 0 auto;
+            }
+            .Close{
+                margin-right: 3rem;
+                font-size: $fontSize20px;
+                cursor: pointer;
+                @include respond(mobile){
+                    flex-direction: column;
+                    order:2;
+                    margin-top:1.8rem;
+                    margin-right:0;
+                    font-size: $fontSize17px;
+                }
+            }
+        }
+        
+    }
+}

@@ -1,0 +1,104 @@
+@import "../../../styles/global.scss";
+@import "../../../styles/mixins";
+    ul {
+        .Flat {
+            background-color: $white;
+            margin-bottom: 2rem;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, 0.125);
+            background-color: $white;
+            border-radius: 1rem;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
+            margin: 0 3.3% 2.5% 0;
+            @include respond(mobile){
+                flex: 0 0 73%;
+            }
+            &.FlatMain{
+                flex: 0 0 48.35%;
+                @include respond(mobile){
+                    margin-right: 0.64rem;
+                    margin-left: 0.64rem;
+                    flex: 0 0 73%;
+                }
+                &:nth-child(2n+2){
+                    margin-right: 0;
+                    @include respond(mobile){
+                        margin-right: 0.64rem;
+                        margin-left: 0.64rem;
+                    }
+                }
+            }
+            &.FlatFavorite {
+                flex: 0 0 22.52%;
+                &:nth-child(4n+4){
+                    margin-right: 0;
+                }
+                @include respond(mobile){
+                    margin: 0 0 3rem 0;
+                }
+            }
+            &:hover .FlatContent .InfoContainer .PriceBtnContainer .FlatBtnsContainer {
+                visibility: visible;
+                opacity: 1;
+            }
+            .FlatContent {
+                .InfoContainer {
+                    padding: 0 1.57rem 1.6rem 1.76rem;
+                    position: relative;
+                    min-height: 19rem;
+                    &.InfoContainerMain{
+                        @include respond(mobile){
+                            padding: 0 1.57rem 1.4rem 1.17rem;
+                            min-height: 23rem;
+                        }
+                    }
+                    &.InfoContainerFavorite{
+                       @include respond(mobile){
+                            min-height: initial;
+                        }
+                    }
+                    .PriceBtnContainer {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-end;
+                        color:$black2;
+                        bottom: 1.7rem;
+                        width: 91%;
+                        @include respond(mobile){
+                            flex-direction: column;
+                            align-items: flex-start;
+                            width: 100%;
+                        }
+                        .FlatBtnsContainer {
+                            visibility: hidden;
+                            opacity: 0;
+                            transition: all 0.3s ease-in;
+                            @include respond(mobile){
+                                visibility: visible;
+                                opacity: 1;
+                                margin:1.5rem auto 0 auto;
+                            }
+                        }
+                        .PriceContainer {
+                            display: flex;
+                            align-items: baseline;
+                            font-size: $fontSize19px;
+                            margin-left: 0.14rem;
+                            @include respond(mobile){
+                                font-size: $fontSize18px;
+                            }
+                            .TotalPrice { 
+                                color: $lightGrey4;   
+                                @include respond(mobile){
+                                    font-size: $mediumFontSize;
+                                }    
+                            }
+                        }
+                    }  
+                }
+                .FlatImg {
+                    position: relative;
+                }
+            }
+        }
+    }

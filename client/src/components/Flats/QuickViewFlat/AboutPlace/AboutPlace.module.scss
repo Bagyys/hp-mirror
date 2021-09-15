@@ -1,0 +1,27 @@
+@import "../../../../styles/global.scss";
+@import "../../../../styles/mixins";
+.AboutPlaceContainer{
+    font-family: $helveticaNeue;
+    @include respond(mobile){
+        border: none;
+    }
+    .Title{
+        font-size: $fontSize30px;
+        font-weight: $font-Weight-bold;
+        line-height: $lineHeight26px;
+        margin-bottom: 1.85rem;
+        @include respond(mobile){
+            font-size: $fontSize23px;
+            margin-bottom: 1rem;
+        }
+    }
+    .Description{
+        font-size: $fontSize20px;
+        line-height: $lineHeight30px;
+        color: $black2;
+        @include respond(mobile){
+            font-size: $fontSize18px;
+        }
+    }
+}
+    

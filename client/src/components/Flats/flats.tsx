@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef } from "react";
-import { useMediaPredicate } from "react-media-hook";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import { StoreState } from "../../store/configureStore";
-import { PropertyState } from "../../store/reducers/propertyReducer";
-import { ErrorState } from "../../store/reducers/errorReducer";
-import { PropertyInterface } from "../../store/types/propertyInterfaces";
+import React, { useEffect, useMemo, useRef } from 'react';
+import { useMediaPredicate } from 'react-media-hook';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { StoreState } from '../../store/configureStore';
+import { PropertyState } from '../../store/reducers/propertyReducer';
+import { ErrorState } from '../../store/reducers/errorReducer';
+import { PropertyInterface } from '../../store/types/propertyInterfaces';
 import {
   activePropertyCordsAction,
   addRecentlyViewedAction,
@@ -13,36 +13,43 @@ import {
   pageSizeAction,
   quickViewAction,
   resetPropertyCordsAction,
-} from "../../store/actions/propertyActions";
-import { clearErrorAction } from "../../store/actions/errorActions";
-import classes from "./Flats.module.scss";
-import filterImg from "../../assets/images/filter.png";
-import Flat from "../../routes/components/Flat/Flat";
-import Pagination from "../Pagination/Pagination";
-import QuickViewFlat from "../../routes/components/QuickViewFlat/QuickViewFlat";
-import arrow from "../../assets/images/arrow2.png";
-import Button from "../../routes/components/Button/button";
-import { userState } from "../../store/reducers/userReducer";
-import { addToFavoriteAction } from "../../store/actions/userActions";
-import { cn } from "../../utilities/joinClasses";
-import QuickViewFlatFavoritePc from "../../routes/components/QuickViewFlatFavoritePc/QuickViewFlatFavoritePc";
-import MyBooking from "../../routes/components/MyBooking/MyBooking";
-import MyBookingMobile from "../../routes/components/MyBookingMobileStick/MyBookingMobileStick";
-import {
-  filterArrayById,
-  isStringInArray,
-} from "../../utilities/flatsFunctions";
+} from '../../store/actions/propertyActions';
+import { clearErrorAction } from '../../store/actions/errorActions';
+import classes from './flats.module.scss';
+import filterImg from '../../assets/images/filter.png';
+import Flat from './Flat/Flat';
+import Pagination from '../Pagination/Pagination';
+import QuickViewFlat from './QuickViewFlat/QuickViewFlat';
+import arrow from '../../assets/images/arrow2.png';
+import Button from '../Button/button';
+import { isStringInArray } from '../../utilities/isStringInArray';
+import { userState } from '../../store/reducers/userReducer';
+import { addToFavoriteAction } from '../../store/actions/userActions';
+import SideFilter from '../SideFilter/SideFilter';
+import { FilterState } from '../../store/reducers/filterReducer';
+import Backdrop from '../Backdrop/Backdrop';
+import { toggleFilterButtonAction } from '../../store/actions/filterActions';
+import { cn } from '../../utilities/joinClasses';
+import QuickViewFlatFavoritePc from './QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
+import MyBookingPc from './MyBooking/MyBookingPc/MyBookingPc';
+import { filterArrayById } from '../../utilities/filterArrayById';
+import moment from 'moment';
+import MyBookingMobile from './MyBooking/MyBookingMobile/MyBookingMobile';
+import { availableProperties } from '../../utilities/availableProperties';
 
 interface FlatsProps {
   isMain: boolean;
-  toggleFilter: () => void;
 }
 const Flats: React.FC<FlatsProps> = (props) => {
-  const isMobile = useMediaPredicate("(max-width: 675px)");
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMediaPredicate('(max-width: 675px)');
   const dispatch = useDispatch();
+  const mainPage = useSelector((state: StoreState) => state.mainPage);
   const auth: userState = useSelector((state: StoreState) => state.user);
+  const startDate = mainPage.startDate;
+  const endDate: any = mainPage.endDate;
   const { user } = auth;
+  const filter: FilterState = useSelector((state: StoreState) => state.filter);
+  const { isFilterOpen } = filter;
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
@@ -59,20 +66,32 @@ const Flats: React.FC<FlatsProps> = (props) => {
   );
   const { error } = errorState;
 
-  const propertiesList = useMemo(
-    () =>
-      props.isMain ? properties : filterArrayById(properties, user.favorites),
-    [props.isMain, user.favorites, properties]
-  );
+  let fromToArray: Array<Date> = [];
+  if (startDate) {
+    const test = new Date(startDate);
+    const test2 = new Date(endDate);
+    while (test < test2) {
+      // this line modifies the original firstDate reference which you want to make the while loop work
+      test.setDate(test.getDate() + 1);
+      // this pushes a new date , if you were to push firstDate then you will keep updating every item in the array
+      fromToArray.push(new Date(test));
+    }
+  }
 
-  const quickViewData = propertiesList?.find(
+  const propertiesList = props.isMain
+    ? availableProperties(properties, fromToArray)
+    : filterArrayById(
+        availableProperties(properties, fromToArray),
+        user.favorites
+      );
+
+  const quickViewData = propertiesList.find(
     (item) => item._id === quickViewPropertyId
   );
 
   useEffect(() => {
-    dispatch(quickViewAction(""));
+    dispatch(quickViewAction(''));
   }, [currentPage, pageSizeMain]);
-
   // useEffect(() => {
   //   dispatch(currentPageAction(1));
   // }, []);
@@ -84,10 +103,10 @@ const Flats: React.FC<FlatsProps> = (props) => {
     if (error) {
       Swal.fire({
         title: error,
-        text: "Please try again",
-        icon: "warning",
+        text: 'Please try again',
+        icon: 'warning',
         showCancelButton: false,
-        confirmButtonText: "OK",
+        confirmButtonText: 'OK',
       }).then(() => {
         handleError();
       });
@@ -96,13 +115,13 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const currentPaginationData = useMemo(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     const firstPageIndex =
       (currentPage - 1) * (props.isMain ? pageSizeMain : pageSizeFavorite);
     const lastPageIndex =
       firstPageIndex + (props.isMain ? pageSizeMain : pageSizeFavorite);
-    return propertiesList?.slice(firstPageIndex, lastPageIndex);
+    return propertiesList.slice(firstPageIndex, lastPageIndex);
   }, [
     currentPage,
     pageSizeMain,
@@ -110,7 +129,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
     propertiesList,
     props.isMain,
   ]);
-  console.log(properties, pageSizeMain);
+
   const pageSizeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(pageSizeAction(Number(e.target.value)));
     dispatch(currentPageAction(1));
@@ -119,7 +138,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
     dispatch(addToFavoriteAction(id, user.favorites));
   };
 
-  const quickViewHandler = (id: string, cord: { lat: number; lng: number }) => {
+  const QuickViewHandler = (id: string, cord: { lat: number; lng: number }) => {
     props.isMain && dispatch(activePropertyCordsAction(cord));
     dispatch(quickViewAction(id));
     dispatch(
@@ -129,31 +148,24 @@ const Flats: React.FC<FlatsProps> = (props) => {
         props.isMain ? 2 : 4
       )
     );
-    props.isMain
-      ? window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        })
-      : scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+  const toggleFilterHandler = () => {
+    dispatch(toggleFilterButtonAction(!isFilterOpen));
   };
   const closeQuickViewHandler = () => {
-    dispatch(quickViewAction(""));
+    dispatch(quickViewAction(''));
     dispatch(resetPropertyCordsAction());
-    props.isMain
-      ? window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        })
-      : scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   let propertiesRender = <></>;
-  if (propertiesList?.length > 0) {
+  if (propertiesList.length > 0) {
     propertiesRender = (
       <React.Fragment>
         {/* Title for Favorite page PC */}
-        {!props.isMain && (
-          <h2 ref={!props.isMain && scrollRef}>Your Favorites</h2>
-        )}
+        {!props.isMain && !isMobile && <h2>Your favorites</h2>}
         {/* QuickView for filter page mobile and pc, and favorite page mobile */}
         {quickViewData && (props.isMain || isMobile) && (
           <QuickViewFlat
@@ -185,10 +197,28 @@ const Flats: React.FC<FlatsProps> = (props) => {
           {currentPaginationData
             .filter((item) => item._id !== quickViewPropertyId)
             .map((property: PropertyInterface) => {
+              // let isOccupied = null;
+              // property.occupiedTime.map((occupiedDay, index) => {
+              //   for (let index = 0; index < fromToArray.length; index++) {
+              //     let selectedDay = moment(fromToArray[index]).format(
+              //       'YYYY-MM-DD'
+              //     );
+              //     if (occupiedDay.dateString === selectedDay) {
+              //       // console.log(
+              //       //   occupiedDay.dateString,
+              //       //   'occupiedDay.dateString'
+              //       // );
+              //       // console.log(selectedDay, 'selectedDay');
+              //       isOccupied = true;
+              //     }
+              //   }
+              // });
+              // // console.log(isOccupied, 'isOccupied');
+              // if (!isOccupied) {
               return (
                 <Flat
                   quickViewClicked={() =>
-                    quickViewHandler(property._id, property.location.cord)
+                    QuickViewHandler(property._id, property.location.cord)
                   }
                   isMain={props.isMain}
                   key={property._id}
@@ -225,7 +255,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
               property={property}
               isMain={props.isMain}
               quickViewClicked={() =>
-                quickViewHandler(property._id, property.location.cord)
+                QuickViewHandler(property._id, property.location.cord)
               }
             />
           ))}
@@ -235,20 +265,20 @@ const Flats: React.FC<FlatsProps> = (props) => {
   }
   let myBookingsRender = <></>;
   //Testinis
-  if (!props.isMain && propertiesList?.length > 0) {
-    const bookings = propertiesList?.slice(-2);
+  if (!props.isMain && propertiesList.length > 0) {
+    const bookings = propertiesList.slice(-1);
     myBookingsRender = (
       <React.Fragment>
-        <h2>Your Bookings</h2>
+        {!isMobile && <h2>Your Bookings</h2>}
         <ul className={classes.MyBookingsContainer}>
-          {bookings.map((property) => (
-            <MyBooking key={property._id} bookedProperty={property} />
-          ))}
+          {bookings.map((property) =>
+            isMobile ? (
+              <MyBookingMobile key={property._id} BookedProperty={property} />
+            ) : (
+              <MyBookingPc key={property._id} BookedProperty={property} />
+            )
+          )}
         </ul>
-        {/* Veliau padaryti pagal artimiausia data */}
-        {isMobile && (
-          <MyBookingMobile key={bookings[0]._id} BookedProperty={bookings[0]} />
-        )}
       </React.Fragment>
     );
   }
@@ -270,12 +300,12 @@ const Flats: React.FC<FlatsProps> = (props) => {
         )}
       >
         <div
-          style={props.isMain && isMobile ? { display: "none" } : {}}
+          style={props.isMain && isMobile ? { display: 'none' } : {}}
           className={classes.FilterBtnContainer}
         >
           <Button
-            clicked={props.toggleFilter}
-            btnType="OpenFilter"
+            clicked={toggleFilterHandler}
+            btnType={props.isMain ? 'OpenFilter' : 'OpenFilterFavorite'}
             bgColor="Grey"
           >
             <img src={filterImg} />
@@ -295,29 +325,34 @@ const Flats: React.FC<FlatsProps> = (props) => {
 
           {props.isMain && isMobile ? (
             <p className={classes.MobileResults}>
-              {propertiesList?.length} places to stay{" "}
+              {propertiesList.length} places to stay{' '}
               <img src={arrow} alt="Arrow2" />
             </p>
           ) : (
-            <p className={classes.PcResults}>
-              {propertiesList?.length} results
-            </p>
+            <p className={classes.PcResults}>{propertiesList.length} results</p>
           )}
         </div>
       </div>
       {myBookingsRender}
       {propertiesRender}
       {!isMobile && (
-        <React.Fragment>
+        <>
           <Pagination
             currentPage={currentPage}
-            totalCount={propertiesList?.length}
+            totalCount={propertiesList.length}
             pageSize={props.isMain ? pageSizeMain : pageSizeFavorite}
             onPageChange={(page) => dispatch(currentPageAction(page))}
           />
 
           {recentlyViewPropertiesRender}
-        </React.Fragment>
+        </>
+      )}
+      {isFilterOpen && <SideFilter toggleHandler={toggleFilterHandler} />}
+      {isFilterOpen && (
+        <Backdrop
+          isVisible={isFilterOpen}
+          toggleHandler={toggleFilterHandler}
+        ></Backdrop>
       )}
     </div>
   );

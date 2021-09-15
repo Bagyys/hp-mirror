@@ -43,7 +43,7 @@ const ChooseFlats = (props: any) => {
                               key={index}
                               property={butas}
                               clickedLike={function (): void {
-                                throw new Error('Function not implemented.');
+                                throw new Error("Function not implemented.");
                               }}
                             />
                           </section>

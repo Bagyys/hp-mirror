@@ -1,0 +1,105 @@
+@import "../../styles/global.scss";
+@import "../../styles/mixins";
+.Badge {
+    position: relative;
+    color: $black2;
+    cursor: default;
+}
+%shared-filterPage-discount {
+    font-size: $fontSize21px;
+    font-weight: $font-Weight-bold;
+    line-height: $lineHeight35px;
+    border-radius: 2.2rem;
+    width: 6.4rem;
+    text-align: center;
+    font-family: $roboto;
+    margin-bottom: 0.69rem;
+    background-color: $orange;
+    @include respond(mobile){
+        font-size: $fontSize18px;
+        width: 5.3rem;
+        line-height: 3.3rem;
+        margin-bottom: 0.4rem;
+    }
+}
+%shared-after {
+    content: attr(data-title);
+    font-size: $fontSize19px;
+    font-family: $helvetica;
+    color: $blackGrey;
+    line-height: $lineHeight27px;
+    font-weight: $font-Weight-regular;
+    position: absolute;
+    background-color: White;
+    border-radius: 1.9rem;       
+    width: max-content;
+    padding:0.78rem 1.4rem ;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+%shared-before {
+    content:'';
+    width: 1.7rem;
+    height: 1.7rem;
+    background-color: $white;
+    position: absolute;
+    top: -1.9rem;
+    right: 2.7rem;
+    transform: rotate(45deg);
+    z-index: 1;
+}
+.Badge5 {
+    @extend %shared-filterPage-discount;
+     &:hover:after{
+        @extend %shared-after;
+        top: -5.2rem;
+        right: -6.4rem;
+        @include respond(mobile){
+            display: none;
+        }
+    }
+    &:hover:before {
+        @extend %shared-before;
+        @include respond(mobile){
+            display: none;
+        }
+    }
+}
+.Badge20 {
+    @extend %shared-filterPage-discount;
+     &:hover:after{
+        @extend %shared-after;
+        top: -5.2rem;
+        right: -10.4rem;
+        @include respond(mobile){
+            display: none;
+        }
+    }
+    &:hover:before {
+        @extend %shared-before;
+        @include respond(mobile){
+            display: none;
+        }
+    }
+}
+%shared-long-short-badge {
+    font-size: $fontSize20px;
+    line-height: $lineHeight26px;
+    border-radius: 1rem;
+    font-family: $helveticaNeue;
+    padding:0.85rem 0 0.85rem 1.65rem;
+    margin-bottom: 1.52rem;
+    // @include respond(mobile){
+    //     padding: .7rem 1.58rem;
+    //     font-size: $mediumFontSize;
+    //     line-height: $lineHeight21px;
+    //     margin-bottom: 0
+    // }
+}
+.BadgeDiscountLong {
+    @extend %shared-long-short-badge;
+    background-color: $orange;
+}
+.BadgeCancelation{
+    @extend %shared-long-short-badge;
+    background-color: $lightGrey2;
+}

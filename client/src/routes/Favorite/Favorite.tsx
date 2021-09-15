@@ -5,7 +5,7 @@ import { useMediaPredicate } from 'react-media-hook';
 import { useHistory } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 import React from 'react';
-import Flats from '../../components/Flats/Flats';
+import Flats from '../../components/Flats/flats';
 import { FilterState } from '../../store/reducers/filterReducer';
 import { StoreState } from '../../store/configureStore';
 import { useSelector, useDispatch } from 'react-redux';
