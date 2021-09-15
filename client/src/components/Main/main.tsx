@@ -1,6 +1,6 @@
 import classes from "./main.module.scss";
 import logo from "../../assets/images/logo.svg";
-import mobileLogo from "../../assets/images/mobileLogo.svg";
+import mobileLogo from "../../assets/images/mobile_logo.svg";
 import React, { useState } from "react";
 import GuestContainer from "./components/guestContainer";
 import Title from "./components/titleContainer";

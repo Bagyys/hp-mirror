@@ -29,22 +29,14 @@ import {
   addFormDataAction,
 } from '../../store/actions/filterActions';
 import { FilterState } from '../../store/reducers/filterReducer';
-import { PropertyState } from '../../store/reducers/propertyReducer';
-import { getAllPropertiesAction } from '../../store/actions/propertyActions';
-import Backdrop from '../Backdrop/Backdrop';
+import Backdrop from '../../routes/components/Backdrop/Backdrop';
 import { FormDataInterface } from '../../store/types/filterInterface';
 
-interface SideFilterProps {
-  toggleHandler: () => void;
-}
-
-const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
+const SideFilter: React.FC = () => {
   const dispatch = useDispatch();
   const filterSide: FilterState = useSelector(
     (state: StoreState) => state.filter
   );
-  const mainPage = useSelector((state: StoreState) => state.mainPage);
-  const { searchedDayList, guests } = mainPage;
   const { filterData, toggleFilterBoxes, multiRangeSlider, isFilterOpen } =
     filterSide;
   const priceHandler = useCallback(
@@ -267,10 +259,14 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
     dispatch(toggleFilterButtonAction(false));
   };
   return (
-    <>
+    <React.Fragment>
       <div className={classes.SideFilterContainer}>
         <div className={classes.SideFilterNav}>
-          <Button clicked={toggleHandler} btnType="CloseFilter" bgColor="Grey">
+          <Button
+            clicked={() => dispatch(toggleFilterButtonAction(!isFilterOpen))}
+            btnType="CloseFilter"
+            bgColor="Grey"
+          >
             <img src={close} />
             <span>Close</span>
           </Button>
@@ -365,9 +361,9 @@ const SideFilter: React.FC<SideFilterProps> = ({ toggleHandler }) => {
       </div>
       <Backdrop
         isVisible={isFilterOpen}
-        toggleHandler={toggleHandler}
+        toggleHandler={() => dispatch(toggleFilterButtonAction(!isFilterOpen))}
       ></Backdrop>
-    </>
+    </React.Fragment>
   );
 };
 export default SideFilter;

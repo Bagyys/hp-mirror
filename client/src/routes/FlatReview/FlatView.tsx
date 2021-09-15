@@ -12,13 +12,11 @@ import { BsStarFill } from "react-icons/bs";
 import { MdVerifiedUser } from "react-icons/md";
 import { GrRotateRight } from "react-icons/gr";
 import { MdKeyboardArrowRight } from "react-icons/md";
-
 import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
-import DefaultSlide from "../../components/Slider/defaultSlide/defaultSlide";
+import DefaultSlide from "../components/ImageSlider/DefaultSlide/DefaultSlide";
 import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
 import Navigation from "../../components/Navigation/navigation";
 import FlatInfo from "../../components/FlatReviewContentent/FlatInfo";
-import Footer from "../../../src//components//Footer/Footer";
 import { StoreState } from "../../store/configureStore";
 import { PropertyState } from "../../store/reducers/propertyReducer";
 import { ErrorState } from "../../store/reducers/errorReducer";
@@ -30,7 +28,7 @@ import {
   bookTimeAction,
 } from "../../store/actions/bookingActions";
 import { clearErrorAction } from "../../store/actions/errorActions";
-
+import Footer from "../../components/Footer/Footer";
 import classes from "./FlatReview.module.scss";
 interface CustomRange {
   startDate: Date;

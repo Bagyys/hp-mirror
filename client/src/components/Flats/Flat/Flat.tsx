@@ -1,6 +1,6 @@
 import { useMediaPredicate } from "react-media-hook";
 import classes from "./Flat.module.scss";
-import ImageSlider from "../../Slider/imageSlider";
+import ImageSlider from "../../../routes/components/ImageSlider/ImageSlider";
 import Button from "../../Button/button";
 import GroupedBadges from "./GroupedBadges/GroupedBadges";
 import Ratings from "./Ratings/Ratings";

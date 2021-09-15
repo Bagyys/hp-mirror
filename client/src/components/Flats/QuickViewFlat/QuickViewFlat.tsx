@@ -1,20 +1,20 @@
-import classes from './QuickViewFlat.module.scss';
-import ImageSlider from '../../Slider/imageSlider';
-import Button from '../../Button/button';
-import { useMediaPredicate } from 'react-media-hook';
-import Badge from '../../Badge/Badge';
-import Ratings from '../Flat/Ratings/Ratings';
-import PropertiesType from '../Flat/PropertyType/PropertiesType';
-import MainInformation from '../Flat/MainInformation/MainInformation';
-import DailyPrice from '../Flat/DailyPrices/DailyPrice';
-import AboutPlace from './AboutPlace/AboutPlace';
-import InformationWithIcons from './InformationWithIcons/InformationWithIcons';
-import { PropertyInterface } from '../../../store/types/propertyInterfaces';
-import GroupedBadges from '../Flat/GroupedBadges/GroupedBadges';
-import { Link } from 'react-router-dom';
-import React from 'react';
-import { cn } from '../../../utilities/joinClasses';
-import Favorites from '../Flat/Favorites/Favorites';
+import classes from "./QuickViewFlat.module.scss";
+import ImageSlider from "../../../routes/components/ImageSlider/ImageSlider";
+import Button from "../../Button/button";
+import { useMediaPredicate } from "react-media-hook";
+import Badge from "../../Badge/Badge";
+import Ratings from "../Flat/Ratings/Ratings";
+import PropertiesType from "../Flat/PropertyType/PropertiesType";
+import MainInformation from "../Flat/MainInformation/MainInformation";
+import DailyPrice from "../Flat/DailyPrices/DailyPrice";
+import AboutPlace from "./AboutPlace/AboutPlace";
+import InformationWithIcons from "./InformationWithIcons/InformationWithIcons";
+import { PropertyInterface } from "../../../store/types/propertyInterfaces";
+import GroupedBadges from "../Flat/GroupedBadges/GroupedBadges";
+import { Link } from "react-router-dom";
+import React from "react";
+import { cn } from "../../../utilities/joinClasses";
+import Favorites from "../Flat/Favorites/Favorites";
 interface QuickViewFlatProps {
   property: PropertyInterface;
   close: () => void;
@@ -24,7 +24,7 @@ interface QuickViewFlatProps {
 }
 
 const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
-  const isMobile = useMediaPredicate('(max-width: 675px)');
+  const isMobile = useMediaPredicate("(max-width: 675px)");
   return (
     <div
       className={cn(
@@ -63,7 +63,7 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
       </div>
       <div
         style={
-          isMobile && props.isMain ? { display: 'none' } : { display: 'block' }
+          isMobile && props.isMain ? { display: "none" } : { display: "block" }
         }
         className={classes.AboutPlaceContainer}
       >
@@ -84,7 +84,7 @@ const QuickViewFlat: React.FC<QuickViewFlatProps> = (props) => {
               state: { property: props.property },
             }}
           >
-            <Button btnType={'FlatInfo'} bgColor="Blue">
+            <Button btnType={"FlatInfo"} bgColor="Blue">
               Read all details and Reserve
             </Button>
           </Link>

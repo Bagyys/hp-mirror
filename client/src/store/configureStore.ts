@@ -15,7 +15,7 @@ export default function configureStore(preloadedState?: {}) {
   const persistConfig = {
     key: "root",
     storage,
-    whitelist:['mainPage']
+    whitelist:['mainPage','property']
   };
 
   const enhancers = [middlewareEnhancer, monitorReducerEnhancer];

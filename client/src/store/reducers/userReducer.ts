@@ -82,7 +82,7 @@ const userReducer = (state = initialState, action: UserActions) => {
       };
     case userTypes.LOG_IN_SUCCESS:
     case userTypes.REGISTER_SUCCESS:
-      //pridedu pasirinktus favorites i user lista prisijungus ar uzsiregistravus
+      //pridedu pasirinktus favorites i user favorite lista prisijungus ar uzsiregistravus
       const addFavorites=[...state.user.favorites];
       return {
         ...state,

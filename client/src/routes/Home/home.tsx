@@ -1,16 +1,16 @@
-import Flats from "../../components/Flats/flats";
-import Map from "../../components/Map/map";
-import { useMediaPredicate } from "react-media-hook";
-import SecondaryNavMobile from "../../components/SecondaryNavMobile/SecondaryNavMobile";
-import Main from "../../components/Main/main";
-import classes from "./home.module.scss";
-import { cn } from "../../utilities/joinClasses";
-import Navigation from "../../components/Navigation/navigation";
-import Footer from "../../components/Footer/Footer";
-import { Fragment, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { StoreState } from "../../store/configureStore";
-import { PropertyState } from "../../store/reducers/propertyReducer";
+import Flats from '../../components/Flats/Flats';
+import Map from '../../components/Map/map';
+import { useMediaPredicate } from 'react-media-hook';
+import SecondaryNavMobile from '../components/SecondaryNavMobile/SecondaryNavMobile';
+import Main from '../../components/Main/main';
+import classes from './home.module.scss';
+import { cn } from '../../utilities/joinClasses';
+import Navigation from '../../components/Navigation/navigation';
+import Footer from '../../components/Footer/Footer';
+import { Fragment, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { StoreState } from '../../store/configureStore';
+import { PropertyState } from '../../store/reducers/propertyReducer';
 import {
   getAllPropertiesAction,
   resetPropertyCordsAction,
@@ -26,7 +26,7 @@ function Home() {
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
-  const { quickViewPropertyId, properties } = propertyStore;
+  const { quickViewPropertyId } = propertyStore;
   const filterSide: FilterState = useSelector(
     (state: StoreState) => state.filter
   );
@@ -53,7 +53,8 @@ function Home() {
             <Navigation />
             {isMobile && (
               <SecondaryNavMobile
-                isQuickViewClicked={quickViewPropertyId !== ""}
+                isQuickViewClicked={quickViewPropertyId !== ''}
+                toggleFilter={toggleFilterHandler}
               />
             )}
 
@@ -65,13 +66,13 @@ function Home() {
                   : classes.MobileContent
               )}
             >
-              <Flats isMain={true} toggleFilter={toggleFilterHandler} />
+              <Flats isMain={true} />
               <div className={classes.MapContainer}>
                 <Map />
               </div>
             </div>
             <Footer />
-            {isFilterOpen && <SideFilter toggleHandler={toggleFilterHandler} />}
+            {isFilterOpen && <SideFilter />}
           </Fragment>
         )}
       </div>

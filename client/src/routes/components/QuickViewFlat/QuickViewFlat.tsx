@@ -1,5 +1,5 @@
 import classes from './QuickViewFlat.module.scss';
-import ImageSlider from '../../../components/Slider/imageSlider';
+import ImageSlider from '../ImageSlider/ImageSlider';
 import Button from '../Button/button';
 import { useMediaPredicate } from 'react-media-hook';
 import Badge from '../Badge/Badge';
@@ -12,7 +12,7 @@ import InformationWithIcons from '../../../routes/components/InformationWithIcon
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
 import GroupedBadges from '../../../routes/components/GroupedBadges/GroupedBadges';
 import { Link } from 'react-router-dom';
-import React, { RefObject } from 'react';
+import React from 'react';
 import { cn } from '../../../utilities/joinClasses';
 import Favorites from '../../../routes/components/Favorites/Favorites';
 interface QuickViewFlatProps {

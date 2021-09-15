@@ -1,17 +1,17 @@
-import Button from '../../../Button/button';
-import { PropertyInterface } from '../../../../store/types/propertyInterfaces';
-import ImageSlider from '../../../Slider/imageSlider';
-import MainInformation from '../../Flat/MainInformation/MainInformation';
-import PropertiesType from '../../Flat/PropertyType/PropertiesType';
-import Ratings from '../../Flat/Ratings/Ratings';
-import classes from './MyBookingPc.module.scss';
-import home from '../../../../assets/images/home.png';
-import calendarBegins from '../../../../assets/images/calendar_booking_begins.png';
-import calendarEnds from '../../../../assets/images/calendar_booking_ends.png';
-import { useEffect, useRef, useState } from 'react';
-import AboutPlace from '../../QuickViewFlat/AboutPlace/AboutPlace';
-import Badge from '../../../Badge/Badge';
-import InformationWithIcons from '../../QuickViewFlat/InformationWithIcons/InformationWithIcons';
+import Button from "../../../Button/button";
+import { PropertyInterface } from "../../../../store/types/propertyInterfaces";
+import ImageSlider from "../../../../routes/components/ImageSlider/ImageSlider";
+import MainInformation from "../../Flat/MainInformation/MainInformation";
+import PropertiesType from "../../Flat/PropertyType/PropertiesType";
+import Ratings from "../../Flat/Ratings/Ratings";
+import classes from "./MyBookingPc.module.scss";
+import home from "../../../../assets/images/home.png";
+import calendarBegins from "../../../../assets/images/calendar_booking_begins.png";
+import calendarEnds from "../../../../assets/images/calendar_booking_ends.png";
+import { useEffect, useRef, useState } from "react";
+import AboutPlace from "../../QuickViewFlat/AboutPlace/AboutPlace";
+import Badge from "../../../Badge/Badge";
+import InformationWithIcons from "../../QuickViewFlat/InformationWithIcons/InformationWithIcons";
 interface MyBookingPcProps {
   BookedProperty: PropertyInterface;
 }
@@ -32,7 +32,7 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
         <ImageSlider
           sliderClass="BookedFlatCard"
           slides={props.BookedProperty.images}
-          height={dimensions}
+          // height={dimensions}
         />
       </div>
       <div className={classes.MyBookingInfoContainer}>
@@ -88,21 +88,21 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
           <div className={classes.FlatBtnsContainer}>
             <Button
               clicked={quickViewHandler}
-              btnType={'FlatInfo'}
+              btnType={"FlatInfo"}
               bgColor="Blue"
             >
               Quick View
             </Button>
             <Button
-              clicked={() => console.log('labas')}
-              btnType={'FlatInfo'}
+              clicked={() => console.log("labas")}
+              btnType={"FlatInfo"}
               bgColor="Orange"
             >
               Unlock door
             </Button>
             <Button
-              clicked={() => console.log('labas')}
-              btnType={'FlatInfo'}
+              clicked={() => console.log("labas")}
+              btnType={"FlatInfo"}
               bgColor="Red"
             >
               Contact owner

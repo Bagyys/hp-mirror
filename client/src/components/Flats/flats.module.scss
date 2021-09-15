@@ -36,58 +36,6 @@
         color: $black;
         font-family: $helveticaNeue;
     }
-    .FlatsContainerNav{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        &.FlatsContainerNavMain {
-            margin: 0 0.9rem 2.22rem 1.9rem;
-            @include respond(mobile){
-                margin:.5rem 0 .5rem 2.15rem;          
-            }
-        }
-        &.FlatsContainerNavFavorite {
-            margin: 0 0 3rem 0;
-        }
-        .RightSide {
-            display: flex;
-            align-items: center;
-            .CustomSelect {
-                margin-right: 2rem;
-            }
-            .PcResults{
-                line-height: $lineHeight36px;
-                font-size: $fontSize19px;
-                color:$blackGrey;
-            }
-            .MobileResults{
-                line-height: $lineHeight41px;
-                font-size: $smallFontSize;
-                color:$black2;
-                img{
-                    margin-left: 1.4rem;
-                }
-            }
-        }
-        .FilterBtnContainer {
-            display: flex;
-            align-items: center;
-            h1 {
-                font-size: $fontSize33px;
-                font-weight: $font-Weight-bold;
-                font-family: $helveticaNeue;
-                color: $black;
-                margin-left: 3rem;
-                @include respond(mobile){
-                    font-size: $fontSize18px;
-                    margin-left: 1.6rem;
-                }
-            }
-            // @include respond(mobile){
-            //     display: none;
-            // }
-        }
-    }
     .FlatsListConatiner{
         display:flex;
         flex-wrap: wrap;

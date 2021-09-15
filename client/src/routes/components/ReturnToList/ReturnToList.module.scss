@@ -1,0 +1,13 @@
+@import '../../../styles/global.scss';
+.Return{
+    font-size: $smallFontSize;
+    line-height: $lineHeight27px;
+    margin: 6% 1.47rem;
+    cursor: pointer;
+    display: inline-block;
+    height: 4%;
+    img {
+        transform: rotate(180deg);
+        margin-right: 0.57rem;
+    }
+}

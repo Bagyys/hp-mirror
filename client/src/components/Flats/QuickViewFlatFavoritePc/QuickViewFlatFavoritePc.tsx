@@ -1,18 +1,18 @@
-import { PropertyInterface } from '../../../store/types/propertyInterfaces';
-import classes from './QuickViewFlatFavoritePc.module.scss';
-import { useMediaPredicate } from 'react-media-hook';
-import ImageSlider from '../../Slider/imageSlider';
-import Favorites from '../Flat/Favorites/Favorites';
-import Ratings from '../Flat/Ratings/Ratings';
-import PropertiesType from '../Flat/PropertyType/PropertiesType';
-import MainInformation from '../Flat/MainInformation/MainInformation';
-import Badge from '../../Badge/Badge';
-import InformationWithIcons from '../QuickViewFlat/InformationWithIcons/InformationWithIcons';
-import AboutPlace from '../QuickViewFlat/AboutPlace/AboutPlace';
-import DailyPrice from '../Flat/DailyPrices/DailyPrice';
-import { Link } from 'react-router-dom';
-import Button from '../../Button/button';
-import React from 'react';
+import { PropertyInterface } from "../../../store/types/propertyInterfaces";
+import classes from "./QuickViewFlatFavoritePc.module.scss";
+import { useMediaPredicate } from "react-media-hook";
+import ImageSlider from "../../../routes/components/ImageSlider/ImageSlider";
+import Favorites from "../Flat/Favorites/Favorites";
+import Ratings from "../Flat/Ratings/Ratings";
+import PropertiesType from "../Flat/PropertyType/PropertiesType";
+import MainInformation from "../Flat/MainInformation/MainInformation";
+import Badge from "../../Badge/Badge";
+import InformationWithIcons from "../QuickViewFlat/InformationWithIcons/InformationWithIcons";
+import AboutPlace from "../QuickViewFlat/AboutPlace/AboutPlace";
+import DailyPrice from "../Flat/DailyPrices/DailyPrice";
+import { Link } from "react-router-dom";
+import Button from "../../Button/button";
+import React from "react";
 interface QuickViewFlatProps {
   property: PropertyInterface;
   close: () => void;
@@ -65,7 +65,7 @@ const QuickViewFlatFavoritePc: React.FC<QuickViewFlatProps> = (props) => {
                 state: { property: props.property },
               }}
             >
-              <Button btnType={'FlatInfo'} bgColor="Blue">
+              <Button btnType={"FlatInfo"} bgColor="Blue">
                 Read all details and Reserve
               </Button>
             </Link>

@@ -14,21 +14,25 @@ import {
   toggleNavMenuButtonAction,
   pageScrollAction,
 } from "../../store/actions/userActions";
-import favoritePc from "../../assets/images/favorite.svg";
+import favoritePc from "../../assets/images/Favorite.svg";
 import favoritePcActive from "../../assets/images/favorite_yellow.png";
-import GuideImg from "../../assets/images/guide.svg";
+import GuideImg from "../../assets/images/Guide.svg";
 import LogoImg from "../../assets/images/logo.svg";
-import UserPic from "../../assets/images/userPicture.svg";
+import UserPic from "../../assets/images/UserPicture.svg";
 import classes from "./navigation.module.scss";
-import Button from "../Button/button";
+import Button from "../../routes/components/Button/button";
 import { PropertyState } from "../../store/reducers/propertyReducer";
-import SearchType from "../Main/components/SearchType/searchType";
+import { FilterState } from "../../store/reducers/filterReducer";
 const Navigation = () => {
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
   const properties: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
+  const filterSide: FilterState = useSelector(
+    (state: StoreState) => state.filter
+  );
+  const { isFilterOpen } = filterSide;
   const { quickViewPropertyId } = properties;
   // const errorState: ErrorState = useSelector(
   //   (state: StoreState) => state.error
@@ -96,8 +100,9 @@ const Navigation = () => {
     <div
       className={cn(
         classes.Navigation,
-        quickViewPropertyId && classes.HideNav,
-        isPageScrolled ? classes.ShowNav : ""
+        quickViewPropertyId && !isPageScrolled && !isFilterOpen
+          ? classes.HideNav
+          : ""
       )}
     >
       <div className={classes.NavigationWrapper}>
@@ -110,7 +115,7 @@ const Navigation = () => {
           {/* <NavRoutes /> */}
         </div>
         <div className={classes.Middle}>
-          <div className={classes.MiddleDiv}>Anytime</div>
+          <div>Anytime</div>
           <SearchBox />
           {/* <SearchType /> */}
         </div>

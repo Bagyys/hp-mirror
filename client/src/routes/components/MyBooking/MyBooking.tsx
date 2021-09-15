@@ -1,7 +1,7 @@
 import Button from '../Button/button';
 import { PropertyInterface } from '../../../store/types/propertyInterfaces';
 import { useMediaPredicate } from 'react-media-hook';
-import ImageSlider from '../../../components/Slider/imageSlider';
+import ImageSlider from '../ImageSlider/ImageSlider';
 import MainInformation from '../../../routes/components/MainInformation/MainInformation';
 import PropertiesType from '../../../routes/components/PropertyType/PropertiesType';
 import Ratings from '../../../routes/components/Ratings/Ratings';
@@ -16,21 +16,20 @@ import InformationWithIcons from '../../../routes/components/InformationWithIcon
 import { Link } from 'react-router-dom';
 interface MyBookingPcProps {
   bookedProperty: PropertyInterface;
+  close: () => void;
+  myBookingQuickViewClicked: () => void;
+  isQuickViewed: boolean;
 }
 const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
-  const [showQuickView, setShowQuickView] = useState<boolean>(false);
-  const quickViewHandler = () => {
-    setShowQuickView(!showQuickView);
-  };
   return (
     <li className={classes.MyBookingContainer}>
       <div
-        style={showQuickView ? { height: '48rem' } : {}}
+        style={props.isQuickViewed ? { height: '48rem' } : {}}
         className={classes.MyBookingFlatImg}
       >
         <ImageSlider
-          sliderClass={showQuickView ? 'QuickView' : 'BookedFlatCard'}
+          sliderClass={props.isQuickViewed ? 'QuickView' : 'BookedFlatCard'}
           slides={props.bookedProperty.images}
         />
       </div>
@@ -43,7 +42,7 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
             />
             <PropertiesType>{props.bookedProperty.title}</PropertiesType>
             <MainInformation facilities={props.bookedProperty.facilities} />
-            {showQuickView && !isMobile && (
+            {props.isQuickViewed && !isMobile && (
               <Badge badge="BadgeCancelation">
                 Free cancelation until July 6
               </Badge>
@@ -75,7 +74,7 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
             </div>
           </div>
         </div>
-        {showQuickView && (
+        {props.isQuickViewed && (
           <div className={classes.Row}>
             <div className={classes.AboutPlaceContainer}>
               <AboutPlace>{props.bookedProperty.description}</AboutPlace>
@@ -88,10 +87,10 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
           </div>
         )}
         <div
-          style={showQuickView ? { width: '60rem' } : { width: '50rem' }}
+          style={props.isQuickViewed ? { width: '60rem' } : { width: '50rem' }}
           className={classes.FlatBtnsContainer}
         >
-          {showQuickView ? (
+          {props.isQuickViewed ? (
             <Link
               to={{
                 pathname: `/flat/${props.bookedProperty._id}`,
@@ -104,7 +103,7 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
             </Link>
           ) : (
             <Button
-              clicked={quickViewHandler}
+              clicked={props.myBookingQuickViewClicked}
               btnType={'FlatInfo'}
               bgColor="Blue"
             >
@@ -125,8 +124,8 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
           >
             Contact owner
           </Button>
-          {showQuickView && (
-            <p className={classes.Close} onClick={quickViewHandler}>
+          {props.isQuickViewed && (
+            <p className={classes.Close} onClick={props.close}>
               Close
             </p>
           )}
