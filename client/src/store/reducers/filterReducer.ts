@@ -6,7 +6,7 @@ export interface FilterState {
   filterData:FilterDataInterface;
   formData:FormDataInterface;
   isFilterOpen:boolean;
-  toggleFilterBoxes:{[key:string]:boolean};
+  showHideInputs:{[key:string]:boolean};
   multiRangeSlider:{
     clear:boolean;
     initialMin:number;
@@ -16,7 +16,7 @@ export interface FilterState {
 
 const initialState:FilterState= {
   filterData :{
-    priceSlider: {
+    price: {
       min:{value:0},
       max:{value:200}
     },
@@ -25,7 +25,7 @@ const initialState:FilterState= {
       bedrooms: { value: 0, text: 'Bedrooms' },
       bathrooms: { value: 0, text: 'Bathrooms' },
     },
-    propertType: {
+    propertyTypes: {
       house: { value: false, type: 'checkbox', text: 'House' },
       loft: { value: false, type: 'checkbox', text: 'Loft' },
       apartment: { value: false, type: 'checkbox', text: 'Apartment' },
@@ -67,7 +67,7 @@ const initialState:FilterState= {
     }
   },
   formData:{
-    priceSlider: {
+    price: {
       min:0,
       max:200
     },
@@ -76,7 +76,7 @@ const initialState:FilterState= {
       bedrooms: 0,
       bathrooms:0,
     },
-    propertType: {
+    propertyTypes: {
       house: false,
       loft: false,
       apartment: false,
@@ -114,7 +114,7 @@ const initialState:FilterState= {
     }
   },
   isFilterOpen:false,
-  toggleFilterBoxes:{
+  showHideInputs:{
     propertyType:false,
     houseRules:false,
     amenities:false,
@@ -141,33 +141,13 @@ const filterReducer = (
     case filterTypes.CHANGE_FILTER_PRICE:
       return {
         ...state,
-        filterData:{...state.filterData,priceSlider:action.payload},
+        filterData:{...state.filterData,price:action.payload},
         multiRangeSlider:{...state.multiRangeSlider,clear:false}
       };
-    case filterTypes.CHANGE_FILTER_PROPERTY_TYPE:
+    case filterTypes.CHANGE_FILTER_INPUT_VALUES:
       return {
         ...state,
-        filterData:{...state.filterData,propertType:action.payload}
-      };
-    case filterTypes.CHANGE_FILTER_HOUSE_RULES:
-      return {
-        ...state,
-        filterData:{...state.filterData,houseRules:action.payload}
-      };
-    case filterTypes.CHANGE_FILTER_AMENITIES:
-      return {
-        ...state,
-        filterData:{...state.filterData,amenities:action.payload}
-      };
-    case filterTypes.CHANGE_FILTER_FACILITIES:
-      return {
-        ...state,
-        filterData:{...state.filterData,facilities:action.payload}
-      };
-    case filterTypes.CHANGE_FILTER_AREAS:
-      return {
-        ...state,
-        filterData:{...state.filterData,areas:action.payload}
+        filterData:{...state.filterData,...action.payload}
       };
     case filterTypes.TOGGLE_FILTER_BUTTON:
       return {
@@ -180,30 +160,10 @@ const filterReducer = (
         filterData:initialState.filterData,
         multiRangeSlider:{...state.multiRangeSlider,clear:true}
       };
-    case filterTypes.TOGGLE_PROPERT_TYPE_INPUTS:
+    case filterTypes.TOGGLE_CHECKBOXES_LIST:
       return {
         ...state,
-        toggleFilterBoxes:{...state.toggleFilterBoxes,propertyType:action.payload},
-      };
-    case filterTypes.TOGGLE_HOUSE_RULES_INPUTS:
-      return {
-        ...state,
-        toggleFilterBoxes:{...state.toggleFilterBoxes,houseRules:action.payload},
-      };  
-    case filterTypes.TOGGLE_AMENITIES_INPUTS:
-      return {
-        ...state,
-        toggleFilterBoxes:{...state.toggleFilterBoxes,amenities:action.payload},
-      };
-    case filterTypes.TOGGLE_FACILITIES_INPUTS:
-      return {
-        ...state,
-        toggleFilterBoxes:{...state.toggleFilterBoxes,facilities:action.payload},
-      };    
-    case filterTypes.TOGGLE_AREAS_INPUTS:
-      return {
-        ...state,
-        toggleFilterBoxes:{...state.toggleFilterBoxes,areas:action.payload},
+        showHideInputs:{...state.showHideInputs,...action.payload},
       };  
     case filterTypes.ADD_FORM_DATA:
       return {

@@ -1,11 +1,6 @@
 import classes from './SideFilter.module.scss';
-import close from '../../assets/images/close.png';
-import Button from '../../routes/components/Button/button';
 import MultiRangeSlider from './MultiRangeSlider/MultiRangeSlider';
-import minus from '../../assets/images/minus.png';
-import plus from '../../assets/images/plus.png';
 import React, { useCallback, ChangeEvent } from 'react';
-import Input from '../../routes/components/Input/Input';
 import ToggleClass from './ToggleClasses/ToggleClasses';
 import { objecToArray } from '../../utilities/flatsFunctions';
 import { cloneDeep, debounce } from 'lodash';
@@ -14,39 +9,34 @@ import { StoreState } from '../../store/configureStore';
 import {
   changeFilterBedsRoomsAction,
   changeFilterPriceAction,
-  changeFilterHouseRulesAction,
-  changeFilterAreasAction,
-  changeFilterFacilitiesAction,
-  changeFilterAmenitiesAction,
-  changeFilterPropertyTypeAction,
   clearFilterAction,
-  toggleAreasAction,
-  toggleFacilitiesAction,
-  toggleAmenitiesAction,
-  toggleHouseRulesAction,
-  togglePropertyTypeAction,
   toggleFilterButtonAction,
   addFormDataAction,
+  toggleCheckboxesListAction,
+  changeFilterInputsAction,
 } from '../../store/actions/filterActions';
 import { FilterState } from '../../store/reducers/filterReducer';
 import Backdrop from '../../routes/components/Backdrop/Backdrop';
 import { FormDataInterface } from '../../store/types/filterInterface';
+import CheckboxList from './CheckboxList/CheckboxList';
+import BedsAndRoomsList from './BedsAndRoomsList/BedsAndRoomsList';
+import FilterNav from './FilterNav/FilterNav';
 
 const SideFilter: React.FC = () => {
   const dispatch = useDispatch();
   const filterSide: FilterState = useSelector(
     (state: StoreState) => state.filter
   );
-  const { filterData, toggleFilterBoxes, multiRangeSlider, isFilterOpen } =
+  const { filterData, showHideInputs, multiRangeSlider, isFilterOpen } =
     filterSide;
   const priceHandler = useCallback(
     debounce(({ min, max }: { min: number; max: number }) => {
-      const newData = cloneDeep(filterData.priceSlider);
+      const newData = cloneDeep(filterData.price);
       newData.min.value = min;
       newData.max.value = max;
       dispatch(changeFilterPriceAction(newData));
     }, 300),
-    [filterData.priceSlider]
+    [filterData.price]
   );
 
   const counterHandler = (id: string, diff: number) => {
@@ -55,200 +45,24 @@ const SideFilter: React.FC = () => {
     dispatch(changeFilterBedsRoomsAction(newData));
   };
 
-  const bedAndRoomsArray: {
-    id: string;
-    config: { value: number; text: string };
-  }[] = objecToArray(filterData.roomsAndBeds);
-  let bedsAndRooms = (
-    <React.Fragment>
-      {bedAndRoomsArray &&
-        bedAndRoomsArray.map(({ id, config }) => {
-          return (
-            <div key={id} className={classes.RoomsBedsContainerRow}>
-              <p>{config.text}</p>
-              <div className={classes.CounterBtnsCounter}>
-                <Button
-                  btnType="FilterRoomsAndBedsCounter"
-                  clicked={() => counterHandler(id, -1)}
-                  isDisabled={config.value === 0}
-                >
-                  <img src={minus} />
-                </Button>
-                <p>{config.value}</p>
-                <Button
-                  btnType="FilterRoomsAndBedsCounter"
-                  clicked={() => counterHandler(id, 1)}
-                  isDisabled={false}
-                >
-                  <img src={plus} />
-                </Button>
-              </div>
-            </div>
-          );
-        })}
-    </React.Fragment>
-  );
-
-  const changePropertyTypeHandler = (
+  const changeInputHandler = (
     ev: ChangeEvent<HTMLInputElement>,
-    id: string
+    id: string,
+    mainId: string
   ) => {
-    const newData = cloneDeep(filterData.propertType);
+    const newData = cloneDeep(filterData[mainId]);
     newData[id].value = ev.target.checked;
-    dispatch(changeFilterPropertyTypeAction(newData));
+    dispatch(changeFilterInputsAction(newData, mainId));
   };
-  const propertTypeArray: {
-    id: string;
-    config: { value: boolean; type: string; text: string };
-  }[] = objecToArray(filterData.propertType);
-  let propertyType = (
-    <div className={classes.CheckboxList}>
-      {propertTypeArray &&
-        propertTypeArray.map(({ id, config }, index) => {
-          return (
-            <Input
-              class={
-                !toggleFilterBoxes.propertyType && index >= 6 ? 'Hide' : ''
-              }
-              key={id}
-              type={config.type}
-              value={config.value}
-              label={config.text}
-              changed={(ev) => changePropertyTypeHandler(ev, id)}
-            />
-          );
-        })}
-    </div>
-  );
 
-  const changeHouseRulesHandler = (
-    ev: ChangeEvent<HTMLInputElement>,
-    id: string
-  ) => {
-    const newData = cloneDeep(filterData.houseRules);
-    newData[id].value = ev.target.checked;
-    dispatch(changeFilterHouseRulesAction(newData));
-  };
-  const houseRulesArray: {
-    id: string;
-    config: { value: boolean; type: string; text: string };
-  }[] = objecToArray(filterData.houseRules);
-  let houseRules = (
-    <div className={classes.CheckboxList}>
-      {houseRulesArray &&
-        houseRulesArray.map(({ id, config }, index) => {
-          return (
-            <Input
-              class={!toggleFilterBoxes.houseRules && index >= 6 ? 'Hide' : ''}
-              key={id}
-              type={config.type}
-              value={config.value}
-              label={config.text}
-              changed={(ev) => changeHouseRulesHandler(ev, id)}
-            />
-          );
-        })}
-    </div>
-  );
-
-  const changeAmenitiesHandler = (
-    ev: ChangeEvent<HTMLInputElement>,
-    id: string
-  ) => {
-    const newData = cloneDeep(filterData.amenities);
-    newData[id].value = ev.target.checked;
-    dispatch(changeFilterAmenitiesAction(newData));
-  };
-  const amenitiesArray: {
-    id: string;
-    config: { value: boolean; type: string; text: string };
-  }[] = objecToArray(filterData.amenities);
-  let amenities = (
-    <div className={classes.CheckboxList}>
-      {amenitiesArray &&
-        amenitiesArray.map(({ id, config }, index) => {
-          return (
-            <Input
-              class={!toggleFilterBoxes.amenities && index >= 6 ? 'Hide' : ''}
-              key={id}
-              type={config.type}
-              value={config.value}
-              label={config.text}
-              changed={(ev) => changeAmenitiesHandler(ev, id)}
-            />
-          );
-        })}
-    </div>
-  );
-
-  const changeFacilitiesHandler = (
-    ev: ChangeEvent<HTMLInputElement>,
-    id: string
-  ) => {
-    const newData = cloneDeep(filterData.facilities);
-    newData[id].value = ev.target.checked;
-    dispatch(changeFilterFacilitiesAction(newData));
-  };
-  const facilitiesArray: {
-    id: string;
-    config: { value: boolean; type: string; text: string };
-  }[] = objecToArray(filterData.facilities);
-  let facilities = (
-    <div className={classes.CheckboxList}>
-      {facilitiesArray &&
-        facilitiesArray.map(({ id, config }, index) => {
-          return (
-            <Input
-              class={!toggleFilterBoxes.facilities && index >= 6 ? 'Hide' : ''}
-              key={id}
-              type={config.type}
-              value={config.value}
-              label={config.text}
-              changed={(ev) => changeFacilitiesHandler(ev, id)}
-            />
-          );
-        })}
-    </div>
-  );
-
-  const changeAreasHandler = (
-    ev: ChangeEvent<HTMLInputElement>,
-    id: string
-  ) => {
-    console.log(ev.target.name);
-    const newData = cloneDeep(filterData.areas);
-    newData[id].value = ev.target.checked;
-    dispatch(changeFilterAreasAction(newData));
-  };
-  const areasArray: {
-    id: string;
-    config: { value: boolean; type: string; text: string };
-  }[] = objecToArray(filterData.areas);
-  let areas = (
-    <div className={classes.CheckboxList}>
-      {areasArray &&
-        areasArray.map(({ id, config }, index) => {
-          return (
-            <Input
-              class={!toggleFilterBoxes.areas && index >= 6 ? 'Hide' : ''}
-              key={id}
-              type={config.type}
-              value={config.value}
-              label={config.text}
-              changed={(ev) => changeAreasHandler(ev, id)}
-            />
-          );
-        })}
-    </div>
-  );
   const Clear = () => {
     dispatch(clearFilterAction());
   };
 
   const Save = () => {
     let formData: FormDataInterface = {} as FormDataInterface;
-    const arr = objecToArray(filterData);
-    arr.map(({ id, config }) => {
+    const filterDataArray = objecToArray(filterData);
+    filterDataArray.map(({ id, config }) => {
       let objHelper = {};
       objecToArray(config).map(({ id, config }) => {
         objHelper = { ...objHelper, [id]: config.value };
@@ -261,29 +75,16 @@ const SideFilter: React.FC = () => {
   return (
     <React.Fragment>
       <div className={classes.SideFilterContainer}>
-        <div className={classes.SideFilterNav}>
-          <Button
-            clicked={() => dispatch(toggleFilterButtonAction(!isFilterOpen))}
-            btnType="CloseFilter"
-            bgColor="Grey"
-          >
-            <img src={close} />
-            <span>Close</span>
-          </Button>
-          <div className={classes.ButtonsContainer}>
-            <Button clicked={Clear} btnType="ClearFilter">
-              Clear
-            </Button>
-            <Button clicked={Save} btnType="SaveFilter" bgColor="Black">
-              Save
-            </Button>
-          </div>
-        </div>
+        <FilterNav
+          save={Save}
+          clear={Clear}
+          close={() => dispatch(toggleFilterButtonAction(!isFilterOpen))}
+        />
         <div className={classes.FilterSliderContainer}>
           <h2>Price</h2>
           <MultiRangeSlider
-            min={filterData.priceSlider.min.value}
-            max={filterData.priceSlider.max.value}
+            min={filterData.price.min.value}
+            max={filterData.price.max.value}
             initialMin={multiRangeSlider.initialMin}
             initialMax={multiRangeSlider.initialMax}
             clear={multiRangeSlider.clear}
@@ -291,72 +92,44 @@ const SideFilter: React.FC = () => {
           />
         </div>
         <div className={classes.FilterBtnAndCheckboxContainer}>
-          <div className={classes.FilterBoxes}>
-            <h2>Rooms and beds</h2>
-            {bedsAndRooms}
-          </div>
-          <div className={classes.FilterBoxes}>
-            <h2>Property type</h2>
-            {propertyType}
-            <ToggleClass
-              inputCount={propertTypeArray.length}
-              show={toggleFilterBoxes.propertyType}
-              text={'property types'}
-              toggle={() =>
-                dispatch(
-                  togglePropertyTypeAction(!toggleFilterBoxes.propertyType)
-                )
-              }
-            />
-          </div>
-          <div className={classes.FilterBoxes}>
-            <h2>House Rules</h2>
-            {houseRules}
-            <ToggleClass
-              inputCount={houseRulesArray.length}
-              show={toggleFilterBoxes.houseRules}
-              text={'house rules'}
-              toggle={() =>
-                dispatch(toggleHouseRulesAction(!toggleFilterBoxes.houseRules))
-              }
-            />
-          </div>
-          <div className={classes.FilterBoxes}>
-            <h2>Amenities</h2>
-            {amenities}
-            <ToggleClass
-              inputCount={amenitiesArray.length}
-              show={toggleFilterBoxes.amenities}
-              text={'amenities'}
-              toggle={() =>
-                dispatch(toggleAmenitiesAction(!toggleFilterBoxes.amenities))
-              }
-            />
-          </div>
-          <div className={classes.FilterBoxes}>
-            <h2>Facilities</h2>
-            {facilities}
-            <ToggleClass
-              inputCount={facilitiesArray.length}
-              show={toggleFilterBoxes.facilities}
-              text={'facilities'}
-              toggle={() =>
-                dispatch(toggleFacilitiesAction(!toggleFilterBoxes.facilities))
-              }
-            />
-          </div>
-          <div className={classes.FilterBoxes}>
-            <h2>Areas</h2>
-            {areas}
-            <ToggleClass
-              inputCount={areasArray.length}
-              show={toggleFilterBoxes.areas}
-              text={'areas'}
-              toggle={() =>
-                dispatch(toggleAreasAction(!toggleFilterBoxes.areas))
-              }
-            />
-          </div>
+          {objecToArray(filterData)
+            .filter((_, i) => i !== 0)
+            .map((item, i) => {
+              let title = item.id.split(/(?=[A-Z])/).join(' ');
+              return (
+                <div key={i} className={classes.FilterBoxes}>
+                  <h2>{title}</h2>
+                  {i === 0 ? (
+                    <BedsAndRoomsList
+                      bedsAndRoomsList={objecToArray(item.config)}
+                      counterHandler={counterHandler}
+                    />
+                  ) : (
+                    <React.Fragment>
+                      <CheckboxList
+                        mainId={item.id}
+                        checkboxList={objecToArray(item.config)}
+                        changeInputHandler={changeInputHandler}
+                        showHideInputs={showHideInputs[item.id]}
+                      />
+                      <ToggleClass
+                        inputCount={objecToArray(item.config).length}
+                        show={showHideInputs[item.id]}
+                        text={title}
+                        toggle={() =>
+                          dispatch(
+                            toggleCheckboxesListAction(
+                              !showHideInputs[item.id],
+                              item.id
+                            )
+                          )
+                        }
+                      />
+                    </React.Fragment>
+                  )}
+                </div>
+              );
+            })}
         </div>
       </div>
       <Backdrop
