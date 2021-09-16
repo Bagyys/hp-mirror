@@ -5,9 +5,11 @@
   border: 2px solid $disableBtn;
   border-radius: 1rem;
   margin-bottom: 2.5rem;
+  height: 14.4rem;
   .Form {
     display: flex;
     justify-content: space-between;
+    height: 50%;
   }
   .Select {
     border-top: 2px solid $disableBtn;
@@ -143,7 +145,8 @@
 .FormControl {
   box-sizing: border-box;
   width: 100%;
-  height: auto;
+  height: 50%;
+  margin-top: 16px;
 
   // padding: 0 2.27rem 1.55rem 0;
   label {
@@ -153,7 +156,9 @@
     font-weight: $font-Weight-medium;
     font-family: $helvetica;
     padding: 0 0 0.46rem 2.21rem;
+    // text-align: center;
     // margin-top: 1.45rem;
+    padding-top: 1.6rem;
   }
   div {
     color: $black;
@@ -161,8 +166,9 @@
     font-weight: $font-Weight-regular;
     font-family: $helvetica;
     padding-left: 1rem;
-
+    text-decoration: none;
     padding-right: 2.21rem;
+    margin-top: 1.6rem;
     svg {
       padding-right: 2.21rem;
     }

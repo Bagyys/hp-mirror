@@ -4,7 +4,9 @@
 .Navigation {
   background-color: $white;
   width: 100%;
+  // height: 11.8rem;
   z-index: 102;
+
   box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16);
   position: relative;
   @include respond(mobile) {
@@ -13,12 +15,12 @@
   }
   .NavigationWrapper {
     box-sizing: border-box;
-    max-width: 175.428rem; //175.428
+    max-width: 175.482rem; //175.428
     align-items: center;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
-    padding: 0 3%;
+    // justify-content: space-between;
+    // padding: 0 3%;
     @include respond(mobile) {
       padding: 1.35rem 2.2rem;
     }
@@ -26,7 +28,8 @@
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
-      padding-left: 7.71rem;
+      // padding-left: 7.71rem;
+      padding-right: 34.17rem;
       align-items: center;
       @include respond(mobile) {
         img {
@@ -38,11 +41,11 @@
     .Middle {
       display: flex;
       align-items: center;
+      padding: 2.6rem 0;
       font-size: $fontSize20px;
       font-weight: $font-Weight-bold;
       color: $fontColor;
-      line-height: $lineHeight36px;
-      padding: 2.6rem 0;
+      line-height: $lineHeight23px;
       font-family: $helvetica;
       // padding-left: 34.71rem;
       @include respond(mobile) {
@@ -56,6 +59,7 @@
     .Right {
       display: flex;
       align-items: center;
+      padding-left: 12rem; //15.71
       .Favorite {
         margin-right: 4.4rem;
         position: relative;
