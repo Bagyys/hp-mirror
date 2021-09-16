@@ -26,7 +26,7 @@ export const checkingInputs = (formData:{id:string,config:boolean}[], ...arr: bo
 export const availableProperties = (properties:PropertyInterface[],days:Array<string>,guests:{[key:string]:number},formData:FormDataInterface) => 
  { 
    //is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu paemus duomenis is API, taip pat cia filtruojami sideFilter duomenys, nezinau ar tinka?
-   let propertyTypeStrings = objecToArray(formData.propertType).filter(
+   let propertyTypeStrings = objecToArray(formData.propertyTypes).filter(
       (item) => item.config
     );
   return properties.filter((item) => {
@@ -35,8 +35,8 @@ export const availableProperties = (properties:PropertyInterface[],days:Array<st
             let selectedDay = moment(new Date(item)).format('YYYY-MM-DD');
             return occupiedDay.dateString === selectedDay;
           });
-        })&&item.maxOccupants>=guests.adults&&item.price.daily <= formData.priceSlider.max &&
-        item.price.daily >= formData.priceSlider.min &&
+        })&&item.maxOccupants>=guests.adults&&item.price.daily <= formData.price.max &&
+        item.price.daily >= formData.price.min &&
         item.facilities.beds >= formData.roomsAndBeds.beds &&
         item.facilities.bedrooms >= formData.roomsAndBeds.bedrooms &&
         item.facilities.bathrooms >= formData.roomsAndBeds.bathrooms &&

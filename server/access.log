@@ -14028,6 +14028,7 @@
 ::1 - - [15/Sep/2021:06:02:46 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [15/Sep/2021:06:03:05 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [15/Sep/2021:07:06:41 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+<<<<<<< HEAD
 ::1 - - [15/Sep/2021:10:33:45 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [15/Sep/2021:10:35:15 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [15/Sep/2021:10:35:19 +0000] "GET /property/getAllProperties HTTP/1.1" 200 14655
@@ -14050,3 +14051,21 @@
 ::1 - - [16/Sep/2021:03:59:37 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [16/Sep/2021:04:10:57 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [16/Sep/2021:04:21:41 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+=======
+<<<<<<< HEAD
+::1 - - [15/Sep/2021:09:54:53 +0000] "POST / HTTP/1.1" 200 43
+::1 - - [15/Sep/2021:09:54:54 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [15/Sep/2021:09:55:19 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [15/Sep/2021:09:55:29 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+=======
+::1 - - [15/Sep/2021:20:30:47 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [15/Sep/2021:20:31:03 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [15/Sep/2021:20:31:40 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [15/Sep/2021:20:33:13 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [15/Sep/2021:20:34:51 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+>>>>>>> origin/favorite-filter-fixes
+>>>>>>> e773cd78ce00c944540320c5cc5e25934a1923af
+::1 - - [16/Sep/2021:05:08:03 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [16/Sep/2021:08:36:19 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [16/Sep/2021:08:37:43 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [16/Sep/2021:08:44:15 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -

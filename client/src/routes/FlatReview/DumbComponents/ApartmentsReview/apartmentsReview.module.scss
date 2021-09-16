@@ -11,18 +11,20 @@
     justify-content: space-between;
 
     .Text {
-      color: black;
+      color: $black;
       font-size: $fontSize32px;
       font-weight: $font-Weight-bold;
       font-family: $helveticaNeue;
-      margin-bottom: 0.61rem;
+      line-height: $lineHeight26px;
+      padding-bottom: 0.61rem;
     }
     .TextSmall {
-      color: black2;
+      color: $black2;
       font-size: $fontSize20px;
       font-weight: $font-Weight-regular;
       font-family: $helveticaNeue;
-      margin-bottom: 3.02rem;
+      line-height: $lineHeight26px;
+      padding-bottom: 3.02rem;
     }
 
     .BtnSaveShare {
@@ -32,6 +34,7 @@
       color: $black2;
       font-size: $fontSize18px;
       font-weight: $font-Weight-bold;
+      line-height: $lineHeight46px;
       border: none;
       text-decoration: solid underline $black2 0.2rem;
       text-underline-offset: 0.2rem;
@@ -62,13 +65,17 @@
       font-weight: $font-Weight-bold;
       color: $black2;
       font-family: $helveticaNeue;
+      line-height: $lineHeight26px;
       margin: 0 0.97rem 0 0.77rem;
+      text-align: center;
     }
     .Reviews {
       font-size: $fontSize18px;
       font-weight: $font-Weight-regular;
       color: $blackGrey;
+      line-height: $lineHeight26px;
       font-family: $helveticaNeue;
+      text-align: center;
     }
   }
   div {

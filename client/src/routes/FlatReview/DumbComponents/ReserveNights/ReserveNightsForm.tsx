@@ -17,7 +17,7 @@ import classes from "./reserveNightsForm.module.scss";
 interface ReservNights {}
 
 const ReserveNightsForm: FC<ReservNights> = (): any => {
-  console.log({ TextField }, "textsadkjaghsdkjashgdkjagshdkjh");
+  
   const [startDate, setStartDate] = useState(new Date());
   const handleDateChange = (date: any) => {
     setStartDate(date);
@@ -70,7 +70,7 @@ const ReserveNightsForm: FC<ReservNights> = (): any => {
                 }}
               />
             </div>
-            {console.log(TextField)}
+            
             <TextField
               id="date"
               label="Check In"

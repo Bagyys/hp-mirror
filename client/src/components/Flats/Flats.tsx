@@ -73,7 +73,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const quickViewData = propertiesList?.find(
     (item) => item._id === quickViewPropertyId
   );
-  console.log(quickViewData);
+
   useEffect(() => {
     dispatch(quickViewAction(""));
   }, [currentPage, pageSizeMain]);
