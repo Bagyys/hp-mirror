@@ -9,6 +9,7 @@ import {
   quickViewAction,
   activePropertyCordsAction,
 } from '../../store/actions/propertyActions';
+import React from 'react';
 
 function Map() {
   const propertyStore: PropertyState = useSelector(
@@ -72,4 +73,4 @@ function Map() {
   );
 }
 
-export default Map;
+export default React.memo(Map);
