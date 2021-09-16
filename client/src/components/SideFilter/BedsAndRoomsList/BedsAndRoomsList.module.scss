@@ -1,0 +1,24 @@
+@import "../../../styles/global.scss";
+@import "../../../styles/mixins";
+.RoomsBedsContainerRow{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.7rem;
+    &:first-child{
+        margin-top: 3.48rem;
+    }
+    .CounterBtnsCounter{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 17.2rem;
+        @include respond(mobile){
+            width: 11.5rem;
+            p{
+                width: 4rem;
+                text-align: center;
+            }
+        }
+    }
+}

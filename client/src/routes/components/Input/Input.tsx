@@ -6,7 +6,7 @@ type Props = {
   value: boolean;
   label: string;
   type: string;
-  class: string;
+  inputClass: string;
 };
 
 const Input: React.FC<Props> = (props) => {
@@ -33,7 +33,7 @@ const Input: React.FC<Props> = (props) => {
       );
   }
   return (
-    <div className={cn(classes.Input, classes[props.class])}>
+    <div className={cn(classes.Input, classes[props.inputClass])}>
       {inputElement}
       <label className={classes.Label}>{props.label}</label>
     </div>

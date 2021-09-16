@@ -1,28 +1,28 @@
 //Style
-import classes0 from "./chooseFlats.module.scss";
-import classes1 from "../../../../components/Flats/Flat/Flat.module.scss";
-import classes2 from "../../../../components/Flats/flats.module.scss";
+import classes0 from './chooseFlats.module.scss';
+import classes1 from '../../../components/Flat/Flat.module.scss';
+import classes2 from '../../../../components/Flats/flats.module.scss';
 //Components
-import Flat from "../../../../components/Flats/Flat/Flat";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllPropertiesAction } from "../../../../store/actions/propertyActions";
-import { PropertyInterface } from "../../../../store/types/propertyInterfaces";
+import Flat from '../../../components/Flat/Flat';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllPropertiesAction } from '../../../../store/actions/propertyActions';
+import { PropertyInterface } from '../../../../store/types/propertyInterfaces';
 
-import { useEffect } from "react";
-import { StoreState } from "../../../../store/configureStore";
+import { useEffect } from 'react';
+import { StoreState } from '../../../../store/configureStore';
 
 const ChooseFlats = (props: any) => {
-  console.log("Kas cia -------------------------");
+  console.log('Kas cia -------------------------');
   const dispatch = useDispatch();
-  console.log(dispatch, "?");
-  console.log(props, "ChoseFlat Props");
+  console.log(dispatch, '?');
+  console.log(props, 'ChoseFlat Props');
 
   // useEffect(() => {
   //   dispatch(getAllPropertiesAction());
   // }, []);
 
   const properties: any = useSelector((state: StoreState) => state.property);
-  console.log(properties, "Properties?");
+  console.log(properties, 'Properties?');
 
   return (
     <>
@@ -43,7 +43,7 @@ const ChooseFlats = (props: any) => {
                               key={index}
                               property={butas}
                               clickedLike={function (): void {
-                                throw new Error("Function not implemented.");
+                                throw new Error('Function not implemented.');
                               }}
                             />
                           </section>
@@ -55,7 +55,7 @@ const ChooseFlats = (props: any) => {
               </div>
               {console.log(
                 props.Flat,
-                "h3 colg----------------------------------------------"
+                'h3 colg----------------------------------------------'
               )}
             </>
           );
