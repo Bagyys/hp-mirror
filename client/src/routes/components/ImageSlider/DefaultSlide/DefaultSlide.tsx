@@ -10,6 +10,9 @@ interface ImagesInterface {
 
 const DefaultSlide = ({ images }: ImagesInterface) => {
   console.log(images[0], "Default Slides Photos");
+  console.log(DefaultSlide, "DefaultSlide Component");
+  console.log({images}, "DefaulteSlide Images");
+
   return (
     <React.Fragment>
       <div className={classes.MainImage}>
@@ -21,27 +24,27 @@ const DefaultSlide = ({ images }: ImagesInterface) => {
       </div>
       <div className={classes.OtherImages}>
         <div className={classes.firstColumn}>
-          {images[0] === undefined ? (
+          {images[1] === undefined ? (
             <img src="/no-photo.png" alt="Default" />
           ) : (
-            <img src={`/${images[0]}`} alt="Flat-other" />
+            <img src={`/${images[1]}`} alt="Flat-other" />
           )}
-          {images[0] === undefined ? (
+          {images[2] === undefined ? (
             <img src="/no-photo.png" alt="Default" />
           ) : (
-            <img src={`/${images[0]}`} alt="Flat-other" />
+            <img src={`/${images[2]}`} alt="Flat-other" />
           )}
         </div>
         <div className={classes.secondColumn}>
-          {images[0] === undefined ? (
+          {images[3] === undefined ? (
             <img src="/no-photo.png" alt="Default" />
           ) : (
-            <img src={`/${images[0]}`} alt="Flat-other" />
+            <img src={`/${images[3]}`} alt="Flat-other" />
           )}
-          {images[0] === undefined ? (
+          {images[4] === undefined ? (
             <img src="/no-photo.png" alt="Default" />
           ) : (
-            <img src={`/${images[0]}`} alt="Flat-other" />
+            <img src={`/${images[4]}`} alt="Flat-other" />
           )}
         </div>
         <BtnShowAllPhotos />

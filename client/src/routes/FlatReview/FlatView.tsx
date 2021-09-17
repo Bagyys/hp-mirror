@@ -9,9 +9,10 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { IoShareSocialSharp } from "react-icons/io5";
 import { BiHeart } from "react-icons/bi";
 import { BsStarFill } from "react-icons/bs";
-import { MdVerifiedUser } from "react-icons/md";
+import { MdKeyboardArrowLeft, MdVerifiedUser } from "react-icons/md";
 import { GrRotateRight } from "react-icons/gr";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import Carousel from "nuka-carousel";
 import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
 import DefaultSlide from "../components/ImageSlider/DefaultSlide/DefaultSlide";
 import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
@@ -30,6 +31,7 @@ import {
 import { clearErrorAction } from "../../store/actions/errorActions";
 import Footer from "../../components/Footer/Footer";
 import classes from "./FlatReview.module.scss";
+import { cn } from "../../utilities/joinClasses";
 interface CustomRange {
   startDate: Date;
   endDate: Date;
@@ -55,6 +57,7 @@ const FlatView = (props: PropsInterface) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
+  console.log({ id }, "ID--??");
 
   useEffect(() => {
     if (props.location.state === undefined) {
@@ -205,21 +208,27 @@ const FlatView = (props: PropsInterface) => {
   let propertyRender = <></>;
 
   if (property) {
-    const element1 = [property.images[0]];
+    const element1 = [property.images[0]]; //property.images[0]?
     let ultimateArray = [];
+
     ultimateArray.push(element1);
-    console.log("property");
-    console.log(property.images.slice(5));
-    let arrayAfterLoad = property.images.slice(5);
+
+    let arrayAfterLoad = property.images;
     console.log("arrayAfterLoad");
     console.log(arrayAfterLoad);
+    console.log(ultimateArray, "UltimateArray po push()");
     var i,
       j,
       temparray,
       chunk = 8;
+    console.log(i, "i?");
+    console.log(temparray, "temparray");
+    console.log(j, "j?");
+    console.log(chunk, "chunk?");
 
     for (i = 0, j = arrayAfterLoad.length; i < j; i += chunk) {
       temparray = arrayAfterLoad.slice(i, i + chunk);
+      console.log(i, "i in for loop");
 
       if (temparray.length < 8) {
         let leftSpace = 8 - temparray.length;
@@ -227,6 +236,7 @@ const FlatView = (props: PropsInterface) => {
           temparray.push("/no-photo.png");
         }
       }
+      console.log(temparray, "temparray in if ");
       const testArray = [];
       testArray.push(temparray);
 
@@ -234,18 +244,27 @@ const FlatView = (props: PropsInterface) => {
     }
 
     const length = ultimateArray.length;
+    console.log(length, "Lenght");
+    console.log(current, "Current");
 
+    console.log(ultimateArray, "ultimatearray affter");
     const nextSlide = () => {
+      console.log(nextSlide, "NextSLide Aktive");
       setCurrent(current === 0 ? length - 1 : current - 1);
+      console.log(nextSlide, "NextSLide Aktive PO");
     };
 
     const prevSlide = () => {
+      console.log(prevSlide, "Koks Index PrevSlide0");
       setCurrent(current === length - 1 ? 0 : current + 1);
+      console.log(prevSlide, "Koks Index PrevSlide");
     };
 
     if (!Array.isArray(ultimateArray) || ultimateArray.length <= 0) {
       return null;
+      console.log("SULUZO");
     }
+    console.log(ultimateArray, "Koks Index?");
     console.log(
       [setCurrent],
       "setCurrentState----------------------------------------------------------------------"
@@ -255,21 +274,24 @@ const FlatView = (props: PropsInterface) => {
       <div className={classes.FlatBox}>
         <div className={classes.ImagesBox}>
           <div className={classes.arrowRight}>
-            <MdKeyboardArrowRight
+            <MdKeyboardArrowLeft
               size="8em"
               color="white"
-              onClick={() => prevSlide()}
+              onClick={ prevSlide}
             />
           </div>
           <div className={classes.arrowLeft}>
             <MdKeyboardArrowRight
               size="8em"
               color="white"
-              onClick={() => nextSlide()}
+              onClick={nextSlide}
             />
           </div>
           {ultimateArray.map((item, index) => {
             if (index === 0) {
+              console.log(index, "index kas jis toks");
+              console.log(DefaultSlide, "DefaultSlide");
+
               return (
                 <div
                   className={
@@ -282,10 +304,11 @@ const FlatView = (props: PropsInterface) => {
                   {index === current && (
                     <div key={index} className={classes.Images}>
                       <DefaultSlide images={property.images} />
+                      {/* images={property.images} */}
                     </div>
                   )}
                 </div>
-              );
+              ); 
             } else {
               return (
                 <div
@@ -294,8 +317,16 @@ const FlatView = (props: PropsInterface) => {
                       ? `${classes.slide} ${classes.active}`
                       : classes.slide
                   }
+                  // key={index}
                 >
                   <div className={classes.Images2}>
+                    {index === current && (
+                      <div key={index} className={classes.Images}>
+                        {item.map((images) => {
+                          <img src={images} alt="Photo" />;
+                        })}
+                      </div>
+                    )}
                     {/* {index === current &&
                       item.map((photo: string, index: string) => {
                         return (
@@ -309,6 +340,7 @@ const FlatView = (props: PropsInterface) => {
               );
             }
           })}
+
           {/* <div className={classes.totalNumber}>
             <span>44 photos</span>
             <span>3 virtual tours</span>

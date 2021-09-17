@@ -9,6 +9,8 @@ interface SliderProps {
 }
 
 const ImageSlider: React.FC<SliderProps> = ({ slides, sliderClass }) => {
+  console.log({ slides, sliderClass }, "--??");
+
   return (
     <section className={classes.Slider}>
       <Carousel

@@ -10,7 +10,7 @@
     .ImagesBox {
       // padding-bottom: 7rem;
       position: relative;
-      overflow: hidden;
+      // overflow: hidden;
       .arrowRight {
         position: absolute;
         top: 40%;
@@ -32,7 +32,7 @@
       }
 
       .slide {
-        opacity: 0;
+        opacity: 1;
         transition-duration: 1s ease;
         transform: translateX(1920px);
       }
