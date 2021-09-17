@@ -21,7 +21,7 @@ import { FormDataInterface } from '../../store/types/filterInterface';
 import CheckboxList from './CheckboxList/CheckboxList';
 import BedsAndRoomsList from './BedsAndRoomsList/BedsAndRoomsList';
 import FilterNav from './FilterNav/FilterNav';
-
+import { FilterDataInterface } from '../../store/types/filterInterface';
 const SideFilter: React.FC = () => {
   const dispatch = useDispatch();
   const filterSide: FilterState = useSelector(
@@ -48,7 +48,7 @@ const SideFilter: React.FC = () => {
   const changeInputHandler = (
     ev: ChangeEvent<HTMLInputElement>,
     id: string,
-    mainId: string
+    mainId: keyof FilterDataInterface
   ) => {
     const newData = cloneDeep(filterData[mainId]);
     newData[id].value = ev.target.checked;
@@ -94,42 +94,53 @@ const SideFilter: React.FC = () => {
         <div className={classes.FilterBtnAndCheckboxContainer}>
           {objecToArray(filterData)
             .filter((_, i) => i !== 0)
-            .map((item, i) => {
-              let title = item.id.split(/(?=[A-Z])/).join(' ');
-              return (
-                <div key={i} className={classes.FilterBoxes}>
-                  <h2>{title}</h2>
-                  {i === 0 ? (
-                    <BedsAndRoomsList
-                      bedsAndRoomsList={objecToArray(item.config)}
-                      counterHandler={counterHandler}
-                    />
-                  ) : (
-                    <React.Fragment>
-                      <CheckboxList
-                        mainId={item.id}
-                        checkboxList={objecToArray(item.config)}
-                        changeInputHandler={changeInputHandler}
-                        showHideInputs={showHideInputs[item.id]}
+            .map(
+              (
+                item: {
+                  id: keyof FilterDataInterface;
+                  config: FilterDataInterface;
+                },
+                i: number
+              ) => {
+                let title = item.id.split(/(?=[A-Z])/).join(' ');
+                return (
+                  <div key={i} className={classes.FilterBoxes}>
+                    <h2>
+                      {title.charAt(0).toUpperCase() +
+                        title.slice(1).toLowerCase()}
+                    </h2>
+                    {i === 0 ? (
+                      <BedsAndRoomsList
+                        bedsAndRoomsList={objecToArray(item.config)}
+                        counterHandler={counterHandler}
                       />
-                      <ToggleClass
-                        inputCount={objecToArray(item.config).length}
-                        show={showHideInputs[item.id]}
-                        text={title}
-                        toggle={() =>
-                          dispatch(
-                            toggleCheckboxesListAction(
-                              !showHideInputs[item.id],
-                              item.id
+                    ) : (
+                      <React.Fragment>
+                        <CheckboxList
+                          mainId={item.id}
+                          checkboxList={objecToArray(item.config)}
+                          changeInputHandler={changeInputHandler}
+                          showHideInputs={showHideInputs[item.id]}
+                        />
+                        <ToggleClass
+                          inputCount={objecToArray(item.config).length}
+                          show={showHideInputs[item.id]}
+                          text={title}
+                          toggle={() =>
+                            dispatch(
+                              toggleCheckboxesListAction(
+                                !showHideInputs[item.id],
+                                item.id
+                              )
                             )
-                          )
-                        }
-                      />
-                    </React.Fragment>
-                  )}
-                </div>
-              );
-            })}
+                          }
+                        />
+                      </React.Fragment>
+                    )}
+                  </div>
+                );
+              }
+            )}
         </div>
       </div>
       <Backdrop
