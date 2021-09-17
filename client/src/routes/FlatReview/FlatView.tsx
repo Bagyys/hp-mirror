@@ -99,6 +99,7 @@ const FlatView = (props: PropsInterface) => {
   let property: PropertyInterface = {} as PropertyInterface;
   if (props && props.location.state) {
     property = props.location.state.property;
+    console.log(property, "o kas gi cia");
   } else {
     property = stateProperty;
   }
@@ -202,18 +203,16 @@ const FlatView = (props: PropsInterface) => {
   };
 
   let propertyRender = <></>;
+
   if (property) {
-    const element1 = [
-      property.images[0],
-      property.images[1],
-      property.images[2],
-      property.images[3],
-      property.images[4],
-    ];
+    const element1 = [property.images[0]];
     let ultimateArray = [];
     ultimateArray.push(element1);
-
+    console.log("property");
+    console.log(property.images.slice(5));
     let arrayAfterLoad = property.images.slice(5);
+    console.log("arrayAfterLoad");
+    console.log(arrayAfterLoad);
     var i,
       j,
       temparray,
@@ -247,6 +246,10 @@ const FlatView = (props: PropsInterface) => {
     if (!Array.isArray(ultimateArray) || ultimateArray.length <= 0) {
       return null;
     }
+    console.log(
+      [setCurrent],
+      "setCurrentState----------------------------------------------------------------------"
+    );
 
     propertyRender = (
       <div className={classes.FlatBox}>
@@ -255,14 +258,14 @@ const FlatView = (props: PropsInterface) => {
             <MdKeyboardArrowRight
               size="8em"
               color="white"
-              onClick={prevSlide}
+              onClick={() => prevSlide()}
             />
           </div>
           <div className={classes.arrowLeft}>
             <MdKeyboardArrowRight
               size="8em"
               color="white"
-              onClick={nextSlide}
+              onClick={() => nextSlide()}
             />
           </div>
           {ultimateArray.map((item, index) => {
@@ -401,6 +404,8 @@ const FlatView = (props: PropsInterface) => {
         </div>
       </div>
     );
+    console.log([current], "current");
+    console.log([setCurrent]);
   }
 
   return (

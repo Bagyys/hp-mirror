@@ -1,13 +1,16 @@
 @import "../../../styles/global.scss";
 @import "../../../styles/mixins";
 .SearchBoxs {
+  box-sizing: border-box;
   position: relative;
   display: flex;
   width: 42.3rem;
   margin-left: 3.52rem;
   background-color: rgba(235, 237, 237, 0.8);
-  padding:1.5rem 9.78rem 1.5rem 4.41rem;
+  // text-align: cenetr;
   border-radius: 5.5rem;
+  // padding: 2.1rem 0rem 2.2rem 4.41rem;
+  padding: 2.1rem 0 2.2rem 0;
   @include respond(mobile) {
     background-color: $white;
     font-size: $smallerMediumFont;
@@ -15,19 +18,26 @@
     color: $fontColor;
     line-height: $lineHeight36px;
     font-family: $helvetica;
-    padding:.8rem 5.5rem .8rem 1.4rem;
-    margin-left: .74rem;
+    padding: 0.8rem 5.5rem 0.8rem 1.4rem;
+    margin-left: 0.74rem;
     margin-bottom: 1rem;
   }
   .Date {
-    padding-right: 3.52rem;
+    // padding-right: 3.52rem;
     border-right: 0.1rem solid #cbd0d3;
+    font-size: $fontSize20px;
+    font-weight: $font-Weight-bold;
+    color: $fontColor;
+    line-height: $lineHeight23px;
+    font-family: $helvetica;
+    width: 50%;
+    text-align: center;
     @include respond(mobile) {
       padding-right: 1.68rem;
     }
   }
   .Guests {
-    padding-left: 3.52rem;
+    padding-left: 3.39rem;
     @include respond(mobile) {
       padding-left: 1.1rem;
       padding-right: 0;

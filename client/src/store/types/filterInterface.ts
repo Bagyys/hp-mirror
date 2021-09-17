@@ -1,5 +1,7 @@
-
-export interface FilterDataInterface  {
+interface ObjectIndexer<T> {
+  [id: string]: T;
+}
+export interface FilterDataInterface extends ObjectIndexer<PriceInterface|RoomsBedsInterface|ApartamentInfoInterface> {
   price: PriceInterface;
   roomsAndBeds: RoomsBedsInterface;
   propertyTypes: ApartamentInfoInterface;

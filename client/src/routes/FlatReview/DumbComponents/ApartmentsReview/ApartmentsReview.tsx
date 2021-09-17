@@ -12,7 +12,7 @@ const ApartmentsReview = () => {
     <div className={classes.Content}>
       <div className={classes.Layer}>
         <div>
-          <p className={classes.Text}>Studio apartments in city center!</p>
+          <p className={classes.Text}>Studio appartment in city center!</p>
           <p className={classes.TextSmall}>
             3 guest 2 beds 1 private bath Wifi
           </p>
@@ -23,9 +23,9 @@ const ApartmentsReview = () => {
         </div>
       </div>
       <div className={classes.StarRating}>
-        <BsStarFill size="2.6em" color="#4886ff" />
+        <BsStarFill size="2.776em" color="#4886ff" />
         <span className={classes.RatingNumber}>4.75 </span>
-        <span className={classes.Reviews}>(7 Reviews) </span>
+        <span className={classes.Reviews}>(7 reviews) </span>
       </div>
 
       <div>

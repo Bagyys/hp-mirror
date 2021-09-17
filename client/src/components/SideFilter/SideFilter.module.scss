@@ -20,6 +20,7 @@
         line-height: $lineHeight36px;
         font-weight: $font-Weight-bold;
         margin-bottom: 3.5rem;
+        text-transform: lowercase;
         @include respond(mobile){
             font-size: $fontSize23px;
             line-height: $lineHeight31px;

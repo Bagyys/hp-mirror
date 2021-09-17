@@ -129,7 +129,7 @@ const Navigation = () => {
                 </Button>
               ) : (
                 <Button btnType="PcFavoriteNav">
-                  <img src={favoritePc} alt="favorite" />
+                  <img src={favoritePc} alt="favorite"  />
                 </Button>
               )}
             </Link>
