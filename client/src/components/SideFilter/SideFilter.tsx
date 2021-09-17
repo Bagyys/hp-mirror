@@ -21,7 +21,6 @@ import { FormDataInterface } from '../../store/types/filterInterface';
 import CheckboxList from './CheckboxList/CheckboxList';
 import BedsAndRoomsList from './BedsAndRoomsList/BedsAndRoomsList';
 import FilterNav from './FilterNav/FilterNav';
-
 const SideFilter: React.FC = () => {
   const dispatch = useDispatch();
   const filterSide: FilterState = useSelector(

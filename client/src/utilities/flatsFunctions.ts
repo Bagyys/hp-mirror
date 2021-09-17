@@ -69,7 +69,7 @@ export const isStringInArray = (id: string, arr: Array<string>) => {
 };
 
 export const objecToArray = (object: object) => {
-  let newArr = [];
+  let newArr:{id:any,config:any}[] = [];
   for (let [key, value] of Object.entries(object)) {
     newArr.push({
       id: key,

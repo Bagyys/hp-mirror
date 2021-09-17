@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef } from "react";
-import { useMediaPredicate } from "react-media-hook";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import { StoreState } from "../../store/configureStore";
-import { PropertyState } from "../../store/reducers/propertyReducer";
-import { ErrorState } from "../../store/reducers/errorReducer";
-import { PropertyInterface } from "../../store/types/propertyInterfaces";
+import React, { useEffect, useMemo, useRef } from 'react';
+import { useMediaPredicate } from 'react-media-hook';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { StoreState } from '../../store/configureStore';
+import { PropertyState } from '../../store/reducers/propertyReducer';
+import { ErrorState } from '../../store/reducers/errorReducer';
+import { PropertyInterface } from '../../store/types/propertyInterfaces';
 import {
   activePropertyCordsAction,
   addRecentlyViewedAction,
@@ -14,31 +14,30 @@ import {
   pageSizeAction,
   quickViewAction,
   resetPropertyCordsAction,
-} from "../../store/actions/propertyActions";
-import { clearErrorAction } from "../../store/actions/errorActions";
-import classes from "./flats.module.scss";
-import Flat from "../../routes/components/Flat/Flat";
-import Pagination from "../Pagination/Pagination";
-import QuickViewFlat from "../../routes/components/QuickViewFlat/QuickViewFlat";
-import { userState } from "../../store/reducers/userReducer";
-import { addToFavoriteAction } from "../../store/actions/userActions";
-import { cn } from "../../utilities/joinClasses";
-import QuickViewFlatFavoritePc from "../../routes/components/QuickViewFlatFavoritePc/QuickViewFlatFavoritePc";
-import MyBooking from "../../routes/components/MyBooking/MyBooking";
-import MyBookingMobile from "../../routes/components/MyBookingMobileStick/MyBookingMobileStick";
+} from '../../store/actions/propertyActions';
+import { clearErrorAction } from '../../store/actions/errorActions';
+import classes from './flats.module.scss';
+import Flat from '../../routes/components/Flat/Flat';
+import Pagination from '../Pagination/Pagination';
+import QuickViewFlat from '../../routes/components/QuickViewFlat/QuickViewFlat';
+import { userState } from '../../store/reducers/userReducer';
+import { addToFavoriteAction } from '../../store/actions/userActions';
+import { cn } from '../../utilities/joinClasses';
+import QuickViewFlatFavoritePc from '../../routes/components/QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
+import MyBooking from '../../routes/components/MyBooking/MyBooking';
+import MyBookingMobile from '../../routes/components/MyBookingMobileStick/MyBookingMobileStick';
 import {
   filterArrayById,
   isStringInArray,
-} from "../../utilities/flatsFunctions";
-import { toggleFilterButtonAction } from "../../store/actions/filterActions";
-import { FilterState } from "../../store/reducers/filterReducer";
-import FlatsNav from "../../routes/components/FlatsNav/FlatsNav";
+} from '../../utilities/flatsFunctions';
+import { toggleFilterButtonAction } from '../../store/actions/filterActions';
+import FlatsNav from '../../routes/components/FlatsNav/FlatsNav';
 
 interface FlatsProps {
   isMain: boolean;
 }
 const Flats: React.FC<FlatsProps> = (props) => {
-  const isMobile = useMediaPredicate("(max-width: 675px)");
+  const isMobile = useMediaPredicate('(max-width: 675px)');
   const scrollRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
@@ -55,10 +54,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
     properties,
     recentlyViewedProperties,
   } = propertyStore;
-  const filterSide: FilterState = useSelector(
-    (state: StoreState) => state.filter
-  );
-  const { isFilterOpen } = filterSide;
   const errorState: ErrorState = useSelector(
     (state: StoreState) => state.error
   );
@@ -73,13 +68,14 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const quickViewData = propertiesList?.find(
     (item) => item._id === quickViewPropertyId
   );
-
   useEffect(() => {
-    dispatch(quickViewAction(""));
+    dispatch(quickViewAction(''));
+    dispatch(resetPropertyCordsAction());
   }, [currentPage, pageSizeMain]);
 
   useEffect(() => {
     dispatch(currentPageAction(1));
+    dispatch(myBookingQuickViewAction(''));
   }, []);
 
   const handleError = () => {
@@ -89,10 +85,10 @@ const Flats: React.FC<FlatsProps> = (props) => {
     if (error) {
       Swal.fire({
         title: error,
-        text: "Please try again",
-        icon: "warning",
+        text: 'Please try again',
+        icon: 'warning',
         showCancelButton: false,
-        confirmButtonText: "OK",
+        confirmButtonText: 'OK',
       }).then(() => {
         handleError();
       });
@@ -101,14 +97,17 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const currentPaginationData = useMemo(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     const firstPageIndex =
       (currentPage - 1) * (props.isMain ? pageSizeMain : pageSizeFavorite);
     const lastPageIndex =
-      firstPageIndex + (props.isMain ? pageSizeMain : pageSizeFavorite);
+      firstPageIndex +
+      (props.isMain ? pageSizeMain : pageSizeFavorite) +
+      (quickViewPropertyId === '' ? 0 : 1);
     return propertiesList?.slice(firstPageIndex, lastPageIndex);
   }, [
+    quickViewPropertyId,
     currentPage,
     pageSizeMain,
     pageSizeFavorite,
@@ -136,25 +135,25 @@ const Flats: React.FC<FlatsProps> = (props) => {
     props.isMain
       ? window.scrollTo({
           top: 0,
-          behavior: "smooth",
+          behavior: 'smooth',
         })
-      : scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+      : scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   const closeQuickViewHandler = () => {
-    dispatch(quickViewAction(""));
+    dispatch(quickViewAction(''));
     dispatch(resetPropertyCordsAction());
     props.isMain
       ? window.scrollTo({
           top: 0,
-          behavior: "smooth",
+          behavior: 'smooth',
         })
-      : scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+      : scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   const myBookingQuickViewHandler = (id: string) => {
     dispatch(myBookingQuickViewAction(id));
   };
   const closeMyBookingQuickViewHandler = () => {
-    dispatch(myBookingQuickViewAction(""));
+    dispatch(myBookingQuickViewAction(''));
   };
   let propertiesRender = <></>;
   if (propertiesList?.length > 0) {
@@ -194,21 +193,18 @@ const Flats: React.FC<FlatsProps> = (props) => {
           )}
           {currentPaginationData
             .filter((item) => item._id !== quickViewPropertyId)
-            .map((property: PropertyInterface) => {
-              return (
-                <Flat
-                  quickViewClicked={() =>
-                    quickViewHandler(property._id, property.location.cord)
-                  }
-                  isMain={props.isMain}
-                  key={property._id}
-                  property={property}
-                  clickedLike={() => favoritesHandler(property._id)}
-                  liked={isStringInArray(property._id, user.favorites)}
-                />
-              );
-              // }
-            })}
+            .map((property: PropertyInterface) => (
+              <Flat
+                quickViewClicked={() =>
+                  quickViewHandler(property._id, property.location.cord)
+                }
+                isMain={props.isMain}
+                key={property._id}
+                property={property}
+                clickedLike={() => favoritesHandler(property._id)}
+                liked={isStringInArray(property._id, user.favorites)}
+              />
+            ))}
         </ul>
       </React.Fragment>
     );
@@ -259,7 +255,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
                 myBookingQuickViewHandler(property._id)
               }
               isQuickViewed={
-                myBookingQuickViewId !== "" &&
+                myBookingQuickViewId !== '' &&
                 myBookingQuickViewId === property._id
               }
               bookedProperty={property}
@@ -287,7 +283,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
         pageSizeHandler={pageSizeHandler}
         numberOfApartaments={propertiesList?.length}
         isMain={props.isMain}
-        filterOpen={() => dispatch(toggleFilterButtonAction(!isFilterOpen))}
+        filterOpen={() => dispatch(toggleFilterButtonAction(true))}
       />
       {myBookingsRender}
       {propertiesRender}
@@ -295,7 +291,15 @@ const Flats: React.FC<FlatsProps> = (props) => {
         <React.Fragment>
           <Pagination
             currentPage={currentPage}
-            totalCount={propertiesList?.length}
+            totalCount={
+              propertiesList?.length -
+              (quickViewPropertyId === '' ||
+              pageSizeMain -
+                (pageSizeMain * currentPage - propertiesList.length) ===
+                1
+                ? 0
+                : 1)
+            }
             pageSize={props.isMain ? pageSizeMain : pageSizeFavorite}
             onPageChange={(page) => dispatch(currentPageAction(page))}
           />
@@ -307,4 +311,4 @@ const Flats: React.FC<FlatsProps> = (props) => {
   );
 };
 
-export default Flats;
+export default React.memo(Flats);

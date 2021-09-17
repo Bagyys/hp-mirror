@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPropertiesAction } from "../../../../store/actions/propertyActions";
 import { PropertyInterface } from "../../../../store/types/propertyInterfaces";
 
-import { useEffect } from "react";
-import { StoreState } from "../../../../store/configureStore";
+import { useEffect } from 'react';
+import { StoreState } from '../../../../store/configureStore';
 
 const ChooseFlats = (props: any) => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const ChooseFlats = (props: any) => {
                               key={index}
                               property={butas}
                               clickedLike={function (): void {
-                                throw new Error("Function not implemented.");
+                                throw new Error('Function not implemented.');
                               }}
                             />
                           </section>

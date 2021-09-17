@@ -14029,6 +14029,8 @@
 ::1 - - [15/Sep/2021:06:03:05 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [15/Sep/2021:07:06:41 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
 ::1 - - [15/Sep/2021:10:33:45 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [15/Sep/2021:10:35:15 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [15/Sep/2021:10:35:19 +0000] "GET /property/getAllProperties HTTP/1.1" 200 14655
@@ -14053,6 +14055,7 @@
 ::1 - - [16/Sep/2021:04:21:41 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 =======
 <<<<<<< HEAD
+>>>>>>> origin/FlatViewCarosel+NavigacijosPastumdimai
 ::1 - - [15/Sep/2021:09:54:53 +0000] "POST / HTTP/1.1" 200 43
 ::1 - - [15/Sep/2021:09:54:54 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [15/Sep/2021:09:55:19 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
@@ -14064,11 +14067,22 @@
 ::1 - - [15/Sep/2021:20:33:13 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [15/Sep/2021:20:34:51 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 >>>>>>> origin/favorite-filter-fixes
+<<<<<<< HEAD
+::1 - - [16/Sep/2021:05:00:56 +0000] "GET /property/getAllProperties HTTP/1.1" 200 14655
+::1 - - [16/Sep/2021:05:01:03 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [16/Sep/2021:05:01:27 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [16/Sep/2021:05:01:50 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [16/Sep/2021:05:01:59 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [16/Sep/2021:05:02:04 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [16/Sep/2021:05:02:14 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+::1 - - [16/Sep/2021:05:02:20 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+=======
 >>>>>>> e773cd78ce00c944540320c5cc5e25934a1923af
 ::1 - - [16/Sep/2021:05:08:03 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [16/Sep/2021:08:36:19 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [16/Sep/2021:08:37:43 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [16/Sep/2021:08:44:15 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+<<<<<<< HEAD
 ::1 - - [17/Sep/2021:03:57:07 +0000] "GET /property/getAllProperties HTTP/1.1" 200 14667
 ::1 - - [17/Sep/2021:03:57:34 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [17/Sep/2021:04:11:41 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
@@ -14092,3 +14106,6 @@
 ::1 - - [17/Sep/2021:08:38:57 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [17/Sep/2021:08:40:20 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
 ::1 - - [17/Sep/2021:10:57:13 +0000] "GET /property/getAllProperties HTTP/1.1" 304 -
+=======
+>>>>>>> origin/FlatViewCarosel+NavigacijosPastumdimai
+>>>>>>> 881e5f7f9e3ed692f31cb42d1d11f3bab64e7435
