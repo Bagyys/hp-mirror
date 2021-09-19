@@ -379,8 +379,9 @@ export const tokenConfig = (getState: () => StoreState) => {
   return config;
 };
 
-export const addToFavoriteAction = (id:string,favorites:Array<string>) =>  (dispatch: Dispatch) => {
-    let newData = [...favorites];
+export const addToFavoriteAction = (id:string) =>  (dispatch: Dispatch,getState:() => StoreState) => {
+    const userInfo: userState = getState().user;
+    let newData = [...userInfo.user.favorites];
     let isFavorites = isStringInArray(id, newData);
     if (id) {
       isFavorites

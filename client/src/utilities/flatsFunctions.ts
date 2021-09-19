@@ -4,7 +4,7 @@ import { FormDataInterface } from "../store/types/filterInterface";
 
 export const filterArrayById = (properties:PropertyInterface[], arr: Array<string>) => 
  { 
-  //ideda apartamentus i favorite list ir recently viewed ,kad rikiuotu juos pagal paspaudima
+  //apartamentu liste atfiltruoja favorite ir recently viewed listus ir rikiuoja pagal paspaudima
   const Arr:PropertyInterface[]=[];
   for(let el of arr){
     for(let el2 of properties){
@@ -78,3 +78,23 @@ export const objecToArray = (object: object) => {
   }
   return newArr;
 };
+export const recentlyViewedObj=(recentlyViewedProperties:{[key:string]:Array<string>},id:string)=>{
+    //Veiksmai su su recently viewed objektu kai perziurimi apartamentai
+    //Nezinau koks reikalingas tikslus funkcionalumas ir gal pagerinti koda
+    let newData = { ...recentlyViewedProperties };
+    let isInRecentlyViewedMain = isStringInArray(id, newData['main']);
+    let isInRecentlyViewedFavorite = isStringInArray(id, newData['favorite']);
+    if (!isInRecentlyViewedFavorite) {
+      newData['favorite'].length > 3 && newData['favorite'].shift();
+      newData['favorite'].push(id);
+    }
+    if (!isInRecentlyViewedMain) {
+      if (newData['favorite'].indexOf(id) >= 0 && isInRecentlyViewedFavorite) {
+        newData['favorite'].splice(newData['favorite'].indexOf(id), 1);
+        newData['favorite'].push(id);
+      }
+      newData['main'].length > 1 && newData['main'].shift();
+      newData['main'].push(id);
+    }
+    return newData;
+}

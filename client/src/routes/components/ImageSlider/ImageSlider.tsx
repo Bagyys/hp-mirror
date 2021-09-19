@@ -1,7 +1,7 @@
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
-import Carousel from "nuka-carousel";
-import { cn } from "../../../utilities/joinClasses";
-import classes from "./ImageSlider.module.scss";
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
+import Carousel from 'nuka-carousel';
+import { cn } from '../../../utilities/joinClasses';
+import classes from './ImageSlider.module.scss';
 
 interface SliderProps {
   slides: Array<string>;
@@ -15,11 +15,9 @@ const ImageSlider: React.FC<SliderProps> = ({ slides, sliderClass }) => {
     <section className={classes.Slider}>
       <Carousel
         slideWidth={1.005}
-        heightMode="max"
         dragging={true}
         swiping={true}
-        wrapAround={true}
-        transitionMode={"scroll3d"}
+        transitionMode={'scroll3d'}
         renderCenterRightControls={({ nextSlide }) => (
           <MdKeyboardArrowRight
             onClick={nextSlide}
@@ -37,9 +35,9 @@ const ImageSlider: React.FC<SliderProps> = ({ slides, sliderClass }) => {
           />
         )}
         defaultControlsConfig={{
-          pagingDotsContainerClassName: classes["Dots"],
+          pagingDotsContainerClassName: classes['Dots'],
           pagingDotsStyle: {
-            fill: "white",
+            fill: 'white',
             opacity: 1,
           },
         }}

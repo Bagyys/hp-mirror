@@ -1,18 +1,27 @@
 import { cn } from '../../../utilities/joinClasses';
-import Button from '../Button/button';
+import Button from '../../../routes/components/Button/button';
 import classes from './FlatsNav.module.scss';
 import filterImg from '../../../assets/images/filter.png';
 import arrow from '../../../assets/images/arrow2.png';
 import { useMediaPredicate } from 'react-media-hook';
+import { useDispatch } from 'react-redux';
+import {
+  currentPageAction,
+  pageSizeAction,
+} from '../../../store/actions/propertyActions';
 interface FlatNavProps {
   filterOpen: () => void;
   pageSize: number;
-  pageSizeHandler: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   isMain: boolean;
   numberOfApartaments: number;
 }
 const FlatsNav: React.FC<FlatNavProps> = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
+  const dispatch = useDispatch();
+  const pageSizeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(pageSizeAction(Number(e.target.value)));
+    dispatch(currentPageAction(1));
+  };
   return (
     <div
       className={cn(
@@ -34,7 +43,7 @@ const FlatsNav: React.FC<FlatNavProps> = (props) => {
       <div className={classes.RightSide}>
         {props.isMain && (
           <div className={classes.CustomSelect}>
-            <select onChange={props.pageSizeHandler} value={props.pageSize}>
+            <select onChange={pageSizeHandler} value={props.pageSize}>
               <option value="4">4</option>
               <option value="6">6</option>
               <option value="8">8</option>

@@ -15,7 +15,7 @@ export interface PropertyState {
   pageSizeFavorite:number;
   currentPage:number;
   activePropertyCord:{lat:number,lng:number};
-  recentlyViewedProperties:Array<string>;
+  recentlyViewedProperties:{[key:string]:Array<string>};
 }
 
 const initialState: PropertyState = {
@@ -28,7 +28,7 @@ const initialState: PropertyState = {
   currentPage:1,
   activePropertyCord:{lat: 54.687157,
     lng: 25.279652,},
-  recentlyViewedProperties:[] as Array<string>
+  recentlyViewedProperties:{main:[],favorite:[]}
 };
 
 const propertyReducer = (

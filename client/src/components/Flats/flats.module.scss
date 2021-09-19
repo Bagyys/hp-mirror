@@ -31,36 +31,7 @@
             scroll-margin-top: 8rem
         }
     }
-    .FlatsListConatiner{
-        display:flex;
-        flex-wrap: wrap;
-        margin-bottom: 6.22rem;
-        &.FlatsListConatinerMain {       
-        @include respond(mobile){
-            flex-wrap: nowrap;
-            overflow-y: auto;
-            margin-bottom: 0;
-            padding-top: 0.2rem;
-            padding-left: 1.2rem;
-        }
-        }
-        &.FlatsListConatinerFavorite{
-            
-            @include respond(mobile){
-                display: block;
-                margin-bottom: 2.58rem;
-            }
-        }
-    }
-    .RecentlyViewContainer {
-        margin-top: 9.1rem;
-        h2{
-            font-size: $fontSize33px;
-            font-weight: $font-Weight-bold;
-            font-family: $helveticaNeue;
-            line-height: $lineHeight26px;
-            margin-bottom: 2.23rem;
-        }
-    }
+    
+    
     
 }
