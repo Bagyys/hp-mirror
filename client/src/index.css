@@ -193,6 +193,10 @@ table {
 .slider-slide {
   outline: none ;
   height: 100% !important;
+  opacity: 0.2 !important;
+}
+.slide-visible {
+  opacity: 1!important;
 }
 
 .slider-list {

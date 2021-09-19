@@ -251,21 +251,11 @@ export const activePropertyCordsAction =
   };
 
 export const addRecentlyViewedAction =
-  (id: string, properties: Array<string>, total: number) =>
+  (properties: {[key:string]:Array<string>}) =>
   (dispatch: Dispatch) => {
-    //issiaiskinti reikiama funkcionaluma
-    let newData = [...properties];
-    let isRecentlyViewed = isStringInArray(id, newData);
-    if (total === 2 && newData.length > 1) {
-      newData.splice(0, newData.length - total);
-    }
-    if (!isRecentlyViewed) {
-      newData.length > total - 1 && newData.shift();
-      newData.push(id);
-    }
     dispatch({
       type: propertyTypes.ADD_RECENTLY_VIEWED,
-      payload: newData,
+      payload: properties,
     });
   };
   
