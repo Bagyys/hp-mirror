@@ -47,7 +47,7 @@ const FlatsList = React.forwardRef<HTMLDivElement, FlatListProps>(
       props.isMain,
     ]);
     return currentPaginationData?.length > 0 ? (
-      <div className={classes.FlatsContainer}>
+      <React.Fragment>
         {/* Title for Favorite page PC */}
         {!props.isMain && <h2 ref={ref}>Your Favorites</h2>}
         {/* QuickView for filter page mobile and pc, and favorite page mobile */}
@@ -93,7 +93,7 @@ const FlatsList = React.forwardRef<HTMLDivElement, FlatListProps>(
               />
             ))}
         </ul>
-      </div>
+      </React.Fragment>
     ) : (
       <React.Fragment></React.Fragment>
     );

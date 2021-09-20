@@ -5,7 +5,6 @@
     .FlatsListConatiner{
         display:flex;
         flex-wrap: wrap;
-        margin-bottom: 6.22rem;
         &.FlatsListConatinerMain {       
         @include respond(mobile){
             flex-wrap: nowrap;
@@ -15,8 +14,7 @@
             padding-left: 1.2rem;
         }
         }
-        &.FlatsListConatinerFavorite{
-            
+        &.FlatsListConatinerFavorite{         
             @include respond(mobile){
                 display: block;
                 margin-bottom: 2.58rem;

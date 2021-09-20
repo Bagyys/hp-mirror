@@ -1,6 +1,6 @@
 @import "../../styles/mixins";
 .Footer {
-    margin-top: 17rem;
+    margin-top: 14.5rem;
     @include respond(mobile){
         margin-top: 3.5rem;
     }

@@ -1,25 +1,24 @@
 @import "../../../styles/global.scss";
 @import "../../../styles/mixins";
-.FlatsContainer{
-    margin-bottom: 6.22rem;
-    .FlatsListConatiner{
-        display:flex;
-        flex-wrap: wrap;       
-        &.FlatsListConatinerMain {       
+
+.FlatsListConatiner{
+    display:flex;
+    flex-wrap: wrap;   
+    margin-bottom: 6.2rem;    
+    &.FlatsListConatinerMain {       
+    @include respond(mobile){
+        flex-wrap: nowrap;
+        overflow-y: auto;
+        margin-bottom: 0;
+        padding-top: 0.2rem;
+        padding-left: 1.2rem;
+    }
+    }
+    &.FlatsListConatinerFavorite{
         @include respond(mobile){
-            flex-wrap: nowrap;
-            overflow-y: auto;
-            margin-bottom: 0;
-            padding-top: 0.2rem;
-            padding-left: 1.2rem;
-        }
-        }
-        &.FlatsListConatinerFavorite{
-            
-            @include respond(mobile){
-                display: block;
-                margin-bottom: 2.58rem;
-            }
+            display: block;
+            margin-bottom: 2.58rem;
         }
     }
 }
+
