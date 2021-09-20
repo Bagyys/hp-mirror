@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Flat from '../../../routes/components/Flat/Flat';
 import QuickViewFlat from '../../../routes/components/QuickViewFlat/QuickViewFlat';
 import QuickViewFlatFavoritePc from '../../../routes/components/QuickViewFlatFavoritePc/QuickViewFlatFavoritePc';
@@ -12,6 +12,9 @@ interface FlatListProps {
   favorites: Array<string>;
   isMobile: boolean;
   quickViewPropertyId: string;
+  currentPage: number;
+  pageSizeMain: number;
+  pageSizeFavorite: number;
   favoritesHandler: (id: string) => void;
   closeQuickViewHandler: () => void;
   quickViewHandler: (id: string, cord: { lat: number; lng: number }) => void;
@@ -21,8 +24,29 @@ const FlatsList = React.forwardRef<HTMLDivElement, FlatListProps>(
     const quickViewData = props.properties?.find(
       (item) => item._id === props.quickViewPropertyId
     );
-
-    return props.properties?.length > 0 ? (
+    const currentPaginationData = useMemo(() => {
+      props.isMain &&
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      const firstPageIndex =
+        (props.currentPage - 1) *
+        (props.isMain ? props.pageSizeMain : props.pageSizeFavorite);
+      const lastPageIndex =
+        firstPageIndex +
+        (props.isMain ? props.pageSizeMain : props.pageSizeFavorite) +
+        (props.quickViewPropertyId === '' ? 0 : 1);
+      return props.properties?.slice(firstPageIndex, lastPageIndex);
+    }, [
+      props.quickViewPropertyId,
+      props.currentPage,
+      props.pageSizeMain,
+      props.pageSizeFavorite,
+      props.properties,
+      props.isMain,
+    ]);
+    return currentPaginationData?.length > 0 ? (
       <div className={classes.FlatsContainer}>
         {/* Title for Favorite page PC */}
         {!props.isMain && <h2 ref={ref}>Your Favorites</h2>}
@@ -54,7 +78,7 @@ const FlatsList = React.forwardRef<HTMLDivElement, FlatListProps>(
               isMain={props.isMain}
             />
           )}
-          {props.properties
+          {currentPaginationData
             .filter((item) => item._id !== props.quickViewPropertyId)
             .map((property: PropertyInterface) => (
               <Flat

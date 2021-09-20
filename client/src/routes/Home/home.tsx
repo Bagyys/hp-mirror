@@ -14,10 +14,10 @@ import { PropertyState } from '../../store/reducers/propertyReducer';
 import {
   getAllPropertiesAction,
   resetPropertyCordsAction,
-} from "../../store/actions/propertyActions";
-import { FilterState } from "../../store/reducers/filterReducer";
-import SideFilter from "../../components/SideFilter/SideFilter";
-import { toggleFilterButtonAction } from "../../store/actions/filterActions";
+} from '../../store/actions/propertyActions';
+import { FilterState } from '../../store/reducers/filterReducer';
+import SideFilter from '../../components/SideFilter/SideFilter';
+import { toggleFilterButtonAction } from '../../store/actions/filterActions';
 const isChoosing = false;
 function Home() {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ function Home() {
   );
 
   const { formData, isFilterOpen } = filterSide;
-  const isMobile = useMediaPredicate("(max-width: 675px)");
+  const isMobile = useMediaPredicate('(max-width: 675px)');
   const toggleFilterHandler = () => {
     dispatch(toggleFilterButtonAction(!isFilterOpen));
   };

@@ -87,27 +87,6 @@ const Flats: React.FC<FlatsProps> = (props) => {
       });
     }
   }, [error]);
-  const currentPaginationData = useMemo(() => {
-    props.isMain &&
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    const firstPageIndex =
-      (currentPage - 1) * (props.isMain ? pageSizeMain : pageSizeFavorite);
-    const lastPageIndex =
-      firstPageIndex +
-      (props.isMain ? pageSizeMain : pageSizeFavorite) +
-      (quickViewPropertyId === '' ? 0 : 1);
-    return propertiesList?.slice(firstPageIndex, lastPageIndex);
-  }, [
-    quickViewPropertyId,
-    currentPage,
-    pageSizeMain,
-    pageSizeFavorite,
-    propertiesList,
-    props.isMain,
-  ]);
 
   const favoritesHandler = (id: string) => {
     dispatch(addToFavoriteAction(id));
@@ -116,6 +95,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
   const quickViewHandler = (id: string, cord: { lat: number; lng: number }) => {
     props.isMain && dispatch(activePropertyCordsAction(cord));
     dispatch(quickViewAction(id));
+    //pridedam apartamentus i recentlyViewed, kai padarom quick view ant apartamentu, ar reikia ieiti i apartamentus, kad tai atlikti ???
     dispatch(
       addRecentlyViewedAction(recentlyViewedObj(recentlyViewedProperties, id))
     );
@@ -153,11 +133,14 @@ const Flats: React.FC<FlatsProps> = (props) => {
       )}
       {/* Nezinau ar props paduoti ar redux componente naudoti ar is vis geriau nereikejo iskelti */}
       <FlatsList
-        properties={currentPaginationData}
+        properties={propertiesList}
         isMain={props.isMain}
         favorites={user.favorites}
         isMobile={isMobile}
         quickViewPropertyId={quickViewPropertyId}
+        currentPage={currentPage}
+        pageSizeMain={pageSizeMain}
+        pageSizeFavorite={pageSizeFavorite}
         favoritesHandler={favoritesHandler}
         closeQuickViewHandler={closeQuickViewHandler}
         quickViewHandler={quickViewHandler}
@@ -181,6 +164,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
             onPageChange={(page) => dispatch(currentPageAction(page))}
           />
           {/* Nezinau ar props paduoti ar redux componente naudoti ar is vis geriau nereikejo iskelti */}
+          {/*kur turi atsirasti quickview kortele paspaudus ant recently viewed apartamentu favorite page? ??? */}
           <RecentlyViewedList
             properties={filterArrayById(
               properties,
