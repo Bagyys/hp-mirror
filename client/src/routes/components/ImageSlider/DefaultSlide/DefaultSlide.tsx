@@ -8,7 +8,7 @@ interface ImagesInterface {
   images: Array<string>;
 }
 
-const DefaultSlide = ({ images }: ImagesInterface) => {
+const DefaultSlide = ( {images} : ImagesInterface) => {
   console.log(images[0], "Default Slides Photos");
   console.log(DefaultSlide, "DefaultSlide Component");
   console.log({images}, "DefaulteSlide Images");

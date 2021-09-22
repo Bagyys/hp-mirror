@@ -32,6 +32,7 @@ import { clearErrorAction } from "../../store/actions/errorActions";
 import Footer from "../../components/Footer/Footer";
 import classes from "./FlatReview.module.scss";
 import { cn } from "../../utilities/joinClasses";
+import ImageSlider from "../components/ImageSlider/ImageSlider";
 interface CustomRange {
   startDate: Date;
   endDate: Date;
@@ -45,6 +46,7 @@ export interface DisplayDay {
 }
 
 interface PropsInterface {
+  [x: string]: any;
   location: {
     state: {
       property: PropertyInterface;
@@ -68,6 +70,8 @@ const FlatView = (props: PropsInterface) => {
   const propertyStore: PropertyState = useSelector(
     (state: StoreState) => state.property
   );
+  console.log(propertyStore.properties, "StoreProperties");
+
   const properties: Array<PropertyInterface> = propertyStore.properties;
   const stateProperty: PropertyInterface = properties[0];
 
@@ -208,27 +212,20 @@ const FlatView = (props: PropsInterface) => {
   let propertyRender = <></>;
 
   if (property) {
-    const element1 = [property.images[0]]; //property.images[0]?
+    const element1 = [property.images]; //property.images[0]?
     let ultimateArray = [];
 
     ultimateArray.push(element1);
 
     let arrayAfterLoad = property.images;
-    console.log("arrayAfterLoad");
-    console.log(arrayAfterLoad);
-    console.log(ultimateArray, "UltimateArray po push()");
+
     var i,
       j,
       temparray,
       chunk = 8;
-    console.log(i, "i?");
-    console.log(temparray, "temparray");
-    console.log(j, "j?");
-    console.log(chunk, "chunk?");
 
     for (i = 0, j = arrayAfterLoad.length; i < j; i += chunk) {
       temparray = arrayAfterLoad.slice(i, i + chunk);
-      console.log(i, "i in for loop");
 
       if (temparray.length < 8) {
         let leftSpace = 8 - temparray.length;
@@ -236,49 +233,39 @@ const FlatView = (props: PropsInterface) => {
           temparray.push("/no-photo.png");
         }
       }
-      console.log(temparray, "temparray in if ");
+
       const testArray = [];
       testArray.push(temparray);
 
-      ultimateArray = [...ultimateArray, ...testArray];
+      ultimateArray = [ultimateArray, ...testArray]; // [...ultimateArray, ...testArray]
     }
+    // for (let i = 0; i < ultimateArray.length; i++) {
+    //   for (let j = 0; j < ultimateArray[i].length; j++) {
+    //     console.log(ultimateArray[i][j], "ij");
+    //     if (ultimateArray[i][j] === "flat2.jpg") ultimateArray[i].slice(j, i);
+    //   }
+    // }
+    // console.log(ultimateArray, "Loop UltimateArrayyy");
 
-    const length = ultimateArray.length;
-    console.log(length, "Lenght");
-    console.log(current, "Current");
+    const length = ultimateArray.length; //ultimateArray.length
 
-    console.log(ultimateArray, "ultimatearray affter");
     const nextSlide = () => {
-      console.log(nextSlide, "NextSLide Aktive");
-      setCurrent(current === 0 ? length - 1 : current - 1);
-      console.log(nextSlide, "NextSLide Aktive PO");
+      setCurrent(current === 0 ? length - 1 : current - 1); //lentgh
     };
 
     const prevSlide = () => {
-      console.log(prevSlide, "Koks Index PrevSlide0");
       setCurrent(current === length - 1 ? 0 : current + 1);
-      console.log(prevSlide, "Koks Index PrevSlide");
     };
 
     if (!Array.isArray(ultimateArray) || ultimateArray.length <= 0) {
       return null;
-      console.log("SULUZO");
     }
-    console.log(ultimateArray, "Koks Index?");
-    console.log(
-      [setCurrent],
-      "setCurrentState----------------------------------------------------------------------"
-    );
 
     propertyRender = (
       <div className={classes.FlatBox}>
         <div className={classes.ImagesBox}>
           <div className={classes.arrowRight}>
-            <MdKeyboardArrowLeft
-              size="8em"
-              color="white"
-              onClick={ prevSlide}
-            />
+            <MdKeyboardArrowLeft size="8em" color="white" onClick={prevSlide} />
           </div>
           <div className={classes.arrowLeft}>
             <MdKeyboardArrowRight
@@ -287,11 +274,9 @@ const FlatView = (props: PropsInterface) => {
               onClick={nextSlide}
             />
           </div>
+
           {ultimateArray.map((item, index) => {
             if (index === 0) {
-              console.log(index, "index kas jis toks");
-              console.log(DefaultSlide, "DefaultSlide");
-
               return (
                 <div
                   className={
@@ -304,11 +289,12 @@ const FlatView = (props: PropsInterface) => {
                   {index === current && (
                     <div key={index} className={classes.Images}>
                       <DefaultSlide images={property.images} />
+
                       {/* images={property.images} */}
                     </div>
                   )}
                 </div>
-              ); 
+              );
             } else {
               return (
                 <div
@@ -323,7 +309,7 @@ const FlatView = (props: PropsInterface) => {
                     {index === current && (
                       <div key={index} className={classes.Images}>
                         {item.map((images) => {
-                          <img src={images} alt="Photo" />;
+                          // <img src={images} alt="Photo" />;
                         })}
                       </div>
                     )}
@@ -436,13 +422,14 @@ const FlatView = (props: PropsInterface) => {
         </div>
       </div>
     );
-    console.log([current], "current");
-    console.log([setCurrent]);
   }
 
   return (
     <>
       <Navigation />
+      <div className={classes.FlatImgsss}>
+        <ImageSlider sliderClass="FlatCard" slides={property.images} />
+      </div>
       <div className={classes.FlatReview}>{propertyRender}</div>
       <FlatInfo />
       <Footer />

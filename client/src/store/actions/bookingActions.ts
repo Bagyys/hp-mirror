@@ -69,6 +69,7 @@ export type BookingActions =
 export const checkAvailabilityAction =
   (selectedDays: Array<Date>, occupiedTime: Array<OccupiedDayInterface>) =>
   (dispatch: Dispatch) => {
+   
     
     const displayDays = selectedDays.map((selectedDay: Date) => {
       const occIndex = indexInArray(occupiedTime, selectedDay);
