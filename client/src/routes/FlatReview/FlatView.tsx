@@ -79,6 +79,7 @@ const FlatView = (props: PropsInterface) => {
 
   const auth: userState = useSelector((state: StoreState) => state.user);
   const user = auth.user;
+  console.log(user, "user/_");
 
   const errorState: ErrorState = useSelector(
     (state: StoreState) => state.error
@@ -264,7 +265,7 @@ const FlatView = (props: PropsInterface) => {
     propertyRender = (
       <div className={classes.FlatBox}>
         <div className={classes.ImagesBox}>
-          <div className={classes.arrowRight}>
+          {/* <div className={classes.arrowRight}>
             <MdKeyboardArrowLeft size="8em" color="white" onClick={prevSlide} />
           </div>
           <div className={classes.arrowLeft}>
@@ -273,18 +274,18 @@ const FlatView = (props: PropsInterface) => {
               color="white"
               onClick={nextSlide}
             />
-          </div>
+          </div> */}
 
           {ultimateArray.map((item, index) => {
             if (index === 0) {
               return (
                 <div
-                  className={
-                    index === current
-                      ? `${classes.slide} ${classes.active}`
-                      : classes.slide
-                  }
-                  key={index}
+                // className={
+                //   index === current
+                //     ? `${classes.slide} ${classes.active}`
+                //     : classes.slide
+                // }
+                // key={index}
                 >
                   {index === current && (
                     <div key={index} className={classes.Images}>
@@ -298,21 +299,21 @@ const FlatView = (props: PropsInterface) => {
             } else {
               return (
                 <div
-                  className={
-                    index === current
-                      ? `${classes.slide} ${classes.active}`
-                      : classes.slide
-                  }
-                  // key={index}
+                // className={
+                //   index === current
+                //     ? `${classes.slide} ${classes.active}`
+                //     : classes.slide
+                // }
+                // key={index}
                 >
                   <div className={classes.Images2}>
-                    {index === current && (
+                    {/* {index === current && (
                       <div key={index} className={classes.Images}>
                         {item.map((images) => {
                           // <img src={images} alt="Photo" />;
                         })}
                       </div>
-                    )}
+                    )} */}
                     {/* {index === current &&
                       item.map((photo: string, index: string) => {
                         return (
@@ -333,7 +334,7 @@ const FlatView = (props: PropsInterface) => {
             <span>1 video</span>
           </div> */}
         </div>
-        <div className={classes.contentBox}>
+        {/* <div className={classes.contentBox}>
           <div className={classes.content}>
             <div className={classes.breadCrumbsPanel}>
               <BreadCrumbs pathname={props.location.pathname} />
@@ -419,7 +420,7 @@ const FlatView = (props: PropsInterface) => {
               handleBooking={handleBooking}
             />
           ) : null}
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -428,7 +429,7 @@ const FlatView = (props: PropsInterface) => {
     <>
       <Navigation />
       <div className={classes.FlatImgsss}>
-        <ImageSlider sliderClass="FlatCard" slides={property.images} />
+        {/* <ImageSlider sliderClass="FlatCard" slides={property.images} /> */}
       </div>
       <div className={classes.FlatReview}>{propertyRender}</div>
       <FlatInfo />
