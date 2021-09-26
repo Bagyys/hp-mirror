@@ -11,10 +11,7 @@ import { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from '../../store/configureStore';
 import { PropertyState } from '../../store/reducers/propertyReducer';
-import {
-  getAllPropertiesAction,
-  resetPropertyCordsAction,
-} from '../../store/actions/propertyActions';
+import { getAllPropertiesAction, resetPropertyCordsAction } from '../../store/actions/propertyActions';
 import { FilterState } from '../../store/reducers/filterReducer';
 import SideFilter from '../../components/SideFilter/SideFilter';
 import { toggleFilterButtonAction } from '../../store/actions/filterActions';
@@ -23,13 +20,9 @@ function Home() {
   const dispatch = useDispatch();
   const mainPage = useSelector((state: StoreState) => state.mainPage);
   const { searchedDayList, guests } = mainPage;
-  const propertyStore: PropertyState = useSelector(
-    (state: StoreState) => state.property
-  );
+  const propertyStore: PropertyState = useSelector((state: StoreState) => state.property);
   const { quickViewPropertyId } = propertyStore;
-  const filterSide: FilterState = useSelector(
-    (state: StoreState) => state.filter
-  );
+  const filterSide: FilterState = useSelector((state: StoreState) => state.filter);
 
   const { formData, isFilterOpen } = filterSide;
   const isMobile = useMediaPredicate('(max-width: 675px)');
@@ -41,7 +34,7 @@ function Home() {
     //is karto filtruoja ar butai laisvi ir atitinka gyventoju skaiciu paemus duomenis is API, taip pat cia filtruojami sideFilter duomenys, nezinau ar tinka?
     dispatch(getAllPropertiesAction(searchedDayList, guests, formData));
     dispatch(resetPropertyCordsAction());
-  }, [searchedDayList, formData]);
+  }, [searchedDayList, formData, dispatch, guests]);
 
   return (
     <>
@@ -61,18 +54,15 @@ function Home() {
             <div
               className={cn(
                 classes.ContentBox,
-                quickViewPropertyId
-                  ? classes.MobileContentToTop
-                  : classes.MobileContent
-              )}
-            >
-              <Flats isMain={true} />
+                quickViewPropertyId ? classes.MobileContentToTop : classes.MobileContent
+              )}>
+              <Flats />
               <div className={classes.MapContainer}>
                 <Map />
               </div>
             </div>
             <Footer />
-            {isFilterOpen && <SideFilter />}
+            <SideFilter />
           </Fragment>
         )}
       </div>

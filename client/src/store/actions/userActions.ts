@@ -74,13 +74,6 @@ export interface VerifySuccess extends Action<typeof userTypes.VERIFY_SUCCESS> {
 export interface AddToFavorite extends Action<typeof userTypes.ADD_TO_FAVORITE> {
   payload: PropertyInterface;
 }
-/*NAv parameters*/
-export interface ToggleMenuButton extends Action<typeof userTypes.TOGGLE_MENU_BUTTON> {
-  payload: boolean;
-}
-export interface ScrollPage extends Action<typeof userTypes.PAGE_SCROLL> {
-  payload: boolean;
-}
 
 export interface VerifyFail extends Action<typeof userTypes.VERIFY_FAIL> {}
 
@@ -103,9 +96,8 @@ export type UserActions =
   | VerifyRequest
   | VerifySuccess
   | VerifyFail
-  | AddToFavorite
-  | ToggleMenuButton
-  | ScrollPage;
+  | AddToFavorite;
+  
 
 // -------------------- END of ACTION INTERFACES --------------------
 
@@ -396,15 +388,3 @@ export const addToFavoriteAction = (id:string) =>  (dispatch: Dispatch,getState:
   });
 }; 
 
-export const toggleNavMenuButtonAction = (isOpen:boolean) =>  (dispatch: Dispatch) => {
-  dispatch({
-    type: userTypes.TOGGLE_MENU_BUTTON,
-    payload: isOpen,
-  });
-}; 
-export const pageScrollAction = (isPageScrolled:boolean) =>  (dispatch: Dispatch) => {
-  dispatch({
-    type: userTypes.PAGE_SCROLL,
-    payload: isPageScrolled,
-  });
-}; 

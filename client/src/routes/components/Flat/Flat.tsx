@@ -1,18 +1,16 @@
+import classes from './Flat.module.scss';
+import ImageSlider from '../ImageSlider/ImageSlider';
+import Button from '../Button/button';
+import GroupedBadges from '../GroupedBadges/GroupedBadges';
+import Ratings from '../Ratings/Ratings';
+import Favorites from '../Favorites/Favorites';
+import PropertiesType from '../PropertyType/PropertiesType';
+import MainInformation from '../MainInformation/MainInformation';
 
-import classes from "./Flat.module.scss";
-import ImageSlider from "../ImageSlider/ImageSlider";
-import Button from "../Button/button";
-import GroupedBadges from "../GroupedBadges/GroupedBadges";
-import Ratings from "../Ratings/Ratings";
-import Favorites from "../Favorites/Favorites";
-import PropertiesType from "../PropertyType/PropertiesType";
-import MainInformation from "../MainInformation/MainInformation";
-
-import { PropertyInterface } from "../../../store/types/propertyInterfaces";
-import DailyPrice from "../DailyPrices/DailyPrice";
-import { cn } from "../../../utilities/joinClasses";
-import React from "react";
-import { property } from "lodash";
+import { PropertyInterface } from '../../../store/types/propertyInterfaces';
+import DailyPrice from '../DailyPrices/DailyPrice';
+import { cn } from '../../../utilities/joinClasses';
+import React from 'react';
 
 interface FlatProps {
   property: PropertyInterface;
@@ -22,32 +20,20 @@ interface FlatProps {
   isMain?: boolean;
 }
 const Flat: React.FC<FlatProps> = (props) => (
-  <li
-    className={cn(
-      classes.Flat,
-      props.isMain ? classes.FlatMain : classes.FlatFavorite
-    )}
-  >
+  <li className={cn(classes.Flat, props.isMain ? classes.FlatMain : classes.FlatFavorite)}>
     <div className={classes.FlatContent}>
       <div className={classes.FlatImg}>
         <ImageSlider sliderClass="FlatCard" slides={props.property?.images} />
         <Favorites liked={props.liked} clickedLike={props.clickedLike} />
       </div>
 
-
       <div
         className={cn(
           classes.InfoContainer,
-          props.isMain
-            ? classes.InfoContainerMain
-            : classes.InfoContainerFavorite
-        )}
-      >
+          props.isMain ? classes.InfoContainerMain : classes.InfoContainerFavorite
+        )}>
         <GroupedBadges {...props.property.discounts} />
-        <Ratings
-          overallRating={props.property.overallRating}
-          ratingsCount={props.property.ratingsCount}
-        />
+        <Ratings overallRating={props.property.overallRating} ratingsCount={props.property.ratingsCount} />
         <PropertiesType>{props.property.title}</PropertiesType>
 
         <MainInformation facilities={props.property.facilities} />
@@ -59,11 +45,7 @@ const Flat: React.FC<FlatProps> = (props) => (
           </div>
 
           <div className={classes.FlatBtnsContainer}>
-            <Button
-              clicked={props.quickViewClicked}
-              btnType={"FlatInfo"}
-              bgColor="Blue"
-            >
+            <Button clicked={props.quickViewClicked} btnType={'FlatInfo'} bgColor="Blue">
               Quick View
             </Button>
           </div>

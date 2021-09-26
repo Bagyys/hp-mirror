@@ -1,17 +1,13 @@
 import filterTypes from "../types/filterTypes";
 import { FilterActions } from "../actions/filterActions";
-import { FilterDataInterface, FormDataInterface } from "../types/filterInterface";
+import { FilterDataInterface, FormDataInterface, MultiRangeSliderProps } from "../types/filterInterface";
 
 export interface FilterState {
   filterData:FilterDataInterface;
   formData:FormDataInterface;
   isFilterOpen:boolean;
   showHideInputs:{[key:string]:boolean};
-  multiRangeSlider:{
-    clear:boolean;
-    initialMin:number;
-    initialMax:number;
-  }
+  multiRangeSlider:MultiRangeSliderProps
 }
 
 const initialState:FilterState= {

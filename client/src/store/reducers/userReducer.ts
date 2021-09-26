@@ -10,8 +10,6 @@ export interface userState {
   isAuthenticated: boolean;
   isLoading: boolean;
   token: string | null;
-  isNavMenuOpened:boolean;
-  isPageScrolled:boolean;
 }
 
 export const isValidToken = (token: string | null) => {
@@ -51,9 +49,7 @@ const initialState: userState = {
     : null,
   token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
   isAuthenticated: false,
-  isLoading: true,
-  isNavMenuOpened:false, // Nav parameters here?
-  isPageScrolled:false // Nav parameters here?
+  isLoading: true
 };
 
 const userReducer = (state = initialState, action: UserActions) => {
@@ -139,16 +135,6 @@ const userReducer = (state = initialState, action: UserActions) => {
         ...state,
         user:{...state.user,favorites:action.payload}
       }  
-    case userTypes.TOGGLE_MENU_BUTTON:
-      return {
-        ...state,
-        isNavMenuOpened:action.payload
-      }    
-    case userTypes.PAGE_SCROLL:
-      return {
-        ...state,
-        isPageScrolled:action.payload
-      }     
     default:
       return state;
   }

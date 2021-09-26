@@ -1,8 +1,6 @@
-interface ObjectIndexer<T> {
-  [id: string]: T;
-}
-export interface FilterDataInterface extends ObjectIndexer<PriceInterface|RoomsBedsInterface|ApartamentInfoInterface> {
-  price: PriceInterface;
+
+export interface FilterDataInterface {
+  price: PriceSliderInterface;
   roomsAndBeds: RoomsBedsInterface;
   propertyTypes: ApartamentInfoInterface;
   houseRules: ApartamentInfoInterface;
@@ -10,6 +8,8 @@ export interface FilterDataInterface extends ObjectIndexer<PriceInterface|RoomsB
   facilities: ApartamentInfoInterface;
   areas: ApartamentInfoInterface;
 }
+export type ApartamentInfoId='propertyTypes'|'houseRules'|'amenities'|'facilities'|'areas';
+
 export interface FormDataInterface {
   price: {min:number,max:number};
   roomsAndBeds: {[key: string]:number};
@@ -20,7 +20,7 @@ export interface FormDataInterface {
   areas: {[key: string]:boolean};
 }
 
-export interface PriceInterface{
+export interface PriceSliderInterface{
   [key:string]: {[key:string]:number};
 }
 export interface RoomsBedsInterface {
@@ -28,4 +28,10 @@ export interface RoomsBedsInterface {
 }
 export interface ApartamentInfoInterface {
   [key: string]: { value: boolean; type: string; text: string };
+}
+
+export interface MultiRangeSliderProps{
+    clear:boolean;
+    initialMin:number;
+    initialMax:number;
 }

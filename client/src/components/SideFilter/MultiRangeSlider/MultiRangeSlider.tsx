@@ -1,11 +1,4 @@
-import React, {
-  ChangeEvent,
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-  useRef,
-} from 'react';
+import React, { ChangeEvent, FC, useCallback, useEffect, useState, useRef } from 'react';
 import { useMediaPredicate } from 'react-media-hook';
 import classes from './MultiRangeSlider.module.scss';
 import { cn } from '../../../utilities/joinClasses';
@@ -36,12 +29,9 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
 
   // Convert to percentage
   const getPercent = useCallback(
-    (value: number) =>
-      ((value - initialMin) / (initialMax - initialMin)) *
-      (isMobile ? 100 : 94.25),
+    (value: number) => ((value - initialMin) / (initialMax - initialMin)) * (isMobile ? 100 : 94.25),
     [initialMin, initialMax]
   );
-
   // Set width of the range to decrease from the left side
   useEffect(() => {
     const minPercent = getPercent(minVal);
@@ -51,7 +41,6 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
       range.current.style.width = `${maxPercent - minPercent}%`;
     }
   }, [minVal, getPercent]);
-
   // Set width of the range to decrease from the right side
   useEffect(() => {
     const minPercent = getPercent(minValRef.current);
@@ -60,7 +49,6 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
       range.current.style.width = `${maxPercent - minPercent}%`;
     }
   }, [maxVal, getPercent]);
-
   const clearRangeSlider = useCallback(() => {
     if (clear) {
       setMinVal(initialMin);
@@ -68,13 +56,14 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
       minValRef.current = initialMin;
       maxValRef.current = initialMax;
     }
-  }, [clear]);
+  }, [clear, initialMax, initialMin]);
+  useEffect(() => {
+    clearRangeSlider();
+  }, [clear, clearRangeSlider]);
   // Get min and max values when their state changes
   useEffect(() => {
     onChange({ min: minVal, max: maxVal });
-    clearRangeSlider();
-  }, [minVal, maxVal, clear]);
-
+  }, [minVal, maxVal]);
   return (
     <div className={classes.Container}>
       <input
@@ -109,11 +98,8 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({
           ref={range}
           className={classes.SliderRange}
           data-price-right={maxVal + '€'}
-          data-price-left={minVal + '€'}
-        ></div>
-        {maxVal < initialMax - 30 && (
-          <div className={classes.RightValue}>+{initialMax}€</div>
-        )}
+          data-price-left={minVal + '€'}></div>
+        {maxVal < initialMax - 30 && <div className={classes.RightValue}>+{initialMax}€</div>}
       </div>
     </div>
   );

@@ -1,18 +1,15 @@
 import classes from './CheckboxList.module.scss';
 import { ChangeEvent } from 'react';
 import Input from '../../../routes/components/Input/Input';
+import { ApartamentInfoId } from '../../../store/types/filterInterface';
 interface CheckboxListProps {
   checkboxList: {
     id: string;
     config: { value: boolean; type: string; text: string };
   }[];
-  mainId: string;
+  mainId: ApartamentInfoId;
   showHideInputs: boolean;
-  changeInputHandler: (
-    ev: ChangeEvent<HTMLInputElement>,
-    id: string,
-    mainId: string
-  ) => void;
+  changeInputHandler: (ev: ChangeEvent<HTMLInputElement>, id: string, mainId: ApartamentInfoId) => void;
 }
 const CheckboxList: React.FC<CheckboxListProps> = (props) => (
   <div className={classes.CheckboxList}>

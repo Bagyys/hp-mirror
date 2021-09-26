@@ -17,17 +17,20 @@ import {
 } from '../../store/actions/filterActions';
 import { FilterState } from '../../store/reducers/filterReducer';
 import Backdrop from '../../routes/components/Backdrop/Backdrop';
-import { FormDataInterface } from '../../store/types/filterInterface';
+import {
+  ApartamentInfoInterface,
+  ApartamentInfoId,
+  FormDataInterface,
+  PriceSliderInterface,
+  RoomsBedsInterface,
+} from '../../store/types/filterInterface';
 import CheckboxList from './CheckboxList/CheckboxList';
 import BedsAndRoomsList from './BedsAndRoomsList/BedsAndRoomsList';
 import FilterNav from './FilterNav/FilterNav';
 const SideFilter: React.FC = () => {
   const dispatch = useDispatch();
-  const filterSide: FilterState = useSelector(
-    (state: StoreState) => state.filter
-  );
-  const { filterData, showHideInputs, multiRangeSlider, isFilterOpen } =
-    filterSide;
+  const filterSide: FilterState = useSelector((state: StoreState) => state.filter);
+  const { filterData, showHideInputs, multiRangeSlider, isFilterOpen } = filterSide;
   const priceHandler = useCallback(
     debounce(({ min, max }: { min: number; max: number }) => {
       const newData = cloneDeep(filterData.price);
@@ -37,33 +40,30 @@ const SideFilter: React.FC = () => {
     }, 300),
     [filterData.price]
   );
-
   const counterHandler = (id: string, diff: number) => {
     const newData = cloneDeep(filterData.roomsAndBeds);
     newData[id].value = newData[id].value + diff;
     dispatch(changeFilterBedsRoomsAction(newData));
   };
 
-  const changeInputHandler = (
-    ev: ChangeEvent<HTMLInputElement>,
-    id: string,
-    mainId: string
-  ) => {
+  const changeInputHandler = (ev: ChangeEvent<HTMLInputElement>, id: string, mainId: ApartamentInfoId) => {
     const newData = cloneDeep(filterData[mainId]);
     newData[id].value = ev.target.checked;
-    dispatch(changeFilterInputsAction(newData, mainId));
+    dispatch(changeFilterInputsAction({ [mainId]: newData }));
   };
 
   const Clear = () => {
     dispatch(clearFilterAction());
   };
-
   const Save = () => {
     let formData: FormDataInterface = {} as FormDataInterface;
-    const filterDataArray = objecToArray(filterData);
-    filterDataArray.map(({ id, config }) => {
-      let objHelper = {};
-      objecToArray(config).map(({ id, config }) => {
+    const filterDataArray: {
+      id: string;
+      config: PriceSliderInterface | RoomsBedsInterface | ApartamentInfoInterface;
+    }[] = objecToArray(filterData);
+    filterDataArray.forEach(({ id, config }) => {
+      let objHelper: FormDataInterface = {} as FormDataInterface;
+      objecToArray(config).forEach(({ id, config }: { id: string; config: { value: string } }) => {
         objHelper = { ...objHelper, [id]: config.value };
       });
       formData = { ...formData, [id]: objHelper };
@@ -71,6 +71,8 @@ const SideFilter: React.FC = () => {
     dispatch(addFormDataAction(formData));
     dispatch(toggleFilterButtonAction(false));
   };
+  if (!isFilterOpen) return null;
+
   return (
     <React.Fragment>
       <div className={classes.SideFilterContainer}>
@@ -86,18 +88,18 @@ const SideFilter: React.FC = () => {
             max={filterData.price.max.value}
             initialMin={multiRangeSlider.initialMin}
             initialMax={multiRangeSlider.initialMax}
-            clear={multiRangeSlider.clear}
             onChange={priceHandler}
+            clear={multiRangeSlider.clear}
           />
         </div>
         <div className={classes.FilterBtnAndCheckboxContainer}>
           {objecToArray(filterData)
             .filter((_, i) => i !== 0)
             .map((item, i) => {
-              let title = item.id.split(/(?=[A-Z])/).join(' ');
+              let title: string = item.id.split(/(?=[A-Z])/).join(' ');
               return (
                 <div key={i} className={classes.FilterBoxes}>
-                  <h2>{title}</h2>
+                  <h2>{title.charAt(0).toUpperCase() + title.slice(1).toLowerCase()}</h2>
                   {i === 0 ? (
                     <BedsAndRoomsList
                       bedsAndRoomsList={objecToArray(item.config)}
@@ -115,14 +117,7 @@ const SideFilter: React.FC = () => {
                         inputCount={objecToArray(item.config).length}
                         show={showHideInputs[item.id]}
                         text={title}
-                        toggle={() =>
-                          dispatch(
-                            toggleCheckboxesListAction(
-                              !showHideInputs[item.id],
-                              item.id
-                            )
-                          )
-                        }
+                        toggle={() => dispatch(toggleCheckboxesListAction(!showHideInputs[item.id], item.id))}
                       />
                     </React.Fragment>
                   )}
@@ -133,8 +128,7 @@ const SideFilter: React.FC = () => {
       </div>
       <Backdrop
         isVisible={isFilterOpen}
-        toggleHandler={() => dispatch(toggleFilterButtonAction(!isFilterOpen))}
-      ></Backdrop>
+        toggleHandler={() => dispatch(toggleFilterButtonAction(!isFilterOpen))}></Backdrop>
     </React.Fragment>
   );
 };

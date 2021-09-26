@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
+import { useLocation } from 'react-router';
 import { useMediaPredicate } from 'react-media-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -19,28 +20,21 @@ import Pagination from '../Pagination/Pagination';
 import { userState } from '../../store/reducers/userReducer';
 import { addToFavoriteAction } from '../../store/actions/userActions';
 import { cn } from '../../utilities/joinClasses';
-import {
-  filterArrayById,
-  recentlyViewedObj,
-} from '../../utilities/flatsFunctions';
+import { filterArrayById, recentlyViewedObj } from '../../utilities/flatsFunctions';
 import { toggleFilterButtonAction } from '../../store/actions/filterActions';
 import FlatsNav from './FlatsNav/FlatsNav';
 import FlatsList from './FlatsList/FlatsList';
 import MyBookingsList from './MyBookingsList/MyBookingsList';
 import RecentlyViewedList from './RecentlyViewedList/RecentlyViewedList';
 
-interface FlatsProps {
-  isMain: boolean;
-}
-const Flats: React.FC<FlatsProps> = (props) => {
+const Flats: React.FC = (props) => {
   const isMobile = useMediaPredicate('(max-width: 675px)');
+  const location = useLocation();
   const scrollRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const auth: userState = useSelector((state: StoreState) => state.user);
   const { user } = auth;
-  const propertyStore: PropertyState = useSelector(
-    (state: StoreState) => state.property
-  );
+  const propertyStore: PropertyState = useSelector((state: StoreState) => state.property);
   const {
     quickViewPropertyId,
     myBookingQuickViewId,
@@ -50,15 +44,12 @@ const Flats: React.FC<FlatsProps> = (props) => {
     properties,
     recentlyViewedProperties,
   } = propertyStore;
-  const errorState: ErrorState = useSelector(
-    (state: StoreState) => state.error
-  );
+  const errorState: ErrorState = useSelector((state: StoreState) => state.error);
   const { error } = errorState;
 
   const propertiesList = useMemo(
-    () =>
-      props.isMain ? properties : filterArrayById(properties, user.favorites),
-    [props.isMain, user.favorites, properties]
+    () => (location.pathname === '/' ? properties : filterArrayById(properties, user.favorites)),
+    [location.pathname, user.favorites, properties]
   );
 
   useEffect(() => {
@@ -93,37 +84,32 @@ const Flats: React.FC<FlatsProps> = (props) => {
   };
 
   const quickViewHandler = (id: string, cord: { lat: number; lng: number }) => {
-    props.isMain && dispatch(activePropertyCordsAction(cord));
+    location.pathname === '/' && dispatch(activePropertyCordsAction(cord));
     dispatch(quickViewAction(id));
     //pridedam apartamentus i recentlyViewed, kai padarom quick view ant apartamentu, ar reikia ieiti i apartamentus, kad tai atlikti ???
-    dispatch(
-      addRecentlyViewedAction(recentlyViewedObj(recentlyViewedProperties, id))
-    );
-    !props.isMain && scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    dispatch(addRecentlyViewedAction(recentlyViewedObj(recentlyViewedProperties, id)));
+    !(location.pathname === '/') && scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   const closeQuickViewHandler = () => {
     dispatch(quickViewAction(''));
     dispatch(resetPropertyCordsAction());
-    !props.isMain && scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    !(location.pathname === '/') && scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <div
       className={cn(
         classes.FlatsContainer,
-        props.isMain
-          ? classes.FlatsContainerMain
-          : classes.FlatsContainerFavorite
-      )}
-    >
+        location.pathname === '/' ? classes.FlatsContainerMain : classes.FlatsContainerFavorite
+      )}>
       <FlatsNav
         pageSize={pageSizeMain}
         numberOfApartaments={propertiesList?.length}
-        isMain={props.isMain}
+        isMain={location.pathname === '/'}
         filterOpen={() => dispatch(toggleFilterButtonAction(true))}
       />
       {/* Nezinau ar props paduoti ar redux componente naudoti ar is vis geriau nereikejo iskelti */}
-      {!props.isMain && (
+      {!(location.pathname === '/') && (
         <MyBookingsList
           isMobile={isMobile}
           myBookingQuickViewId={myBookingQuickViewId}
@@ -134,7 +120,7 @@ const Flats: React.FC<FlatsProps> = (props) => {
       {/* Nezinau ar props paduoti ar redux componente naudoti ar is vis geriau nereikejo iskelti */}
       <FlatsList
         properties={propertiesList}
-        isMain={props.isMain}
+        isMain={location.pathname === '/'}
         favorites={user.favorites}
         isMobile={isMobile}
         quickViewPropertyId={quickViewPropertyId}
@@ -154,13 +140,11 @@ const Flats: React.FC<FlatsProps> = (props) => {
             totalCount={
               propertiesList?.length -
               (quickViewPropertyId === '' ||
-              pageSizeMain -
-                (pageSizeMain * currentPage - propertiesList.length) ===
-                1
+              pageSizeMain - (pageSizeMain * currentPage - propertiesList.length) === 1
                 ? 0
                 : 1)
             }
-            pageSize={props.isMain ? pageSizeMain : pageSizeFavorite}
+            pageSize={location.pathname === '/' ? pageSizeMain : pageSizeFavorite}
             onPageChange={(page) => dispatch(currentPageAction(page))}
           />
           {/* Nezinau ar props paduoti ar redux componente naudoti ar is vis geriau nereikejo iskelti */}
@@ -168,11 +152,9 @@ const Flats: React.FC<FlatsProps> = (props) => {
           <RecentlyViewedList
             properties={filterArrayById(
               properties,
-              props.isMain
-                ? recentlyViewedProperties.main
-                : recentlyViewedProperties.favorite
+              location.pathname === '/' ? recentlyViewedProperties.main : recentlyViewedProperties.favorite
             ).reverse()}
-            isMain={props.isMain}
+            isMain={location.pathname === '/'}
             favorites={user.favorites}
             favoritesHandler={favoritesHandler}
             quickViewHandler={quickViewHandler}

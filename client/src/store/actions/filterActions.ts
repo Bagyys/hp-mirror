@@ -1,6 +1,6 @@
 import { Action, Dispatch } from "redux";
 import filterTypes from "../types/filterTypes";
-import { PriceInterface,ApartamentInfoInterface,RoomsBedsInterface, FormDataInterface } from "../types/filterInterface";
+import { PriceSliderInterface,ApartamentInfoInterface,RoomsBedsInterface, FormDataInterface } from "../types/filterInterface";
 
 // -------------------- URLS --------------------
 
@@ -10,7 +10,7 @@ const url = process.env.REACT_APP_SERVER_URL;
 // -------------------- ACTION INTERFACES --------------------
 export interface ChangeFilterPrice
   extends Action<typeof filterTypes.CHANGE_FILTER_PRICE> {
-      payload: PriceInterface;
+      payload: PriceSliderInterface;
   }
 export interface ChangeFilterRoomsBeds
   extends Action<typeof filterTypes.CHANGE_FILTER_BEDS_ROOMS> {
@@ -18,7 +18,7 @@ export interface ChangeFilterRoomsBeds
   }
 export interface ChangeFilterInputs
     extends Action<typeof filterTypes.CHANGE_FILTER_INPUT_VALUES> {
-        payload: {[key:string]:ApartamentInfoInterface|RoomsBedsInterface|PriceInterface};
+        payload: {[key:string]:ApartamentInfoInterface};
     }
 export interface ToggleFilterButton
   extends Action<typeof filterTypes.TOGGLE_FILTER_BUTTON> {
@@ -52,7 +52,7 @@ export type FilterActions =
 // -------------------- END of ACTION INTERFACES --------------------
 
 // -------------------- ACTIONS --------------------
-export const changeFilterPriceAction = (priceData:PriceInterface) => (dispatch: Dispatch) => {
+export const changeFilterPriceAction = (priceData:PriceSliderInterface) => (dispatch: Dispatch) => {
   dispatch({
       type:filterTypes.CHANGE_FILTER_PRICE,
       payload:priceData
@@ -66,10 +66,10 @@ export const changeFilterBedsRoomsAction = (bedsRoomsData:RoomsBedsInterface) =>
   })
 };
 
-export const changeFilterInputsAction = (inputValues:ApartamentInfoInterface|RoomsBedsInterface|PriceInterface,mainId:string) => (dispatch: Dispatch) => {
+export const changeFilterInputsAction = (inputValues:{[key:string]:ApartamentInfoInterface}) => (dispatch: Dispatch) => {
   dispatch({
       type:filterTypes.CHANGE_FILTER_INPUT_VALUES,
-      payload:{[mainId]:inputValues}
+      payload:inputValues
   })
 };
 

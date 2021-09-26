@@ -13,12 +13,12 @@ const ToggleClass: React.FC<ToggleClassProps> = (props) => {
       {props.inputCount > 6 && (
         <div onClick={props.toggle} className={classes.ToggleBtnContainer}>
           <div className={props.show ? classes.Hide : classes.Show}>
-            Show all {props.text}
-            <img src={arrow} className={classes.ArrowDown} />
+            Show all <span style={{ textTransform: 'lowercase' }}>{props.text}</span>
+            <img src={arrow} className={classes.ArrowDown} alt="arrow" />
           </div>
           <div className={props.show ? classes.Show : classes.Hide}>
             Show less
-            <img src={arrow} className={classes.ArrowUp} />
+            <img src={arrow} className={classes.ArrowUp} alt="arrow" />
           </div>
         </div>
       )}

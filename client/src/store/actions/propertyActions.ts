@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import propertyTypes from "../types/propertyTypes";
 import errorTypes from "../types/errorTypes";
 import { PropertyInterface } from "../types/propertyInterfaces";
-import { availableProperties, isStringInArray } from "../../utilities/flatsFunctions";
+import { availableProperties} from "../../utilities/flatsFunctions";
 
 // -------------------- URLS --------------------
 
