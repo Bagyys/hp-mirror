@@ -4,22 +4,22 @@
 //keli carousel pakeitimai ikelti i index.css
 .Slider {
   height: 100%;
-  .QuickView{
+  .QuickView {
     border-radius: 1rem 0 0 0;
-    @include respond(mobile){
-        border-radius: 1rem 1rem 0 0;
+    @include respond(mobile) {
+      border-radius: 1rem 1rem 0 0;
     }
   }
   .QuickViewFlatFavorite {
     border-radius: 1rem 0 0 0;
   }
-  .BookedFlatCard{
-    border-radius: .8rem 0 0 1rem;
-    @include respond(mobile){
+  .BookedFlatCard {
+    border-radius: 0.8rem 0 0 1rem;
+    @include respond(mobile) {
       border-radius: 1rem 1rem 0 0;
     }
   }
-  .FlatCard{
+  .FlatCard {
     border-radius: 1rem 1rem 0 0;
   }
   img {
@@ -32,10 +32,10 @@
     //   height: 50vw;
     // }
   }
-  .Right{
+  .Right {
     right: 1.5rem;
   }
-  .Left{
+  .Left {
     left: 1.5rem;
   }
   .Arrow {
@@ -53,7 +53,7 @@
     opacity: 0;
     width: 3.7rem;
     height: 3.7rem;
-  }  
+  }
   .Dots {
     opacity: 0;
   }
@@ -62,11 +62,9 @@
       visibility: visible;
       opacity: 1;
     }
-  
+
     &:hover .Dots {
       opacity: 1;
     }
   }
 }
-
-

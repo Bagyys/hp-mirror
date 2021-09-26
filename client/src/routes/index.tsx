@@ -1,16 +1,16 @@
-import { Route, Switch } from 'react-router-dom';
-import { UserRoute } from '../components/PrivateRoute/PrivateRoute';
-import Home from './Home/home';
-import Register from '../routes/Register/Register';
-import SendVerify from '../routes/SendVerify/SendVerify';
-import Verify from '../routes/Verify/Verify';
-import Login from '../routes/Login/Login';
-import FlatReview from '../routes/FlatReview/FlatView';
-import Reservations from '../routes/Reservations/Reservations';
-import History from '../routes/History/History';
-import Settings from '../routes/Settings/Settings';
-import Locks from '../routes/Locks/Locks';
-import Favorite from './Favorite/Favorite';
+import { Route, Switch } from "react-router-dom";
+import { UserRoute } from "../components/PrivateRoute/PrivateRoute";
+import Home from "./Home/home";
+import Register from "../routes/Register/Register";
+import SendVerify from "../routes/SendVerify/SendVerify";
+import Verify from "../routes/Verify/Verify";
+import Login from "../routes/Login/Login";
+import FlatReview from "../routes/FlatReview/FlatView";
+import Reservations from "../routes/Reservations/Reservations";
+import History from "../routes/History/History";
+import Settings from "../routes/Settings/Settings";
+import Locks from "../routes/Locks/Locks";
+import Favorite from "./Favorite/Favorite";
 const Routes = () => {
   return (
     <Switch>

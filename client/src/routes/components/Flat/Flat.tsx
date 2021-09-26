@@ -1,17 +1,18 @@
-import { useMediaPredicate } from 'react-media-hook';
-import classes from './Flat.module.scss';
-import ImageSlider from '../ImageSlider/ImageSlider';
-import Button from '../Button/button';
-import GroupedBadges from '../GroupedBadges/GroupedBadges';
-import Ratings from '../Ratings/Ratings';
-import Favorites from '../Favorites/Favorites';
-import PropertiesType from '../PropertyType/PropertiesType';
-import MainInformation from '../MainInformation/MainInformation';
-import { Link } from 'react-router-dom';
-import { PropertyInterface } from '../../../store/types/propertyInterfaces';
-import DailyPrice from '../DailyPrices/DailyPrice';
-import { cn } from '../../../utilities/joinClasses';
-import React from 'react';
+
+import classes from "./Flat.module.scss";
+import ImageSlider from "../ImageSlider/ImageSlider";
+import Button from "../Button/button";
+import GroupedBadges from "../GroupedBadges/GroupedBadges";
+import Ratings from "../Ratings/Ratings";
+import Favorites from "../Favorites/Favorites";
+import PropertiesType from "../PropertyType/PropertiesType";
+import MainInformation from "../MainInformation/MainInformation";
+
+import { PropertyInterface } from "../../../store/types/propertyInterfaces";
+import DailyPrice from "../DailyPrices/DailyPrice";
+import { cn } from "../../../utilities/joinClasses";
+import React from "react";
+import { property } from "lodash";
 
 interface FlatProps {
   property: PropertyInterface;
@@ -30,9 +31,10 @@ const Flat: React.FC<FlatProps> = (props) => (
     <div className={classes.FlatContent}>
       <div className={classes.FlatImg}>
         <ImageSlider sliderClass="FlatCard" slides={props.property?.images} />
-
         <Favorites liked={props.liked} clickedLike={props.clickedLike} />
       </div>
+
+
       <div
         className={cn(
           classes.InfoContainer,
@@ -59,7 +61,7 @@ const Flat: React.FC<FlatProps> = (props) => (
           <div className={classes.FlatBtnsContainer}>
             <Button
               clicked={props.quickViewClicked}
-              btnType={'FlatInfo'}
+              btnType={"FlatInfo"}
               bgColor="Blue"
             >
               Quick View

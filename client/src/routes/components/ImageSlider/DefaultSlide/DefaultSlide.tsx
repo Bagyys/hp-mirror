@@ -3,6 +3,8 @@ import React from "react";
 import classes from "./DefaultSlide.module.scss";
 //Components
 import BtnShowAllPhotos from "../DefaultSlide/BtnShowAllPhotos/BtnShowAllPhotos";
+//TS
+import { PropertyInterface } from "../../../../store/types/propertyInterfaces";
 
 interface ImagesInterface {
   images: Array<string>;
@@ -11,7 +13,7 @@ interface ImagesInterface {
 const DefaultSlide = ({ images }: ImagesInterface) => {
   console.log(images[0], "Default Slides Photos");
   console.log(DefaultSlide, "DefaultSlide Component");
-  console.log({images}, "DefaulteSlide Images");
+  console.log({ images }, "DefaulteSlide Images");
 
   return (
     <React.Fragment>

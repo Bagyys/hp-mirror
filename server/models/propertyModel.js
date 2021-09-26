@@ -65,7 +65,7 @@ const propertySchema = new Schema(
     },
     images: [
       // do we need separate field for mainImage?  -----------------------
-      // new Schema(
+      //  new Schema(
       {
         type: String,
         required: true,

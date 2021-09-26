@@ -9,26 +9,25 @@ import { LockActions } from "../actions/lockActions";
 export interface PropertyState {
   properties: Array<PropertyInterface>;
   selectedProperty: string;
-  quickViewPropertyId:string;
-  myBookingQuickViewId:string;
-  pageSizeMain:number;
-  pageSizeFavorite:number;
-  currentPage:number;
-  activePropertyCord:{lat:number,lng:number};
-  recentlyViewedProperties:{[key:string]:Array<string>};
+  quickViewPropertyId: string;
+  myBookingQuickViewId: string;
+  pageSizeMain: number;
+  pageSizeFavorite: number;
+  currentPage: number;
+  activePropertyCord: { lat: number; lng: number };
+  recentlyViewedProperties: { [key: string]: Array<string> };
 }
 
 const initialState: PropertyState = {
   properties: [] as Array<PropertyInterface>,
   selectedProperty: "",
-  quickViewPropertyId:"",
-  myBookingQuickViewId:"",
-  pageSizeMain:4,
-  pageSizeFavorite:12,
-  currentPage:1,
-  activePropertyCord:{lat: 54.687157,
-    lng: 25.279652,},
-  recentlyViewedProperties:{main:[],favorite:[]}
+  quickViewPropertyId: "",
+  myBookingQuickViewId: "",
+  pageSizeMain: 4,
+  pageSizeFavorite: 12,
+  currentPage: 1,
+  activePropertyCord: { lat: 54.687157, lng: 25.279652 },
+  recentlyViewedProperties: { main: [], favorite: [] },
 };
 
 const propertyReducer = (
@@ -66,39 +65,40 @@ const propertyReducer = (
     case propertyTypes.QUICK_VIEW_PROPERTY:
       return {
         ...state,
-        quickViewPropertyId:action.payload,
+        quickViewPropertyId: action.payload,
       };
     case propertyTypes.MY_BOOKING_QUICK_VIEW_PROPERTY:
       return {
         ...state,
-        myBookingQuickViewId:action.payload,
-      };  
+        myBookingQuickViewId: action.payload,
+      };
     case propertyTypes.PAGINATION_PAGE_SIZE:
       return {
         ...state,
-        pageSizeMain:action.payload,
+        pageSizeMain: action.payload,
       };
     case propertyTypes.PAGINATION_CURRENT_PAGE:
       return {
         ...state,
-        currentPage:action.payload,
+        currentPage: action.payload,
       };
     case propertyTypes.ADD_ACTIVE_PROPERTY_CORDS:
       return {
         ...state,
-        activePropertyCord:action.payload,
-      };  
-     case propertyTypes.RESET_PROPERTY_CORDS:
+        activePropertyCord: action.payload,
+      };
+    case propertyTypes.RESET_PROPERTY_CORDS:
       return {
         ...state,
-        activePropertyCord:initialState.activePropertyCord,
-      };   
+        activePropertyCord: initialState.activePropertyCord,
+      };
     case propertyTypes.ADD_RECENTLY_VIEWED:
       return {
         ...state,
-        recentlyViewedProperties:action.payload,
-      };  
+        recentlyViewedProperties: action.payload,
+      };
     default:
+      
       return state;
   }
 };
