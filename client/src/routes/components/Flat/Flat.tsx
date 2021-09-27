@@ -1,4 +1,3 @@
-
 import classes from "./Flat.module.scss";
 import ImageSlider from "../ImageSlider/ImageSlider";
 import Button from "../Button/button";
@@ -12,7 +11,6 @@ import { PropertyInterface } from "../../../store/types/propertyInterfaces";
 import DailyPrice from "../DailyPrices/DailyPrice";
 import { cn } from "../../../utilities/joinClasses";
 import React from "react";
-import { property } from "lodash";
 
 interface FlatProps {
   property: PropertyInterface;
@@ -34,7 +32,6 @@ const Flat: React.FC<FlatProps> = (props) => (
         <Favorites liked={props.liked} clickedLike={props.clickedLike} />
       </div>
 
-
       <div
         className={cn(
           classes.InfoContainer,
@@ -45,12 +42,17 @@ const Flat: React.FC<FlatProps> = (props) => (
       >
         <GroupedBadges {...props.property.discounts} />
         <Ratings
+          active={false}
+          
           overallRating={props.property.overallRating}
           ratingsCount={props.property.ratingsCount}
         />
-        <PropertiesType>{props.property.title}</PropertiesType>
+        <PropertiesType active={false}>{props.property.title}</PropertiesType>
 
-        <MainInformation facilities={props.property.facilities} />
+        <MainInformation
+          active={false}
+          facilities={props.property.facilities}
+        />
 
         <div className={classes.PriceBtnContainer}>
           <div className={classes.PriceContainer}>
