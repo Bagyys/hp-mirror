@@ -7,7 +7,7 @@ exports.getOneProperty = async(req, res) => {
     try {
         property = await Property.findById(id);
         if (!property) message = "property wasn't found"
-        return res.send({ property: proeprty, message: message });
+        return res.send({ property: property, message: message });
     } catch (err) {
         return res.send({ property: undefined, message: err.message });
 
