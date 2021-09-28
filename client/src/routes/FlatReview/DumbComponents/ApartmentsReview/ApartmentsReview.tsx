@@ -11,6 +11,8 @@ import ReserveNightsForm from "../ReserveNights/ReserveNightsForm";
 import PropertiesType from "../../../components/PropertyType/PropertiesType";
 import MainInformation from "../../../components/MainInformation/MainInformation";
 import Ratings from "../../../components/Ratings/Ratings";
+import AboutPlace from "../../../components/AboutPlace/AboutPlace";
+import DailyPrice from "../../../components/DailyPrices/DailyPrice";
 
 interface FlatProps {
   property: PropertyInterface;
@@ -64,19 +66,12 @@ const ApartmentsReview = (props: FlatProps) => {
           </div>
         </div>
       </div>
-      <div className={classes.AboutLayer}>
-        <h4 className={classes.AboutPlace}>About the place</h4>
-        <p className={classes.AboutDescription}>
-          Studio apartment with a prival bathroom with of Hamburg equipped with
-          all the amenities. An apartment is bright with a large window, a newly
-          renovated bathroom and two panoramic terrace with sunbeds.
-        </p>
-      </div>
+
+      <AboutPlace>{props.property.description}</AboutPlace>
       <div className={classes.BookingPurchaseForm}>
         <div className={classes.BookingLayer}>
           <div className={classes.BookingLayerMargin}>
-            <span className={classes.BookingPrice}>41$</span>
-            <span className={classes.BookingNights}>/nights</span>
+            <DailyPrice price={props.property.price.daily} active={true} />
           </div>
           <ReserveNightsForm />
         </div>

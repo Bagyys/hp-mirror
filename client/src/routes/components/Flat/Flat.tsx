@@ -11,6 +11,7 @@ import { PropertyInterface } from "../../../store/types/propertyInterfaces";
 import DailyPrice from "../DailyPrices/DailyPrice";
 import { cn } from "../../../utilities/joinClasses";
 import React from "react";
+import { red } from "@material-ui/core/colors";
 
 interface FlatProps {
   property: PropertyInterface;
@@ -20,7 +21,12 @@ interface FlatProps {
   isMain?: boolean;
 }
 const Flat: React.FC<FlatProps> = (props) => (
-  <li className={cn(classes.Flat, props.isMain ? classes.FlatMain : classes.FlatFavorite)}>
+  <li
+    className={cn(
+      classes.Flat,
+      props.isMain ? classes.FlatMain : classes.FlatFavorite
+    )}
+  >
     <div className={classes.FlatContent}>
       <div className={classes.FlatImg}>
         <ImageSlider sliderClass="FlatCard" slides={props.property?.images} />
@@ -30,12 +36,14 @@ const Flat: React.FC<FlatProps> = (props) => (
       <div
         className={cn(
           classes.InfoContainer,
-          props.isMain ? classes.InfoContainerMain : classes.InfoContainerFavorite
-        )}>
+          props.isMain
+            ? classes.InfoContainerMain
+            : classes.InfoContainerFavorite
+        )}
+      >
         <GroupedBadges {...props.property.discounts} />
         <Ratings
           active={false}
-          
           overallRating={props.property.overallRating}
           ratingsCount={props.property.ratingsCount}
         />
@@ -48,12 +56,16 @@ const Flat: React.FC<FlatProps> = (props) => (
 
         <div className={classes.PriceBtnContainer}>
           <div className={classes.PriceContainer}>
-            <DailyPrice price={props.property.price.daily} />
+            <DailyPrice price={props.property.price.daily} active={false}/>
             <p className={classes.TotalPrice}>244€ total</p>
           </div>
 
           <div className={classes.FlatBtnsContainer}>
-            <Button clicked={props.quickViewClicked} btnType={'FlatInfo'} bgColor="Blue">
+            <Button
+              clicked={props.quickViewClicked}
+              btnType={"FlatInfo"}
+              bgColor="Blue"
+            >
               Quick View
             </Button>
           </div>

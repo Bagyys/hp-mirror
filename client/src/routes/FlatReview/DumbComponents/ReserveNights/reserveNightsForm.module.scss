@@ -5,15 +5,55 @@
   border: 2px solid $disableBtn;
   border-radius: 1rem;
   margin-bottom: 2.5rem;
-  height: 14.4rem;
+
   .Form {
     display: flex;
     justify-content: space-between;
     height: 50%;
+    label {
+      width: 50%;
+      &:not(:last-child) {
+        border-right: 2px solid $disableBtn;
+      }
+      span {
+        display: block;
+        color: $lightGrey7;
+        font-size: $fontSize17px;
+        font-weight: $font-Weight-medium;
+        font-family: $helveticaNeue;
+        line-height: $lineHeight46px;
+      }
+      p {
+        color: $black;
+        font-size: $fontSize21px;
+        font-weight: $font-Weight-regular;
+        font-family: $helveticaNeue;
+        line-height: $lineHeight46px;
+      }
+    }
   }
   .Select {
+    display: block;
     border-top: 2px solid $disableBtn;
-    width: 100%;
+  }
+  label {
+    display: block;
+    color: $lightGrey7;
+    font-size: $fontSize17px;
+    font-weight: $font-Weight-medium;
+    font-family: $helveticaNeue;
+    line-height: $lineHeight46px;
+  }
+  select {
+    width: 90%;
+
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+    color: $black;
+    font-size: $fontSize21px;
+    font-weight: $font-Weight-regular;
+    font-family: $helveticaNeue;
   }
 }
 

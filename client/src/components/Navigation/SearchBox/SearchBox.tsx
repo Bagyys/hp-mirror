@@ -12,6 +12,7 @@ const SearchBox = () => {
         {moment(mainPage.startDate).format("MMM Do")} -{" "}
         {moment(mainPage.endDate).format("MMM Do")}
       </div>
+      {console.log(moment(), "moment2")}
       <div className={classes.Guests}>
         {mainPage.guests.adults + mainPage.guests.children} guests
       </div>

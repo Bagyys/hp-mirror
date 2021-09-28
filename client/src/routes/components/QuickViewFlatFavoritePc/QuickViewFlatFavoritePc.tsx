@@ -56,7 +56,7 @@ const QuickViewFlatFavoritePc: React.FC<QuickViewFlatProps> = (props) => {
 
         <div className={classes.PriceBtnContainer}>
           <div className={classes.PriceContainer}>
-            <DailyPrice price={props.property.price.daily} />
+            <DailyPrice price={props.property.price.daily} active={false}/>
             <p className={classes.TotalPrice}>244€ total</p>
           </div>
           <div className={classes.BtnsContainer}>

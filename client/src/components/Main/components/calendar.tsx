@@ -23,6 +23,7 @@ function Calendar() {
       key: "selection",
     },
   ]);
+  console.log(moment(), "moment1", "moment3");
 
   const handleRange = (item: any) => {
     // TODO: solve typescript conflict
@@ -44,6 +45,7 @@ function Calendar() {
           //  setRange([range.selection as CustomRange]) // Typescript conflict
         }}
         moveRangeOnFirstSelection={false}
+        
         ranges={range}
         weekStartsOn={1}
         weekdayDisplayFormat="EEEEEE"
