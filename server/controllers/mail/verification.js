@@ -1,13 +1,24 @@
 const nodemailer = require("nodemailer");
+const {google}= require("googleapis");
+
+
 
 // nodemailer setup gmail
 
+const oAuth2Client=new google.auth.OAuth2(process.env.CLIENT_ID, process.env.CLIENT_SECRET, process.env.REDIRECT_URI);
+oAuth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN});
+
 exports.verification = async (userEmail, token) => {
+const accessToken = await oAuth2Client.getAccessToken();
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: process.env.GMAIL,
-      pass: process.env.PSW,
+      type: "OAuth2",
+      user: process.env.VERIFY_GMAIL,
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      refreshToken: process.env.REFRESH_TOKEN,
+      accessToken: accessToken,
     },
   });
 
@@ -31,9 +42,6 @@ exports.verification = async (userEmail, token) => {
 
   transporter
     .sendMail(mailOptions)
-    .then(() => {
-      return console.log("Email sent!");
-    })
     .catch((err) => {
       return console.log(err.message);
     });
