@@ -49,7 +49,7 @@ const DefaultSlide = ({ images }: ImagesInterface) => {
             <img src={`/${images[4]}`} alt="Flat-other" />
           )}
         </div>
-        <BtnShowAllPhotos />
+        <BtnShowAllPhotos property={{images}}/>
       </div>
     </React.Fragment>
   );

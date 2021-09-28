@@ -1,37 +1,66 @@
 @import "../../../styles/global.scss";
 @import "../../../styles/mixins";
-.RatingsContainer{
-    display:flex;
+.RatingsContainer {
+  display: flex;
+  align-items: center;
+  font-size: $fontSize19px;
+  margin-bottom: 1.7rem;
+  @include respond(mobile) {
+    font-size: $fontSize18px;
+  }
+  .Ratings {
+    display: flex;
     align-items: center;
-    font-size: $fontSize19px;
-    margin-bottom: 1.7rem;
-    @include respond(mobile){
-        font-size: $fontSize18px;
+    margin-right: 0.99rem;
+    color: $black2;
+    img {
+      width: 2.1rem;
+      height: 2.2rem;
+      margin-right: 0.58rem;
     }
-    .Ratings {
-        display: flex;
-        align-items: center;                               
-        margin-right: 0.99rem;
-        color:$black2;
-        img {
-            width: 2.1rem;
-            height: 2.2rem;
-            margin-right: 0.58rem;
-        }
-        span {
-            line-height: $lineHeight29px;
-            font-weight: $font-Weight-bold;
-            margin-left: 0.58rem;
-        }
+    span {
+      line-height: $lineHeight29px;
+      font-weight: $font-Weight-bold;
+      margin-left: 0.58rem;
     }
-    .Reviews {
-        color:$lightGrey4;
-        line-height: $lineHeight26px;
-        @include respond(mobile){
-            font-size: $mediumFontSize;
-            span {
-                display: none;
-            }
-        }
+  }
+  .Reviews {
+    color: $lightGrey4;
+    line-height: $lineHeight26px;
+    @include respond(mobile) {
+      font-size: $mediumFontSize;
+      span {
+        display: none;
+      }
     }
+  }
+}
+
+//FlatInfo->Apartment component
+
+.ContainerRating {
+  padding-bottom: 2.49rem;
+  border-bottom: 1px solid $lightGrey6;
+  display: flex;
+  align-items: center;
+
+  .RatingNumber {
+    font-size: $fontSize26px;
+    font-weight: $font-Weight-bold;
+    color: $black2;
+    font-family: $helveticaNeue;
+    line-height: $lineHeight26px;
+    display: flex;
+    align-items: center;
+    span {
+      padding: 0 0.97rem 0 0.77rem;
+    }
+  }
+  .ActiveReviews {
+    font-size: $fontSize18px;
+    font-weight: $font-Weight-regular;
+    color: $blackGrey;
+    line-height: $lineHeight26px;
+    font-family: $helveticaNeue;
+  }
 }

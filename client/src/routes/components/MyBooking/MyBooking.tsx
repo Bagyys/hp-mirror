@@ -1,19 +1,19 @@
-import Button from '../Button/button';
-import { PropertyInterface } from '../../../store/types/propertyInterfaces';
-import { useMediaPredicate } from 'react-media-hook';
-import ImageSlider from '../ImageSlider/ImageSlider';
-import MainInformation from '../../../routes/components/MainInformation/MainInformation';
-import PropertiesType from '../../../routes/components/PropertyType/PropertiesType';
-import Ratings from '../../../routes/components/Ratings/Ratings';
-import classes from './MyBooking.module.scss';
-import home from '../../../assets/images/home.png';
-import calendarBegins from '../../../assets/images/calendar_booking_begins.png';
-import calendarEnds from '../../../assets/images/calendar_booking_ends.png';
-import { useState } from 'react';
-import AboutPlace from '../../../routes/components/AboutPlace/AboutPlace';
-import Badge from '../Badge/Badge';
-import InformationWithIcons from '../../../routes/components/InformationWithIcons/InformationWithIcons';
-import { Link } from 'react-router-dom';
+import Button from "../Button/button";
+import { PropertyInterface } from "../../../store/types/propertyInterfaces";
+import { useMediaPredicate } from "react-media-hook";
+import ImageSlider from "../ImageSlider/ImageSlider";
+import MainInformation from "../../../routes/components/MainInformation/MainInformation";
+import PropertiesType from "../../../routes/components/PropertyType/PropertiesType";
+import Ratings from "../../../routes/components/Ratings/Ratings";
+import classes from "./MyBooking.module.scss";
+import home from "../../../assets/images/home.png";
+import calendarBegins from "../../../assets/images/calendar_booking_begins.png";
+import calendarEnds from "../../../assets/images/calendar_booking_ends.png";
+import { useState } from "react";
+import AboutPlace from "../../../routes/components/AboutPlace/AboutPlace";
+import Badge from "../Badge/Badge";
+import InformationWithIcons from "../../../routes/components/InformationWithIcons/InformationWithIcons";
+import { Link } from "react-router-dom";
 interface MyBookingPcProps {
   bookedProperty: PropertyInterface;
   close: () => void;
@@ -21,15 +21,15 @@ interface MyBookingPcProps {
   isQuickViewed: boolean;
 }
 const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
-  const isMobile = useMediaPredicate('(max-width: 675px)');
+  const isMobile = useMediaPredicate("(max-width: 675px)");
   return (
     <li className={classes.MyBookingContainer}>
       <div
-        style={props.isQuickViewed ? { height: '48rem' } : {}}
+        style={props.isQuickViewed ? { height: "48rem" } : {}}
         className={classes.MyBookingFlatImg}
       >
         <ImageSlider
-          sliderClass={props.isQuickViewed ? 'QuickView' : 'BookedFlatCard'}
+          sliderClass={props.isQuickViewed ? "QuickView" : "BookedFlatCard"}
           slides={props.bookedProperty.images}
         />
       </div>
@@ -37,11 +37,17 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
         <div className={classes.Row}>
           <div className={classes.ApartamentInfo}>
             <Ratings
+              active={false}
               overallRating={props.bookedProperty.overallRating}
               ratingsCount={props.bookedProperty.ratingsCount}
             />
-            <PropertiesType>{props.bookedProperty.title}</PropertiesType>
-            <MainInformation facilities={props.bookedProperty.facilities} />
+            <PropertiesType active={false}>
+              {props.bookedProperty.title}
+            </PropertiesType>
+            <MainInformation
+              active={false}
+              facilities={props.bookedProperty.facilities}
+            />
             {props.isQuickViewed && !isMobile && (
               <Badge badge="BadgeCancelation">
                 Free cancelation until July 6
@@ -87,7 +93,7 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
           </div>
         )}
         <div
-          style={props.isQuickViewed ? { width: '60rem' } : { width: '50rem' }}
+          style={props.isQuickViewed ? { width: "60rem" } : { width: "50rem" }}
           className={classes.FlatBtnsContainer}
         >
           {props.isQuickViewed ? (
@@ -97,29 +103,29 @@ const MyBookingPc: React.FC<MyBookingPcProps> = (props) => {
                 state: { property: props.bookedProperty },
               }}
             >
-              <Button btnType={'FlatInfo'} bgColor="Blue">
+              <Button btnType={"FlatInfo"} bgColor="Blue">
                 Read more
               </Button>
             </Link>
           ) : (
             <Button
               clicked={props.myBookingQuickViewClicked}
-              btnType={'FlatInfo'}
+              btnType={"FlatInfo"}
               bgColor="Blue"
             >
               Quick View
             </Button>
           )}
           <Button
-            clicked={() => console.log('labas')}
-            btnType={'FlatInfo'}
+            clicked={() => console.log("labas")}
+            btnType={"FlatInfo"}
             bgColor="Orange"
           >
             Unlock door
           </Button>
           <Button
-            clicked={() => console.log('labas')}
-            btnType={'FlatInfo'}
+            clicked={() => console.log("labas")}
+            btnType={"FlatInfo"}
             bgColor="Red"
           >
             Contact owner

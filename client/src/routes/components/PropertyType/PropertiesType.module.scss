@@ -1,14 +1,24 @@
 @import "../../../styles/global.scss";
 @import "../../../styles/mixins";
 .ApartamentType {
-    font-size: $fontSize20px;
-    line-height: $lineHeight26px;
-    font-family: $helveticaNeue;
-    margin-bottom: 0.75rem;
-    width: 80%;
-    @include respond(mobile){
-        font-size: $fontSize18px;
-        line-height: $lineHeight20px;
-        margin-bottom: 1.5rem;
-    }
-    }
+  font-size: $fontSize20px;
+  line-height: $lineHeight26px;
+  font-family: $helveticaNeue;
+  margin-bottom: 0.75rem;
+  width: 80%;
+  @include respond(mobile) {
+    font-size: $fontSize18px;
+    line-height: $lineHeight20px;
+    margin-bottom: 1.5rem;
+  }
+}
+
+//FlatInfo ->Apartment component
+.Active {
+  color: $black;
+  font-size: $fontSize32px;
+  font-weight: $font-Weight-bold;
+  font-family: $helveticaNeue;
+  line-height: $lineHeight26px;
+  padding-bottom: 0.61rem;
+}

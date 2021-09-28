@@ -17,7 +17,7 @@ import BreadCrumbs from "../../components/BreadCrums/BreadCrums";
 import DefaultSlide from "../components/ImageSlider/DefaultSlide/DefaultSlide";
 import BookingSchedule from "../../components/BookingSchedule/BookingSchedule";
 import Navigation from "../../components/Navigation/navigation";
-import FlatInfo from "../../components/FlatReviewContentent/FlatInfo";
+import FlatInfo from "../../components/FlatInfo/FlatInfo";
 import { StoreState } from "../../store/configureStore";
 import { PropertyState } from "../../store/reducers/propertyReducer";
 import { ErrorState } from "../../store/reducers/errorReducer";
@@ -428,11 +428,9 @@ const FlatView = (props: PropsInterface) => {
   return (
     <>
       <Navigation />
-      <div className={classes.FlatImgsss}>
-        {/* <ImageSlider sliderClass="FlatCard" slides={property.images} /> */}
-      </div>
+      <div className={classes.FlatImgsss}></div>
       <div className={classes.FlatReview}>{propertyRender}</div>
-      <FlatInfo />
+      <FlatInfo property={property} />
       <Footer />
     </>
   );
