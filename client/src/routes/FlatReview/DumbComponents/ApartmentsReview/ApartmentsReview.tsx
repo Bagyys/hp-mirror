@@ -4,17 +4,29 @@ import { BsStarFill } from "react-icons/bs";
 import classes from "./apartmentsReview.module.scss";
 //Icons
 import doubleBed from "../../../../assets/images/double.png";
+//Interface
+import { PropertyInterface } from "../../../../store/types/propertyInterfaces";
 //Components
 import ReserveNightsForm from "../ReserveNights/ReserveNightsForm";
+import PropertiesType from "../../../components/PropertyType/PropertiesType";
+import MainInformation from "../../../components/MainInformation/MainInformation";
+import Ratings from "../../../components/Ratings/Ratings";
 
-const ApartmentsReview = () => {
+interface FlatProps {
+  property: PropertyInterface;
+}
+
+const ApartmentsReview = (props: FlatProps) => {
   return (
     <div className={classes.Content}>
       <div className={classes.Layer}>
         <div>
-          <p className={classes.Text}>Studio appartment in city center!</p>
+          <PropertiesType active={true}>{props.property.title}</PropertiesType>
           <p className={classes.TextSmall}>
-            3 guest 2 beds 1 private bath Wifi
+            <MainInformation
+              active={true}
+              facilities={props.property.facilities}
+            />
           </p>
         </div>
         <div>
@@ -22,11 +34,11 @@ const ApartmentsReview = () => {
           <button className={classes.BtnSaveShare}>Save</button>
         </div>
       </div>
-      <div className={classes.StarRating}>
-        <BsStarFill size="2.776em" color="#4886ff" />
-        <span className={classes.RatingNumber}>4.75 </span>
-        <span className={classes.Reviews}>(7 reviews) </span>
-      </div>
+      <Ratings
+        active={true}
+        overallRating={props.property.overallRating}
+        ratingsCount={props.property.ratingsCount}
+      />
 
       <div>
         <div className={classes.Icons}>

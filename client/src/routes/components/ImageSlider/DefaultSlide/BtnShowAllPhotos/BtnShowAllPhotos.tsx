@@ -14,7 +14,6 @@ import { PropertyState } from "../../../../../store/reducers/propertyReducer";
 //Config
 import { StoreState } from "../../../../../store/configureStore";
 import { userState } from "../../../../../store/reducers/userReducer";
-import { property } from "lodash";
 
 interface PropsInterface {
   state: {
@@ -23,7 +22,7 @@ interface PropsInterface {
   pathname: string;
 }
 
-const BtnShowAllPhotos = () => {
+const BtnShowAllPhotos = (props: any) => {
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
 
@@ -43,7 +42,7 @@ const BtnShowAllPhotos = () => {
   const user = auth.user;
   console.log(property, "property");
   console.log(properties, "Properties?-");
-  console.log(stateProperty, "StateProperty ?-");
+  // console.log(stateProperty, "StateProperty ?-");
   const initialState = {};
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -70,7 +69,7 @@ const BtnShowAllPhotos = () => {
 
           // className={classes.ModalStyle}
         >
-          <ImageSlider sliderClass="FlatCard" slides={property.images} />
+          <ImageSlider sliderClass="FlatCard" slides={props.property.images} />
         </Modal>
       </div>
     </>

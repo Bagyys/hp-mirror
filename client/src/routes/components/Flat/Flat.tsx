@@ -1,16 +1,16 @@
-import classes from './Flat.module.scss';
-import ImageSlider from '../ImageSlider/ImageSlider';
-import Button from '../Button/button';
-import GroupedBadges from '../GroupedBadges/GroupedBadges';
-import Ratings from '../Ratings/Ratings';
-import Favorites from '../Favorites/Favorites';
-import PropertiesType from '../PropertyType/PropertiesType';
-import MainInformation from '../MainInformation/MainInformation';
+import classes from "./Flat.module.scss";
+import ImageSlider from "../ImageSlider/ImageSlider";
+import Button from "../Button/button";
+import GroupedBadges from "../GroupedBadges/GroupedBadges";
+import Ratings from "../Ratings/Ratings";
+import Favorites from "../Favorites/Favorites";
+import PropertiesType from "../PropertyType/PropertiesType";
+import MainInformation from "../MainInformation/MainInformation";
 
-import { PropertyInterface } from '../../../store/types/propertyInterfaces';
-import DailyPrice from '../DailyPrices/DailyPrice';
-import { cn } from '../../../utilities/joinClasses';
-import React from 'react';
+import { PropertyInterface } from "../../../store/types/propertyInterfaces";
+import DailyPrice from "../DailyPrices/DailyPrice";
+import { cn } from "../../../utilities/joinClasses";
+import React from "react";
 
 interface FlatProps {
   property: PropertyInterface;
@@ -33,10 +33,18 @@ const Flat: React.FC<FlatProps> = (props) => (
           props.isMain ? classes.InfoContainerMain : classes.InfoContainerFavorite
         )}>
         <GroupedBadges {...props.property.discounts} />
-        <Ratings overallRating={props.property.overallRating} ratingsCount={props.property.ratingsCount} />
-        <PropertiesType>{props.property.title}</PropertiesType>
+        <Ratings
+          active={false}
+          
+          overallRating={props.property.overallRating}
+          ratingsCount={props.property.ratingsCount}
+        />
+        <PropertiesType active={false}>{props.property.title}</PropertiesType>
 
-        <MainInformation facilities={props.property.facilities} />
+        <MainInformation
+          active={false}
+          facilities={props.property.facilities}
+        />
 
         <div className={classes.PriceBtnContainer}>
           <div className={classes.PriceContainer}>

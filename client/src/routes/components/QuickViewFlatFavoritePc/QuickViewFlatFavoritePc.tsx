@@ -1,18 +1,18 @@
-import { PropertyInterface } from '../../../store/types/propertyInterfaces';
-import classes from './QuickViewFlatFavoritePc.module.scss';
-import { useMediaPredicate } from 'react-media-hook';
-import ImageSlider from '../ImageSlider/ImageSlider';
-import Favorites from '../../../routes/components/Favorites/Favorites';
-import Ratings from '../../../routes/components/Ratings/Ratings';
-import PropertiesType from '../../../routes/components/PropertyType/PropertiesType';
-import MainInformation from '../../../routes/components/MainInformation/MainInformation';
-import Badge from '../Badge/Badge';
-import InformationWithIcons from '../../../routes/components/InformationWithIcons/InformationWithIcons';
-import AboutPlace from '../../../routes/components/AboutPlace/AboutPlace';
-import DailyPrice from '../../../routes/components/DailyPrices/DailyPrice';
-import { Link } from 'react-router-dom';
-import Button from '../Button/button';
-import React from 'react';
+import { PropertyInterface } from "../../../store/types/propertyInterfaces";
+import classes from "./QuickViewFlatFavoritePc.module.scss";
+import { useMediaPredicate } from "react-media-hook";
+import ImageSlider from "../ImageSlider/ImageSlider";
+import Favorites from "../../../routes/components/Favorites/Favorites";
+import Ratings from "../../../routes/components/Ratings/Ratings";
+import PropertiesType from "../../../routes/components/PropertyType/PropertiesType";
+import MainInformation from "../../../routes/components/MainInformation/MainInformation";
+import Badge from "../Badge/Badge";
+import InformationWithIcons from "../../../routes/components/InformationWithIcons/InformationWithIcons";
+import AboutPlace from "../../../routes/components/AboutPlace/AboutPlace";
+import DailyPrice from "../../../routes/components/DailyPrices/DailyPrice";
+import { Link } from "react-router-dom";
+import Button from "../Button/button";
+import React from "react";
 interface QuickViewFlatProps {
   property: PropertyInterface;
   close: () => void;
@@ -33,11 +33,15 @@ const QuickViewFlatFavoritePc: React.FC<QuickViewFlatProps> = (props) => {
         </div>
         <div className={classes.InfoContainer}>
           <Ratings
+            active={false}
             overallRating={props.property.overallRating}
             ratingsCount={props.property.ratingsCount}
           />
-          <PropertiesType>{props.property.title}</PropertiesType>
-          <MainInformation facilities={props.property.facilities} />
+          <PropertiesType active={false}>{props.property.title}</PropertiesType>
+          <MainInformation
+            active={false}
+            facilities={props.property.facilities}
+          />
           <div className={classes.AboutPlaceContainer}>
             <AboutPlace>{props.property.description}</AboutPlace>
           </div>
@@ -65,7 +69,7 @@ const QuickViewFlatFavoritePc: React.FC<QuickViewFlatProps> = (props) => {
                 state: { property: props.property },
               }}
             >
-              <Button btnType={'FlatInfo'} bgColor="Blue">
+              <Button btnType={"FlatInfo"} bgColor="Blue">
                 Read all details and Reserve
               </Button>
             </Link>
