@@ -1,5 +1,5 @@
 import classes from "../main.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateRange, OnChangeProps } from "react-date-range";
 import {
   setStartDateAction,
@@ -23,6 +23,24 @@ function Calendar() {
       key: "selection",
     },
   ]);
+  // useEffect(() => {
+  //   setRange(range);
+  // }, [range]);
+  // console.log(mainPage, "KAS MAIN PAGE");
+  // useEffect(() => {
+  //   setRange(`${JSON.parse}(window.localStorage.getItem("range")`));
+  // }, []);
+  // useEffect(() => {
+  //   window.localStorage.setItem("range", `${range}`);
+  // }, [range]);
+  // useEffect(() => {
+  //   setRange(JSON.parse(window.localStorage.getItem("range")));
+  // }, []);
+
+  // useEffect(() => {
+  //   window.localStorage.setItem("range", range);
+  // }, [range]);
+
   console.log(moment(), "moment1", "moment3");
 
   const handleRange = (item: any) => {
@@ -35,6 +53,7 @@ function Calendar() {
     }
     setRange([item.selection]);
   };
+
   return (
     <div className={classes.Calendar}>
       <DateRange
@@ -44,9 +63,9 @@ function Calendar() {
           handleRange(range);
           //  setRange([range.selection as CustomRange]) // Typescript conflict
         }}
-        moveRangeOnFirstSelection={false}
-        
+        // moveRangeOnFirstSelection={false}
         ranges={range}
+        showPreview={false}
         weekStartsOn={1}
         weekdayDisplayFormat="EEEEEE"
         showMonthAndYearPickers={false}
@@ -55,6 +74,8 @@ function Calendar() {
         monthDisplayFormat="MMMM yyyy"
       />
       {isLaptop ? <MobileButton /> : null}
+      {console.log(DateRange, "DateRange ")}
+      {console.log(DateRange, range, "rage")}
     </div>
   );
 }
