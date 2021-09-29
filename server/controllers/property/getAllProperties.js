@@ -5,7 +5,7 @@ exports.getAllProperties = async(req, res) => {
     let message;
     try {
         properties = await Property.find();
-        if (!properties) {
+        if (!properties || properties.length===0) {
             message = "no properties found"
         }
         return res.send({
